@@ -4,10 +4,8 @@
   padding: 0;
 }
 
-body,
-html {
+body, html{
   font-family: "Syne", sans-serif;
-  height: 100%;
 }
 
 .layout {
@@ -17,8 +15,8 @@ html {
 
 .sidebar {
   width: 250px;
-  background-color: #291565;
-  color: #ffffff;
+  background-color: #1f2937;
+  color: #f3f4f6;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -43,7 +41,7 @@ html {
 }
 
 .sidebar-nav a {
-  color: #ffffff;
+  color: #f3f4f6;
   text-decoration: none;
   font-size: 16px;
   display: block;
@@ -59,21 +57,6 @@ html {
 .main-content {
   font-family: "Syne", sans-serif;
   flex: 1;
-  background-color: #2A0046;
+  background-color: #f9fafb;
   padding: 40px;
-}
-
-.grafico-linha-meses-por-dia-pizza {
-  width: 100%;
-  max-width: 700px;
-  height: 400px;
-}
-
-.card {
-  display: inline-block;
-  width: 250px;
-  height: 100px;
-  color: white;
-  text-align: center;
-  background-color: #1f2937;
 }
