@@ -3,7 +3,8 @@ import {
     dadosMesEscolhido,
     dadosDeCadaDiaDoMesQtdProduzida,
     totalMetrosPorNumeroTarefaPorMesPorDia,
-    totalMetrosPorNumeroTarefaPorMes
+    totalMetrosPorNumeroTarefaPorMes,
+    pegarTodosOsDadosDoMesSelecionado
 } from "../controllers/DadosController.js";
 
 const router = Router();
@@ -14,6 +15,7 @@ router.get('/dados-total-metros-por-dia-do-mes/mes/:mes/ano/:ano', dadosDeCadaDi
 router.get('/dados-total-metros-por-tarefa-por-dia/mes/:mes/ano/:ano', totalMetrosPorNumeroTarefaPorMesPorDia);
 //rota pros gráficos
 router.get('/dados-total-metros-por-tarefa-do-mes/mes/:mes/ano/:ano', totalMetrosPorNumeroTarefaPorMes);
-
+//rota para o historico
+router.get('/dados-por-mes/mes/:mes/ano/:ano', pegarTodosOsDadosDoMesSelecionado)
 
 export default router;
