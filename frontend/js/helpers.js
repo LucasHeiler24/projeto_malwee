@@ -55,6 +55,24 @@ async function getQuantidadeMetrosProduzidoPorTarefaNoMes(sAno, sMes) {
     }
 }
 
+async function getQuantidadeMetrosProduzidoPorTarefaNoMesPorMesEscolhido(sAno, sMes) {
+    try {
+
+        const response = await fetch(`
+        ${URL_API}/dados-total-metros-por-tarefa-do-mes/mes/${sMes}/ano/${sAno}`,
+            {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
+
+        return await response.json();
+
+    }
+    catch (e) {
+        return e;
+    }
+}
+
 export { 
     getQuantidadeMetrosPorTecido,
     getQuantidadeMetrosProduzidoPorDia,

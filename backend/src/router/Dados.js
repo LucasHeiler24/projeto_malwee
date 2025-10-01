@@ -7,9 +7,12 @@ import {
 } from "../controllers/DadosController.js";
 
 const router = Router();
+//rota pra home
 router.get('/dados-total-metros-por-mes-produzidos/mes/:mes/ano/:ano', dadosMesEscolhido);
 router.get('/dados-total-metros-por-dia-do-mes/mes/:mes/ano/:ano', dadosDeCadaDiaDoMesQtdProduzida);
+//rota pro histórico
 router.get('/dados-total-metros-por-tarefa-por-dia/mes/:mes/ano/:ano', totalMetrosPorNumeroTarefaPorMesPorDia);
+//rota pros gráficos
 router.get('/dados-total-metros-por-tarefa-do-mes/mes/:mes/ano/:ano', totalMetrosPorNumeroTarefaPorMes);
 
 
