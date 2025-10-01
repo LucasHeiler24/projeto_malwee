@@ -29,30 +29,29 @@
                   <li><a href="#">Gráficos</a></li>
                   <li><a href="#">Diferença Mensal</a></li>
                   <li><a href="#">Histórico</a></li>
-                  <li><a href="#">Voltar</a></li>
+                  <li><a href="login.html">Voltar</a></li>
                 </ul>
               </nav>
             </aside>
 
             <main class="main-content">
               <h1>Dashboard</h1>
+              <section>
+                <div class="grafico-linha-meses-por-dia-pizza" style="width: 900px">
+                  <canvas id="graficoLinhaTotalPorMesPizza"></canvas>
+                </div>
+
+                <div class="dados-por-tipo-tecido">
+                  <div id="cards"></div>
+                </div>
+              </section>
               <p>Aqui vai o conteúdo principal.</p>
             </main>
           </div>
         </body>
       </html>
-      <section>
-        <div class="grafico-linha-meses-por-dia-pizza" style="width: 900px">
-          <canvas id="graficoLinhaTotalPorMesPizza"></canvas>
-        </div>
-
-        <div class="dados-por-tipo-tecido">
-          <div id="cards"></div>
-        </div>
-      </section>
     </main>
   </body>
-
   <script
     src="https://code.jquery.com/jquery-3.7.1.js"
     integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
