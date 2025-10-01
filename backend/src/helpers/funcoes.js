@@ -46,7 +46,7 @@ function separarPorNumeroTarefaDeCadaDiaDoMes(vetDadosDeCadaDiaDoMes) {
 }
 
 function pegarTotalDeMetrosPorDiaPeloMes(vetNumTarefaEValorDeCadaTarefa, vetDadosDeCadaDiaDoMes) {
-
+    
     let vetTotalMetrosPorNumTarefa = [];
     for (let i = 0; i < vetNumTarefaEValorDeCadaTarefa.length; i++) {
         let vetTotalENumeroTarefa = [];
@@ -65,13 +65,22 @@ function pegarTotalDeMetrosPorDiaPeloMes(vetNumTarefaEValorDeCadaTarefa, vetDado
                     return somaPorTarefa;
                 }, 0);
 
+                let somaTempoProducao = vetDadosDeCadaDiaDoMes[i].reduce((somaPorTarefa, dados) => {
+                    if (vetNumTarefaEValorDeCadaTarefa[i][j] == dados.numero_da_tarefa && dados.tarefa_completa == 'TRUE') {
+                        somaPorTarefa += dados.tempo_de_producao;
+                    }
+                    return somaPorTarefa;
+                }, 0);
+
                 vetTotalENumeroTarefa.push({
                     data_historico,
                     numero_tarefa: vetNumTarefaEValorDeCadaTarefa[i][j],
-                    total_metros_da_tarefa: somaTarefa
+                    total_metros_da_tarefa: somaTarefa,
+                    tempo_producao: somaTempoProducao
                 });
             }
         }
+        
         vetTotalMetrosPorNumTarefa.push(vetTotalENumeroTarefa);
     }
 

@@ -6,8 +6,8 @@
 
 body,
 html {
+  font-family: "Syne", sans-serif;
   height: 100%;
-  font-family: Arial, sans-serif;
 }
 
 .layout {
@@ -57,7 +57,23 @@ html {
 }
 
 .main-content {
+  font-family: "Syne", sans-serif;
   flex: 1;
   background-color: #f9fafb;
   padding: 40px;
+}
+
+.grafico-linha-meses-por-dia-pizza {
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+}
+
+.card {
+  display: inline-block;
+  width: 250px;
+  height: 100px;
+  color: white;
+  text-align: center;
+  background-color: #1f2937;
 }

@@ -1,12 +1,14 @@
 import { pegarDadosMesEAnoEscolhido } from "../database/EntidadeDados.js";
 import { separarDiasDifrentesEntreDatasVetor, separarPorNumeroTarefaDeCadaDiaDoMes, pegarTotalDeMetrosPorDiaPeloMes, removerDupliados } from "../helpers/funcoes.js";
 
+//vetores de cadas tipo de tecido
 let vetTiposTecidos =
     [
         'Meia Malha', 'Cotton', 'Punho Pun',
         'Punho New', 'Punho San', 'Punho Elan'
     ];
 
+//Esse controller pega o total de producao feita por cada tipo de tecido
 const dadosMesEscolhido = async function (request, response) {
 
     const mes = request.params.mes;
@@ -125,21 +127,28 @@ const totalMetrosPorNumeroTarefaPorMes = async function (request, response) {
         }
 
         let semDuplicados = removerDupliados(numeroTarefas);
-
+        
         let totalNumeroTarefaPorMes = [];
         for (let i = 0; i < semDuplicados.length; i++) {
             let total = 0;
+            let totalTempoProducao = 0;
+
             for (let j = 0; j < vetTotalMetrosPorNumTarefa.length; j++) {
                 total += vetTotalMetrosPorNumTarefa[j].reduce((soma, dados) => {
                     if (dados.numero_tarefa == semDuplicados[i])
                         soma += dados.total_metros_da_tarefa;
                     return soma;
                 }, 0);
-
+                totalTempoProducao += vetTotalMetrosPorNumTarefa[j].reduce((soma, dados) => {
+                    if (dados.numero_tarefa == semDuplicados[i])
+                        soma += dados.tempo_producao;
+                    return soma;
+                }, 0); 
             }
             totalNumeroTarefaPorMes.push({
                 numero_tarefa: semDuplicados[i],
-                total_metros_mes: total
+                total_metros_mes: total,
+                total_tempo_producao: totalTempoProducao
             });
         }
 
