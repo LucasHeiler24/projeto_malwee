@@ -1,32 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Frontend</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <main>
-        <section>
+      <!DOCTYPE html>
+      <html lang="pt-BR">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Sidebar Exemplo</title>
+          <link rel="stylesheet" href="/frontend/css/index.css" />
+        </head>
+        <body>
+          <div class="layout">
+            <aside class="sidebar">
+              <div class="sidebar-header">
+                <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+                <h2>Malwee</h2>
+              </div>
+              <nav class="sidebar-nav">
+                <ul>
+                  <li><a href="#">Início</a></li>
+                  <li><a href="#">Gráficos</a></li>
+                  <li><a href="#">Diferença Mensal</a></li>
+                  <li><a href="#">Histórico</a></li>
+                  <li><a href="#">Voltar</a></li>
+                </ul>
+              </nav>
+            </aside>
 
-           <div class="grafico-linha-meses-por-dia-pizza" style="width: 900px;">
-                <canvas id="graficoLinhaTotalPorMesPizza"></canvas>
-            </div>
+            <main class="main-content">
+              <h1>Dashboard</h1>
+              <p>Aqui vai o conteúdo principal.</p>
+            </main>
+          </div>
+        </body>
+      </html>
+      <section>
+        <div class="grafico-linha-meses-por-dia-pizza" style="width: 900px">
+          <canvas id="graficoLinhaTotalPorMesPizza"></canvas>
+        </div>
 
-            <div class="dados-por-tipo-tecido">
-                <div id="cards"></div>
-            </div>
-
-        </section>
+        <div class="dados-por-tipo-tecido">
+          <div id="cards"></div>
+        </div>
+      </section>
     </main>
-</body>
+  </body>
 
-<script src="https://code.jquery.com/jquery-3.7.1.js"
-integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="../js/index.js"></script>
-
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../js/index.js"></script>
 </html>
