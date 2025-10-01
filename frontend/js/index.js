@@ -2,7 +2,7 @@ import { getQuantidadeMetrosPorTecido, getQuantidadeMetrosProduzidoPorDia, getQu
 
 window.onload = function () {
 
-    const graficoNumMetrosTarefa = document.getElementById('graficoLinhaTotal');
+    console.log("Teste");
     const graficoLinhaTotalPorMesPizza = document.getElementById('graficoLinhaTotalPorMesPizza');
 
     const formater = new Intl.NumberFormat('pt-BR', {
