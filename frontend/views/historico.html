@@ -5,7 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico</title>
 </head>
+
 <body>
     
+    <main>
+
+        <section>
+            <h1>Histórico</h1>
+        </section>
+
+        <section class="section-selecionar-datas">
+            <div class="section-selecionar-mes">
+                <button id="btnDiminuirMes"><</button>
+                <h1></h1>
+                <button id="btnAumentarMes">></button>
+            </div>
+
+            <div class="section-selecionar-ano">
+                <button id="btnDiminuirAno">-</button>
+                <h1></h1>
+                <button id="btnAumentarAno">+</button>
+            </div>
+        </section>
+
+        <section class="selecionar-filtros-dos-dados">
+            <div class="section-selecionar-filtro">
+                <input type="text" id="inFiltro" placeholder="Filtrar...">
+            </div>
+
+            <div class="section-selecionar-ano">
+                <select id="inSelect">
+                    <option value="0">Selecionar o filtro</option>
+                    <option value="1">Filtrar pelo número da tarefa</option>
+                    <option value="2">Filtrar pelo</option>
+                </select>
+            </div>
+        </section>
+
+        <section>
+        
+            <article class="cards-registros-historicos">
+                <div class="cards-historicos" id="cardsHistoricos"></div>
+            </article>
+
+        </section>
+
+    </main>
+
 </body>
+
+<script
+src="https://code.jquery.com/jquery-3.7.1.js"
+integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+crossorigin="anonymous"
+></script>
+<script type="module" src="../js/historico.js"></script>
+
 </html>
