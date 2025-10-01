@@ -68,25 +68,25 @@ button {
 
 .cadastrarUsu{
   position: relative;
-  left: 163px;
-  bottom: 56px;
+  left: 157px;
   width: 70px;
   height: 30px;
   border-radius: 5px;
   text-decoration: none;
   color: white;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 13px;
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 7px;
+  bottom: 1px;
 }
 
 .textCadastro{
   position: relative;
   top: 40px;
   opacity: 0.7;
+  font-size: 13px;
   
 }
 
