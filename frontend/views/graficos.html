@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gráficos</title>
-</head>
-<body>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/frontend/css/graficos.css" />
+  </head>
+  <body>
     <main>
-        <section>
-            <div class="grafico-linha-meses" style="width: 1000px;">
-                <canvas id="graficoLinhaTotal"></canvas>
-            </div>
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+            <h2>Malwee</h2>
+          </div>
+          <nav class="sidebar-nav">
+            <ul>
+              <li><a href="index.html">Início</a></li>
+              <li><a href="graficos.html">Gráficos</a></li>
+              <li><a href="diferenca_mensal.html">Diferença Mensal</a></li>
+              <li><a href="historico.html">Histórico</a></li>
+              <li><a href="login.html">Voltar</a></li>
+            </ul>
+          </nav>
+        </aside>
+      </div>
+      <section>
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoLinhaTotal"></canvas>
+        </div>
 
-            <div class="grafico-linha-meses" style="width: 1000px;">
-                <canvas id="graficoBarTempoProduzido"></canvas>
-            </div>
-        </section>
-
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoBarTempoProduzido"></canvas>
+        </div>
+      </section>
     </main>
+  </body>
 
-
-</body>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="../js/graficos.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../js/graficos.js"></script>
 </html>

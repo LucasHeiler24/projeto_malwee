@@ -1,51 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../css/index.css">
-</head>
-<body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-        <h2>Malwee</h2>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#">Gráficos</a></li>
-          <li><a href="#">Diferença Mensal</a></li>
-          <li><a href="#">Histórico</a></li>
-          <li><a href="login.html">Voltar</a></li>
-        </ul>
-      </nav>
-    </aside>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+          <h2>Malwee</h2>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="graficos.html">Gráficos</a></li>
+            <li><a href="diferenca_mensal.html">Diferença Mensal</a></li>
+            <li><a href="historico.html">Histórico</a></li>
+            <li><a href="login.html">Voltar</a></li>
+          </ul>
+        </nav>
+      </aside>
 
-    <main class="main-content">
+      <main class="main-content">
         <section class="">
-            <h1>Dashboard</h1>
-            <div class="grafico-pizza-do-mes">
-              <div class="grafico-linha-meses-por-dia-pizza">
-                <canvas id="graficoLinhaTotalPorMesPizza"></canvas>
-              </div>
+          <h1>Dashboard</h1>
+          <div class="grafico-pizza-do-mes">
+            <div class="grafico-linha-meses-por-dia-pizza">
+              <canvas id="graficoLinhaTotalPorMesPizza"></canvas>
             </div>
+          </div>
         </section>
         <section>
-            <div class="dados-por-tipo-tecido">
-              <div id="cards"></div>
-            </div>
+          <div class="dados-por-tipo-tecido">
+            <div id="cards"></div>
+          </div>
         </section>
-    </main>
-  </div>
-</body>
-<script
-src="https://code.jquery.com/jquery-3.7.1.js"
-integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-crossorigin="anonymous"
-></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="../js/index.js"></script>
+      </main>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../js/index.js"></script>
 </html>

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="stylesheet" href="/frontend/css/login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
@@ -17,11 +20,16 @@
       <div class="right">
         <h2>Login</h2>
         <form>
-          <input type="text" placeholder="Insira sua mátricula" />
-          <input type="password" placeholder="Digite a sua senha" />
-          <a href="/frontend/views/index.html"><button type="submit">Entrar</button></a>
-          <a href="/frontend/views/index.html"><button type="submit">Registra-se</button></a>
+          <div class="campoLogin">
+          <input type="text" class="campoMatricula" placeholder="Insira sua mátricula" />
+          <h1 class="textoMatricula">Matricula</h1>
+          <input type="password" class="campoSenha" placeholder="Digite a sua senha" />
+          <h1 class="textoSenha">Senha</h1>
+          <a href="/frontend/views/index.html" class="botaoEntrar">Entrar</a>
+          <h4 class="textCadastro">Não tem uma conta?</h4> 
+          <a href="/frontend/views/cadastro.html" class="cadastrarUsu">Cadastrar</a>
         </form>
+        </div>
       </div>
     </div>
   </body>
