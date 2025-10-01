@@ -37,7 +37,7 @@ body {
   gap: 20px;
   min-width: 200px;
   max-width: 700px;
-  width: 100%;
+  width: 100px;
 }
 
 form {
@@ -53,4 +53,91 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
   align-content: center;
+
+  
+}
+
+
+.btnCadastrar{
+  position: relative;
+  left: 175px;
+  bottom: 58px;
+  width: 100px;
+  height: 35px;
+}
+
+.cadastrarUsu{
+  position: relative;
+  left: 163px;
+  bottom: 56px;
+  width: 70px;
+  height: 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 7px;
+}
+
+.textCadastro{
+  position: relative;
+  top: 40px;
+  opacity: 0.7;
+  
+}
+
+
+.botaoEntrar{
+  position: relative;
+  text-decoration: none;
+  background-color:#291565;
+  color: white;
+  font-size: 15px;
+  width: 425px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  top: 50px;
+  right: 90px;
+}
+
+.campoMatricula{
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  right: 90px;
+  top: 40px;
+  border-radius: 25px;
+
+
+}
+
+.campoSenha{
+  position: relative;
+  right: 90px;
+  top: 50px;
+  width: 400px;
+  border-radius: 25px;
+}
+
+.textoMatricula{
+  font-size: 16px;
+  position: relative;
+  right: 80px;
+  bottom: 37px;
+}
+
+
+.textoSenha{
+  font-size: 16px;
+  position: relative;
+  right: 80px;
+  bottom: 25px;
 }
