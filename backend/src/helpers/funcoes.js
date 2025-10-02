@@ -11,6 +11,7 @@ function separarDiasDifrentesEntreDatasVetor(arrayDados) {
             posProximoDiaDferente = i;
         }
     }
+
     const vetDadosDeCadaDiaDoMes = [];
 
     for (let i = 0; i < qtdDiasDiferentes; i++) {
@@ -24,67 +25,60 @@ function separarDiasDifrentesEntreDatasVetor(arrayDados) {
     return vetDadosDeCadaDiaDoMes;
 }
 
-function separarPorNumeroTarefaDeCadaDiaDoMes(vetDadosDeCadaDiaDoMes) {
+function pegarTotalDeMetrosPorDiaPeloMes(vetDadosDeCadaDiaDoMes) {
 
-    let vetNumTarefaEValorDeCadaTarefa = [];
+    let vetTotalENumeroTarefa = [];
     for (let i = 0; i < vetDadosDeCadaDiaDoMes.length; i++) {
 
-        let vetNumTarefaPorMes = [];
-        let indiceTarefa = 0;
+        let existe = vetTotalENumeroTarefa.find((dados, j) => {
+            return dados.data_historico == vetDadosDeCadaDiaDoMes[i][j].data_historico.split(' ')[0];
+        });
 
-        for (let j = 0; j < vetDadosDeCadaDiaDoMes[i].length; j++) {
-            if (vetDadosDeCadaDiaDoMes[i][indiceTarefa].numero_da_tarefa != vetDadosDeCadaDiaDoMes[i][j].numero_da_tarefa || j == 0) {
-                vetNumTarefaPorMes.push(vetDadosDeCadaDiaDoMes[i][j].numero_da_tarefa);
-                indiceTarefa = j;
-            }
+        if (!existe) {
+            let data_historico = vetDadosDeCadaDiaDoMes[i][0].data_historico.split(' ')[0];
 
+            let somaTempoProducao = vetDadosDeCadaDiaDoMes[i].reduce((somaProducao, dados) => {
+                if (dados.tarefa_completa == 'TRUE') {
+                    somaProducao += dados.tempo_de_producao;
+                }
+                return somaProducao;
+            }, 0);
+
+            vetTotalENumeroTarefa.push({
+                data_historico,
+                tempo_producao: somaTempoProducao
+            });
         }
-        vetNumTarefaEValorDeCadaTarefa.push(vetNumTarefaPorMes);
     }
 
-    return vetNumTarefaEValorDeCadaTarefa;
+    return vetTotalENumeroTarefa;
 }
 
-function pegarTotalDeMetrosPorDiaPeloMes(vetNumTarefaEValorDeCadaTarefa, vetDadosDeCadaDiaDoMes) {
-    
-    let vetTotalMetrosPorNumTarefa = [];
-    for (let i = 0; i < vetNumTarefaEValorDeCadaTarefa.length; i++) {
-        let vetTotalENumeroTarefa = [];
-        let data_historico;
-        for (let j = 0; j < vetNumTarefaEValorDeCadaTarefa[i].length; j++) {
-            let existe = vetTotalENumeroTarefa.find((dados) => {
-                return dados.numero_tarefa == vetNumTarefaEValorDeCadaTarefa[i][j];
-            });
+function pegarTotalDeMetrosPorDiaEProduPeloMes(numerosTarefa, vetDadosDeCadaDiaDoMes) {
 
-            if (!existe) {
-                let somaTarefa = vetDadosDeCadaDiaDoMes[i].reduce((somaPorTarefa, dados) => {
-                    data_historico = dados.data_historico.split(' ')[0];
-                    if (vetNumTarefaEValorDeCadaTarefa[i][j] == dados.numero_da_tarefa && dados.tarefa_completa == 'TRUE') {
-                        somaPorTarefa += dados.metros_produzidos;
-                    }
-                    return somaPorTarefa;
-                }, 0);
+    let vetTotalENumeroTarefa = [];
+    for (let i = 0; i < numerosTarefa.length; i++) {
 
-                let somaTempoProducao = vetDadosDeCadaDiaDoMes[i].reduce((somaPorTarefa, dados) => {
-                    if (vetNumTarefaEValorDeCadaTarefa[i][j] == dados.numero_da_tarefa && dados.tarefa_completa == 'TRUE') {
-                        somaPorTarefa += dados.tempo_de_producao;
-                    }
-                    return somaPorTarefa;
-                }, 0);
-
-                vetTotalENumeroTarefa.push({
-                    data_historico,
-                    numero_tarefa: vetNumTarefaEValorDeCadaTarefa[i][j],
-                    total_metros_da_tarefa: somaTarefa,
-                    tempo_producao: somaTempoProducao
-                });
+        let totais_tempo_metros = vetDadosDeCadaDiaDoMes.reduce((somaPorTarefa, dados) => {
+            if (dados.numero_da_tarefa == numerosTarefa[i] && dados.tarefa_completa == 'TRUE') {
+                somaPorTarefa.metros += dados.metros_produzidos;
+                somaPorTarefa.tempo_producao += dados.tempo_de_producao;
             }
-        }
-        
-        vetTotalMetrosPorNumTarefa.push(vetTotalENumeroTarefa);
+            return somaPorTarefa;
+        }, {
+            metros: 0,
+            tempo_producao: 0
+        });
+
+        vetTotalENumeroTarefa.push({
+            numero_tarefa: numerosTarefa[i],
+            total_metros_da_tarefa: totais_tempo_metros.metros,
+            tempo_producao: totais_tempo_metros.tempo_producao
+        });
+
     }
 
-    return vetTotalMetrosPorNumTarefa;
+    return vetTotalENumeroTarefa;
 }
 
 function removerDupliados(arrayRemover) {
@@ -93,7 +87,7 @@ function removerDupliados(arrayRemover) {
 
 export {
     separarDiasDifrentesEntreDatasVetor,
-    separarPorNumeroTarefaDeCadaDiaDoMes,
     pegarTotalDeMetrosPorDiaPeloMes,
+    pegarTotalDeMetrosPorDiaEProduPeloMes,
     removerDupliados
 }

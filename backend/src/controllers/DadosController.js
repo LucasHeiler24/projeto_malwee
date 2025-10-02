@@ -1,9 +1,10 @@
 import { pegarDadosMesEAnoEscolhido } from "../database/EntidadeDados.js";
-import { 
+import {
     separarDiasDifrentesEntreDatasVetor,
-    separarPorNumeroTarefaDeCadaDiaDoMes,
     pegarTotalDeMetrosPorDiaPeloMes,
-    removerDupliados } from "../helpers/funcoes.js";
+    pegarTotalDeMetrosPorDiaEProduPeloMes,
+    removerDupliados
+} from "../helpers/funcoes.js";
 
 //vetores de cadas tipo de tecido
 let vetTiposTecidos =
@@ -63,17 +64,23 @@ const dadosDeCadaDiaDoMesQtdProduzida = async function (request, response) {
 
         for (let i = 0; i < vetDadosDeCadaDiaDoMes.length; i++) {
 
-            let diaDoMes;
-            let somaPorDia = vetDadosDeCadaDiaDoMes[i].reduce((somaDeCadaDia, dados) => {
-                diaDoMes = dados.data_historico.split(' ')[0];
+            let existe = vetDadosMetrosPorDia.find((dados, j) => {
+                return dados.diaDoMes == vetDadosDeCadaDiaDoMes[i][j].data_historico.split(' ')[0];
+            });
 
-                if (dados.tarefa_completa == 'TRUE')
-                    somaDeCadaDia += dados.metros_produzidos;
+            if (!existe) {
+                let diaDoMes;
+                let somaPorDia = vetDadosDeCadaDiaDoMes[i].reduce((somaDeCadaDia, dados) => {
+                    diaDoMes = dados.data_historico.split(' ')[0];
 
-                return somaDeCadaDia;
-            }, 0);
+                    if (dados.tarefa_completa == 'TRUE')
+                        somaDeCadaDia += dados.metros_produzidos;
 
-            vetDadosMetrosPorDia.push({ diaDoMes, somaPorDia })
+                    return somaDeCadaDia;
+                }, 0);
+
+                vetDadosMetrosPorDia.push({ diaDoMes, somaPorDia })
+            }
         }
 
         return response.json({ vetDadosMetrosPorDia });
@@ -85,6 +92,7 @@ const dadosDeCadaDiaDoMesQtdProduzida = async function (request, response) {
 
 }
 
+//Primeiro gráfico do front
 const totalMetrosPorNumeroTarefaPorMesPorDia = async function (request, response) {
 
     const mes = request.params.mes;
@@ -96,11 +104,9 @@ const totalMetrosPorNumeroTarefaPorMesPorDia = async function (request, response
 
         let vetDadosDeCadaDiaDoMes = separarDiasDifrentesEntreDatasVetor(dados);
 
-        let vetNumTarefaEValorDeCadaTarefa = separarPorNumeroTarefaDeCadaDiaDoMes(vetDadosDeCadaDiaDoMes);
+        let vetTotalMetrosPorDiaTempoProduzido = pegarTotalDeMetrosPorDiaPeloMes(vetDadosDeCadaDiaDoMes);
 
-        let vetTotalMetrosPorNumTarefa = pegarTotalDeMetrosPorDiaPeloMes(vetNumTarefaEValorDeCadaTarefa, vetDadosDeCadaDiaDoMes);
-
-        return response.json({ vetTotalMetrosPorNumTarefa });
+        return response.json(vetTotalMetrosPorDiaTempoProduzido);
     }
     catch (e) {
         response.json(e);
@@ -117,46 +123,39 @@ const totalMetrosPorNumeroTarefaPorMes = async function (request, response) {
 
         const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
 
-        let vetDadosDeCadaDiaDoMes = separarDiasDifrentesEntreDatasVetor(dados);
+        let vetDadosDeCadaDiaDoMes = dados.map((registros) => registros.numero_da_tarefa);
 
-        let vetNumTarefaEValorDeCadaTarefa = separarPorNumeroTarefaDeCadaDiaDoMes(vetDadosDeCadaDiaDoMes);
+        let remover = removerDupliados(vetDadosDeCadaDiaDoMes);
 
-        let vetTotalMetrosPorNumTarefa = pegarTotalDeMetrosPorDiaPeloMes(vetNumTarefaEValorDeCadaTarefa, vetDadosDeCadaDiaDoMes);
+        let vetTotalMetrosPorNumTarefa = pegarTotalDeMetrosPorDiaEProduPeloMes(remover, dados);
 
-        let numeroTarefas = [];
-        for (let i = 0; i < vetNumTarefaEValorDeCadaTarefa.length; i++) {
-            vetNumTarefaEValorDeCadaTarefa[i].forEach(numero => {
-                numeroTarefas.push(numero);
-            });
-        }
+        return response.json(vetTotalMetrosPorNumTarefa);
+        // let numeroTarefas = [];
+        // for (let i = 0; i < vetNumTarefaEValorDeCadaTarefa.length; i++) {
+        //     vetNumTarefaEValorDeCadaTarefa[i].forEach(numero => {
+        //         numeroTarefas.push(numero);
+        //     });
+        // }
 
-        let semDuplicados = removerDupliados(numeroTarefas);
-        
-        let totalNumeroTarefaPorMes = [];
-        for (let i = 0; i < semDuplicados.length; i++) {
-            let total = 0;
-            let totalTempoProducao = 0;
+        // let semDuplicados = removerDupliados(numeroTarefas);
 
-            for (let j = 0; j < vetTotalMetrosPorNumTarefa.length; j++) {
-                total += vetTotalMetrosPorNumTarefa[j].reduce((soma, dados) => {
-                    if (dados.numero_tarefa == semDuplicados[i])
-                        soma += dados.total_metros_da_tarefa;
-                    return soma;
-                }, 0);
-                totalTempoProducao += vetTotalMetrosPorNumTarefa[j].reduce((soma, dados) => {
-                    if (dados.numero_tarefa == semDuplicados[i])
-                        soma += dados.tempo_producao;
-                    return soma;
-                }, 0); 
-            }
-            totalNumeroTarefaPorMes.push({
-                numero_tarefa: semDuplicados[i],
-                total_metros_mes: total,
-                total_tempo_producao: totalTempoProducao
-            });
-        }
+        // let totalNumeroTarefaPorMes = [];
+        // for (let i = 0; i < semDuplicados.length; i++) {
+        //     let total = 0;
+        //     let totalTempoProducao = 0;
 
-        return response.json(totalNumeroTarefaPorMes);
+
+
+
+        //     totalNumeroTarefaPorMes.push({
+        //         numero_tarefa: semDuplicados[i],
+        //         total_metros_mes: total,
+        //         total_tempo_producao: totalTempoProducao
+        //     });
+
+        // }
+
+        // return response.json(totalNumeroTarefaPorMes);
     }
     catch (e) {
         return response.json(e);
@@ -165,15 +164,15 @@ const totalMetrosPorNumeroTarefaPorMes = async function (request, response) {
 }
 
 
-const pegarTodosOsDadosDoMesSelecionado = async function(request, response){
+const pegarTodosOsDadosDoMesSelecionado = async function (request, response) {
 
     const mes = request.params.mes;
     const ano = request.params.ano;
-    
-    try{
+
+    try {
         return response.json(await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`));
     }
-    catch(e){
+    catch (e) {
         return response.json(e);
     }
 
