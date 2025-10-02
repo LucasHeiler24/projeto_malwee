@@ -19,7 +19,12 @@ import {
 
 window.onload = function () {
 
-    let dadosRegistrosNoBanco;
+    let grafico1;
+    let grafico2;
+    let grafico3;
+
+    let dadosPrimeiroGraficoLinha;
+    let dadosPrimeiroGraficoBarra;
 
     let mesSelecionadoUser = mesAtual;
     let mesAnteriorUser = anteriorMesAtual;
@@ -35,15 +40,26 @@ window.onload = function () {
 
     btnAumentarAno.click(async function () {
         anoAtualUser = aumentarAno(anoAtualUser, anoSelecionado);
-        dadosRegistrosNoBanco = await getRegistrosHistoricoMesEscolhido(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
-        construirCardsHistoricos();
+
+        dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+
+        construirGraficoPorMetrosProduzidosPorNumTarefa();
+        construirGraficoPorTempoProduzidoPorNumTarefa();
+        construirGraficoLinhaPorTempoProduzido();
     });
 
 
     btnDiminuirAno.click(async function () {
         anoAtualUser = diminuirAno(anoAtualUser, anoSelecionado);
-        dadosRegistrosNoBanco = await getRegistrosHistoricoMesEscolhido(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
-        construirCardsHistoricos();
+
+        dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+
+        construirGraficoPorMetrosProduzidosPorNumTarefa();
+        construirGraficoPorTempoProduzidoPorNumTarefa();
+        construirGraficoLinhaPorTempoProduzido();
+
     })
 
     const mesSelecionado = $('#mesSelecionado');
@@ -55,7 +71,12 @@ window.onload = function () {
         mesSelecionadoUser = meses.mesSelecionadoUser;
         mesProximoUser = meses.mesProximoUser;
 
-        dadosRegistrosNoBanco = await getRegistrosHistoricoMesEscolhido(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+
+        construirGraficoPorMetrosProduzidosPorNumTarefa();
+        construirGraficoPorTempoProduzidoPorNumTarefa();
+        construirGraficoLinhaPorTempoProduzido();
     }
 
     btnDiminuirMes.click(async function () {
@@ -65,7 +86,7 @@ window.onload = function () {
         mesSelecionadoUser = meses.mesSelecionadoUser;
         mesProximoUser = meses.mesProximoUser;
 
-        construirCardsHistoricos(await mudarMesSelecionado('-'));
+        mudarMesSelecionado('-');
     });
 
     btnAumentarMes.click(async function () {
@@ -75,22 +96,23 @@ window.onload = function () {
         mesSelecionadoUser = meses.mesSelecionadoUser;
         mesProximoUser = meses.mesProximoUser;
 
-        construirCardsHistoricos(await mudarMesSelecionado('+'));
+        mudarMesSelecionado('+');
     });
 
     const graficoNumMetrosTarefa = document.getElementById('graficoLinhaTotalTempoTarefa');
     const graficoBarTempoProduzido = document.getElementById('graficoBarTempoProduzido');
     const graficoLinhaTotalTempoTarefa = document.getElementById('graficoLinhaTempoProduzidoPorTarefa');
 
-    function construirGraficoPorMetrosProduzidosPorNumTarefa(qtdMetrosPorTarefaProduzidoMes) {
+    function construirGraficoPorMetrosProduzidosPorNumTarefa() {
 
-        new Chart(graficoBarTempoProduzido, {
+        if (grafico1) grafico1.destroy();
+        grafico1 = new Chart(graficoBarTempoProduzido, {
             type: 'bar',
             data: {
-                labels: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.data_historico),
+                labels: dadosPrimeiroGraficoBarra.map((dados) => dados.data_historico),
                 datasets: [{
                     label: "Quantidade de metros produzido",
-                    data: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.tempo_producao),
+                    data: dadosPrimeiroGraficoBarra.map((dados) => dados.tempo_producao),
                     borderWidth: 1
                 }]
             },
@@ -108,16 +130,17 @@ window.onload = function () {
 
     }
 
-    function construirGraficoPorTempoProduzidoPorNumTarefa(qtdMetrosPorTarefaProduzidoMes) {
+    function construirGraficoPorTempoProduzidoPorNumTarefa() {
 
-        new Chart(graficoNumMetrosTarefa, {
+        if (grafico2) grafico2.destroy();
+        grafico2 = new Chart(graficoNumMetrosTarefa, {
             type: 'line',
             data: {
-                labels: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.numero_tarefa),
+                labels: dadosPrimeiroGraficoLinha.map((dados) => dados.numero_tarefa),
                 datasets: [
                     {
                         label: "Total produzido por tarefa",
-                        data: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.total_metros_da_tarefa),
+                        data: dadosPrimeiroGraficoLinha.map((dados) => dados.total_metros_da_tarefa),
                         borderWidth: 1
                     }
                 ]
@@ -138,15 +161,18 @@ window.onload = function () {
 
     }
 
-    function construirGraficoLinhaPorTempoProduzido(qtdTempoProduzidoPorTarefa) {
-        new Chart(graficoLinhaTotalTempoTarefa, {
+    function construirGraficoLinhaPorTempoProduzido() {
+
+        if (grafico3) grafico3.destroy();
+
+        grafico3 = new Chart(graficoLinhaTotalTempoTarefa, {
             type: 'line',
             data: {
-                labels: qtdTempoProduzidoPorTarefa.map((dados) => dados.numero_tarefa),
+                labels: dadosPrimeiroGraficoLinha.map((dados) => dados.numero_tarefa),
                 datasets: [
                     {
                         label: "Tempo produzido por tarefa",
-                        data: qtdTempoProduzidoPorTarefa.map((dados) => dados.tempo_producao),
+                        data: dadosPrimeiroGraficoLinha.map((dados) => dados.tempo_producao),
                         borderWidth: 1
                     }
                 ]
@@ -167,15 +193,15 @@ window.onload = function () {
     }
 
     (async () => {
+        dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
 
+        construirGraficoPorMetrosProduzidosPorNumTarefa();
+        construirGraficoPorTempoProduzidoPorNumTarefa();
+        construirGraficoLinhaPorTempoProduzido();
 
-        const qtdMetrosPorTarefaProduzidoMes = await getQuantidadeMetrosProduzidoPorTarefaNoMes("2025", "05");
-        const qtdTempoProduzidaPorDia = await getQuantidadeTempoDeProducaoPorDia("2025", "05");
-
-        construirGraficoPorMetrosProduzidosPorNumTarefa(qtdMetrosPorTarefaProduzidoMes);
-        construirGraficoPorTempoProduzidoPorNumTarefa(qtdTempoProduzidaPorDia);
-        construirGraficoLinhaPorTempoProduzido(qtdTempoProduzidaPorDia);
-
+        mudarMesSelecionado();
+        anoSelecionado.text(anoAtual);
     })()
 
 }
