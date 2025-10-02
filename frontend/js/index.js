@@ -19,7 +19,24 @@ window.onload = function () {
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        grid: {
+                            display: false
+                        },
+                        display: false
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        },
+                        position: 'right'
                     }
                 }
             }
