@@ -48,7 +48,8 @@ button {
   align-content: center;
 }
 
-.btnCadastrar {
+
+.btnCadastrar{
   position: relative;
   left: 175px;
   bottom: 58px;
