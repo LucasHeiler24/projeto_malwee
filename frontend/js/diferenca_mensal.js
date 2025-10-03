@@ -7,6 +7,9 @@ window.onload = function () {
 
     let graficoTotalMetrosNosMeses;
     let graficoTotalTempoProducaoNosMeses;
+    let graficoLinhaTotalMetrosNosMeses;
+    let graficoLinhaTotalTempoProduzidoNosMeses;
+
 
     async function pegarOsDadosPelaDataInseridaUsuario() {
         return (primeiraData && segundaData && primeiraData != segundaData) ? await getDadosDiferencaMensal(primeiraData, segundaData) : undefined
@@ -72,9 +75,80 @@ window.onload = function () {
 
     }
 
+
+    const graficoLinhaDiferencaMensalMetrosProduzidos = document.getElementById('graficoLinhaDiferencaMensalMetrosProduzidos');
+    function construirGraficoLinhaDosDadosEntreOsMeses(arrayTotalTempoProduzidoDados1, arrayTotalTempoProduzidoDados2){
+        if(graficoLinhaTotalTempoProduzidoNosMeses)
+        graficoLinhaTotalTempoProduzidoNosMeses.destroy();
+
+        const tempoProducaoDado1 = arrayTotalTempoProduzidoDados1.map((dados) => dados.tempo_producao);
+        const tempoProducaoDado2 = arrayTotalTempoProduzidoDados2.map((dados) => dados.tempo_producao);
+
+        let tamMaximoDados;
+
+        (tempoProducaoDado1.length > tempoProducaoDado2.length) ? tamMaximoDados = true
+        : tamMaximoDados = false;
+    
+        let vet = [];
+        if(tamMaximoDados){
+            arrayTotalTempoProduzidoDados1.forEach((dados, index) => {
+                vet.push(dados.data_historico);
+                
+                if(index < arrayTotalTempoProduzidoDados2.length){
+                    vet.push(arrayTotalTempoProduzidoDados2[index].data_historico);
+                }
+
+            });
+        }
+        if(!tamMaximoDados){
+            arrayTotalTempoProduzidoDados2.forEach((dados, index) => {
+                vet.push(dados.data_historico);
+                
+                if(index < arrayTotalTempoProduzidoDados1.length){
+                    vet.push(arrayTotalTempoProduzidoDados1[index].data_historico);
+                }
+            });
+        }
+        
+        graficoLinhaTotalTempoProduzidoNosMeses = new Chart(graficoLinhaDiferencaMensalMetrosProduzidos, {
+                type: 'line',
+                data: {
+                    labels: vet,
+                    datasets: [
+                        {
+                            label: "Total tempo produzido por dia",
+                            data: tempoProducaoDado1,
+                            fill: false
+                        },
+                        {
+                            label: "Total tempo produzido por dia",
+                            data: tempoProducaoDado2,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            })    
+    } 
+
     function separarDadosParaOsGraficos(arrayDados) {
         construirGraficoTotalMetrosProduzidosNoMes(arrayDados.totalSomaMetrosMes1, arrayDados.totalSomaMetrosMes2);
         construirGraficoTotalTempoProduzidosNoMes(arrayDados.totalSomaTempoProducao1, arrayDados.totalSomaTempoProducao2);
+        construirGraficoLinhaDosDadosEntreOsMeses(arrayDados.vetTotalMetrosPorDiaTempoProduzido1, arrayDados.vetTotalMetrosPorDiaTempoProduzido2);
+        
     }
 
     (async () => {
