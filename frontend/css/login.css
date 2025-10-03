@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  font-family: "Syne", sans-serif;
+
+}
 .container {
   display: flex;
   height: 100vh;
@@ -48,8 +53,7 @@ button {
   align-content: center;
 }
 
-
-.btnCadastrar{
+.btnCadastrar {
   position: relative;
   left: 175px;
   bottom: 58px;

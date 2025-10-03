@@ -13,7 +13,7 @@ html {
 }
 
 .sidebar {
-  width: 247px;
+  width: 250px;
   height: 100%;
   gap: 70px;
   background-color: #291565;
@@ -44,13 +44,15 @@ html {
 }
 
 .sidebar-nav a {
-  display: flex;
-  align-items: center; /* alinha ícone e texto verticalmente */
-  gap: 4px; /* espaço entre ícone e texto */
-  padding: 35px 12px;
+  color: #ffffff;
   text-decoration: none;
-  color: #fff; /* ajusta conforme seu tema */
+  font-size: 16px;
+  display: block;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
+
 .sidebar-nav a:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -81,4 +83,3 @@ body {
   justify-content: center;
   align-items: center;
 }
-
