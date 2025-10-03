@@ -53,12 +53,7 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
   align-content: center;
-
-  
 }
-
-
-
 
 .cadastroMatricula{
     width: 400px;
@@ -69,8 +64,6 @@ button {
     bottom: 40px;
     border-radius: 25px;
 }
-
-
 .cadastroUsuario{ 
     width: 400px;
     display: flex;
