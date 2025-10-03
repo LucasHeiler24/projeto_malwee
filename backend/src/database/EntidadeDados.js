@@ -6,7 +6,7 @@ async function pegarDadosMesEAnoEscolhido(mesEscolhidoEAno) {
         const conexao = await conectarBd();
 
         const [rows] = await conexao.query(
-            'SELECT * FROM novocsv WHERE data_historico LIKE ?',
+            'SELECT * FROM dados WHERE data_historico LIKE ?',
             [`%${mesEscolhidoEAno}%`]);
 
         return rows;

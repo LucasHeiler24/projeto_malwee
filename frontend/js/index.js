@@ -2,25 +2,41 @@ import { getQuantidadeMetrosPorTecido, getQuantidadeMetrosProduzidoPorDia, forma
 
 window.onload = function () {
 
-    console.log("Teste");
     const graficoLinhaTotalPorMesPizza = document.getElementById('graficoLinhaTotalPorMesPizza');
 
-    function construirGraficoPorMesesDeMetrosPorDia(qtdMetrosPorTarefaProduzidoMes){
+    function construirGraficoPorMesesDeMetrosPorDia(qtdMetrosPorTarefaProduzidoMes) {
 
         new Chart(graficoLinhaTotalPorMesPizza, {
             type: 'pie',
-                data: {
+            data: {
                 labels: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.diaDoMes),
                 datasets: [{
                     label: "Quantidade de metros produzido",
                     data: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.somaPorDia),
                     borderWidth: 1
                 }]
-                },
-                options: {
+            },
+            options: {
                 scales: {
                     y: {
-                    beginAtZero: true
+                        grid: {
+                            display: false
+                        },
+                        display: false
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        display: false
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        },
+                        position: 'right'
                     }
                 }
             }
@@ -30,7 +46,7 @@ window.onload = function () {
 
     const divCards = $('#cards');
 
-    function construirCardsDeTipoDeTecido(arrayDadosTiposTecidos){
+    function construirCardsDeTipoDeTecido(arrayDadosTiposTecidos) {
         console.log(arrayDadosTiposTecidos)
         divCards.empty();
 
@@ -63,6 +79,7 @@ window.onload = function () {
         const qtdMetrosPorTipoTecido = await getQuantidadeMetrosPorTecido(ultimoAno, ultimoMes);
         const qtdMetrosPorDiaProduzido = await getQuantidadeMetrosProduzidoPorDia(ultimoAno, ultimoMes);
 
+        console.log(qtdMetrosPorDiaProduzido);
         construirGraficoPorMesesDeMetrosPorDia(qtdMetrosPorDiaProduzido);
         construirCardsDeTipoDeTecido(qtdMetrosPorTipoTecido);
     })()

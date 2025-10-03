@@ -1,79 +1,57 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body,
-html {
-  font-family: "Syne", sans-serif;
-  height: 100%;
-}
-
-.layout {
-  display: flex;
-  height: 100vh;
-}
-
-.sidebar {
-  width: 250px;
-  background-color: #291565;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.sidebar-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.sidebar-logo {
-  max-width: 100px;
-  margin-bottom: 10px;
-}
-
-.sidebar-nav ul {
-  list-style: none;
-}
-
-.sidebar-nav li {
-  margin-bottom: 15px;
-}
-
-.sidebar-nav a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 16px;
-  display: block;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-}
-
-.sidebar-nav a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.main-content {
-  font-family: "Syne", sans-serif;
-  flex: 1;
-  background-color: #2A0046;
-  padding: 40px;
-}
-
 .grafico-linha-meses-por-dia-pizza {
   width: 100%;
   max-width: 700px;
   height: 400px;
 }
 
+.dados-por-tipo-tecido {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#cards {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .card {
-  display: inline-block;
   width: 250px;
   height: 100px;
   color: white;
   text-align: center;
   background-color: #1f2937;
+  border-radius: 10px;
+}
+
+.section-grafico-pizza {
+  width: 100%;
+  height: auto;
+  background: #291565;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.grafico-pizza-do-mes {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grafico-linha-meses-por-dia-pizza {
+  width: 500px;
 }

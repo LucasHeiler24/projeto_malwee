@@ -1,14 +1,3 @@
-body,
-html {
-  margin: 0;
-  height: 100%;
-<<<<<<< HEAD
-  font-family: Arial, sans-serif;
-=======
-  font-family: "Syne", sans-serif;
->>>>>>> ded50aad4d664aef6b6e2f9ffdf4f3f2b43f322f
-}
-
 .container {
   display: flex;
   height: 100vh;
@@ -29,7 +18,6 @@ img {
   height: 150px;
   margin-bottom: 20px;
 }
-
 
 .right {
   color: white;
@@ -58,15 +46,18 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
   align-content: center;
-<<<<<<< HEAD
-=======
-
-  
 }
 
 
+.btnCadastrar{
+  position: relative;
+  left: 175px;
+  bottom: 58px;
+  width: 100px;
+  height: 35px;
+}
 
-.cadastrarUsu{
+.cadastrarUsu {
   position: relative;
   left: 157px;
   width: 70px;
@@ -82,19 +73,17 @@ button {
   bottom: 1px;
 }
 
-.textCadastro{
+.textCadastro {
   position: relative;
   top: 40px;
   opacity: 0.7;
   font-size: 13px;
-  
 }
 
-
-.botaoEntrar{
+.botaoEntrar {
   position: relative;
   text-decoration: none;
-  background-color:#291565;
+  background-color: #291565;
   color: white;
   font-size: 15px;
   width: 425px;
@@ -107,7 +96,7 @@ button {
   right: 90px;
 }
 
-.campoMatricula{
+.campoMatricula {
   width: 400px;
   display: flex;
   justify-content: center;
@@ -115,11 +104,9 @@ button {
   right: 90px;
   top: 40px;
   border-radius: 25px;
-
-
 }
 
-.campoSenha{
+.campoSenha {
   position: relative;
   right: 90px;
   top: 50px;
@@ -127,18 +114,16 @@ button {
   border-radius: 25px;
 }
 
-.textoMatricula{
+.textoMatricula {
   font-size: 16px;
   position: relative;
   right: 80px;
   bottom: 37px;
 }
 
-
-.textoSenha{
+.textoSenha {
   font-size: 16px;
   position: relative;
   right: 80px;
   bottom: 25px;
->>>>>>> ded50aad4d664aef6b6e2f9ffdf4f3f2b43f322f
 }

@@ -1,26 +1,162 @@
-import { getQuantidadeMetrosProduzidoPorTarefaNoMes } from "./helpers.js"
+import {
+    getQuantidadeMetrosProduzidoPorTarefaNoMes,
+    getQuantidadeTempoDeProducaoPorDia,
+    formater,
+    anoAtual,
+    proximoMesAtual,
+    anteriorMesAtual,
+    mesAtual
+} from "./helpers.js";
+
+import {
+    aumentarAno,
+    diminuirAno,
+    operandoMes,
+    operacaoDiminuirMes,
+    operacaoAumentarMes
+} from "./helpers/funcoes_alterar_mes_ano.js";
+
 
 window.onload = function () {
 
-    const graficoNumMetrosTarefa = document.getElementById('graficoLinhaTotal');
+    let grafico1;
+    let grafico2;
+    let grafico3;
+
+    let dadosPrimeiroGraficoLinha;
+    let dadosPrimeiroGraficoBarra;
+
+    let mesSelecionadoUser = mesAtual;
+    let mesAnteriorUser = anteriorMesAtual;
+    let mesProximoUser = proximoMesAtual;
+    let anoAtualUser = anoAtual;
+
+    const btnDiminuirMes = $('#btnDiminuirMes');
+    const btnAumentarMes = $('#btnAumentarMes');
+    const btnDiminuirAno = $('#btnDiminuirAno');
+    const btnAumentarAno = $('#btnAumentarAno');
+
+    const anoSelecionado = $('#anoSelecionado');
+
+    btnAumentarAno.click(async function () {
+        anoAtualUser = aumentarAno(anoAtualUser, anoSelecionado);
+
+        dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+
+        construirGraficoPorMetrosProduzidosPorNumTarefa();
+        construirGraficoPorTempoProduzidoPorNumTarefa();
+        construirGraficoLinhaPorTempoProduzido();
+    });
+
+
+    btnDiminuirAno.click(async function () {
+        anoAtualUser = diminuirAno(anoAtualUser, anoSelecionado);
+
+        dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+
+        construirGraficoPorMetrosProduzidosPorNumTarefa();
+        construirGraficoPorTempoProduzidoPorNumTarefa();
+        construirGraficoLinhaPorTempoProduzido();
+
+    })
+
+    const mesSelecionado = $('#mesSelecionado');
+
+    async function mudarMesSelecionado(operacao) {
+        let meses = operandoMes(mesAnteriorUser, mesSelecionadoUser, mesProximoUser, mesSelecionado, operacao);
+
+        mesAnteriorUser = meses.mesAnteriorUser;
+        mesSelecionadoUser = meses.mesSelecionadoUser;
+        mesProximoUser = meses.mesProximoUser;
+
+        dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+
+        console.log(dadosPrimeiroGraficoBarra);
+
+
+        construirGraficoPorMetrosProduzidosPorNumTarefa();
+        construirGraficoPorTempoProduzidoPorNumTarefa();
+        construirGraficoLinhaPorTempoProduzido();
+    }
+
+    btnDiminuirMes.click(async function () {
+        let meses = operacaoDiminuirMes({ mesAnteriorUser, mesSelecionadoUser, mesProximoUser })
+
+        mesAnteriorUser = meses.mesAnteriorUser;
+        mesSelecionadoUser = meses.mesSelecionadoUser;
+        mesProximoUser = meses.mesProximoUser;
+
+        mudarMesSelecionado('-');
+    });
+
+    btnAumentarMes.click(async function () {
+        let meses = operacaoAumentarMes({ mesAnteriorUser, mesSelecionadoUser, mesProximoUser })
+
+        mesAnteriorUser = meses.mesAnteriorUser;
+        mesSelecionadoUser = meses.mesSelecionadoUser;
+        mesProximoUser = meses.mesProximoUser;
+
+        mudarMesSelecionado('+');
+    });
+
+    const graficoNumMetrosTarefa = document.getElementById('graficoLinhaTotalTempoTarefa');
     const graficoBarTempoProduzido = document.getElementById('graficoBarTempoProduzido');
+    const graficoLinhaTotalTempoTarefa = document.getElementById('graficoLinhaTempoProduzidoPorTarefa');
 
-    function construirGraficoPorMetrosProduzidosPorNumTarefa(qtdMetrosPorTarefaProduzidoMes){
+    function construirGraficoPorMetrosProduzidosPorNumTarefa() {
 
-        new Chart(graficoNumMetrosTarefa, {
+        if (grafico1) grafico1.destroy();
+        grafico1 = new Chart(graficoBarTempoProduzido, {
             type: 'bar',
-                data: {
-                labels: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.numero_tarefa),
+            data: {
+                labels: dadosPrimeiroGraficoBarra.map((dados) => dados.data_historico),
                 datasets: [{
-                    label: "Quantidade de metros produzido",
-                    data: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.total_metros_mes),
+                    label: "Quantidade de tempo de produção",
+                    data: dadosPrimeiroGraficoBarra.map((dados) => dados.tempo_producao),
                     borderWidth: 1
                 }]
-                },
-                options: {
+            },
+            options: {
                 scales: {
                     y: {
-                    beginAtZero: true
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    display: true
+                }
+            }
+        });
+
+    }
+
+    function construirGraficoPorTempoProduzidoPorNumTarefa() {
+
+        if (grafico2) grafico2.destroy();
+        grafico2 = new Chart(graficoNumMetrosTarefa, {
+            type: 'line',
+            data: {
+                labels: dadosPrimeiroGraficoLinha.map((dados) => dados.numero_tarefa),
+                datasets: [
+                    {
+                        label: "Total produzido por tarefa",
+                        data: dadosPrimeiroGraficoLinha.map((dados) => dados.total_metros_da_tarefa),
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            textAlign: 'center',
+                            fontSize: 10
+                        }
                     }
                 }
             }
@@ -28,39 +164,47 @@ window.onload = function () {
 
     }
 
-    function construirGraficoPorTempoProduzidoPorNumTarefa(qtdMetrosPorTarefaProduzidoMes){
+    function construirGraficoLinhaPorTempoProduzido() {
 
-        new Chart(graficoBarTempoProduzido, {
+        if (grafico3) grafico3.destroy();
+
+        grafico3 = new Chart(graficoLinhaTotalTempoTarefa, {
             type: 'line',
-                data: {
-                labels: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.numero_tarefa),
-                datasets: [{
-                    label: "Tempo produzido produzido",
-                    data: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.total_tempo_producao),
-                    borderWidth: 1
-                }]
-                },
-                options: {
-                scales: {
-                    y: {
-                    beginAtZero: true
+            data: {
+                labels: dadosPrimeiroGraficoLinha.map((dados) => dados.numero_tarefa),
+                datasets: [
+                    {
+                        label: "Tempo produzido por tarefa",
+                        data: dadosPrimeiroGraficoLinha.map((dados) => dados.tempo_producao),
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            textAlign: 'center',
+                            fontSize: 10
+                        }
                     }
                 }
             }
         });
-
     }
 
     (async () => {
+        dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
 
-        let ultimoMes = "08";
-        let ultimoAno = "2025";
+        construirGraficoPorMetrosProduzidosPorNumTarefa();
+        construirGraficoPorTempoProduzidoPorNumTarefa();
+        construirGraficoLinhaPorTempoProduzido();
 
-        const qtdMetrosPorTarefaProduzidoMes = await getQuantidadeMetrosProduzidoPorTarefaNoMes("2025", "08");
-
-        construirGraficoPorMetrosProduzidosPorNumTarefa(qtdMetrosPorTarefaProduzidoMes);
-        construirGraficoPorTempoProduzidoPorNumTarefa(qtdMetrosPorTarefaProduzidoMes);
-
+        mudarMesSelecionado();
+        anoSelecionado.text(anoAtual);
     })()
 
 }

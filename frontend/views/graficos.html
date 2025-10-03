@@ -1,52 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gráficos</title>
-<<<<<<< HEAD
-    <link rel="stylesheet" href="../css/graficos.css">
-</head>
-<body>
 
-=======
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/frontend/css/graficos.css" />
-  </head>
-  <body>
->>>>>>> ded50aad4d664aef6b6e2f9ffdf4f3f2b43f322f
-    <main>
-      <div class="layout">
-        <aside class="sidebar">
-          <div class="sidebar-header">
-            <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-            <h2>Malwee</h2>
-          </div>
-          <nav class="sidebar-nav">
-            <ul>
-              <li><a href="index.html">Início</a></li>
-              <li><a href="graficos.html">Gráficos</a></li>
-              <li><a href="diferenca_mensal.html">Diferença Mensal</a></li>
-              <li><a href="historico.html">Histórico</a></li>
-              <li><a href="login.html">Voltar</a></li>
-            </ul>
-          </nav>
-        </aside>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gráficos</title>
+  <link rel="stylesheet" href="/frontend/css/master.css" />
+  <link rel="stylesheet" href="/frontend/css/graficos.css" />
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+        <h2>Malwee</h2>
       </div>
-      <section>
-        <div class="grafico-linha-meses" style="width: 1000px">
-          <canvas id="graficoLinhaTotal"></canvas>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="graficos.html">Gráficos</a></li>
+          <li><a href="diferenca_mensal.html">Diferença Mensal</a></li>
+          <li><a href="historico.html">Histórico</a></li>
+          <li><a href="login.html">Voltar</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <section class="section-info">
+        <h1>Gráficos</h1>
+      </section>
+
+      <section class="section-selecionar-mes">
+        <div class="div-selecionar-mes">
+          <button id="btnDiminuirMes">
+            < </button>
+              <h1 id="mesSelecionado"></h1>
+              <button id="btnAumentarMes"> > </button>
         </div>
 
-        <div class="grafico-linha-meses" style="width: 1000px">
-          <canvas id="graficoBarTempoProduzido"></canvas>
+        <div class="div-selecionar-ano">
+          <button id="btnDiminuirAno">
+            - </button>
+          <h1 id="anoSelecionado"></h1>
+          <button id="btnAumentarAno"> + </button>
         </div>
       </section>
-    </main>
-  </body>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="../js/graficos.js"></script>
+      <section>
+        <h1>Gráfico total de tempo de produção por dia nesse mês</h1>
+        <article class="article-grafico-linha-total-metros">
+          <div class="grafico-linha-meses" style="width: 1000px">
+            <canvas id="graficoBarTempoProduzido"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <article>
+          <h1>Total por dia de tempo produzido por tarefa</h1>
+          <div class="grafico-linha-meses" style="width: 1000px">
+            <canvas id="graficoLinhaTotalTempoTarefa"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <article>
+          <h1>Total por dia de tempo de produção por tarefa</h1>
+          <div class="grafico-linha-meses" style="width: 1000px">
+            <canvas id="graficoLinhaTempoProduzidoPorTarefa"></canvas>
+          </div>
+        </article>
+      </section>
+
+    </main>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="../js/graficos.js"></script>
+
 </html>
