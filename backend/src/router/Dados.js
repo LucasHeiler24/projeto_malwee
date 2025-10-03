@@ -9,6 +9,7 @@ import {
 } from "../controllers/DadosController.js";
 
 const router = Router();
+
 //rota pra home rotas finalizadas
 router.get('/dados-total-metros-produzidos-por-tecido/mes/:mes/ano/:ano', dadosMesEscolhido);
 router.get('/dados-total-metros-produzidos-por-dia-durante-o-mes/mes/:mes/ano/:ano', dadosDeCadaDiaDoMesQtdProduzida);
