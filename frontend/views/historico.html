@@ -1,83 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Histórico</title>
+    <link rel="stylesheet" href="/frontend/css/master.css" />
+    <link rel="stylesheet" href="/frontend/css/historico.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Histórico</title>
-  <link rel="stylesheet" href="/frontend/css/master.css">
-  <link rel="stylesheet" href="/frontend/css/historico.css">
-</head>
-
-<body>
-
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-        <h2>Malwee</h2>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li><img src="/frontend/images/hub-icon.png"a href="index.html">Início</img></li>
-          <li><a href="graficos.html">Gráficos</a></li>
-          <li><a href="diferenca_mensal.html">Diferença Mensal</a></li>
-          <li><a href="historico.html">Histórico</a></li>
-          <li><a href="login.html">Voltar</a></li>
-        </ul>
-      </nav>
-    </aside>
-
-    <main class="main-content">
-
-      <section class="section-info">
-        <h1>Histórico</h1>
-      </section>
-
-      <section class="section-selecionar-mes">
-        <div class="div-selecionar-mes">
-          <button id="btnDiminuirMes">
-            < </button>
-              <h1 id="mesSelecionado"></h1>
-              <button id="btnAumentarMes"> > </button>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+          <h2>Malwee</h2>
         </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <a href="/frontend/views/graficos.html" class="contraste">
+              <img src="/frontend/images/hub-icon.png" width="20" height="20" />
+              HOME
+            </a>
+            <li><a href="graficos.html">Gráficos</a></li>
+            <li><a href="diferenca_mensal.html">Diferença Mensal</a></li>
+            <li><a href="historico.html">Histórico</a></li>
+            <li><a href="login.html">Voltar</a></li>
+          </ul>
+        </nav>
+      </aside>
 
-        <div class="div-selecionar-ano">
-          <button id="btnDiminuirAno">
-            - </button>
-          <h1 id="anoSelecionado"></h1>
-          <button id="btnAumentarAno"> + </button>
-        </div>
-      </section>
+      <main class="main-content">
+        <section class="section-info">
+          <h1>Histórico</h1>
+        </section>
 
-      <section class="section-filtrar-registros">
+        <section class="section-selecionar-mes">
+          <div class="div-selecionar-mes">
+            <button id="btnDiminuirMes"><</button>
+            <h1 id="mesSelecionado"></h1>
+            <button id="btnAumentarMes">></button>
+          </div>
 
-        <div class="div-filtrar-registros">
-          <input type="text" id="inFiltro" placeholder="Filtrar...">
-        </div>
+          <div class="div-selecionar-ano">
+            <button id="btnDiminuirAno">-</button>
+            <h1 id="anoSelecionado"></h1>
+            <button id="btnAumentarAno">+</button>
+          </div>
+        </section>
 
-        <div class="div-selecionar-tipo-filtro">
-          <select id="inSelectFiltro">
-            <option value="-1">Selecionar o tipo de filtro</option>
-            <option value="0">Filtrar pelo número da tarefa</option>
-            <option value="1">Filtrar pelo tipo tecido</option>
-          </select>
-        </div>
-      </section>
+        <section class="section-filtrar-registros">
+          <div class="div-filtrar-registros">
+            <input type="text" id="inFiltro" placeholder="Filtrar..." />
+          </div>
 
-      <section class="section-cards-registros">
-        <div id="cardsHistoricos"></div>
-      </section>
+          <div class="div-selecionar-tipo-filtro">
+            <select id="inSelectFiltro">
+              <option value="-1">Selecionar o tipo de filtro</option>
+              <option value="0">Filtrar pelo número da tarefa</option>
+              <option value="1">Filtrar pelo tipo tecido</option>
+            </select>
+          </div>
+        </section>
 
-    </main>
+        <section class="section-cards-registros">
+          <div id="cardsHistoricos"></div>
+        </section>
+      </main>
+    </div>
+  </body>
 
-  </div>
-
-</body>
-
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="../js/historico.js"></script>
-
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../js/historico.js"></script>
 </html>
