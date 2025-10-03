@@ -3,7 +3,10 @@ import {
     separarDiasDifrentesEntreDatasVetor,
     pegarTotalDeMetrosPorDiaPeloMes,
     pegarTotalDeMetrosPorDiaEProduPeloMes,
-    removerDupliados
+    removerDupliados,
+    calcularQuantidadeTempoProducaoPorDia,
+    somarTotalDeMetrosProduzidosNoMes,
+    somarTotalDeTempoProducaoNoMes
 } from "../helpers/funcoes.js";
 
 //vetores de cadas tipo de tecido
@@ -92,7 +95,6 @@ const dadosDeCadaDiaDoMesQtdProduzida = async function (request, response) {
 
 }
 
-//Primeiro gráfico do front
 const totalMetrosPorNumeroTarefaPorMesPorDia = async function (request, response) {
 
     const mes = request.params.mes;
@@ -102,9 +104,11 @@ const totalMetrosPorNumeroTarefaPorMesPorDia = async function (request, response
 
         const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
 
-        let vetDadosDeCadaDiaDoMes = separarDiasDifrentesEntreDatasVetor(dados);
+        let vetDadosDeCadaDiaDoMes = dados.map((registros) => registros.data_historico.split(' ')[0]);
 
-        let vetTotalMetrosPorDiaTempoProduzido = pegarTotalDeMetrosPorDiaPeloMes(vetDadosDeCadaDiaDoMes);
+        let remover = removerDupliados(vetDadosDeCadaDiaDoMes);
+
+        let vetTotalMetrosPorDiaTempoProduzido = calcularQuantidadeTempoProducaoPorDia(dados, remover);
 
         return response.json(vetTotalMetrosPorDiaTempoProduzido);
     }
@@ -130,32 +134,6 @@ const totalMetrosPorNumeroTarefaPorMes = async function (request, response) {
         let vetTotalMetrosPorNumTarefa = pegarTotalDeMetrosPorDiaEProduPeloMes(remover, dados);
 
         return response.json(vetTotalMetrosPorNumTarefa);
-        // let numeroTarefas = [];
-        // for (let i = 0; i < vetNumTarefaEValorDeCadaTarefa.length; i++) {
-        //     vetNumTarefaEValorDeCadaTarefa[i].forEach(numero => {
-        //         numeroTarefas.push(numero);
-        //     });
-        // }
-
-        // let semDuplicados = removerDupliados(numeroTarefas);
-
-        // let totalNumeroTarefaPorMes = [];
-        // for (let i = 0; i < semDuplicados.length; i++) {
-        //     let total = 0;
-        //     let totalTempoProducao = 0;
-
-
-
-
-        //     totalNumeroTarefaPorMes.push({
-        //         numero_tarefa: semDuplicados[i],
-        //         total_metros_mes: total,
-        //         total_tempo_producao: totalTempoProducao
-        //     });
-
-        // }
-
-        // return response.json(totalNumeroTarefaPorMes);
     }
     catch (e) {
         return response.json(e);
@@ -178,10 +156,70 @@ const pegarTodosOsDadosDoMesSelecionado = async function (request, response) {
 
 }
 
+
+
+//controller para a diferença mensal
+const teste = async function (request, response) {
+
+    const date1 = request.params.date1;
+    const date2 = request.params.date2;
+
+    try {
+
+        //conecto com meu banco de dados
+        const dadosDate1 = await pegarDadosMesEAnoEscolhido(`${date1}`);
+        const dadosDate2 = await pegarDadosMesEAnoEscolhido(`${date2}`);
+
+        //total soma metros de cada mês
+        let totalSomaMetrosMes1 = somarTotalDeMetrosProduzidosNoMes(dadosDate1);
+        let totalSomaMetrosMes2 = somarTotalDeMetrosProduzidosNoMes(dadosDate2);
+
+        //total soma tempo produção de cada mês
+        let totalSomaTempoProducao1 = somarTotalDeTempoProducaoNoMes(dadosDate1);
+        let totalSomaTempoProducao2 = somarTotalDeTempoProducaoNoMes(dadosDate2);
+
+        //aqui eu pego de cada mês a quantidade de metros produzidos que cada número de tarefa fez 
+        let vetDadosDeCadaDiaDoMes1 = dadosDate1.map((registros) => registros.numero_da_tarefa);
+        let remover1 = removerDupliados(vetDadosDeCadaDiaDoMes1);
+        let vetTotalMetrosPorNumTarefaMes1 = pegarTotalDeMetrosPorDiaEProduPeloMes(remover1, dadosDate1);
+
+        let vetDadosDeCadaDiaDoMes2 = dadosDate2.map((registros) => registros.numero_da_tarefa);
+        let remover2 = removerDupliados(vetDadosDeCadaDiaDoMes2);
+        let vetTotalMetrosPorNumTarefaMes2 = pegarTotalDeMetrosPorDiaEProduPeloMes(remover2, dadosDate2);
+
+        //aqui eu pego em cada mês a quantidade de tempo de producao por número de tarefa fez
+        let vetDadosDeCadaDiaDoMesPorProducao1 = dadosDate1.map((registros) => registros.data_historico.split(' ')[0]);
+        let removerDataHistorico1 = removerDupliados(vetDadosDeCadaDiaDoMesPorProducao1);
+        let vetTotalMetrosPorDiaTempoProduzido1 = calcularQuantidadeTempoProducaoPorDia(dadosDate1, removerDataHistorico1);
+
+        let vetDadosDeCadaDiaDoMesPorProducao2 = dadosDate2.map((registros) => registros.data_historico.split(' ')[0]);
+        let removerDataHistorico2 = removerDupliados(vetDadosDeCadaDiaDoMesPorProducao2);
+        let vetTotalMetrosPorDiaTempoProduzido2 = calcularQuantidadeTempoProducaoPorDia(dadosDate2, removerDataHistorico2);
+
+        return response.json({
+            totalSomaMetrosMes1,
+            totalSomaMetrosMes2,
+            totalSomaTempoProducao1,
+            totalSomaTempoProducao2,
+            vetTotalMetrosPorNumTarefaMes1,
+            vetTotalMetrosPorNumTarefaMes2,
+            vetTotalMetrosPorDiaTempoProduzido1,
+            vetTotalMetrosPorDiaTempoProduzido2
+        })
+    }
+    catch (e) {
+        return response.json(e);
+    }
+
+}
+
+
+
 export {
     dadosMesEscolhido,
     dadosDeCadaDiaDoMesQtdProduzida,
     totalMetrosPorNumeroTarefaPorMesPorDia,
     totalMetrosPorNumeroTarefaPorMes,
-    pegarTodosOsDadosDoMesSelecionado
+    pegarTodosOsDadosDoMesSelecionado,
+    teste
 };

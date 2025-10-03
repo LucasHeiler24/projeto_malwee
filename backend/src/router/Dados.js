@@ -4,7 +4,8 @@ import {
     dadosDeCadaDiaDoMesQtdProduzida,
     totalMetrosPorNumeroTarefaPorMesPorDia,
     totalMetrosPorNumeroTarefaPorMes,
-    pegarTodosOsDadosDoMesSelecionado
+    pegarTodosOsDadosDoMesSelecionado,
+    teste
 } from "../controllers/DadosController.js";
 
 const router = Router();
@@ -18,5 +19,9 @@ router.get('/dados-total-metros-por-numero-da-tarefa-do-mes/mes/:mes/ano/:ano', 
 
 //rota para o historico
 router.get('/dados-por-mes/mes/:mes/ano/:ano', pegarTodosOsDadosDoMesSelecionado)
+
+
+//rota para diferença mensal
+router.get('/dados-diferenca-mensal/date1/:date1/date2/:date2', teste);
 
 export default router;

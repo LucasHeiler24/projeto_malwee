@@ -81,6 +81,47 @@ function pegarTotalDeMetrosPorDiaEProduPeloMes(numerosTarefa, vetDadosDeCadaDiaD
     return vetTotalENumeroTarefa;
 }
 
+function calcularQuantidadeTempoProducaoPorDia(arrayDados, arrayDatas) {
+
+    let vetTotalTempoProducaoPorDia = [];
+    for (let i = 0; i < arrayDatas.length; i++) {
+
+        let dadosProducao = arrayDados.reduce((somaProducao, dados) => {
+            if (dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE')
+                somaProducao += dados.tempo_de_producao;
+            return somaProducao;
+        }, 0);
+
+        vetTotalTempoProducaoPorDia.push({
+            data_historico: arrayDatas[i],
+            tempo_producao: dadosProducao
+        });
+    }
+
+    return vetTotalTempoProducaoPorDia;
+}
+
+
+
+function somarTotalDeMetrosProduzidosNoMes(arrayDados) {
+    return arrayDados.reduce((somaTotalMetrosMes, dados) => {
+        if (dados.tarefa_completa == 'TRUE')
+            somaTotalMetrosMes += dados.metros_produzidos;
+        return somaTotalMetrosMes;
+    }, 0);
+
+}
+
+function somarTotalDeTempoProducaoNoMes(arrayDados) {
+    return arrayDados.reduce((somaTotalProducaoMes, dados) => {
+        if (dados.tarefa_completa == 'TRUE')
+            somaTotalProducaoMes += dados.tempo_de_producao;
+        return somaTotalProducaoMes;
+    }, 0);
+
+}
+
+
 function removerDupliados(arrayRemover) {
     return arrayRemover.filter((dados, index) => arrayRemover.indexOf(dados) === index);
 }
@@ -89,5 +130,8 @@ export {
     separarDiasDifrentesEntreDatasVetor,
     pegarTotalDeMetrosPorDiaPeloMes,
     pegarTotalDeMetrosPorDiaEProduPeloMes,
+    calcularQuantidadeTempoProducaoPorDia,
+    somarTotalDeMetrosProduzidosNoMes,
+    somarTotalDeTempoProducaoNoMes,
     removerDupliados
 }
