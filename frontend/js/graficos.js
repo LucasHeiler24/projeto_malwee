@@ -74,6 +74,9 @@ window.onload = function () {
         dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
         dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
 
+        console.log(dadosPrimeiroGraficoBarra);
+
+
         construirGraficoPorMetrosProduzidosPorNumTarefa();
         construirGraficoPorTempoProduzidoPorNumTarefa();
         construirGraficoLinhaPorTempoProduzido();
@@ -111,7 +114,7 @@ window.onload = function () {
             data: {
                 labels: dadosPrimeiroGraficoBarra.map((dados) => dados.data_historico),
                 datasets: [{
-                    label: "Quantidade de metros produzido",
+                    label: "Quantidade de tempo de produção",
                     data: dadosPrimeiroGraficoBarra.map((dados) => dados.tempo_producao),
                     borderWidth: 1
                 }]

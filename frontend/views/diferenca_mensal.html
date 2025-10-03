@@ -27,9 +27,54 @@
       </nav>
     </aside>
 
-    <h1>Comparativo Mesal</h1>
-    <h1>Última atualização</h1>
-    <h1>26/09/2025</h1>
+    <main class="main-content">
+
+      <section class="section-info">
+        <h1>Diferença mensal</h1>
+      </section>
+
+      <section class="section-selecionar-meses">
+        <div class="div-primeiro-mes">
+          <h1>Informe o primeiro mês</h1>
+          <input type="date" id="inPrimeiroMes">
+        </div>
+
+        <div class="div-segundo-mes">
+          <h1>Informe o segundo mês</h1>
+          <input type="date" id="inSegundoMes">
+        </div>
+      </section>
+
+      <section class="section-graficos-diferencas">
+
+
+        <div class="div-grafico-diferenca-total-metros-produzidos">
+          <h1>Total de metros produzido no mês</h1>
+          <div class="div-mostrar-grafico-mes-metros-produzidos">
+            <canvas id="graficoBarraDiferencaMensalMetrosProduzidos"></canvas>
+          </div>
+
+        </div>
+
+        <div class="div-grafico-diferenca-total-tempo-producao">
+
+          <h1>Total de tempo produzido no mês</h1>
+          <div class="div-mostrar-grafico-mes-tempo-produzidos">
+            <canvas id="graficoBarraDiferencaMensalTempoProduzidos"></canvas>
+          </div>
+
+        </div>
+
+
+      </section>
+
+    </main>
+  </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="../js/diferenca_mensal.js"></script>
 
 </html>

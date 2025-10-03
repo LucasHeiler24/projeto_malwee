@@ -93,6 +93,28 @@ async function getRegistrosHistoricoMesEscolhido(sAno, sMes) {
     }
 }
 
+async function getDadosDiferencaMensal(dateMes1, dateMes2) {
+
+    try {
+
+        const response = await fetch(`
+            ${URL_API}/dados-diferenca-mensal/date1/${dateMes1}/date2/${dateMes2}
+        `);
+
+        return await response.json();
+
+    }
+    catch (e) {
+        return e;
+    }
+
+}
+
+
+function formatarDatas(dataFormatar) {
+    return dataFormatar[0] + '-' + dataFormatar[1];
+}
+
 const formater = new Intl.NumberFormat('pt-BR', {
     style: 'decimal',
 });
@@ -115,6 +137,8 @@ export {
     getQuantidadeMetrosProduzidoPorTarefaNoMes,
     getQuantidadeTempoDeProducaoPorDia,
     getRegistrosHistoricoMesEscolhido,
+    getDadosDiferencaMensal,
     formater,
-    anoAtual, getMesAtual, vetMeses, proximoMesAtual, anteriorMesAtual, mesAtual
+    anoAtual, getMesAtual, vetMeses, proximoMesAtual, anteriorMesAtual, mesAtual,
+    formatarDatas
 };
