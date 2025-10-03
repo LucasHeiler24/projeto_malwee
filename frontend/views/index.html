@@ -1,57 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gráficos</title>
+    <link rel="stylesheet" href="../css/master.css" />
+    <link rel="stylesheet" href="../css/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../css/master.css">
-  <link rel="stylesheet" href="../css/index.css">
-</head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+          <h2>Hub</h2>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <a href="/frontend/views/index.html" class="contraste">
+              <img src="/frontend/images/hub-icon.png" width="20" height="20" />
+              HOME
+            </a>
+            <a href="/frontend/views/graficos.html" class="contrast">
+              <img src="/frontend/images/grafico-icon.png" width="20" height="20" />
+              GRÁFICOS
+            </a>
+            <a href="/frontend/views/diferenca_mensal.html" class="contrast">
+              <img src="/frontend/images/difference-icon.png" width="20" height="20" />
+              DIFERENÇA MENSAL
+            </a>
+            <a href="/frontend/views/historico.html" class="contrast">
+              <img src="/frontend/images/history-icon.png" width="20" height="20" />
+              HISTÓRICO
+            </a>
+            <a href="/frontend/views/login.html" class="contrast">
+              <img src="/frontend/images/arrow-back.png" width="20" height="20" />
+              VOLTAR
+            </a>
+          </ul>
+        </nav>
+      </aside>
 
-<body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-        <h2>Malwee</h2>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="graficos.html">Gráficos</a></li>
-          <li><a href="diferenca_mensal.html">Diferença Mensal</a></li>
-          <li><a href="historico.html">Histórico</a></li>
-          <li><a href="login.html">Voltar</a></li>
-        </ul>
-      </nav>
-    </aside>
+      <main class="main-content">
+        <section class="section-info">
+          <h1>Dashboard</h1>
+        </section>
 
-    <main class="main-content">
-      <section class="section-info">
-        <h1>Dashboard</h1>
-      </section>
-
-      <section class="section-grafico-pizza">
-        <h1>Gráfico de cada dia produzido no mês atual</h1>
-        <div class="grafico-pizza-do-mes">
-          <div class="grafico-linha-meses-por-dia-pizza">
-            <canvas id="graficoLinhaTotalPorMesPizza"></canvas>
+        <section class="section-grafico-pizza">
+          <h1>Gráfico de cada dia produzido no mês atual</h1>
+          <div class="grafico-pizza-do-mes">
+            <div class="grafico-linha-meses-por-dia-pizza">
+              <canvas id="graficoLinhaTotalPorMesPizza"></canvas>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section>
-        <div class="dados-por-tipo-tecido">
-          <div id="cards"></div>
-        </div>
-      </section>
-    </main>
-  </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="../js/index.js"></script>
-
+        <section>
+          <div class="dados-por-tipo-tecido">
+            <div id="cards"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../js/index.js"></script>
 </html>

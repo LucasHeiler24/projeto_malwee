@@ -15,6 +15,7 @@ html {
 .sidebar {
   width: 250px;
   height: 100%;
+  gap: 70px;
   background-color: #291565;
   color: #ffffff;
   display: flex;
@@ -35,6 +36,7 @@ html {
 
 .sidebar-nav ul {
   list-style: none;
+  gap: 30px;
 }
 
 .sidebar-nav li {
@@ -80,29 +82,4 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.section-selecionar-mes {
-  width: 100%;
-  background: #291565;
-  border-radius: 5px;
-  color: #fff;
-  display: flex;
-  justify-content: space-around;
-  padding: 20px;
-  align-items: center;
-}
-
-.section-selecionar-mes {
-  height: 15vh;
-  border-radius: 5px;
-}
-
-.div-selecionar-mes,
-.div-selecionar-ano {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
 }

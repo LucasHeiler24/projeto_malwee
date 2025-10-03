@@ -1,86 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gráficos</title>
+    <link rel="stylesheet" href="/frontend/css/master.css" />
+    <link rel="stylesheet" href="/frontend/css/graficos.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gráficos</title>
-  <link rel="stylesheet" href="/frontend/css/master.css" />
-  <link rel="stylesheet" href="/frontend/css/graficos.css" />
-</head>
-
-<body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-        <h2>Malwee</h2>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="graficos.html">Gráficos</a></li>
-          <li><a href="diferenca_mensal.html">Diferença Mensal</a></li>
-          <li><a href="historico.html">Histórico</a></li>
-          <li><a href="login.html">Voltar</a></li>
-        </ul>
-      </nav>
-    </aside>
-    <main class="main-content">
-      <section class="section-info">
-        <h1>Gráficos</h1>
-      </section>
-
-      <section class="section-selecionar-mes">
-        <div class="div-selecionar-mes">
-          <button id="btnDiminuirMes">
-            < </button>
-              <h1 id="mesSelecionado"></h1>
-              <button id="btnAumentarMes"> > </button>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+          <h2>Gráficos</h2>
         </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <a href="/frontend/views/index.html" class="contraste">
+              <img src="/frontend/images/hub-icon.png" width="20" height="20" />
+              HOME
+            </a>
+            <a href="/frontend/views/graficos.html" class="contrast">
+              <img src="/frontend/images/grafico-icon.png" width="20" height="20" />
+              GRÁFICOS
+            </a>
+            <a href="/frontend/views/diferenca_mensal.html" class="contrast">
+              <img src="/frontend/images/difference-icon.png" width="20" height="20" />
+              DIFERENÇA MENSAL
+            </a>
+            <a href="/frontend/views/historico.html" class="contrast">
+              <img src="/frontend/images/history-icon.png" width="20" height="20" />
+              HISTÓRICO
+            </a>
+            <a href="/frontend/views/login.html" class="contrast">
+              <img src="/frontend/images/arrow-back.png" width="20" height="20" />
+              VOLTAR
+            </a>
+          </ul>
+        </nav>
+      </aside>
+      <main class="main-content">
+        <section class="section-info">
+          <h1>Gráficos</h1>
+        </section>
 
-        <div class="div-selecionar-ano">
-          <button id="btnDiminuirAno">
-            - </button>
-          <h1 id="anoSelecionado"></h1>
-          <button id="btnAumentarAno"> + </button>
-        </div>
-      </section>
-
-      <section>
-        <h1>Gráfico total de tempo de produção por dia nesse mês</h1>
-        <article class="article-grafico-linha-total-metros">
-          <div class="grafico-linha-meses" style="width: 1000px">
-            <canvas id="graficoBarTempoProduzido"></canvas>
+        <section class="section-selecionar-mes">
+          <div class="div-selecionar-mes">
+            <button id="btnDiminuirMes"><</button>
+            <h1 id="mesSelecionado"></h1>
+            <button id="btnAumentarMes">></button>
           </div>
-        </article>
-      </section>
 
+<<<<<<< HEAD
       <section>
         <article>
           <h1>Total por dia de metros produzido por tarefa</h1>
           <div class="grafico-linha-meses" style="width: 1000px">
             <canvas id="graficoLinhaTotalTempoTarefa"></canvas>
+=======
+          <div class="div-selecionar-ano">
+            <button id="btnDiminuirAno">-</button>
+            <h1 id="anoSelecionado"></h1>
+            <button id="btnAumentarAno">+</button>
+>>>>>>> 1c1def9a125df1c02272ad8121caab0277f05dca
           </div>
-        </article>
-      </section>
+        </section>
 
-      <section>
-        <article>
-          <h1>Total por dia de tempo de produção por tarefa</h1>
-          <div class="grafico-linha-meses" style="width: 1000px">
-            <canvas id="graficoLinhaTempoProduzidoPorTarefa"></canvas>
-          </div>
-        </article>
-      </section>
+        <section>
+          <h1>Gráfico total de tempo de produção por dia nesse mês</h1>
+          <article class="article-grafico-linha-total-metros">
+            <div class="grafico-linha-meses" style="width: 1000px">
+              <canvas id="graficoBarTempoProduzido"></canvas>
+            </div>
+          </article>
+        </section>
 
-    </main>
-  </div>
-</body>
+        <section>
+          <article>
+            <h1>Total por dia de tempo produzido por tarefa</h1>
+            <div class="grafico-linha-meses" style="width: 1000px">
+              <canvas id="graficoLinhaTotalTempoTarefa"></canvas>
+            </div>
+          </article>
+        </section>
 
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="../js/graficos.js"></script>
+        <section>
+          <article>
+            <h1>Total por dia de tempo de produção por tarefa</h1>
+            <div class="grafico-linha-meses" style="width: 1000px">
+              <canvas id="graficoLinhaTempoProduzidoPorTarefa"></canvas>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
 
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../js/graficos.js"></script>
 </html>

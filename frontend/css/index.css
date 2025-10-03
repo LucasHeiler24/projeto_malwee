@@ -55,3 +55,17 @@
 .grafico-linha-meses-por-dia-pizza {
   width: 500px;
 }
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center; /* alinha ícone e texto verticalmente */
+  gap: 4px; /* espaço entre ícone e texto */
+  padding: 35px 12px;
+  text-decoration: none;
+  color: #fff; /* ajusta conforme seu tema */
+}
+.sidebar-nav a.active {
+  background-color: #124d7c; /* cor da aba ativa */
+  font-weight: bold;
+  border-radius: 6px;
+}
