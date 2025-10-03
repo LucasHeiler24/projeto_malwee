@@ -2,7 +2,11 @@ body,
 html {
   margin: 0;
   height: 100%;
+<<<<<<< HEAD
+  font-family: Arial, sans-serif;
+=======
   font-family: "Syne", sans-serif;
+>>>>>>> ded50aad4d664aef6b6e2f9ffdf4f3f2b43f322f
 }
 
 .container {
@@ -18,13 +22,14 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  img {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 20px;
-  }
 }
+
+img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
 
 .right {
   color: white;
@@ -53,6 +58,8 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
   align-content: center;
+<<<<<<< HEAD
+=======
 
   
 }
@@ -133,4 +140,5 @@ button {
   position: relative;
   right: 80px;
   bottom: 25px;
+>>>>>>> ded50aad4d664aef6b6e2f9ffdf4f3f2b43f322f
 }

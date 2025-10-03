@@ -55,11 +55,11 @@ async function getQuantidadeMetrosProduzidoPorTarefaNoMes(sAno, sMes) {
     }
 }
 
-async function getQuantidadeMetrosProduzidoPorTarefaNoMesPorMesEscolhido(sAno, sMes) {
+async function getRegistrosHistoricoMesEscolhido(sAno, sMes) {
     try {
 
         const response = await fetch(`
-        ${URL_API}/dados-total-metros-por-tarefa-do-mes/mes/${sMes}/ano/${sAno}`,
+        ${URL_API}/dados-por-mes/mes/${sMes}/ano/${sAno}`,
             {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
@@ -73,8 +73,14 @@ async function getQuantidadeMetrosProduzidoPorTarefaNoMesPorMesEscolhido(sAno, s
     }
 }
 
+const formater = new Intl.NumberFormat('pt-BR', {
+    style: 'decimal',
+});
+
 export { 
     getQuantidadeMetrosPorTecido,
     getQuantidadeMetrosProduzidoPorDia,
-    getQuantidadeMetrosProduzidoPorTarefaNoMes
+    getQuantidadeMetrosProduzidoPorTarefaNoMes,
+    getRegistrosHistoricoMesEscolhido,
+    formater
  };

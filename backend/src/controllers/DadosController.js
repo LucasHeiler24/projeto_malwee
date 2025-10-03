@@ -1,5 +1,9 @@
 import { pegarDadosMesEAnoEscolhido } from "../database/EntidadeDados.js";
-import { separarDiasDifrentesEntreDatasVetor, separarPorNumeroTarefaDeCadaDiaDoMes, pegarTotalDeMetrosPorDiaPeloMes, removerDupliados } from "../helpers/funcoes.js";
+import { 
+    separarDiasDifrentesEntreDatasVetor,
+    separarPorNumeroTarefaDeCadaDiaDoMes,
+    pegarTotalDeMetrosPorDiaPeloMes,
+    removerDupliados } from "../helpers/funcoes.js";
 
 //vetores de cadas tipo de tecido
 let vetTiposTecidos =
@@ -161,9 +165,24 @@ const totalMetrosPorNumeroTarefaPorMes = async function (request, response) {
 }
 
 
+const pegarTodosOsDadosDoMesSelecionado = async function(request, response){
+
+    const mes = request.params.mes;
+    const ano = request.params.ano;
+    
+    try{
+        return response.json(await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`));
+    }
+    catch(e){
+        return response.json(e);
+    }
+
+}
+
 export {
     dadosMesEscolhido,
     dadosDeCadaDiaDoMesQtdProduzida,
     totalMetrosPorNumeroTarefaPorMesPorDia,
-    totalMetrosPorNumeroTarefaPorMes
+    totalMetrosPorNumeroTarefaPorMes,
+    pegarTodosOsDadosDoMesSelecionado
 };

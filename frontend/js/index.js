@@ -1,13 +1,9 @@
-import { getQuantidadeMetrosPorTecido, getQuantidadeMetrosProduzidoPorDia, getQuantidadeMetrosProduzidoPorTarefaNoMes } from "./helpers.js"
+import { getQuantidadeMetrosPorTecido, getQuantidadeMetrosProduzidoPorDia, formater } from "./helpers.js"
 
 window.onload = function () {
 
     console.log("Teste");
     const graficoLinhaTotalPorMesPizza = document.getElementById('graficoLinhaTotalPorMesPizza');
-
-    const formater = new Intl.NumberFormat('pt-BR', {
-        style: 'decimal',
-    });
 
     function construirGraficoPorMesesDeMetrosPorDia(qtdMetrosPorTarefaProduzidoMes){
 
