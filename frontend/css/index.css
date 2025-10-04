@@ -34,15 +34,25 @@
 .section-grafico-pizza {
   width: 100%;
   height: auto;
-  background: #291565;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  flex-direction: column;
   gap: 10px;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
+}
+
+.div-grafico-pizza {
+  width: 100%;
+  background: #291565;
+  display: flex;
+  border-radius: 10px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
 }
 
 .grafico-pizza-do-mes {
@@ -56,16 +66,18 @@
   width: 500px;
 }
 
-.sidebar-nav a {
+.section-total-tipo-tecido {
+  width: 100%;
   display: flex;
-  align-items: center; /* alinha ícone e texto verticalmente */
-  gap: 4px; /* espaço entre ícone e texto */
-  padding: 35px 12px;
-  text-decoration: none;
-  color: #fff; /* ajusta conforme seu tema */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 }
-.sidebar-nav a.active {
-  background-color: #124d7c; /* cor da aba ativa */
-  font-weight: bold;
-  border-radius: 6px;
+
+.grafico-linha-meses-por-dia-pizza {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

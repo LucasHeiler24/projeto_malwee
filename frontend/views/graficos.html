@@ -14,30 +14,40 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-        <h2>Gráficos</h2>
+        <h2>Olá Lucas</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <a href="/frontend/views/index.html" class="contraste">
+          <li class="contraste">
             <img src="/frontend/images/hub-icon.png" width="20" height="20" />
-            HOME
-          </a>
-          <a href="/frontend/views/graficos.html" class="contrast">
+            <a href="/frontend/views/index.html">
+              Início
+            </a>
+          </li>
+          <li id="item-ativo" class="contraste">
             <img src="/frontend/images/grafico-icon.png" width="20" height="20" />
-            GRÁFICOS
-          </a>
-          <a href="/frontend/views/diferenca_mensal.html" class="contrast">
+            <a href="/frontend/views/graficos.html">
+              Gráficos
+            </a>
+          </li>
+          <li class="contraste">
             <img src="/frontend/images/difference-icon.png" width="20" height="20" />
-            DIFERENÇA MENSAL
-          </a>
-          <a href="/frontend/views/historico.html" class="contrast">
+            <a href="/frontend/views/diferenca_mensal.html">
+              Diferença mensal
+            </a>
+          </li>
+          <li class="contraste">
             <img src="/frontend/images/history-icon.png" width="20" height="20" />
-            HISTÓRICO
-          </a>
-          <a href="/frontend/views/login.html" class="contrast">
+            <a href="/frontend/views/historico.html">
+              Histórico
+            </a>
+          </li>
+          <li class="contraste">
             <img src="/frontend/images/arrow-back.png" width="20" height="20" />
-            VOLTAR
-          </a>
+            <a href="/frontend/views/login.html">
+              Log-out
+            </a>
+          </li>
         </ul>
       </nav>
     </aside>
@@ -61,31 +71,25 @@
         </div>
       </section>
 
-      <section>
+      <section class="section-grafico">
         <h1>Gráfico total de tempo de produção por dia nesse mês</h1>
-        <article class="article-grafico-linha-total-metros">
-          <div class="grafico-linha-meses" style="width: 1000px">
-            <canvas id="graficoBarTempoProduzido"></canvas>
-          </div>
-        </article>
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoBarTempoProduzido"></canvas>
+        </div>
       </section>
 
-      <section>
-        <article>
-          <h1>Total metros produzidos por número tarefa no mês</h1>
-          <div class="grafico-linha-meses" style="width: 1000px">
-            <canvas id="graficoLinhaTotalTempoTarefa"></canvas>
-          </div>
-        </article>
+      <section class="section-grafico">
+        <h1>Total metros produzidos por número tarefa no mês</h1>
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoLinhaTotalTempoTarefa"></canvas>
+        </div>
       </section>
 
-      <section>
-        <article>
-          <h1>Total por dia de tempo de produção por tarefa</h1>
-          <div class="grafico-linha-meses" style="width: 1000px">
-            <canvas id="graficoLinhaTempoProduzidoPorTarefa"></canvas>
-          </div>
-        </article>
+      <section class="section-grafico">
+        <h1>Total por dia de tempo de produção por tarefa</h1>
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoLinhaTempoProduzidoPorTarefa"></canvas>
+        </div>
       </section>
     </main>
   </div>

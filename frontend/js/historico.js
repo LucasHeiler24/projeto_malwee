@@ -1,11 +1,15 @@
 import {
-    getRegistrosHistoricoMesEscolhido,
     formater,
     anoAtual,
     proximoMesAtual,
     anteriorMesAtual,
-    mesAtual
-} from "./helpers.js";
+    mesAtual,
+    encontrarIndexRegistrosPeloTipoTecido,
+    filterRegistrosPeloTipoTecido,
+    filterRegistrosPeloNumeroTarefa
+} from "./helpers/helpers.js";
+
+import { getRegistrosHistoricoMesEscolhido } from "./requests/fetch_para_o_backend.js"
 
 import {
     aumentarAno,
@@ -18,7 +22,12 @@ import {
 
 window.onload = function () {
 
-    let dadosRegistrosNoBanco;
+    let dadosRegistros;
+
+    let vetTiposTecidos = [
+        'Meia Malha', 'Cotton', 'Punho Pun',
+        'Punho New', 'Punho San', 'Punho Elan'
+    ];
 
     let mesSelecionadoUser = mesAtual;
     let mesAnteriorUser = anteriorMesAtual;
@@ -35,15 +44,21 @@ window.onload = function () {
 
     btnAumentarAno.click(async function () {
         anoAtualUser = aumentarAno(anoAtualUser, anoSelecionado);
-        dadosRegistrosNoBanco = await getRegistrosHistoricoMesEscolhido(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
-        construirCardsHistoricos();
+        dadosRegistros = await getRegistrosHistoricoMesEscolhido(
+            anoAtualUser,
+            (mesSelecionadoUser + 1).toString().padStart(2, 0)
+        );
+        construirCardsHistoricos(dadosRegistros);
     });
 
 
     btnDiminuirAno.click(async function () {
         anoAtualUser = diminuirAno(anoAtualUser, anoSelecionado);
-        dadosRegistrosNoBanco = await getRegistrosHistoricoMesEscolhido(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
-        construirCardsHistoricos();
+        dadosRegistros = await getRegistrosHistoricoMesEscolhido(
+            anoAtualUser,
+            (mesSelecionadoUser + 1).toString().padStart(2, 0)
+        );
+        construirCardsHistoricos(dadosRegistros);
     })
 
     const mesSelecionado = $('#mesSelecionado');
@@ -55,7 +70,10 @@ window.onload = function () {
         mesSelecionadoUser = meses.mesSelecionadoUser;
         mesProximoUser = meses.mesProximoUser;
 
-        dadosRegistrosNoBanco = await getRegistrosHistoricoMesEscolhido(anoAtualUser, (mesSelecionadoUser + 1).toString().padStart(2, 0));
+        return await getRegistrosHistoricoMesEscolhido(
+            anoAtualUser,
+            (mesSelecionadoUser + 1).toString().padStart(2, 0)
+        );
     }
 
     btnDiminuirMes.click(async function () {
@@ -65,7 +83,8 @@ window.onload = function () {
         mesSelecionadoUser = meses.mesSelecionadoUser;
         mesProximoUser = meses.mesProximoUser;
 
-        construirCardsHistoricos(await mudarMesSelecionado('-'));
+        dadosRegistros = await mudarMesSelecionado('-')
+        construirCardsHistoricos(dadosRegistros);
     });
 
     btnAumentarMes.click(async function () {
@@ -75,21 +94,18 @@ window.onload = function () {
         mesSelecionadoUser = meses.mesSelecionadoUser;
         mesProximoUser = meses.mesProximoUser;
 
-        construirCardsHistoricos(await mudarMesSelecionado('+'));
+        dadosRegistros = await mudarMesSelecionado('+')
+        construirCardsHistoricos(dadosRegistros);
     });
 
-    function construirCardsHistoricos() {
+    function construirCardsHistoricos(arrayDados) {
 
         cardsHistoricos.empty();
 
-        if (dadosRegistrosNoBanco.length == 0) cardsHistoricos.append(`<h1>Sem registros para esse mês!</h1>`);
+        if (arrayDados.length == 0) cardsHistoricos.append(`<h1>Sem registros para esse mês!</h1>`);
 
-        let vetTiposTecidos = [
-            'Meia Malha', 'Cotton', 'Punho Pun',
-            'Punho New', 'Punho San', 'Punho Elan'
-        ];
 
-        dadosRegistrosNoBanco.forEach(registros => {
+        arrayDados.forEach(registros => {
 
             cardsHistoricos.append(`
             
@@ -119,10 +135,41 @@ window.onload = function () {
 
     }
 
+    function filterPeloTipoTecido(filterTextoUsuario) {
+        return (filterTextoUsuario == "") ? dadosRegistros :
+            filterRegistrosPeloTipoTecido(
+                dadosRegistros,
+                encontrarIndexRegistrosPeloTipoTecido(vetTiposTecidos, filterTextoUsuario)
+            );
+    }
+
+    function filterPeloNumeroTarefa(filterTextoUsuario) {
+        return (filterTextoUsuario.length == "") ?
+            dadosRegistros :
+            filterRegistrosPeloNumeroTarefa(dadosRegistros, filterTextoUsuario);
+    }
+
+    function tipoFilterSelecionado(filterTextoUsuario) {
+        let filtroSelecionado = parseInt(document.getElementById('inSelectFiltro').value);
+
+        switch (filtroSelecionado) {
+            case -1:
+                return;
+            case 0:
+                return construirCardsHistoricos(filterPeloNumeroTarefa(filterTextoUsuario));
+            case 1:
+                return construirCardsHistoricos(filterPeloTipoTecido(filterTextoUsuario));
+        }
+    }
+
     (async () => {
-        construirCardsHistoricos(await mudarMesSelecionado());
+        dadosRegistros = await mudarMesSelecionado();
+        construirCardsHistoricos(dadosRegistros);
         anoSelecionado.text(anoAtualUser);
 
+        document.getElementById('inFiltro').addEventListener('keyup', async function () {
+            tipoFilterSelecionado(this.value);
+        });
     })()
 
 

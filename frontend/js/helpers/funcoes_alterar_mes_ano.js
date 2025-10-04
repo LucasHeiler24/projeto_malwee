@@ -1,6 +1,6 @@
 import {
     vetMeses,
-} from "../helpers.js";
+} from "./helpers.js";
 
 function aumentarAno(anoUser, divExibirAno) {
     anoUser++;

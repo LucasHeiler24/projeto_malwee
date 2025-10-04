@@ -110,26 +110,21 @@ async function getDadosDiferencaMensal(dateMes1, dateMes2) {
 
 }
 
+async function getTotalTempoSetupPorDiaDoMes(ano, mes) {
 
-function formatarDatas(dataFormatar) {
-    return dataFormatar[0] + '-' + dataFormatar[1];
+    try {
+
+        const response = await fetch(`
+           ${URL_API}/dados-total-tempo-setup-de-cada-dia-do-mes/mes/${mes}/ano/${ano} 
+        `);
+
+        return await response.json();
+    }
+    catch (e) {
+        return e;
+    }
+
 }
-
-const formater = new Intl.NumberFormat('pt-BR', {
-    style: 'decimal',
-});
-
-let anoAtual = new Date().getFullYear();
-let getMesAtual = new Date().getMonth();
-
-const vetMeses = [
-    'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
-    'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
-];
-
-let proximoMesAtual = getMesAtual + 1;
-let mesAtual = getMesAtual;
-let anteriorMesAtual = getMesAtual - 1;
 
 export {
     getQuantidadeMetrosPorTecido,
@@ -138,7 +133,5 @@ export {
     getQuantidadeTempoDeProducaoPorDia,
     getRegistrosHistoricoMesEscolhido,
     getDadosDiferencaMensal,
-    formater,
-    anoAtual, getMesAtual, vetMeses, proximoMesAtual, anteriorMesAtual, mesAtual,
-    formatarDatas
-};
+    getTotalTempoSetupPorDiaDoMes
+}

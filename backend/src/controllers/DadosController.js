@@ -8,7 +8,8 @@ import {
     somarTotalDeMetrosProduzidosNoMes,
     somarTotalDeTempoProducaoNoMes,
     encontrarNumeroTarefasIguaisEmDoisMeses,
-    encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses
+    encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses,
+    calcularOTempoDeSetupDasDatasDeUmMes
 } from "../helpers/funcoes.js";
 
 //vetores de cadas tipo de tecido
@@ -161,7 +162,7 @@ const pegarTodosOsDadosDoMesSelecionado = async function (request, response) {
 
 
 //controller para a diferença mensal
-const teste = async function (request, response) {
+const diferencaMensalEntreDoisMeses = async function (request, response) {
 
     const date1 = request.params.date1;
     const date2 = request.params.date2;
@@ -219,7 +220,27 @@ const teste = async function (request, response) {
 
 }
 
+const totalTempoSetupPorDiaDoMesProduzido = async function (request, response) {
 
+    const mes = request.params.mes;
+    const ano = request.params.ano;
+
+    try {
+
+        const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
+
+        const vetDatasDoMes = dados.map((dados) => dados.data_historico.split(' ')[0]);
+        const removerDatasDuplicadas = removerDupliados(vetDatasDoMes);
+
+        const vetCalcularTempoSetup = calcularOTempoDeSetupDasDatasDeUmMes(dados, removerDatasDuplicadas);
+
+        return response.json(vetCalcularTempoSetup);
+    }
+    catch (e) {
+        return response.json(e);
+    }
+
+}
 
 export {
     dadosMesEscolhido,
@@ -227,5 +248,6 @@ export {
     totalMetrosPorNumeroTarefaPorMesPorDia,
     totalMetrosPorNumeroTarefaPorMes,
     pegarTodosOsDadosDoMesSelecionado,
-    teste
+    diferencaMensalEntreDoisMeses,
+    totalTempoSetupPorDiaDoMesProduzido
 };

@@ -1,13 +1,47 @@
-.sidebar-nav a {
+.section-selecionar-meses {
+  width: 100%;
   display: flex;
-  align-items: center; /* alinha ícone e texto verticalmente */
-  gap: 4px; /* espaço entre ícone e texto */
-  padding: 35px 12px;
-  text-decoration: none;
-  color: #fff; /* ajusta conforme seu tema */
+  justify-content: space-around;
+  align-items: center;
 }
-.sidebar-nav img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
+
+.div-selecionar-meses,
+.section-grafico-diferenca-tempo-producao,
+.section-grafico-diferenca-total-metros-produzidos {
+  background: #291565;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.div-selecionar-meses input {
+  width: 100%;
+  height: 5vh;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+.section-graficos-diferencas {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+
+.div-grafico-diferenca-total {
+  background: #291565;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
 }

@@ -14,30 +14,40 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-        <h2>Diferença</h2>
+        <h2>Olá Lucas</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <a href="/frontend/views/index.html" class="contraste">
+          <li class="contraste">
             <img src="/frontend/images/hub-icon.png" width="20" height="20" />
-            HOME
-          </a>
-          <a href="/frontend/views/graficos.html" class="contrast">
+            <a href="/frontend/views/index.html">
+              Início
+            </a>
+          </li>
+          <li class="contraste">
             <img src="/frontend/images/grafico-icon.png" width="20" height="20" />
-            GRÁFICOS
-          </a>
-          <a href="/frontend/views/diferenca_mensal.html" class="contrast">
+            <a href="/frontend/views/graficos.html">
+              Gráficos
+            </a>
+          </li>
+          <li id="item-ativo" class="contraste">
             <img src="/frontend/images/difference-icon.png" width="20" height="20" />
-            DIFERENÇA MENSAL
-          </a>
-          <a href="/frontend/views/historico.html" class="contrast">
+            <a href="/frontend/views/diferenca_mensal.html">
+              Diferença mensal
+            </a>
+          </li>
+          <li class="contraste">
             <img src="/frontend/images/history-icon.png" width="20" height="20" />
-            HISTÓRICO
-          </a>
-          <a href="/frontend/views/login.html" class="contrast">
+            <a href="/frontend/views/historico.html">
+              Histórico
+            </a>
+          </li>
+          <li class="contraste">
             <img src="/frontend/images/arrow-back.png" width="20" height="20" />
-            VOLTAR
-          </a>
+            <a href="/frontend/views/login.html">
+              Log-out
+            </a>
+          </li>
         </ul>
       </nav>
     </aside>
@@ -48,42 +58,46 @@
       </section>
 
       <section class="section-selecionar-meses">
-        <div class="div-primeiro-mes">
+        <div class="div-selecionar-meses">
           <h1>Informe o primeiro mês</h1>
           <input type="date" id="inPrimeiroMes" />
         </div>
 
-        <div class="div-segundo-mes">
+        <div class="div-selecionar-meses">
           <h1>Informe o segundo mês</h1>
           <input type="date" id="inSegundoMes" />
         </div>
       </section>
 
       <section class="section-graficos-diferencas">
-        <div class="div-grafico-diferenca-total-metros-produzidos">
+        <div class="div-grafico-diferenca-total">
           <h1>Total de metros produzido no mês</h1>
           <div class="div-mostrar-grafico-mes-metros-produzidos">
             <canvas id="graficoBarraDiferencaMensalMetrosProduzidos"></canvas>
           </div>
         </div>
 
-        <div class="div-grafico-diferenca-total-tempo-producao">
+        <div class="div-grafico-diferenca-total">
           <h1>Total de tempo produzido no mês</h1>
           <div class="div-mostrar-grafico-mes-tempo-produzidos">
             <canvas id="graficoBarraDiferencaMensalTempoProduzidos"></canvas>
           </div>
         </div>
+      </section>
 
+      <section class="section-grafico-diferenca-tempo-producao">
         <div class="div-grafico-diferenca-total-tempo-producao">
           <h1>Diferença por datas entre os meses por tempo de produção</h1>
-          <div class="div-mostrar-grafico-mes-tempo-produzidos" style="width: 1000px">
+          <div class="div-mostrar-grafico-mes-tempo-produzidos">
             <canvas id="graficoLinhaDiferencaMensalMetrosProduzidos"></canvas>
           </div>
         </div>
+      </section>
 
-        <div>
+      <section class="section-grafico-diferenca-total-metros-produzidos">
+        <div class="div-grafico-diferenca-total-metros-produzidos">
           <h1>Total de metros produzidos por número de tarefa entre os meses</h1>
-          <div class="grafico-linha-meses" style="width: 1000px">
+          <div class="grafico-linha-meses">
             <canvas id="graficoLinhaMetrosProduzidosPorTarefa"></canvas>
           </div>
         </div>

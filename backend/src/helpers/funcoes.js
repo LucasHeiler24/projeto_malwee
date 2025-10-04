@@ -187,6 +187,28 @@ function encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses(array1, array2) {
 
 }
 
+function calcularOTempoDeSetupDasDatasDeUmMes(arrayDados, arrayDatas) {
+
+    let vetCalcularTempoSetup = [];
+
+    for (let i = 0; i < arrayDatas.length; i++) {
+
+        let somaTempoSetupDeCadaData = arrayDados.reduce((soma, dados) => {
+            if (dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE')
+                soma += dados.tempo_de_setup;
+
+            return soma;
+        }, 0);
+
+        vetCalcularTempoSetup.push({
+            dia_do_mes: arrayDatas[i],
+            total_tempo_setup: somaTempoSetupDeCadaData
+        });
+    }
+
+    return vetCalcularTempoSetup;
+}
+
 
 function removerDupliados(arrayRemover) {
     return arrayRemover.filter((dados, index) => arrayRemover.indexOf(dados) === index);
@@ -201,5 +223,6 @@ export {
     somarTotalDeTempoProducaoNoMes,
     encontrarNumeroTarefasIguaisEmDoisMeses,
     encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses,
-    removerDupliados
+    removerDupliados,
+    calcularOTempoDeSetupDasDatasDeUmMes
 }
