@@ -1,4 +1,4 @@
-import { formatarDatas, getDadosDiferencaMensal } from "./helpers.js"
+import { formatarDatas, getDadosDiferencaMensal, formater } from "./helpers.js"
 
 window.onload = function () {
 
@@ -77,78 +77,64 @@ window.onload = function () {
 
 
     const graficoLinhaDiferencaMensalMetrosProduzidos = document.getElementById('graficoLinhaDiferencaMensalMetrosProduzidos');
-    function construirGraficoLinhaDosDadosEntreOsMeses(arrayTotalTempoProduzidoDados1, arrayTotalTempoProduzidoDados2){
-        if(graficoLinhaTotalTempoProduzidoNosMeses)
-        graficoLinhaTotalTempoProduzidoNosMeses.destroy();
 
-        const tempoProducaoDado1 = arrayTotalTempoProduzidoDados1.map((dados) => dados.tempo_producao);
-        const tempoProducaoDado2 = arrayTotalTempoProduzidoDados2.map((dados) => dados.tempo_producao);
+    function construirGraficoLinhaDosDadosEntreOsMeses(arrayTotalTempoProduzidoDados1, arrayTotalTempoProduzidoDados2) {
 
-        let tamMaximoDados;
+        if (graficoLinhaTotalTempoProduzidoNosMeses)
+            graficoLinhaTotalTempoProduzidoNosMeses.destroy();
 
-        (tempoProducaoDado1.length > tempoProducaoDado2.length) ? tamMaximoDados = true
-        : tamMaximoDados = false;
-    
-        let vet = [];
-        if(tamMaximoDados){
-            arrayTotalTempoProduzidoDados1.forEach((dados, index) => {
-                vet.push(dados.data_historico);
-                
-                if(index < arrayTotalTempoProduzidoDados2.length){
-                    vet.push(arrayTotalTempoProduzidoDados2[index].data_historico);
-                }
-
-            });
-        }
-        if(!tamMaximoDados){
-            arrayTotalTempoProduzidoDados2.forEach((dados, index) => {
-                vet.push(dados.data_historico);
-                
-                if(index < arrayTotalTempoProduzidoDados1.length){
-                    vet.push(arrayTotalTempoProduzidoDados1[index].data_historico);
-                }
-            });
-        }
-        
         graficoLinhaTotalTempoProduzidoNosMeses = new Chart(graficoLinhaDiferencaMensalMetrosProduzidos, {
-                type: 'line',
-                data: {
-                    labels: vet,
-                    datasets: [
-                        {
-                            label: "Total tempo produzido por dia",
-                            data: tempoProducaoDado1,
-                            fill: false
-                        },
-                        {
-                            label: "Total tempo produzido por dia",
-                            data: tempoProducaoDado2,
-                            fill: false
-                        }
-                    ]
-                },
-                options: {
-                    scales: {
-                        x: {
-                            ticks: {
-                                display: false
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                display: false
-                            }
-                        }
+            type: 'line',
+            data: {
+                labels: arrayTotalTempoProduzidoDados1.map((dados) => dados.data_producao),
+                datasets: [
+                    {
+                        label: `Mês ${primeiraData}`,
+                        data: arrayTotalTempoProduzidoDados1.map((dados) => dados.tempo_producao),
+                        borderWidth: 1
+                    },
+                    {
+                        label: `Mês ${segundaData}`,
+                        data: arrayTotalTempoProduzidoDados2.map((dados) => dados.tempo_producao),
+                        borderWidth: 1
                     }
-                }
-            })    
-    } 
+                ]
+            }
+        })
+    }
+
+
+    const graficoLinhaMetrosProduzidosPorTarefa = document.getElementById('graficoLinhaMetrosProduzidosPorTarefa');
+    function construirGraficoLinhaTotalMetrosPorNumeroTarefa(arrayTotalMetros1, arrayTotalMetros2) {
+
+        if (graficoLinhaTotalMetrosNosMeses)
+            graficoLinhaTotalMetrosNosMeses.destroy();
+
+        graficoLinhaTotalMetrosNosMeses = new Chart(graficoLinhaMetrosProduzidosPorTarefa, {
+            type: 'line',
+            data: {
+                labels: arrayTotalMetros1.map((dados) => dados.numero_tarefa),
+                datasets: [
+                    {
+                        label: `Mês ${primeiraData}`,
+                        data: arrayTotalMetros1.map((dados) => dados.total_metros),
+                        borderWidth: 1
+                    },
+                    {
+                        label: `Mês ${segundaData}`,
+                        data: arrayTotalMetros2.map((dados) => dados.total_metros),
+                        borderWidth: 1
+                    }
+                ]
+            }
+        })
+    }
 
     function separarDadosParaOsGraficos(arrayDados) {
         construirGraficoTotalMetrosProduzidosNoMes(arrayDados.totalSomaMetrosMes1, arrayDados.totalSomaMetrosMes2);
         construirGraficoTotalTempoProduzidosNoMes(arrayDados.totalSomaTempoProducao1, arrayDados.totalSomaTempoProducao2);
-        construirGraficoLinhaDosDadosEntreOsMeses(arrayDados.vetTotalMetrosPorDiaTempoProduzido1, arrayDados.vetTotalMetrosPorDiaTempoProduzido2);
-        
+        construirGraficoLinhaDosDadosEntreOsMeses(arrayDados.vetTempoProducao1, arrayDados.vetTempoProducao2);
+        construirGraficoLinhaTotalMetrosPorNumeroTarefa(arrayDados.vetNumTarefaMes2, arrayDados.vetNumTarefaMes1);
     }
 
     (async () => {
@@ -156,6 +142,7 @@ window.onload = function () {
         document.getElementById('inPrimeiroMes').addEventListener('change', async function () {
             primeiraData = formatarDatas(this.value.split('-'));
             let dados = await pegarOsDadosPelaDataInseridaUsuario();
+            console.log(dados);
             return (!dados) ? undefined : separarDadosParaOsGraficos(dados);
         });
 
@@ -163,6 +150,7 @@ window.onload = function () {
         document.getElementById('inSegundoMes').addEventListener('change', async function () {
             segundaData = formatarDatas(this.value.split('-'));
             let dados = await pegarOsDadosPelaDataInseridaUsuario();
+            console.log(dados);
             return (!dados) ? undefined : separarDadosParaOsGraficos(dados);
         });
 

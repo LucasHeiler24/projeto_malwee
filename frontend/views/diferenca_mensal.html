@@ -1,96 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diferença mensal</title>
-    <link rel="stylesheet" href="../css/master.css" />
-    <link rel="stylesheet" href="../css/diferenca_mensal.css" />
-  </head>
 
-  <body>
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="sidebar-header">
-          <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-          <h2>Diferença</h2>
-        </div>
-        <nav class="sidebar-nav">
-          <ul>
-            <a href="/frontend/views/index.html" class="contraste">
-              <img src="/frontend/images/hub-icon.png" width="20" height="20" />
-              HOME
-            </a>
-            <a href="/frontend/views/graficos.html" class="contrast">
-              <img src="/frontend/images/grafico-icon.png" width="20" height="20" />
-              GRÁFICOS
-            </a>
-            <a href="/frontend/views/diferenca_mensal.html" class="contrast">
-              <img src="/frontend/images/difference-icon.png" width="20" height="20" />
-              DIFERENÇA MENSAL
-            </a>
-            <a href="/frontend/views/historico.html" class="contrast">
-              <img src="/frontend/images/history-icon.png" width="20" height="20" />
-              HISTÓRICO
-            </a>
-            <a href="/frontend/views/login.html" class="contrast">
-              <img src="/frontend/images/arrow-back.png" width="20" height="20" />
-              VOLTAR
-            </a>
-          </ul>
-        </nav>
-      </aside>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diferença mensal</title>
+  <link rel="stylesheet" href="../css/master.css" />
+  <link rel="stylesheet" href="../css/diferenca_mensal.css" />
+</head>
 
-      <main class="main-content">
-        <section class="section-info">
-          <h1>Diferença mensal</h1>
-        </section>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+        <h2>Diferença</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <a href="/frontend/views/index.html" class="contraste">
+            <img src="/frontend/images/hub-icon.png" width="20" height="20" />
+            HOME
+          </a>
+          <a href="/frontend/views/graficos.html" class="contrast">
+            <img src="/frontend/images/grafico-icon.png" width="20" height="20" />
+            GRÁFICOS
+          </a>
+          <a href="/frontend/views/diferenca_mensal.html" class="contrast">
+            <img src="/frontend/images/difference-icon.png" width="20" height="20" />
+            DIFERENÇA MENSAL
+          </a>
+          <a href="/frontend/views/historico.html" class="contrast">
+            <img src="/frontend/images/history-icon.png" width="20" height="20" />
+            HISTÓRICO
+          </a>
+          <a href="/frontend/views/login.html" class="contrast">
+            <img src="/frontend/images/arrow-back.png" width="20" height="20" />
+            VOLTAR
+          </a>
+        </ul>
+      </nav>
+    </aside>
 
-        <section class="section-selecionar-meses">
-          <div class="div-primeiro-mes">
-            <h1>Informe o primeiro mês</h1>
-            <input type="date" id="inPrimeiroMes" />
-          </div>
-
-          <div class="div-segundo-mes">
-            <h1>Informe o segundo mês</h1>
-            <input type="date" id="inSegundoMes" />
-          </div>
-        </section>
-
-        <section class="section-graficos-diferencas">
-          <div class="div-grafico-diferenca-total-metros-produzidos">
-            <h1>Total de metros produzido no mês</h1>
-            <div class="div-mostrar-grafico-mes-metros-produzidos">
-              <canvas id="graficoBarraDiferencaMensalMetrosProduzidos"></canvas>
-            </div>
-          </div>
-
-          <div class="div-grafico-diferenca-total-tempo-producao">
-            <h1>Total de tempo produzido no mês</h1>
-            <div class="div-mostrar-grafico-mes-tempo-produzidos">
-              <canvas id="graficoBarraDiferencaMensalTempoProduzidos"></canvas>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-  </body>
-
-<<<<<<< HEAD
-        <div class="div-grafico-diferenca-total-tempo-producao">
-
-          <h1>Total de tempo produzido entre os dois meses</h1>
-          <div class="div-mostrar-grafico-linha-mes-tempo-produzidos" style="width: 1000px">
-            <canvas id="graficoLinhaDiferencaMensalMetrosProduzidos"></canvas>
-          </div>
-
-        </div>
-
-
-
+    <main class="main-content">
+      <section class="section-info">
+        <h1>Diferença mensal</h1>
       </section>
 
+      <section class="section-selecionar-meses">
+        <div class="div-primeiro-mes">
+          <h1>Informe o primeiro mês</h1>
+          <input type="date" id="inPrimeiroMes" />
+        </div>
+
+        <div class="div-segundo-mes">
+          <h1>Informe o segundo mês</h1>
+          <input type="date" id="inSegundoMes" />
+        </div>
+      </section>
+
+      <section class="section-graficos-diferencas">
+        <div class="div-grafico-diferenca-total-metros-produzidos">
+          <h1>Total de metros produzido no mês</h1>
+          <div class="div-mostrar-grafico-mes-metros-produzidos">
+            <canvas id="graficoBarraDiferencaMensalMetrosProduzidos"></canvas>
+          </div>
+        </div>
+
+        <div class="div-grafico-diferenca-total-tempo-producao">
+          <h1>Total de tempo produzido no mês</h1>
+          <div class="div-mostrar-grafico-mes-tempo-produzidos">
+            <canvas id="graficoBarraDiferencaMensalTempoProduzidos"></canvas>
+          </div>
+        </div>
+
+        <div class="div-grafico-diferenca-total-tempo-producao">
+          <h1>Diferença por datas entre os meses por tempo de produção</h1>
+          <div class="div-mostrar-grafico-mes-tempo-produzidos" style="width: 1000px">
+            <canvas id="graficoLinhaDiferencaMensalMetrosProduzidos"></canvas>
+          </div>
+        </div>
+
+        <div>
+          <h1>Total de metros produzidos por número de tarefa entre os meses</h1>
+          <div class="grafico-linha-meses" style="width: 1000px">
+            <canvas id="graficoLinhaMetrosProduzidosPorTarefa"></canvas>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </body>
@@ -101,13 +98,3 @@
 <script type="module" src="../js/diferenca_mensal.js"></script>
 
 </html>
-=======
-  <script
-    src="https://code.jquery.com/jquery-3.7.1.js"
-    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"
-  ></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="../js/diferenca_mensal.js"></script>
-</html>
->>>>>>> 1c1def9a125df1c02272ad8121caab0277f05dca

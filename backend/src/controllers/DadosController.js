@@ -6,7 +6,9 @@ import {
     removerDupliados,
     calcularQuantidadeTempoProducaoPorDia,
     somarTotalDeMetrosProduzidosNoMes,
-    somarTotalDeTempoProducaoNoMes
+    somarTotalDeTempoProducaoNoMes,
+    encontrarNumeroTarefasIguaisEmDoisMeses,
+    encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses
 } from "../helpers/funcoes.js";
 
 //vetores de cadas tipo de tecido
@@ -187,6 +189,8 @@ const teste = async function (request, response) {
         let remover2 = removerDupliados(vetDadosDeCadaDiaDoMes2);
         let vetTotalMetrosPorNumTarefaMes2 = pegarTotalDeMetrosPorDiaEProduPeloMes(remover2, dadosDate2);
 
+        let { vetNumTarefaMes1, vetNumTarefaMes2 } = encontrarNumeroTarefasIguaisEmDoisMeses(vetTotalMetrosPorNumTarefaMes1, vetTotalMetrosPorNumTarefaMes2);
+
         //aqui eu pego em cada mês a quantidade de tempo de producao por número de tarefa fez
         let vetDadosDeCadaDiaDoMesPorProducao1 = dadosDate1.map((registros) => registros.data_historico.split(' ')[0]);
         let removerDataHistorico1 = removerDupliados(vetDadosDeCadaDiaDoMesPorProducao1);
@@ -196,15 +200,17 @@ const teste = async function (request, response) {
         let removerDataHistorico2 = removerDupliados(vetDadosDeCadaDiaDoMesPorProducao2);
         let vetTotalMetrosPorDiaTempoProduzido2 = calcularQuantidadeTempoProducaoPorDia(dadosDate2, removerDataHistorico2);
 
+        let { vetTempoProducao1, vetTempoProducao2 } = encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses(vetTotalMetrosPorDiaTempoProduzido1, vetTotalMetrosPorDiaTempoProduzido2);
+
         return response.json({
             totalSomaMetrosMes1,
             totalSomaMetrosMes2,
             totalSomaTempoProducao1,
             totalSomaTempoProducao2,
-            vetTotalMetrosPorNumTarefaMes1,
-            vetTotalMetrosPorNumTarefaMes2,
-            vetTotalMetrosPorDiaTempoProduzido1,
-            vetTotalMetrosPorDiaTempoProduzido2
+            vetNumTarefaMes1,
+            vetNumTarefaMes2,
+            vetTempoProducao1,
+            vetTempoProducao2
         })
     }
     catch (e) {
