@@ -4,6 +4,7 @@ import {
   mesAtual,
   proximoMesAtual,
   vetCoresParaOsGraficos,
+  vetCoresParaOsGraficos2,
 } from "./helpers/helpers.js";
 
 import {
@@ -16,7 +17,10 @@ import {
 
 import {
   getQuantidadeMetrosProduzidoPorTarefaNoMes,
-  getQuantidadeTempoDeProducaoPorDia
+  getQuantidadeTempoDeProducaoPorDia,
+  getQuantidadeMetrosPorTecido,
+  getTotalTempoSetupPorNumeroTarefaNoMes,
+  getTotalTarefasCompletasENaoCompletas
 } from "./requests/fetch_para_o_backend.js";
 
 import construirGrafico from "./graphics/construir_grafico.js";
@@ -25,9 +29,15 @@ window.onload = function () {
   let grafico1;
   let grafico2;
   let grafico3;
+  let graficoPizzaTotalTipoTecido;
+  let graficoBarraTarefasCompletasOuNao;
+  let graficoLinhaTotalTempoSetupPorNumeroTarefa;
 
   let dadosPrimeiroGraficoLinha;
   let dadosPrimeiroGraficoBarra;
+  let dadosGraficoPizzaTotalTipoTecido;
+  let dadosGraficoTarefasCompletasOuNao;
+  let dadosGraficoTotalTempoSetupPorNumeroTarefa;
 
   let mesSelecionadoUser = mesAtual;
   let mesAnteriorUser = anteriorMesAtual;
@@ -39,11 +49,7 @@ window.onload = function () {
   const btnDiminuirAno = $("#btnDiminuirAno");
   const btnAumentarAno = $("#btnAumentarAno");
 
-  const anoSelecionado = $("#anoSelecionado");
-
-  btnAumentarAno.click(async function () {
-    anoAtualUser = aumentarAno(anoAtualUser, anoSelecionado);
-
+  async function getDadosDosGraficos() {
     dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
@@ -52,27 +58,45 @@ window.onload = function () {
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
     );
+    dadosGraficoPizzaTotalTipoTecido = await getQuantidadeMetrosPorTecido(
+      anoAtualUser,
+      (mesSelecionadoUser + 1).toString().padStart(2, 0)
+    );
+    dadosGraficoTotalTempoSetupPorNumeroTarefa = await getTotalTempoSetupPorNumeroTarefaNoMes(
+      anoAtualUser,
+      (mesSelecionadoUser + 1).toString().padStart(2, 0)
+    );
+    dadosGraficoTarefasCompletasOuNao = await getTotalTarefasCompletasENaoCompletas(
+      anoAtualUser,
+      (mesSelecionadoUser + 1).toString().padStart(2, 0)
+    );
+  }
 
+  function chamarConstrucaoDosGraficos() {
     construirGraficoPorMetrosProduzidosPorNumTarefa();
     construirGraficoPorTempoProduzidoPorNumTarefa();
     construirGraficoLinhaPorTempoProduzido();
+    criarGraficoPizzaTotalTipoTecidoNoMes();
+    construirGraficoBarraTarefasCompletasOuNaoCompletas();
+    construirGraficoLinhaTotalTempoSetupPorNumeroTarefa();
+  }
+
+  const anoSelecionado = $("#anoSelecionado");
+  btnAumentarAno.click(async function () {
+    anoAtualUser = aumentarAno(anoAtualUser, anoSelecionado);
+
+    await getDadosDosGraficos();
+
+    chamarConstrucaoDosGraficos();
   });
+
 
   btnDiminuirAno.click(async function () {
     anoAtualUser = diminuirAno(anoAtualUser, anoSelecionado);
 
-    dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(
-      anoAtualUser,
-      (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
-    dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(
-      anoAtualUser,
-      (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
+    await getDadosDosGraficos();
 
-    construirGraficoPorMetrosProduzidosPorNumTarefa();
-    construirGraficoPorTempoProduzidoPorNumTarefa();
-    construirGraficoLinhaPorTempoProduzido();
+    chamarConstrucaoDosGraficos();
   });
 
   const mesSelecionado = $("#mesSelecionado");
@@ -84,23 +108,12 @@ window.onload = function () {
     mesSelecionadoUser = meses.mesSelecionadoUser;
     mesProximoUser = meses.mesProximoUser;
 
-    dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(
-      anoAtualUser,
-      (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
-    dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(
-      anoAtualUser,
-      (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
+    await getDadosDosGraficos();
 
-    console.log(dadosPrimeiroGraficoBarra);
-
-    construirGraficoPorMetrosProduzidosPorNumTarefa();
-    construirGraficoPorTempoProduzidoPorNumTarefa();
-    construirGraficoLinhaPorTempoProduzido();
+    chamarConstrucaoDosGraficos();
   }
 
-  btnDiminuirMes.click(async function () {
+  btnDiminuirMes.click(function () {
     let meses = operacaoDiminuirMes({ mesAnteriorUser, mesSelecionadoUser, mesProximoUser });
 
     mesAnteriorUser = meses.mesAnteriorUser;
@@ -110,7 +123,7 @@ window.onload = function () {
     mudarMesSelecionado("-");
   });
 
-  btnAumentarMes.click(async function () {
+  btnAumentarMes.click(function () {
     let meses = operacaoAumentarMes({ mesAnteriorUser, mesSelecionadoUser, mesProximoUser });
 
     mesAnteriorUser = meses.mesAnteriorUser;
@@ -227,19 +240,122 @@ window.onload = function () {
     grafico3 = construirGrafico(options, data, graficoLinhaTotalTempoTarefa, 'line');
   }
 
-  (async () => {
-    dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(
-      anoAtualUser,
-      (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
-    dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(
-      anoAtualUser,
-      (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
+  const graficoPizzaTotalTipoProduzido = document.getElementById('graficoPizzaTotalTipoProduzido');
+  function criarGraficoPizzaTotalTipoTecidoNoMes() {
 
-    construirGraficoPorMetrosProduzidosPorNumTarefa();
-    construirGraficoPorTempoProduzidoPorNumTarefa();
-    construirGraficoLinhaPorTempoProduzido();
+    if (graficoPizzaTotalTipoTecido)
+      graficoPizzaTotalTipoTecido.destroy();
+
+    console.log(dadosGraficoPizzaTotalTipoTecido);
+    let data = {
+      labels: dadosGraficoPizzaTotalTipoTecido.map((dados) => dados.tipo_tecido),
+      datasets: [{
+        label: "Quantidade de metros produzido",
+        data: dadosGraficoPizzaTotalTipoTecido.map((dados) => dados.qtd_metros_produzidos),
+        borderWidth: 1,
+        backgroundColor: vetCoresParaOsGraficos,
+      }]
+    }
+
+    let options = {
+      scales: {
+        y: {
+          grid: {
+            display: false
+          },
+          display: false
+        },
+        x: {
+          grid: {
+            display: false
+          },
+          display: false
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: '#fff'
+          },
+          position: 'right'
+        }
+      }
+    }
+    graficoPizzaTotalTipoTecido = construirGrafico(options, data, graficoPizzaTotalTipoProduzido, 'pie');
+
+  }
+
+  const graficoBarraTarefasCompletas = document.getElementById('graficoBarraTarefasCompletas');
+  function construirGraficoBarraTarefasCompletasOuNaoCompletas() {
+
+    if (graficoBarraTarefasCompletasOuNao) graficoBarraTarefasCompletasOuNao.destroy();
+
+    let data = {
+      labels: ['Tarefas completas', 'Tarefas não completas'],
+      datasets: [{
+        label: ['Tarefas completas', 'Tarefas não completas'],
+        data: [dadosGraficoTarefasCompletasOuNao.total_tarefas_completas,
+        dadosGraficoTarefasCompletasOuNao.total_tarefas_nao_completas],
+        backgroundColor: vetCoresParaOsGraficos2,
+      }]
+    }
+
+    let options = {
+      scales: {
+        y: {
+          grid: {
+            display: false
+          },
+          display: false
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+
+    graficoBarraTarefasCompletasOuNao = construirGrafico(options, data, graficoBarraTarefasCompletas, 'bar');
+  }
+
+  const graficoLinhaTempoSetupPorTarefa = document.getElementById('graficoLinhaTempoSetupPorTarefa');
+  function construirGraficoLinhaTotalTempoSetupPorNumeroTarefa() {
+
+    console.log(graficoLinhaTotalTempoSetupPorNumeroTarefa);
+    if (graficoLinhaTotalTempoSetupPorNumeroTarefa) graficoLinhaTotalTempoSetupPorNumeroTarefa.destroy();
+
+    let data = {
+      labels: dadosGraficoTotalTempoSetupPorNumeroTarefa.map((dados) => dados.numero_tarefa),
+      datasets: [{
+        label: `Total tempo setup`,
+        data: dadosGraficoTotalTempoSetupPorNumeroTarefa.map((dados) => dados.total_tempo_setup),
+        borderWidth: 1,
+        backgroundColor: vetCoresParaOsGraficos,
+        borderColor: vetCoresParaOsGraficos[4]
+      }]
+    }
+
+    let options = {
+      plugins: {
+        legend: {
+          display: false,
+          position: "top",
+          labels: {
+            textAlign: "center",
+            fontSize: 10,
+          },
+        },
+      }
+    }
+
+    graficoLinhaTotalTempoSetupPorNumeroTarefa = construirGrafico(options, data, graficoLinhaTempoSetupPorTarefa, 'line');
+  }
+
+  (async () => {
+    await getDadosDosGraficos();
+
+    chamarConstrucaoDosGraficos();
 
     mudarMesSelecionado();
     anoSelecionado.text(anoAtual);

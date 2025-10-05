@@ -126,6 +126,40 @@ async function getTotalTempoSetupPorDiaDoMes(ano, mes) {
 
 }
 
+async function getTotalTempoSetupPorNumeroTarefaNoMes(sAno, sMes) {
+
+    try {
+
+        const response = await fetch(`
+            ${URL_API}/dados-total-tempo-setup-por-numero-tarefa/mes/${sMes}/ano/${sAno}    
+        `);
+
+        return await response.json();
+
+    }
+    catch (e) {
+        return e;
+    }
+
+}
+
+async function getTotalTarefasCompletasENaoCompletas(sAno, sMes) {
+
+    try {
+
+        const response = await fetch(`
+            ${URL_API}/dados-total-tarefas-completas-e-nao-completas/mes/${sMes}/ano/${sAno}    
+        `);
+
+        return await response.json();
+
+    }
+    catch (e) {
+        return e;
+    }
+
+}
+
 export {
     getQuantidadeMetrosPorTecido,
     getQuantidadeMetrosProduzidoPorDia,
@@ -133,5 +167,7 @@ export {
     getQuantidadeTempoDeProducaoPorDia,
     getRegistrosHistoricoMesEscolhido,
     getDadosDiferencaMensal,
-    getTotalTempoSetupPorDiaDoMes
+    getTotalTempoSetupPorDiaDoMes,
+    getTotalTempoSetupPorNumeroTarefaNoMes,
+    getTotalTarefasCompletasENaoCompletas
 }

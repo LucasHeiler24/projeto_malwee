@@ -209,6 +209,38 @@ function calcularOTempoDeSetupDasDatasDeUmMes(arrayDados, arrayDatas) {
     return vetCalcularTempoSetup;
 }
 
+function totalTarefasENaoCompletasNoMes(arrayDados) {
+    return arrayDados.reduce((totalTarefas, dados) => {
+        (dados.tarefa_completa == 'TRUE') ? totalTarefas.total_tarefas_completas++ : totalTarefas.total_tarefas_nao_completas++
+
+        return totalTarefas;
+    }, {
+        total_tarefas_completas: 0,
+        total_tarefas_nao_completas: 0
+    })
+
+}
+
+function calcularTotalTempoSetupDeCadaTarefaNoMes(arrayDados, arrayNumeroTarefa) {
+
+    let vetTotalTempoSetupDoNumeroTarefa = [];
+    for (let i = 0; i < arrayNumeroTarefa.length; i++) {
+
+        let somaTotalSetup = arrayDados.reduce((somaTotalTempoSetup, dados) => {
+            if (dados.numero_da_tarefa == arrayNumeroTarefa[i] && dados.tarefa_completa == 'TRUE')
+                somaTotalTempoSetup += dados.tempo_de_setup;
+            return somaTotalTempoSetup;
+        }, 0);
+
+        vetTotalTempoSetupDoNumeroTarefa.push({
+            numero_tarefa: arrayNumeroTarefa[i],
+            total_tempo_setup: somaTotalSetup
+        });
+
+    }
+
+    return vetTotalTempoSetupDoNumeroTarefa;
+}
 
 function removerDupliados(arrayRemover) {
     return arrayRemover.filter((dados, index) => arrayRemover.indexOf(dados) === index);
@@ -224,5 +256,7 @@ export {
     encontrarNumeroTarefasIguaisEmDoisMeses,
     encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses,
     removerDupliados,
-    calcularOTempoDeSetupDasDatasDeUmMes
+    calcularOTempoDeSetupDasDatasDeUmMes,
+    totalTarefasENaoCompletasNoMes,
+    calcularTotalTempoSetupDeCadaTarefaNoMes
 }

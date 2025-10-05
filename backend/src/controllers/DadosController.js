@@ -9,7 +9,9 @@ import {
     somarTotalDeTempoProducaoNoMes,
     encontrarNumeroTarefasIguaisEmDoisMeses,
     encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses,
-    calcularOTempoDeSetupDasDatasDeUmMes
+    calcularOTempoDeSetupDasDatasDeUmMes,
+    totalTarefasENaoCompletasNoMes,
+    calcularTotalTempoSetupDeCadaTarefaNoMes
 } from "../helpers/funcoes.js";
 
 //vetores de cadas tipo de tecido
@@ -242,6 +244,40 @@ const totalTempoSetupPorDiaDoMesProduzido = async function (request, response) {
 
 }
 
+const totalTarefasCompletasENaoCompletasNoMes = async function (request, response) {
+
+    const mes = request.params.mes;
+    const ano = request.params.ano;
+
+    try {
+        return response.json(totalTarefasENaoCompletasNoMes(await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`)));
+    }
+    catch (e) {
+        return response.json(e);
+    }
+
+}
+
+const totalTempoSetupPorNumeroTarefa = async function (request, response) {
+
+    const mes = request.params.mes;
+    const ano = request.params.ano;
+
+    try {
+
+        const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
+
+        const vetNumeroTarefasNoMes = dados.map((dados) => dados.numero_da_tarefa);
+        const removerDuplicadosNumeroTarefa = removerDupliados(vetNumeroTarefasNoMes);
+
+        return response.json(calcularTotalTempoSetupDeCadaTarefaNoMes(dados, removerDuplicadosNumeroTarefa));
+    }
+    catch (e) {
+        return response.json(e);
+    }
+
+}
+
 export {
     dadosMesEscolhido,
     dadosDeCadaDiaDoMesQtdProduzida,
@@ -249,5 +285,7 @@ export {
     totalMetrosPorNumeroTarefaPorMes,
     pegarTodosOsDadosDoMesSelecionado,
     diferencaMensalEntreDoisMeses,
-    totalTempoSetupPorDiaDoMesProduzido
+    totalTempoSetupPorDiaDoMesProduzido,
+    totalTarefasCompletasENaoCompletasNoMes,
+    totalTempoSetupPorNumeroTarefa
 };

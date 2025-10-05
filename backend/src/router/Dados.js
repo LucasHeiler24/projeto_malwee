@@ -6,7 +6,9 @@ import {
     totalMetrosPorNumeroTarefaPorMes,
     pegarTodosOsDadosDoMesSelecionado,
     diferencaMensalEntreDoisMeses,
-    totalTempoSetupPorDiaDoMesProduzido
+    totalTempoSetupPorDiaDoMesProduzido,
+    totalTarefasCompletasENaoCompletasNoMes,
+    totalTempoSetupPorNumeroTarefa
 } from "../controllers/DadosController.js";
 
 const router = Router();
@@ -19,6 +21,8 @@ router.get('/dados-total-tempo-setup-de-cada-dia-do-mes/mes/:mes/ano/:ano', tota
 //rota pros gráficos
 router.get('/dados-total-tempo-producao-por-dia-durante-o-mes/mes/:mes/ano/:ano', totalMetrosPorNumeroTarefaPorMesPorDia);
 router.get('/dados-total-metros-por-numero-da-tarefa-do-mes/mes/:mes/ano/:ano', totalMetrosPorNumeroTarefaPorMes);
+router.get('/dados-total-tarefas-completas-e-nao-completas/mes/:mes/ano/:ano', totalTarefasCompletasENaoCompletasNoMes);
+router.get('/dados-total-tempo-setup-por-numero-tarefa/mes/:mes/ano/:ano', totalTempoSetupPorNumeroTarefa);
 
 //rota para o historico
 router.get('/dados-por-mes/mes/:mes/ano/:ano', pegarTodosOsDadosDoMesSelecionado)
