@@ -17,4 +17,6 @@ app.use(
 app.use("/dados", router);
 app.use("/user", routerUser);
 
-app.listen(8000);
+app.listen(8000, () =>{
+  console.log("Servidor rodando em: http://localhost:8000");
+});
