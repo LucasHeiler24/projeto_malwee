@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gráficos</title>
+  <link rel="stylesheet" href="./css/master.css" />
+  <link rel="stylesheet" href="./css/graficos.css" />
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="./images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+        <h2>Olá Lucas</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="contraste">
+            <img src="./images/hub-icon.png" width="20" height="20" />
+            <a href="./index.html">
+              Início
+            </a>
+          </li>
+          <li id="item-ativo" class="contraste">
+            <img src="./images/grafico-icon.png" width="20" height="20" />
+            <a href="./graficos.html">
+              Gráficos
+            </a>
+          </li>
+          <li class="contraste">
+            <img src="./images/difference-icon.png" width="20" height="20" />
+            <a href="./diferenca_mensal.html">
+              Diferença mensal
+            </a>
+          </li>
+          <li class="contraste">
+            <img src="./images/history-icon.png" width="20" height="20" />
+            <a href="./historico.html">
+              Histórico
+            </a>
+          </li>
+          <li class="contraste">
+            <img src="./images/arrow-back.png" width="20" height="20" />
+            <a href="./login.html">
+              Log-out
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <section class="section-info">
+        <h1>Gráficos</h1>
+      </section>
+
+      <section class="section-selecionar-mes">
+        <div class="div-selecionar-mes">
+          <button id="btnDiminuirMes">
+            < </button>
+              <h1 id="mesSelecionado"></h1>
+              <button id="btnAumentarMes">></button>
+        </div>
+
+        <div class="div-selecionar-ano">
+          <button id="btnDiminuirAno">-</button>
+          <h1 id="anoSelecionado"></h1>
+          <button id="btnAumentarAno">+</button>
+        </div>
+      </section>
+
+      <section class="section-primeiros-graficos">
+        <div class="div-total-primeiros-graficos">
+          <h1>Gráfico total de metros produzidos por tipo de tecido</h1>
+          <div class="grafico-pizza-total-tipo-tecido">
+            <canvas id="graficoPizzaTotalTipoProduzido"></canvas>
+          </div>
+        </div>
+
+        <div class="div-total-primeiros-graficos">
+          <h1>Gráfico total de tarefas completas e não completas</h1>
+          <div class="grafico-barra-tarefas-completas">
+            <canvas id="graficoBarraTarefasCompletas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-grafico">
+        <h1>Gráfico total de tempo de produção por dia nesse mês</h1>
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoBarTempoProduzido"></canvas>
+        </div>
+      </section>
+
+      <section class="section-grafico">
+        <h1>Total metros produzidos por número tarefa no mês</h1>
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoLinhaTotalTempoTarefa"></canvas>
+        </div>
+      </section>
+
+      <section class="section-grafico">
+        <h1>Total por dia de tempo de produção por tarefa</h1>
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoLinhaTempoProduzidoPorTarefa"></canvas>
+        </div>
+      </section>
+
+      <section class="section-grafico">
+        <h1>Total por número de tarefa de tempo de setup</h1>
+        <div class="grafico-linha-meses" style="width: 1000px">
+          <canvas id="graficoLinhaTempoSetupPorTarefa"></canvas>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="./js/graficos.js"></script>
+
+</html>
