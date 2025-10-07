@@ -17,13 +17,16 @@ import {
 //Esse controller pega o total de producao feita por cada tipo de tecido
 const dadosMesEscolhido = async function (request, response) {
 
+    //aqui guarda os paramêtros passados na url
     const mes = request.params.mes;
     const ano = request.params.ano;
 
     try {
 
+        //faço a conexão com o banco com parâmetros vindos na url
         const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
 
+        //retorno a soma de metros produzidos por tipo de tecido
         return response.json(somarTotalMetrosPorTiposDeTecidosNoMes(dados));
     }
     catch (e) {
@@ -41,10 +44,13 @@ const dadosDeCadaDiaDoMesQtdProduzida = async function (request, response) {
 
         const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
 
+        //pego somente as datas vindos dos dados do banco
         let vetDadosDeCadaDiaDoMes = dados.map((registros) => registros.data_historico.split(' ')[0]);
-
+    
+        //removo as datas duplicadas
         let removerDatasDuplicadas = removerDupliados(vetDadosDeCadaDiaDoMes);
 
+        //retorno o total de metros produzidos pelo dia do mês
         return response.json(pegarTotalDeMetrosPorDiaPeloMes(dados, removerDatasDuplicadas));
 
     }
