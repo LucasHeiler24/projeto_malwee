@@ -30,7 +30,7 @@ async function conectarBd() {
       database: "novoBd",
       password: "root",
       user: "root",
-      port: 3307
+      port: 3306
     });
     global.conexao = conexao;
     return conexao;
