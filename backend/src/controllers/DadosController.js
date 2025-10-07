@@ -11,7 +11,9 @@ import {
     totalTarefasENaoCompletasNoMes,
     calcularTotalTempoSetupDeCadaTarefaNoMes,
     somarTotalMetrosPorTiposDeTecidosNoMes,
-    pegarTotalDeMetrosPorDiaPeloMes
+    pegarTotalDeMetrosPorDiaPeloMes,
+    somarTempoDeSetupPorCadaDiaDoMes,
+    somarTotalTempoSetupNoMes
 } from "../helpers/funcoes.js";
 
 //Esse controller pega o total de producao feita por cada tipo de tecido
@@ -138,10 +140,13 @@ const diferencaMensalEntreDoisMeses = async function (request, response) {
         //total soma metros de cada mês
         let totalSomaMetrosMes1 = somarTotalDeMetrosProduzidosNoMes(dadosDate1);
         let totalSomaMetrosMes2 = somarTotalDeMetrosProduzidosNoMes(dadosDate2);
-
+        
         //total soma tempo produção de cada mês
         let totalSomaTempoProducao1 = somarTotalDeTempoProducaoNoMes(dadosDate1);
         let totalSomaTempoProducao2 = somarTotalDeTempoProducaoNoMes(dadosDate2);
+        
+        let totalSomaTempoSetupMes1 = somarTotalTempoSetupNoMes(dadosDate1);
+        let totalSomaTempoSetupMes2 = somarTotalTempoSetupNoMes(dadosDate2);
 
         //aqui eu pego de cada mês a quantidade de metros produzidos que cada número de tarefa fez 
         let vetDadosDeCadaDiaDoMes1 = dadosDate1.map((registros) => registros.numero_da_tarefa);
@@ -170,6 +175,8 @@ const diferencaMensalEntreDoisMeses = async function (request, response) {
             totalSomaMetrosMes2,
             totalSomaTempoProducao1,
             totalSomaTempoProducao2,
+            totalSomaTempoSetupMes1,
+            totalSomaTempoSetupMes2,
             vetNumTarefaMes1,
             vetNumTarefaMes2,
             vetTempoProducao1,
@@ -226,15 +233,37 @@ const totalTempoSetupPorNumeroTarefa = async function (request, response) {
     try {
 
         const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
-
+        
         const vetNumeroTarefasNoMes = dados.map((dados) => dados.numero_da_tarefa);
         const removerDuplicadosNumeroTarefa = removerDupliados(vetNumeroTarefasNoMes);
-
+        
         return response.json(calcularTotalTempoSetupDeCadaTarefaNoMes(dados, removerDuplicadosNumeroTarefa));
     }
     catch (e) {
         return response.json(e);
     }
+    
+}
+
+const calcularTempoSetupPorDiaDoMes = async function(request, response){
+    
+    const mes = request.params.mes;
+    const ano = request.params.ano;
+    
+    try{
+        
+        const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
+
+        const vetDeCadaDiaDoMes = dados.map((dados) => dados.data_historico.split(' ')[0]);
+
+        const removerDatasDuplicadas = removerDupliados(vetDeCadaDiaDoMes);
+
+        return response.json(somarTempoDeSetupPorCadaDiaDoMes(dados, removerDatasDuplicadas));
+    }
+    catch(e){
+        return response.json(e);
+    }
+
 
 }
 
@@ -247,5 +276,6 @@ export {
     diferencaMensalEntreDoisMeses,
     totalTempoSetupPorDiaDoMesProduzido,
     totalTarefasCompletasENaoCompletasNoMes,
-    totalTempoSetupPorNumeroTarefa
+    totalTempoSetupPorNumeroTarefa,
+    calcularTempoSetupPorDiaDoMes
 };

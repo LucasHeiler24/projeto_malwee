@@ -301,6 +301,46 @@ function calcularTotalTempoSetupDeCadaTarefaNoMes(arrayDados, arrayNumeroTarefa)
     return vetTotalTempoSetupDoNumeroTarefa;
 }
 
+
+function somarTempoDeSetupPorCadaDiaDoMes(arrayDados, arrayDatas){
+
+
+    let vetSomaDeTempoSetupPorDiaDoMes = [];
+
+    for(let i=0; i<arrayDatas.length; i++){
+
+        let somaTempoSetup = arrayDados.reduce((somaSetup, dados) => {
+            if(dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE')
+                somaSetup += dados.tempo_de_setup;
+            
+            return somaSetup;
+        }, 0);
+
+        vetSomaDeTempoSetupPorDiaDoMes.push(
+            {
+                data_historico: arrayDatas[i],
+                tempo_de_setup: somaTempoSetup
+            }
+        );
+
+    }
+
+    return vetSomaDeTempoSetupPorDiaDoMes;
+
+}
+
+function somarTotalTempoSetupNoMes(arrayDados){
+
+    return arrayDados.reduce((somaTotalTempoSetup, dados) => {
+        if(dados.tarefa_completa == 'TRUE')
+            somaTotalTempoSetup += dados.tempo_de_setup;
+        
+        return somaTotalTempoSetup;
+    }, 0)
+
+}
+
+
 function removerDupliados(arrayRemover) {
     return arrayRemover.filter((dados, index) => arrayRemover.indexOf(dados) === index);
 }
@@ -317,5 +357,7 @@ export {
     calcularOTempoDeSetupDasDatasDeUmMes,
     totalTarefasENaoCompletasNoMes,
     calcularTotalTempoSetupDeCadaTarefaNoMes,
-    somarTotalMetrosPorTiposDeTecidosNoMes
+    somarTotalMetrosPorTiposDeTecidosNoMes,
+    somarTempoDeSetupPorCadaDiaDoMes,
+    somarTotalTempoSetupNoMes
 }
