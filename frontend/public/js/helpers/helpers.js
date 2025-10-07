@@ -7,7 +7,15 @@ const formater = new Intl.NumberFormat('pt-BR', {
 });
 
 const formatarDataParaOsGraficos = (date) => {
-    return new Date(date).toLocaleDateString();
+    let vetDataFatiada = date.split('-');
+
+    return `${vetDataFatiada[2]}/${vetDataFatiada[1]}/${vetDataFatiada[0]}`
+}
+
+const formatarDatasEntreOsMeses = (date) => {
+    let vetDataFatiada = date.split('-');
+
+    return `${vetDataFatiada[1]}/${vetDataFatiada[0]}`
 }
 
 let anoAtual = new Date().getFullYear();
@@ -73,5 +81,6 @@ export {
     encontrarIndexRegistrosPeloTipoTecido,
     filterRegistrosPeloTipoTecido,
     filterRegistrosPeloNumeroTarefa,
-    formatarDataParaOsGraficos
+    formatarDataParaOsGraficos,
+    formatarDatasEntreOsMeses
 };

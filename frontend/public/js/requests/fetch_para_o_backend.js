@@ -141,6 +141,23 @@ async function getTotalTempoSetupPorNumeroTarefaNoMes(sAno, sMes) {
 
 }
 
+async function getTotalTempoSetupDeCadaDiaDoMes(sAno, sMes){
+
+    try{
+
+        const response = await fetch(`
+            ${URL_API}/dados-total-tempo-setup-por-dia-do-mes/mes/${sMes}/ano/${sAno}
+        `);
+
+        return await response.json();
+
+    }
+    catch(e){
+        return e;
+    }
+
+}
+
 async function getTotalTarefasCompletasENaoCompletas(sAno, sMes) {
 
     try {
@@ -167,5 +184,6 @@ export {
     getDadosDiferencaMensal,
     getTotalTempoSetupPorDiaDoMes,
     getTotalTempoSetupPorNumeroTarefaNoMes,
-    getTotalTarefasCompletasENaoCompletas
+    getTotalTarefasCompletasENaoCompletas,
+    getTotalTempoSetupDeCadaDiaDoMes
 }

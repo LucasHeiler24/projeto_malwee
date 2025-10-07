@@ -21,7 +21,8 @@ import {
   getQuantidadeTempoDeProducaoPorDia,
   getQuantidadeMetrosPorTecido,
   getTotalTempoSetupPorNumeroTarefaNoMes,
-  getTotalTarefasCompletasENaoCompletas
+  getTotalTarefasCompletasENaoCompletas,
+  getTotalTempoSetupDeCadaDiaDoMes
 } from "./requests/fetch_para_o_backend.js";
 
 import construirGrafico from "./graphics/construir_grafico.js";
@@ -33,12 +34,14 @@ window.onload = function () {
   let graficoPizzaTotalTipoTecido;
   let graficoBarraTarefasCompletasOuNao;
   let graficoLinhaTotalTempoSetupPorNumeroTarefa;
+  let grafioLinhaTotalTempoSetupPorDiaDoMes;
 
   let dadosPrimeiroGraficoLinha;
   let dadosPrimeiroGraficoBarra;
   let dadosGraficoPizzaTotalTipoTecido;
   let dadosGraficoTarefasCompletasOuNao;
   let dadosGraficoTotalTempoSetupPorNumeroTarefa;
+  let dadosGraficoTotalTempoSetupPorDiaDoMes;
 
   let mesSelecionadoUser = mesAtual;
   let mesAnteriorUser = anteriorMesAtual;
@@ -71,6 +74,10 @@ window.onload = function () {
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
     );
+    dadosGraficoTotalTempoSetupPorDiaDoMes = await getTotalTempoSetupDeCadaDiaDoMes(
+      anoAtualUser,
+      (mesSelecionadoUser + 1).toString().padStart(2, 0)
+    )
   }
 
   function chamarConstrucaoDosGraficos() {
@@ -80,6 +87,7 @@ window.onload = function () {
     criarGraficoPizzaTotalTipoTecidoNoMes();
     construirGraficoBarraTarefasCompletasOuNaoCompletas();
     construirGraficoLinhaTotalTempoSetupPorNumeroTarefa();
+    construirGraficoLinhaDeTempoDeSetupPorDiaDoMes();
   }
 
   const anoSelecionado = $("#anoSelecionado");
@@ -331,7 +339,6 @@ window.onload = function () {
   const graficoLinhaTempoSetupPorTarefa = document.getElementById('graficoLinhaTempoSetupPorTarefa');
   function construirGraficoLinhaTotalTempoSetupPorNumeroTarefa() {
 
-    console.log(graficoLinhaTotalTempoSetupPorNumeroTarefa);
     if (graficoLinhaTotalTempoSetupPorNumeroTarefa) graficoLinhaTotalTempoSetupPorNumeroTarefa.destroy();
 
     let data = {
@@ -359,6 +366,53 @@ window.onload = function () {
     }
 
     graficoLinhaTotalTempoSetupPorNumeroTarefa = construirGrafico(options, data, graficoLinhaTempoSetupPorTarefa, 'line');
+  }
+
+
+  const graficoBarraTempoSetupPorDiaDoMes = document.getElementById('graficoBarraTempoSetupPorDiaDoMes');
+  function construirGraficoLinhaDeTempoDeSetupPorDiaDoMes(){
+
+    if(grafioLinhaTotalTempoSetupPorDiaDoMes)
+        grafioLinhaTotalTempoSetupPorDiaDoMes.destroy();
+
+
+    let data = {
+      labels: dadosGraficoTotalTempoSetupPorDiaDoMes.map((dados) => formatarDataParaOsGraficos(dados.data_historico)),
+      datasets: [
+        {
+          label: "Total de tempo de setup",
+          data: dadosGraficoTotalTempoSetupPorDiaDoMes.map((dados) => dados.tempo_de_setup),
+          borderWidth: 1,
+          backgroundColor: vetCoresParaOsGraficos
+        }
+      ]
+    }
+
+    let options = {
+      scales: {
+        y: {
+          grid: {
+            display: false,
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          }
+        }
+      },
+      plugins: {
+        display: true,
+        legend: {
+          display: false,
+          labels: {
+            color: Chart.defaults.color = '#fff'
+          }
+        }
+      }
+    }
+
+    grafioLinhaTotalTempoSetupPorDiaDoMes = construirGrafico(options, data, graficoBarraTempoSetupPorDiaDoMes, 'bar');
   }
 
   (async () => {
