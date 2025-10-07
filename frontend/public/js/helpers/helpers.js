@@ -6,6 +6,10 @@ const formater = new Intl.NumberFormat('pt-BR', {
     style: 'decimal',
 });
 
+const formatarDataParaOsGraficos = (date) => {
+    return new Date(date).toLocaleDateString();
+}
+
 let anoAtual = new Date().getFullYear();
 let getMesAtual = new Date().getMonth();
 
@@ -54,6 +58,7 @@ function filterRegistrosPeloNumeroTarefa(arrayRegistros, numeroTarefa) {
     return arrayRegistros.filter((dados) => dados.numero_da_tarefa == parseInt(numeroTarefa));
 }
 
+
 export {
     formater,
     anoAtual,
@@ -67,5 +72,6 @@ export {
     vetCoresParaOsGraficos2,
     encontrarIndexRegistrosPeloTipoTecido,
     filterRegistrosPeloTipoTecido,
-    filterRegistrosPeloNumeroTarefa
+    filterRegistrosPeloNumeroTarefa,
+    formatarDataParaOsGraficos
 };

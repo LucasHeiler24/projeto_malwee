@@ -1,6 +1,7 @@
 import {
   anoAtual,
   anteriorMesAtual,
+  formatarDataParaOsGraficos,
   mesAtual,
   proximoMesAtual,
   vetCoresParaOsGraficos,
@@ -141,7 +142,7 @@ window.onload = function () {
     if (grafico1) grafico1.destroy();
 
     let data = {
-      labels: dadosPrimeiroGraficoBarra.map((dados) => dados.data_historico),
+      labels: dadosPrimeiroGraficoBarra.map((dados) => formatarDataParaOsGraficos(dados.data_historico)),
       datasets: [
         {
           label: "Quantidade de tempo de produção",

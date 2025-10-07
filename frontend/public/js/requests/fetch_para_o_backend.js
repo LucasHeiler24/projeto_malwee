@@ -28,9 +28,7 @@ async function getQuantidadeMetrosProduzidoPorDia(sAno, sMes) {
                 headers: { 'Content-Type': 'application/json' }
             })
 
-        const { vetDadosMetrosPorDia } = await response.json();
-
-        return vetDadosMetrosPorDia;
+        return await response.json();
     }
     catch (e) {
         return e;

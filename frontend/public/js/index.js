@@ -4,7 +4,7 @@ import {
     getTotalTempoSetupPorDiaDoMes
 } from "./requests/fetch_para_o_backend.js"
 
-import { formater, vetCoresParaOsGraficos, vetCoresParaOsGraficos2 } from "./helpers/helpers.js";
+import { formatarDataParaOsGraficos, formater, vetCoresParaOsGraficos, vetCoresParaOsGraficos2 } from "./helpers/helpers.js";
 
 import construirGrafico from "./graphics/construir_grafico.js";
 
@@ -17,11 +17,12 @@ window.onload = function () {
 
     function construirGraficoPorMesesDeMetrosPorDia(qtdMetrosPorTarefaProduzidoMes) {
 
+        console.log(qtdMetrosPorTarefaProduzidoMes);
         if (graficoPizzaMetrosProduzidos)
             graficoPizzaMetrosProduzidos.destroy();
 
         let data = {
-            labels: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.diaDoMes),
+            labels: qtdMetrosPorTarefaProduzidoMes.map((dados) => formatarDataParaOsGraficos(dados.diaDoMes)),
             datasets: [{
                 label: "Quantidade de metros produzido",
                 data: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.somaPorDia),
@@ -64,7 +65,7 @@ window.onload = function () {
             graficoRoscaTempoSetup.destroy();
 
         let data = {
-            labels: arrayDadosPorSetup.map((dados) => dados.dia_do_mes),
+            labels: arrayDadosPorSetup.map((dados) => formatarDataParaOsGraficos(dados.dia_do_mes)),
             datasets: [{
                 label: "Quantidade de tempo de setup",
                 data: arrayDadosPorSetup.map((dados) => dados.total_tempo_setup),
@@ -137,8 +138,10 @@ window.onload = function () {
         const qtdMetrosPorDiaProduzido = await getQuantidadeMetrosProduzidoPorDia(ultimoAno, ultimoMes);
         const qtdDeDiaTempoSetup = await getTotalTempoSetupPorDiaDoMes(ultimoAno, ultimoMes);
 
+        console.log(qtdMetrosPorDiaProduzido);
         construirGraficoPorMesesDeMetrosPorDia(qtdMetrosPorDiaProduzido);
         contruirGraficoRoscaPorTempoDeSetup(qtdDeDiaTempoSetup);
+
         construirCardsDeTipoDeTecido(qtdMetrosPorTipoTecido);
     })()
 

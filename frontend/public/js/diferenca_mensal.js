@@ -1,5 +1,5 @@
 import construirGrafico from "./graphics/construir_grafico.js";
-import { formatarDatas, formater } from "./helpers/helpers.js";
+import { formatarDataParaOsGraficos, formatarDatas, formater } from "./helpers/helpers.js";
 import { getDadosDiferencaMensal } from "./requests/fetch_para_o_backend.js";
 
 window.onload = function () {
@@ -23,7 +23,7 @@ window.onload = function () {
             graficoTotalMetrosNosMeses.destroy();
 
         let data = {
-            labels: [primeiraData, segundaData],
+            labels: [formatarDataParaOsGraficos(primeiraData), formatarDataParaOsGraficos(segundaData)],
             datasets: [{
                 label: "Total metros produzido",
                 data: [totalMetrosMes1, totalMetrosMes2],
@@ -58,7 +58,7 @@ window.onload = function () {
             graficoTotalTempoProducaoNosMeses.destroy();
 
         let data = {
-            labels: [primeiraData, segundaData],
+            labels: [formatarDataParaOsGraficos(primeiraData), formatarDataParaOsGraficos(segundaData)],
             datasets: [{
                 label: "Total tempo produzido",
                 data: [totalTempoMes1, totalTempoMes2],
@@ -92,15 +92,15 @@ window.onload = function () {
             graficoLinhaTotalTempoProduzidoNosMeses.destroy();
 
         let data = {
-            labels: arrayTotalTempoProduzidoDados1.map((dados) => dados.data_producao),
+            labels: arrayTotalTempoProduzidoDados1.map((dados) => formatarDataParaOsGraficos(dados.data_producao)),
             datasets: [
                 {
-                    label: `Mês ${primeiraData}`,
+                    label: `Mês ${formatarDataParaOsGraficos(primeiraData)}`,
                     data: arrayTotalTempoProduzidoDados1.map((dados) => dados.tempo_producao),
                     borderWidth: 1
                 },
                 {
-                    label: `Mês ${segundaData}`,
+                    label: `Mês ${formatarDataParaOsGraficos(segundaData)}`,
                     data: arrayTotalTempoProduzidoDados2.map((dados) => dados.tempo_producao),
                     borderWidth: 1
                 }
@@ -115,7 +115,7 @@ window.onload = function () {
                             return '';
                         },
                         label: function (itemToltip) {
-                            return `${itemToltip.dataset.label} produziu: ${formater.format(itemToltip.raw)}`;
+                            return `${formatarDataParaOsGraficos(itemToltip.dataset.label)} produziu: ${formater.format(itemToltip.raw)}`;
                         }
                     }
                 }
@@ -135,12 +135,12 @@ window.onload = function () {
             labels: arrayTotalMetros1.map((dados) => dados.numero_tarefa),
             datasets: [
                 {
-                    label: `Mês ${primeiraData}`,
+                    label: `Mês ${formatarDataParaOsGraficos(primeiraData)}`,
                     data: arrayTotalMetros1.map((dados) => dados.total_metros),
                     borderWidth: 1
                 },
                 {
-                    label: `Mês ${segundaData}`,
+                    label: `Mês ${formatarDataParaOsGraficos(segundaData)}`,
                     data: arrayTotalMetros2.map((dados) => dados.total_metros),
                     borderWidth: 1
                 }
