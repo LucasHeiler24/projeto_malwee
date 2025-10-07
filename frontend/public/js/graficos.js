@@ -313,6 +313,14 @@ window.onload = function () {
       plugins: {
         legend: {
           display: false
+        },
+        tooltip:{
+          callbacks:{
+            label: (itenTooltip) => {
+              return `${itenTooltip.label}: ${itenTooltip.raw}`;
+            }
+          } 
+
         }
       }
     }
