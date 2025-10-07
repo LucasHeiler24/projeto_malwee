@@ -1,7 +1,5 @@
 import { pegarDadosMesEAnoEscolhido } from "../database/EntidadeDados.js";
 import {
-    separarDiasDifrentesEntreDatasVetor,
-    pegarTotalDeMetrosPorDiaPeloMes,
     pegarTotalDeMetrosPorDiaEProduPeloMes,
     removerDupliados,
     calcularQuantidadeTempoProducaoPorDia,
@@ -11,15 +9,10 @@ import {
     encontrarDiasIguaisEmTempoDeProducaoEmDoisMeses,
     calcularOTempoDeSetupDasDatasDeUmMes,
     totalTarefasENaoCompletasNoMes,
-    calcularTotalTempoSetupDeCadaTarefaNoMes
+    calcularTotalTempoSetupDeCadaTarefaNoMes,
+    somarTotalMetrosPorTiposDeTecidosNoMes,
+    pegarTotalDeMetrosPorDiaPeloMes
 } from "../helpers/funcoes.js";
-
-//vetores de cadas tipo de tecido
-let vetTiposTecidos =
-    [
-        'Meia Malha', 'Cotton', 'Punho Pun',
-        'Punho New', 'Punho San', 'Punho Elan'
-    ];
 
 //Esse controller pega o total de producao feita por cada tipo de tecido
 const dadosMesEscolhido = async function (request, response) {
@@ -31,25 +24,7 @@ const dadosMesEscolhido = async function (request, response) {
 
         const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
 
-        const somaDeMetrosProduzidosPorTipoTecido = [];
-
-        for (let i = 0; i < 6; i++) {
-            let qtdDeMetrosProduzidos = 0;
-
-            for (let j = 0; j < dados.length; j++) {
-                if (dados[j].tipo_tecido == i && dados[j].tarefa_completa == 'TRUE')
-                    qtdDeMetrosProduzidos += dados[j].metros_produzidos;
-            }
-
-            somaDeMetrosProduzidosPorTipoTecido.push(
-                {
-                    tipo_tecido: vetTiposTecidos[i],
-                    qtd_metros_produzidos: qtdDeMetrosProduzidos
-                }
-            );
-        }
-
-        return response.json(somaDeMetrosProduzidosPorTipoTecido);
+        return response.json(somarTotalMetrosPorTiposDeTecidosNoMes(dados));
     }
     catch (e) {
         return response.json(e);
@@ -66,32 +41,11 @@ const dadosDeCadaDiaDoMesQtdProduzida = async function (request, response) {
 
         const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
 
-        let vetDadosDeCadaDiaDoMes = separarDiasDifrentesEntreDatasVetor(dados);
+        let vetDadosDeCadaDiaDoMes = dados.map((registros) => registros.data_historico.split(' ')[0]);
 
-        let vetDadosMetrosPorDia = [];
+        let removerDatasDuplicadas = removerDupliados(vetDadosDeCadaDiaDoMes);
 
-        for (let i = 0; i < vetDadosDeCadaDiaDoMes.length; i++) {
-
-            let existe = vetDadosMetrosPorDia.find((dados, j) => {
-                return dados.diaDoMes == vetDadosDeCadaDiaDoMes[i][j].data_historico.split(' ')[0];
-            });
-
-            if (!existe) {
-                let diaDoMes;
-                let somaPorDia = vetDadosDeCadaDiaDoMes[i].reduce((somaDeCadaDia, dados) => {
-                    diaDoMes = dados.data_historico.split(' ')[0];
-
-                    if (dados.tarefa_completa == 'TRUE')
-                        somaDeCadaDia += dados.metros_produzidos;
-
-                    return somaDeCadaDia;
-                }, 0);
-
-                vetDadosMetrosPorDia.push({ diaDoMes, somaPorDia })
-            }
-        }
-
-        return response.json({ vetDadosMetrosPorDia });
+        return response.json(pegarTotalDeMetrosPorDiaPeloMes(dados, removerDatasDuplicadas));
 
     }
     catch (e) {

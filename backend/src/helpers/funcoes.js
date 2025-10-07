@@ -1,57 +1,56 @@
-function separarDiasDifrentesEntreDatasVetor(arrayDados) {
+//vetores de cadas tipo de tecido
+let vetTiposTecidos =
+    [
+        'Meia Malha', 'Cotton', 'Punho Pun',
+        'Punho New', 'Punho San', 'Punho Elan'
+    ];
 
-    let qtdDiasDiferentes = 0;
-    let posProximoDiaDferente = 0;
-    let vetIndiceDosDiasDiferentes = [];
+function somarTotalMetrosPorTiposDeTecidosNoMes(dados){
+    const somaDeMetrosProduzidosPorTipoTecido = [];
 
-    for (let i = 0; i < arrayDados.length; i++) {
-        if (arrayDados[posProximoDiaDferente].data_historico.split(' ')[0] != arrayDados[i].data_historico.split(' ')[0] || i == 0) {
-            qtdDiasDiferentes++;
-            vetIndiceDosDiasDiferentes.push(i);
-            posProximoDiaDferente = i;
-        }
-    }
+    for (let i = 0; i < 6; i++) {
 
-    const vetDadosDeCadaDiaDoMes = [];
+        let qtdMetrosProduzidosPorTiposTecidos = dados.reduce((somaMetrosPorTecido, regitros) => {
 
-    for (let i = 0; i < qtdDiasDiferentes; i++) {
-        vetDadosDeCadaDiaDoMes.push(
-            arrayDados.filter((registros) => {
-                return registros.data_historico.split(' ')[0] == arrayDados[vetIndiceDosDiasDiferentes[i]].data_historico.split(' ')[0]
-            })
+            if(regitros.tipo_tecido == i && regitros.tarefa_completa == 'TRUE')
+                somaMetrosPorTecido += regitros.metros_produzidos;
+
+            return somaMetrosPorTecido;
+        }, 0);
+
+        somaDeMetrosProduzidosPorTipoTecido.push(
+            {
+                tipo_tecido: vetTiposTecidos[i],
+                qtd_metros_produzidos: qtdMetrosProduzidosPorTiposTecidos
+            }
         );
     }
 
-    return vetDadosDeCadaDiaDoMes;
+    return somaDeMetrosProduzidosPorTipoTecido;
 }
 
-function pegarTotalDeMetrosPorDiaPeloMes(vetDadosDeCadaDiaDoMes) {
+function pegarTotalDeMetrosPorDiaPeloMes(vetDadosDeCadaDiaDoMes, vetDatas) {
 
-    let vetTotalENumeroTarefa = [];
-    for (let i = 0; i < vetDadosDeCadaDiaDoMes.length; i++) {
+    let vetTotalMetrosPorDiaDoMes = [];
+    
+    for(let i=0; i<vetDatas.length; i++){
+        let somaMetrosPorDia = vetDadosDeCadaDiaDoMes.reduce((somaTotalMetros, regitros) => {
+            if(regitros.data_historico.split(' ')[0] == vetDatas[i] && regitros.tarefa_completa == 'TRUE')
+                somaTotalMetros += regitros.metros_produzidos;
 
-        let existe = vetTotalENumeroTarefa.find((dados, j) => {
-            return dados.data_historico == vetDadosDeCadaDiaDoMes[i][j].data_historico.split(' ')[0];
-        });
+            return somaTotalMetros;
+        }, 0);
 
-        if (!existe) {
-            let data_historico = vetDadosDeCadaDiaDoMes[i][0].data_historico.split(' ')[0];
+        vetTotalMetrosPorDiaDoMes.push(
+            {
+                diaDoMes: vetDatas[i],
+                somaPorDia: somaMetrosPorDia
+            }
+        )
 
-            let somaTempoProducao = vetDadosDeCadaDiaDoMes[i].reduce((somaProducao, dados) => {
-                if (dados.tarefa_completa == 'TRUE') {
-                    somaProducao += dados.tempo_de_producao;
-                }
-                return somaProducao;
-            }, 0);
-
-            vetTotalENumeroTarefa.push({
-                data_historico,
-                tempo_producao: somaTempoProducao
-            });
-        }
     }
 
-    return vetTotalENumeroTarefa;
+    return vetTotalMetrosPorDiaDoMes;
 }
 
 function pegarTotalDeMetrosPorDiaEProduPeloMes(numerosTarefa, vetDadosDeCadaDiaDoMes) {
@@ -247,7 +246,6 @@ function removerDupliados(arrayRemover) {
 }
 
 export {
-    separarDiasDifrentesEntreDatasVetor,
     pegarTotalDeMetrosPorDiaPeloMes,
     pegarTotalDeMetrosPorDiaEProduPeloMes,
     calcularQuantidadeTempoProducaoPorDia,
@@ -258,5 +256,6 @@ export {
     removerDupliados,
     calcularOTempoDeSetupDasDatasDeUmMes,
     totalTarefasENaoCompletasNoMes,
-    calcularTotalTempoSetupDeCadaTarefaNoMes
+    calcularTotalTempoSetupDeCadaTarefaNoMes,
+    somarTotalMetrosPorTiposDeTecidosNoMes
 }
