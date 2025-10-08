@@ -66,6 +66,10 @@ function filterRegistrosPeloNumeroTarefa(arrayRegistros, numeroTarefa) {
     return arrayRegistros.filter((dados) => dados.numero_da_tarefa == parseInt(numeroTarefa));
 }
 
+function filterRegistrosPorId(arrayRegistros, idRegistro) {
+    return arrayRegistros.find((dados) => dados.id_dado == parseInt(idRegistro));
+}
+
 
 export {
     formater,
@@ -82,5 +86,6 @@ export {
     filterRegistrosPeloTipoTecido,
     filterRegistrosPeloNumeroTarefa,
     formatarDataParaOsGraficos,
-    formatarDatasEntreOsMeses
+    formatarDatasEntreOsMeses,
+    filterRegistrosPorId
 };

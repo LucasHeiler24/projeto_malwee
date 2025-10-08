@@ -6,7 +6,8 @@ import {
     mesAtual,
     encontrarIndexRegistrosPeloTipoTecido,
     filterRegistrosPeloTipoTecido,
-    filterRegistrosPeloNumeroTarefa
+    filterRegistrosPeloNumeroTarefa,
+    filterRegistrosPorId
 } from "./helpers/helpers.js";
 
 import { getRegistrosHistoricoMesEscolhido } from "./requests/fetch_para_o_backend.js"
@@ -98,6 +99,8 @@ window.onload = function () {
         construirCardsHistoricos(dadosRegistros);
     });
 
+    let btnsRegistrosAbrirModal;
+
     function construirCardsHistoricos(arrayDados) {
 
         cardsHistoricos.empty();
@@ -124,7 +127,7 @@ window.onload = function () {
                     </div>
 
                     <div class="card-footer">
-                        <button value="${registros.id_dado}">Ver mais</button>
+                        <button class="btn-open-modal" value="${registros.id_dado}">Ver mais</button>
                     </div>
 
                 </div>
@@ -132,8 +135,52 @@ window.onload = function () {
             `);
 
         });
+        
+        btnsRegistrosAbrirModal = document.querySelectorAll('.btn-open-modal');
+
+        addOuvinteBtnsAbrirModal();
+    }
+
+    function addOuvinteBtnsAbrirModal(){
+
+        btnsRegistrosAbrirModal.forEach((btns) => {
+
+            btns.addEventListener('click', function() {
+                openModalComORegistro(filterRegistrosPorId(dadosRegistros, this.value));
+            })
+
+        })
 
     }
+
+    const divOpenModal = document.getElementById('modalRegistro');
+    divOpenModal.style.display = 'none';
+
+    function openModalComORegistro(objetoRegistro){
+
+        divOpenModal.style.display = 'flex';
+        
+        document.getElementById('idDado').textContent = `Id do registro: #${objetoRegistro.id_dado}`;
+        document.getElementById('dataHistorico').textContent = `Data e hora registrada: ${new Date(objetoRegistro.data_historico).toLocaleString()}`;
+        
+        document.getElementById('metros_produzidos').textContent = objetoRegistro.metros_produzidos;
+        document.getElementById('numero_da_tarefa').textContent = objetoRegistro.numero_da_tarefa;
+        document.getElementById('quantidade_de_tiras').textContent = objetoRegistro.quantidade_de_tiras;
+        document.getElementById('sobra_de_rolo').textContent = (objetoRegistro.sobra_de_rolo == 'TRUE') ? "Sobrou" : "Não sobrou";
+        document.getElementById('tarefa_completa').textContent = (objetoRegistro.tarefa_completa == 'TRUE') ? "Completada" : "Não completada";
+        document.getElementById('tempo_de_producao').textContent = objetoRegistro.tempo_de_producao;
+        document.getElementById('tempo_de_setup').textContent = objetoRegistro.tempo_de_setup;
+        document.getElementById('tipo_maquina').textContent = (objetoRegistro.tipo_maquina == "") ? "Não específicada" : objetoRegistro.tipo_maquina;
+        document.getElementById('tipo_saida').textContent = (objetoRegistro.tipo_saida == 0) ? "Rolinho" : "Fraudado";
+        document.getElementById('tipo_tecido').textContent = vetTiposTecidos[objetoRegistro.tipo_tecido];
+        document.getElementById('observacoesRegistros').textContent = (objetoRegistro.MyUnknownColumn == "") ? "Sem observações" : objetoRegistro.MyUnknownColumn;
+        
+        document.getElementById('btnFecharModal').addEventListener('click', () => {
+            divOpenModal.style.display = 'none';
+        })
+    }
+
+
 
     function filterPeloTipoTecido(filterTextoUsuario) {
         return (filterTextoUsuario == "") ? dadosRegistros :
