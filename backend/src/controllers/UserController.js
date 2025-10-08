@@ -62,5 +62,21 @@ const loginStore = async function(request, response) {
     }
 }
 
+const validandoToken = function(request, response){
 
-export { create, loginStore };
+    const token = request.params.token;
+    try{
+
+        jsonWebToken.verify(token, SECRET_TOKEN);
+
+        return response.status(200).json({status: 200, message: "Token válido"});
+    }
+    catch(e){
+        return response.status(400).json({status: 400, message: "Token inválido"})
+    }
+
+
+}
+
+
+export { create, loginStore, validandoToken };

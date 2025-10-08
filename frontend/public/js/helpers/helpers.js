@@ -71,6 +71,19 @@ function filterRegistrosPorId(arrayRegistros, idRegistro) {
 }
 
 
+function createFlashMessage(sText, sType, divFlash){
+    divFlash.style.display = 'flex';
+    
+    if(sType == 'error'){
+        divFlash.style = `background: rgb(192, 29, 0);`;
+        divFlash.innerHTML = `<p>${sText}</p>`;
+        return setTimeout(() => {divFlash.style.display = 'none'}, 3000);
+    }
+    
+    divFlash.style = `background: rgb(38, 163, 13);`;
+    divFlash.innerHTML = `<p>${sText}</p>`;
+}
+
 export {
     formater,
     anoAtual,
@@ -87,5 +100,6 @@ export {
     filterRegistrosPeloNumeroTarefa,
     formatarDataParaOsGraficos,
     formatarDatasEntreOsMeses,
-    filterRegistrosPorId
+    filterRegistrosPorId,
+    createFlashMessage
 };

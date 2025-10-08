@@ -1,32 +1,21 @@
+import { createFlashMessage } from "./helpers/helpers.js";
+
 window.onload = function() {
 
 
     const form = document.querySelector('form');
     const divFlashMessage = document.getElementById('flashMessage');
     divFlashMessage.style.display = 'none';
-    
-    function createFlashMessage(sText, sType){
-        divFlashMessage.style.display = 'flex';
-        
-        if(sType == 'error'){
-            divFlashMessage.style = `background: rgb(192, 29, 0);`;
-            divFlashMessage.innerHTML = `<p>${sText}</p>`;
-            return setTimeout(() => {divFlashMessage.style.display = 'none'}, 3000);
-        }
-        
-        divFlashMessage.style = `background: rgb(38, 163, 13);`;
-        divFlashMessage.innerHTML = `<p>${sText}</p>`;
-    }
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        let idMatricula = this.cadastroMatricula.value.trim();
-        let fullName = this.cadastroNome.value.trim();
-        let passwordUser = this.cadastroSenha.value.trim();
+        let idMatricula = this.matricula.value.trim();
+        let fullName = this.usuario.value.trim();
+        let passwordUser = this.senha.value.trim();
 
-        if(!idMatricula || !fullName || !passwordUser) return createFlashMessage('Preencher os dados corretamente', 'error');
-        if(passwordUser.length < 6) return createFlashMessage('Informe uma senha de pelo menos 6 caracteres', 'error');
+        if(!idMatricula || !fullName || !passwordUser) return createFlashMessage('Preencher os dados corretamente', 'error', divFlashMessage);
+        if(passwordUser.length < 6) return createFlashMessage('Informe uma senha de pelo menos 6 caracteres', 'error', divFlashMessage);
 
         try{
 
@@ -44,9 +33,9 @@ window.onload = function() {
 
             const status = await response.json();
 
-            if(status.status != 201) return createFlashMessage(status.message, 'error');
+            if(status.status != 201) return createFlashMessage(status.message, 'error', divFlashMessage);
             
-            createFlashMessage(status.message, 'success');
+            createFlashMessage(status.message, 'success', divFlashMessage);
 
             setTimeout(() => {window.location.href = './login.html'}, 3000);
 

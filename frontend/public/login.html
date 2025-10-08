@@ -20,6 +20,7 @@
       <!-- Lado direito -->
       <div class="right">
         <h2>Login</h2>
+        <div id="flashMessage"></div>
         <form>
           <label class="textoMatricula" for="matricula">Matrícula</label>
           <input id="matricula" type="text" class="campoMatricula" placeholder="Insira sua matrícula" />
@@ -27,7 +28,7 @@
           <label class="textoSenha" for="senha">Senha</label>
           <input id="senha" type="password" class="campoSenha" placeholder="Digite sua senha" />
 
-          <a href="./index.html" class="botaoEntrar">Entrar</a>
+          <input type="submit" value="Enviar" class="botaoEntrar">
 
           <div class="cadastro-section">
             <span class="textCadastro">Não tem uma conta?</span>
@@ -37,4 +38,7 @@
       </div>
     </div>
   </body>
+
+  <script type="module" src="./js/login.js"></script>
+
 </html>

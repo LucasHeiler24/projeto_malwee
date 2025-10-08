@@ -17,6 +17,76 @@
   align-items: center;
 }
 
+.div-content-modal-registros{
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-registros{
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #fff;
+}
+
+.modal-registros-header{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.modal-registros-body{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.body-header{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.body-table{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.table-dados{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
 #cardsHistoricos {
   width: 100%;
   height: auto;

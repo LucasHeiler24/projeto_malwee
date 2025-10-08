@@ -1,6 +1,6 @@
 import construirGrafico from "./graphics/construir_grafico.js";
 import { formatarDataParaOsGraficos, formatarDatas, formatarDatasEntreOsMeses, formater, vetCoresParaOsGraficos2 } from "./helpers/helpers.js";
-import { getDadosDiferencaMensal } from "./requests/fetch_para_o_backend.js";
+import { getDadosDiferencaMensal, getValidToken } from "./requests/fetch_para_o_backend.js";
 
 window.onload = function () {
 
@@ -196,6 +196,13 @@ window.onload = function () {
     }
 
     (async () => {
+
+        let tokenStorage = localStorage.getItem('token');
+        if(!tokenStorage) return window.location.href = './login.html';
+
+        const situacaoToken = await getValidToken(tokenStorage);
+
+        if(situacaoToken.status != 200) return window.location.href = './login.html';
 
         document.getElementById('inPrimeiroMes').addEventListener('change', async function () {
             primeiraData = formatarDatas(this.value.split('-'));

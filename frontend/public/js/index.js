@@ -1,7 +1,8 @@
 import {
     getQuantidadeMetrosPorTecido,
     getQuantidadeMetrosProduzidoPorDia,
-    getTotalTempoSetupPorDiaDoMes
+    getTotalTempoSetupPorDiaDoMes,
+    getValidToken
 } from "./requests/fetch_para_o_backend.js"
 
 import { formatarDataParaOsGraficos, formater, vetCoresParaOsGraficos, vetCoresParaOsGraficos2 } from "./helpers/helpers.js";
@@ -130,6 +131,12 @@ window.onload = function () {
     }
 
     (async () => {
+        let tokenStorage = localStorage.getItem('token');
+        if(!tokenStorage) return window.location.href = './login.html';
+
+        const situacaoToken = await getValidToken(tokenStorage);
+
+        if(situacaoToken.status != 200) return window.location.href = './login.html';
 
         let ultimoMes = "08";
         let ultimoAno = "2025";

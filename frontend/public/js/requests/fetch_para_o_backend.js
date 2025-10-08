@@ -175,6 +175,23 @@ async function getTotalTarefasCompletasENaoCompletas(sAno, sMes) {
 
 }
 
+async function getValidToken(sToken){
+
+    try{
+
+        const response = await fetch(`
+            http://localhost:8000/user/token/${sToken}
+        `);
+
+        return await response.json();
+
+    }
+    catch(e){
+        return e;
+    }
+
+}
+
 export {
     getQuantidadeMetrosPorTecido,
     getQuantidadeMetrosProduzidoPorDia,
@@ -185,5 +202,6 @@ export {
     getTotalTempoSetupPorDiaDoMes,
     getTotalTempoSetupPorNumeroTarefaNoMes,
     getTotalTarefasCompletasENaoCompletas,
-    getTotalTempoSetupDeCadaDiaDoMes
+    getTotalTempoSetupDeCadaDiaDoMes,
+    getValidToken
 }

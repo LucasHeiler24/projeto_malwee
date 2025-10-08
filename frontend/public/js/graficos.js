@@ -22,7 +22,8 @@ import {
   getQuantidadeMetrosPorTecido,
   getTotalTempoSetupPorNumeroTarefaNoMes,
   getTotalTarefasCompletasENaoCompletas,
-  getTotalTempoSetupDeCadaDiaDoMes
+  getTotalTempoSetupDeCadaDiaDoMes,
+  getValidToken
 } from "./requests/fetch_para_o_backend.js";
 
 import construirGrafico from "./graphics/construir_grafico.js";
@@ -416,6 +417,13 @@ window.onload = function () {
   }
 
   (async () => {
+    let tokenStorage = localStorage.getItem('token');
+    if(!tokenStorage) return window.location.href = './login.html';
+
+    const situacaoToken = await getValidToken(tokenStorage);
+
+    if(situacaoToken.status != 200) return window.location.href = './login.html';
+
     await getDadosDosGraficos();
 
     chamarConstrucaoDosGraficos();

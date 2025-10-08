@@ -10,7 +10,7 @@ import {
     filterRegistrosPorId
 } from "./helpers/helpers.js";
 
-import { getRegistrosHistoricoMesEscolhido } from "./requests/fetch_para_o_backend.js"
+import { getRegistrosHistoricoMesEscolhido, getValidToken } from "./requests/fetch_para_o_backend.js"
 
 import {
     aumentarAno,
@@ -138,6 +138,7 @@ window.onload = function () {
         
         btnsRegistrosAbrirModal = document.querySelectorAll('.btn-open-modal');
 
+        console.log(btnsRegistrosAbrirModal);
         addOuvinteBtnsAbrirModal();
     }
 
@@ -154,7 +155,6 @@ window.onload = function () {
     }
 
     const divOpenModal = document.getElementById('modalRegistro');
-    divOpenModal.style.display = 'none';
 
     function openModalComORegistro(objetoRegistro){
 
@@ -210,6 +210,13 @@ window.onload = function () {
     }
 
     (async () => {
+        let tokenStorage = localStorage.getItem('token');
+        if(!tokenStorage) return window.location.href = './login.html';
+
+        const situacaoToken = await getValidToken(tokenStorage);
+
+        if(situacaoToken.status != 200) return window.location.href = './login.html';
+
         dadosRegistros = await mudarMesSelecionado();
         construirCardsHistoricos(dadosRegistros);
         anoSelecionado.text(anoAtualUser);
