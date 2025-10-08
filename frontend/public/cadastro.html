@@ -1,28 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro</title>
-    <link rel="stylesheet" href="/frontend/css/cadastro.css" />
+    <link rel="stylesheet" href="./css/cadastro.css" />
   </head>
   <body>
     <div class="container">
+      <!-- Lado esquerdo -->
       <div class="left">
-        <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo da Empresa" />
+        <img src="./images/malwee_logo-removebg-preview.png" alt="Logo Malwee" />
         <h1>Bem-vindo!</h1>
         <h3>Grupo Malwee</h3>
       </div>
 
+      <!-- Lado direito -->
       <div class="right">
         <h2 class="tituloCad">Cadastro</h2>
         <form>
-          <input type="text" class="cadastroMatricula" placeholder="Insira sua mátricula" />
-          <input type="text" class="cadastroUsuario" placeholder="Digite seu usuário" />
-          <input type="password" class="cadastroSenha" placeholder="Digite a sua senha" />
-          <input type="password" class="confirmSenha" placeholder="Confirme sua senha" />
+          <label for="matricula">Matrícula</label>
+          <input id="matricula" type="text" class="cadastroMatricula" placeholder="Insira sua matrícula" />
 
-          <a class="btnCadastro" href="/frontend/views/login.html">Cadastrar</a>
+          <label for="usuario">Usuário</label>
+          <input id="usuario" type="text" class="cadastroUsuario" placeholder="Digite seu usuário" />
+
+          <label for="senha">Senha</label>
+          <input id="senha" type="password" class="cadastroSenha" placeholder="Digite sua senha" />
+
+          <label for="confirmSenha">Confirme a senha</label>
+          <input id="confirmSenha" type="password" class="confirmSenha" placeholder="Confirme sua senha" />
+
+          <a class="btnCadastro" href="./login.html">Cadastrar</a>
         </form>
       </div>
     </div>
