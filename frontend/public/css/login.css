@@ -45,9 +45,11 @@ img {
 /* FORMULÁRIO */
 form {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   gap: 10px;
-  width: 200px;
+  width: 100%;
 }
 
 input {
@@ -71,40 +73,17 @@ button,
   border: none;
 }
 
-.btnCadastrar {
-  position: relative;
-  left: 175px;
-  bottom: 58px;
-  width: 100px;
-  height: 35px;
-  background-color: #00a86b;
-  color: #1a2e35;
+.botaoEntrar {
+  width: 200px;
+  background-color: #078355;
+  color: #fff;
   border-radius: 10px;
   border: none;
   cursor: pointer;
 }
 
-.cadastrarUsu {
-  position: relative;
-  left: 157px;
-  width: 70px;
-  height: 30px;
-  border-radius: 5px;
-  text-decoration: none;
-  color: #e2b714; /* amarelo mostarda */
-  font-weight: bold;
-  font-size: 13px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  bottom: 1px;
-}
-
-.textCadastro {
-  position: relative;
-  top: 40px;
-  opacity: 0.7;
-  font-size: 13px;
+.botaoEntrar:hover {
+  background-color: #ffd347;
 }
 
 .campoMatricula,
@@ -120,4 +99,23 @@ button,
 .textoSenha {
   font-size: 16px;
   color: #fff;
+}
+
+.cadastro-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10px;
+  gap: 20px;
+}
+
+.cadastrarUsuario {
+  text-decoration: none;
+  color: #fff;
+}
+
+.cadastrarUsuario:hover {
+  color: rgb(206, 192, 0);
 }

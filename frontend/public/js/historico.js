@@ -135,18 +135,18 @@ window.onload = function () {
             `);
 
         });
-        
+
         btnsRegistrosAbrirModal = document.querySelectorAll('.btn-open-modal');
 
         console.log(btnsRegistrosAbrirModal);
         addOuvinteBtnsAbrirModal();
     }
 
-    function addOuvinteBtnsAbrirModal(){
+    function addOuvinteBtnsAbrirModal() {
 
         btnsRegistrosAbrirModal.forEach((btns) => {
 
-            btns.addEventListener('click', function() {
+            btns.addEventListener('click', function () {
                 openModalComORegistro(filterRegistrosPorId(dadosRegistros, this.value));
             })
 
@@ -155,14 +155,15 @@ window.onload = function () {
     }
 
     const divOpenModal = document.getElementById('modalRegistro');
+    divOpenModal.style.display = 'none';
 
-    function openModalComORegistro(objetoRegistro){
+    function openModalComORegistro(objetoRegistro) {
 
         divOpenModal.style.display = 'flex';
-        
+
         document.getElementById('idDado').textContent = `Id do registro: #${objetoRegistro.id_dado}`;
-        document.getElementById('dataHistorico').textContent = `Data e hora registrada: ${new Date(objetoRegistro.data_historico).toLocaleString()}`;
-        
+        document.getElementById('dataHistorico').textContent = `${new Date(objetoRegistro.data_historico).toLocaleString()}`;
+
         document.getElementById('metros_produzidos').textContent = objetoRegistro.metros_produzidos;
         document.getElementById('numero_da_tarefa').textContent = objetoRegistro.numero_da_tarefa;
         document.getElementById('quantidade_de_tiras').textContent = objetoRegistro.quantidade_de_tiras;
@@ -174,7 +175,7 @@ window.onload = function () {
         document.getElementById('tipo_saida').textContent = (objetoRegistro.tipo_saida == 0) ? "Rolinho" : "Fraudado";
         document.getElementById('tipo_tecido').textContent = vetTiposTecidos[objetoRegistro.tipo_tecido];
         document.getElementById('observacoesRegistros').textContent = (objetoRegistro.MyUnknownColumn == "") ? "Sem observações" : objetoRegistro.MyUnknownColumn;
-        
+
         document.getElementById('btnFecharModal').addEventListener('click', () => {
             divOpenModal.style.display = 'none';
         })
@@ -211,11 +212,11 @@ window.onload = function () {
 
     (async () => {
         let tokenStorage = localStorage.getItem('token');
-        if(!tokenStorage) return window.location.href = './login.html';
+        if (!tokenStorage) return window.location.href = './login.html';
 
         const situacaoToken = await getValidToken(tokenStorage);
 
-        if(situacaoToken.status != 200) return window.location.href = './login.html';
+        if (situacaoToken.status != 200) return window.location.href = './login.html';
 
         dadosRegistros = await mudarMesSelecionado();
         construirCardsHistoricos(dadosRegistros);

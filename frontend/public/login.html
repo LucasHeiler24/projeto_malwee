@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="./css/login.css" />
-    <link rel="stylesheet" href="./css/tema-malwee.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <!-- Lado esquerdo -->
-      <div class="left">
-        <img src="./images/malwee_logo-removebg-preview.png" alt="Logo Malwee" />
-        <h1>Bem-vindo!</h1>
-        <h3>Grupo Malwee</h3>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="./css/login.css" />
+  <link rel="stylesheet" href="./css/tema-malwee.css" />
+</head>
 
-      <!-- Lado direito -->
-      <div class="right">
-        <h2>Login</h2>
-        <div id="flashMessage"></div>
-        <form>
-          <label class="textoMatricula" for="matricula">Matrícula</label>
-          <input id="matricula" type="text" class="campoMatricula" placeholder="Insira sua matrícula" />
-
-          <label class="textoSenha" for="senha">Senha</label>
-          <input id="senha" type="password" class="campoSenha" placeholder="Digite sua senha" />
-
-          <input type="submit" value="Enviar" class="botaoEntrar">
-
-          <div class="cadastro-section">
-            <span class="textCadastro">Não tem uma conta?</span>
-            <a href="./cadastro.html" class="cadastrarUsu">Cadastrar</a>
-          </div>
-        </form>
-      </div>
+<body>
+  <div class="container">
+    <!-- Lado esquerdo -->
+    <div class="left">
+      <img src="./images/malwee_logo-removebg-preview.png" alt="Logo Malwee" />
+      <h1>Bem-vindo!</h1>
+      <h3>Grupo Malwee</h3>
     </div>
-  </body>
 
-  <script type="module" src="./js/login.js"></script>
+    <!-- Lado direito -->
+    <div class="right">
+      <h2>Login</h2>
+      <div id="flashMessage"></div>
+      <form>
+        <label class="textoMatricula" for="matricula">Informe sua matrícula</label>
+        <input id="matricula" type="text" class="campoMatricula" placeholder="Insira sua matrícula" />
+
+        <label class="textoSenha" for="senha">Informe sua senha</label>
+        <input id="senha" type="password" class="campoSenha" placeholder="Digite sua senha" />
+
+        <input type="submit" value="Enviar" class="botaoEntrar">
+
+        <div class="cadastro-section">
+          <span class="textCadastro">Não tem uma conta?</span>
+          <a href="./cadastro.html" class="cadastrarUsuario">Cadastrar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+<script type="module" src="./js/login.js"></script>
 
 </html>
