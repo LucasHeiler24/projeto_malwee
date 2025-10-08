@@ -1,120 +1,137 @@
+/* ====== RESET ====== */
 body,
 html {
   margin: 0;
   height: 100%;
   font-family: "Syne", sans-serif;
+  background: linear-gradient(90deg, #160124 0%, #330253 100%);
+  color: #fff;
 }
 
+/* ====== CONTAINER PRINCIPAL ====== */
 .container {
   display: flex;
   height: 100vh;
+  flex-wrap: wrap;
 }
 
+/* ====== LADO ESQUERDO ====== */
 .left {
-  color: white;
   flex: 1;
-  background-color: #291565;
+  background-color: #1a2e35; /* azul petróleo */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  img {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 20px;
-  }
+  padding: 20px;
 }
 
+.left img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+/* ====== LADO DIREITO ====== */
 .right {
-  color: white;
   flex: 1;
-  background: #2a0046;
+  background-color: #162b2f; /* azul petróleo escuro */
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 40px;
   flex-direction: column;
   gap: 20px;
   min-width: 200px;
   max-width: 700px;
-  width: 100px;
-  padding: 10px;
 }
 
+/* ====== FORMULÁRIO ====== */
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
+  max-width: 400px;
 }
 
-input,
-button {
-  padding: 10px;
+/* ====== LABELS ====== */
+label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* ====== INPUTS ====== */
+input {
+  padding: 12px 15px;
+  border-radius: 25px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  align-content: center;
+  width: 100%;
+  font-size: 14px;
 }
 
-.cadastroMatricula{
-    width: 400px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    right: 90px;
-    bottom: 40px;
-    border-radius: 25px;
-}
-.cadastroUsuario{ 
-    width: 400px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    right: 90px;
-    bottom: 10px;
-    border-radius: 25px;
-}
-
-.cadastroSenha{
-    position: relative;
-    right: 90px;
-    top: 20px;
-    width: 400px;
-    border-radius: 25px;
-}
-
-.confirmSenha{
-    position: relative;
-    right: 90px;
-    top: 50px;
-    width: 400px;
-    border-radius: 25px;
-}
-
-.btnCadastro{
-    position: relative;
-    text-decoration: none;
-    background-color:#291565;
-    color: white;
-    font-size: 15px;
-    width: 425px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    top: 70px;
-    right: 90px;
-}
-
-.tituloCad{
-    position: relative;
-    bottom: 90px;
-}
-
-#flashMessage{
-  justify-content: center;
+/* ====== BOTÃO ====== */
+.btnCadastro {
+  text-decoration: none;
+  background-color: #00a86b;
+  color: #1a2e35;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 25px;
+  display: flex;
   align-items: center;
-  padding: 20px;
-  border-radius: 15px;
+  justify-content: center;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btnCadastro:hover {
+  background-color: #ffd347; /* amarelo mais claro */
+}
+
+/* ====== TÍTULO ====== */
+.tituloCad {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ====== SEÇÃO CADASTRO/LOGIN ====== */
+.cadastro-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.textCadastro {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.cadastrarUsu {
+  color: #e2b714;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+/* ====== RESPONSIVIDADE ====== */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+    flex: unset;
+    max-width: unset;
+  }
+
+  form {
+    max-width: 90%;
+  }
 }

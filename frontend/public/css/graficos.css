@@ -1,39 +1,74 @@
-.section-grafico {
-  width: 100%;
-  display: flex;
-  background: #291565;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-}
-
+/* ====== SEÇÃO DOS PRIMEIROS GRÁFICOS ====== */
 .section-primeiros-graficos {
   width: 100%;
   display: flex;
-  border-radius: 10px;
   justify-content: center;
-  align-items: center;
-  gap: 20px;
-  text-align: center;
+  align-items: stretch;
+  gap: 25px;
+  padding: 20px;
+  background: transparent; /* mantém o fundo do dashboard */
 }
 
+/* ====== CARD DOS GRÁFICOS ====== */
 .div-total-primeiros-graficos {
-  width: 100%;
-  height: auto;
+  flex: 1;
+  background: #1A2E35; /* azul petróleo */
+  border-radius: 14px;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.div-total-primeiros-graficos:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* ====== TÍTULOS ====== */
+.div-total-primeiros-graficos h3 {
+  color: #E2B714; /* amarelo mostarda */
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+/* ====== CONTAINERS DOS GRÁFICOS ====== */
+.grafico-pizza-total-tipo-tecido,
+.grafico-barra-tarefas-completas {
+  width: 320px;
+  height: 320px;
+  border-radius: 12px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  background: #291565;
-  border-radius: 10px;
-  padding: 10px;
-  gap: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.grafico-pizza-total-tipo-tecido,
-.grafico-barra-tarefas-completas {
-  width: 300px;
+.div-total-primeiros-graficos p {
+  color: #fff;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .section-primeiros-graficos {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .div-total-primeiros-graficos {
+    width: 90%;
+  }
+
+  .grafico-pizza-total-tipo-tecido,
+  .grafico-barra-tarefas-completas {
+    width: 100%;
+    max-width: 300px;
+  }
 }

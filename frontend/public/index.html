@@ -1,97 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Início</title>
+    <link rel="stylesheet" href="./css/master.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/tema-malwee.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Início</title>
-  <link rel="stylesheet" href="./css/master.css" />
-  <link rel="stylesheet" href="./css/index.css" />
-</head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <img src="./images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
+          <h2>Olá Lucas</h2>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li id="item-ativo" class="contraste">
+              <img src="./images/hub-icon.png" width="20" height="20" />
+              <a href="./index.html"> Início </a>
+            </li>
+            <li class="contraste">
+              <img src="./images/grafico-icon.png" width="20" height="20" />
+              <a href="./graficos.html"> Gráficos </a>
+            </li>
+            <li class="contraste">
+              <img src="./images/difference-icon.png" width="20" height="20" />
+              <a href="./diferenca_mensal.html"> Diferença mensal </a>
+            </li>
+            <li class="contraste">
+              <img src="./images/history-icon.png" width="20" height="20" />
+              <a href="./historico.html"> Histórico </a>
+            </li>
+            <li class="contraste">
+              <img src="./images/arrow-back.png" width="20" height="20" />
+              <a href="./login.html"> Log-out </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
 
-<body>
-  <div class="layout">
-    <a href="./cadastro.html">Cadastro</a>
-    <a href="./login.html">Login</a>
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <img src="./images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-        <h2>Olá Lucas</h2>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li id="item-ativo" class="contraste">
-            <img src="./images/hub-icon.png" width="20" height="20" />
-            <a href="./index.html">
-              Início
-            </a>
-          </li>
-          <li class="contraste">
-            <img src="./images/grafico-icon.png" width="20" height="20" />
-            <a href="./graficos.html">
-              Gráficos
-            </a>
-          </li>
-          <li class="contraste">
-            <img src="./images/difference-icon.png" width="20" height="20" />
-            <a href="./diferenca_mensal.html">
-              Diferença mensal
-            </a>
-          </li>
-          <li class="contraste">
-            <img src="./images/history-icon.png" width="20" height="20" />
-            <a href="./historico.html">
-              Histórico
-            </a>
-          </li>
-          <li class="contraste">
-            <img src="./images/arrow-back.png" width="20" height="20" />
-            <a href="./login.html">
-              Log-out
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+      <main class="main-content">
+        <section class="section-info">
+          <h1>Dashboard</h1>
+        </section>
 
-    <main class="main-content">
-      <section class="section-info">
-        <h1>Dashboard</h1>
-      </section>
-
-      <section class="section-grafico-pizza">
-        <div class="div-grafico-pizza">
-          <h1>Total de metros produzido por dia no mês atual</h1>
-          <div class="grafico-pizza-do-mes">
-            <div class="grafico-linha-meses-por-dia-pizza">
-              <canvas id="graficoPizzaTotalMetrosProduzidosPorMes"></canvas>
+        <section class="section-grafico-pizza">
+          <div class="div-grafico-pizza">
+            <h1>Total de metros produzido por dia no mês atual</h1>
+            <div class="grafico-pizza-do-mes">
+              <div class="grafico-linha-meses-por-dia-pizza">
+                <canvas id="graficoPizzaTotalMetrosProduzidosPorMes"></canvas>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="div-grafico-pizza">
-          <h1>Total de tempo de setup por dia no mês atual</h1>
-          <div class="grafico-pizza-do-mes">
-            <div class="grafico-linha-meses-por-dia-pizza">
-              <canvas id="graficoRoscaTotalTempoSetupPorMes"></canvas>
+          <div class="div-grafico-pizza">
+            <h1>Total de tempo de setup por dia no mês atual</h1>
+            <div class="grafico-pizza-do-mes">
+              <div class="grafico-linha-meses-por-dia-pizza">
+                <canvas id="graficoRoscaTotalTempoSetupPorMes"></canvas>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-      </section>
-
-      <section class="section-total-tipo-tecido">
-        <h1>Total no mês produzido por tipo de tecido</h1>
-        <div class="dados-por-tipo-tecido">
-          <div id="cards"></div>
-        </div>
-      </section>
-    </main>
-  </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="./js/index.js"></script>
-
+        <section class="section-total-tipo-tecido">
+          <h1>Total no mês produzido por tipo de tecido</h1>
+          <div class="dados-por-tipo-tecido">
+            <div id="cards"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="./js/index.js"></script>
 </html>

@@ -1,17 +1,20 @@
 body {
   margin: 0;
   font-family: "Syne", sans-serif;
-
+  background: linear-gradient(90deg, #160124 0%, #330253 100%);
+  color: #fff;
 }
+
 .container {
   display: flex;
   height: 100vh;
 }
 
+/* LADO ESQUERDO */
 .left {
-  color: white;
+  color: #fff;
   flex: 1;
-  background-color: #291565;
+  background-color: #1a2e35; /* azul petróleo */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,10 +27,11 @@ img {
   margin-bottom: 20px;
 }
 
+/* LADO DIREITO */
 .right {
-  color: white;
+  color: #fff;
   flex: 1;
-  background: #2a0046;
+  background: #162b2f; /* azul petróleo escuro */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,6 +42,7 @@ img {
   width: 100px;
 }
 
+/* FORMULÁRIO */
 form {
   display: flex;
   flex-direction: column;
@@ -45,12 +50,25 @@ form {
   width: 200px;
 }
 
-input,
-button {
+input {
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  align-content: center;
+  border-radius: 25px;
+}
+
+button,
+.botaoEntrar {
+  text-decoration: none;
+  background-color: #00a86b;
+  color: #1a2e35;
+  font-size: 15px;
+  width: 425px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  border: none;
 }
 
 .btnCadastrar {
@@ -59,6 +77,11 @@ button {
   bottom: 58px;
   width: 100px;
   height: 35px;
+  background-color: #00a86b;
+  color: #1a2e35;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }
 
 .cadastrarUsu {
@@ -68,7 +91,7 @@ button {
   height: 30px;
   border-radius: 5px;
   text-decoration: none;
-  color: white;
+  color: #e2b714; /* amarelo mostarda */
   font-weight: bold;
   font-size: 13px;
   display: flex;
@@ -84,50 +107,17 @@ button {
   font-size: 13px;
 }
 
-.botaoEntrar {
-  position: relative;
-  text-decoration: none;
-  background-color: #291565;
-  color: white;
-  font-size: 15px;
-  width: 425px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  top: 50px;
-  right: 90px;
-}
-
-.campoMatricula {
-  width: 400px;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  right: 90px;
-  top: 40px;
-  border-radius: 25px;
-}
-
+.campoMatricula,
 .campoSenha {
-  position: relative;
-  right: 90px;
-  top: 50px;
   width: 400px;
   border-radius: 25px;
+  padding: 10px;
+  border: 1px solid #ccc;
 }
 
-.textoMatricula {
-  font-size: 16px;
-  position: relative;
-  right: 80px;
-  bottom: 37px;
-}
-
+/* LABELS */
+.textoMatricula,
 .textoSenha {
   font-size: 16px;
-  position: relative;
-  right: 80px;
-  bottom: 25px;
+  color: #fff;
 }

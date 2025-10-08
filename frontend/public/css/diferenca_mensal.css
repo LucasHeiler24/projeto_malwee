@@ -1,3 +1,4 @@
+/* ====== SELEÇÃO DE MESES ====== */
 .section-selecionar-meses {
   width: 100%;
   display: flex;
@@ -5,10 +6,7 @@
   align-items: center;
 }
 
-.div-selecionar-meses,
-.section-grafico-diferenca-tempo-producao,
-.section-grafico-diferenca-total-metros-produzidos {
-  background: #291565;
+.div-selecionar-meses {
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -16,6 +14,7 @@
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  background: #1A2E35; /* azul petróleo do tema */
 }
 
 .div-selecionar-meses input {
@@ -26,22 +25,71 @@
   border: none;
 }
 
-.section-graficos-diferencas {
+/* ====== SEÇÃO DOS GRÁFICOS ====== */
+.section-graficos-diferencas,
+.section-graficos-grandes {
   width: 100%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 20px;
+  flex-wrap: wrap; /* permite quebra em telas menores */
 }
 
-.div-grafico-diferenca-total {
-  background: #291565;
-  padding: 10px;
+/* ====== GRÁFICOS INDIVIDUAIS ====== */
+.section-grafico-diferenca-tempo-producao,
+.section-grafico-diferenca-total-metros-produzidos {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.div-grafico-diferenca-total-tempo-producao,
+.div-grafico-diferenca-total-metros-produzidos {
+  width: 100%;
+  padding: 20px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1A2E35; /* azul petróleo */
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.div-grafico-diferenca-total-tempo-producao h1,
+.div-grafico-diferenca-total-metros-produzidos h1 {
+  color: #E2B714; /* amarelo mostarda */
+  font-size: 1.1rem;
   text-align: center;
+}
+
+/* ====== CONTAINERS DOS GRÁFICOS ====== */
+.div-mostrar-grafico-mes-tempo-produzidos,
+.grafico-linha-meses {
+  width: 100%;
+  max-width: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  gap: 10px;
+}
+
+/* ====== AJUSTE DE RESPONSIVIDADE ====== */
+@media (max-width: 900px) {
+  .section-graficos-diferencas,
+  .section-graficos-grandes {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-grafico-diferenca-tempo-producao,
+  .section-grafico-diferenca-total-metros-produzidos {
+    width: 90%;
+  }
+
+  .div-mostrar-grafico-mes-tempo-produzidos,
+  .grafico-linha-meses {
+    max-width: 100%;
+  }
 }
