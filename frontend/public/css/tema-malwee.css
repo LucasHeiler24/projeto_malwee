@@ -14,9 +14,9 @@
 }
 
 /* ====== Sobrescrições de fundo ====== */
-body {
+body,html {
   background: linear-gradient(90deg, var(--azul-petroleo) 0%, #102027 100%) !important;
-  color: #fff;
+  color: #fff;font-family: "Syne", sans-serif;
 }
 
 .sidebar {
