@@ -1,6 +1,5 @@
 import cors from "cors";
 import express from "express";
-import conectarBd from "../database/conexao.js";
 import router from "../router/Dados.js";
 import routerUser from "../router/User.js";
 
