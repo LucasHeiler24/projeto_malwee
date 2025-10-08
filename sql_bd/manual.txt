@@ -1,0 +1,11 @@
+Este é um tutorial de como inicializar o banco de dados de forma funcional.
+
+--Inicializar o Frontend--
+    cd Frontend/
+    npm run server
+
+--------//--------
+
+--Inicializar o Backend--
+    cd Backend/
+    npm run dev
