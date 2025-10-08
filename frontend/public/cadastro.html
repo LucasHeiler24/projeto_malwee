@@ -4,27 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro</title>
-    <link rel="stylesheet" href="/frontend/css/cadastro.css" />
+    <link rel="stylesheet" href="./css/cadastro.css" />
   </head>
   <body>
     <div class="container">
       <div class="left">
-        <img src="/frontend/images/malwee_logo-removebg-preview.png" alt="Logo da Empresa" />
+        <img src="./images/malwee_logo-removebg-preview.png" alt="Logo da Empresa" />
         <h1>Bem-vindo!</h1>
         <h3>Grupo Malwee</h3>
       </div>
 
       <div class="right">
         <h2 class="tituloCad">Cadastro</h2>
+        <div id="flashMessage"></div>
         <form>
-          <input type="text" class="cadastroMatricula" placeholder="Insira sua mátricula" />
-          <input type="text" class="cadastroUsuario" placeholder="Digite seu usuário" />
-          <input type="password" class="cadastroSenha" placeholder="Digite a sua senha" />
-          <input type="password" class="confirmSenha" placeholder="Confirme sua senha" />
+          <label for="matricula_user">Informe o identificador matrícula</label>
+          <input type="text" id="cadastroMatricula" name="id_matricula" placeholder="Insira sua mátricula" />
+          <label for="name_user">Informe seu nome completo</label>
+          <input type="text" id="cadastroNome" name="full_name" placeholder="Digite seu nome completo" />
+          <label for="password_user">Informe sua senha:</label>
+          <input type="password" id="cadastroSenha" name="password" placeholder="Digite a sua senha" />
 
-          <a class="btnCadastro" href="/frontend/views/login.html">Cadastrar</a>
+          <input type="submit" value="Send">
         </form>
       </div>
     </div>
   </body>
+
+  <script type="module" src="./js/cadastro.js"></script>
+
 </html>
