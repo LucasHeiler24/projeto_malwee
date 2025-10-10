@@ -417,12 +417,19 @@ window.onload = function () {
   }
 
   (async () => {
-    let tokenStorage = localStorage.getItem('token');
-    if(!tokenStorage) return window.location.href = './login.html';
+    const separarCookie = document.cookie.split(';');
+    const separarDadosCookieToken = separarCookie[0].split('=');
 
-    const situacaoToken = await getValidToken(tokenStorage);
+    const token = separarDadosCookieToken[1];
+    if(!token) return window.location.href = './login.html';
+
+    const situacaoToken = await getValidToken(token);
 
     if(situacaoToken.status != 200) return window.location.href = './login.html';
+
+    const separarDadosCookieNomeUser = separarCookie[1].split('=');
+    
+    document.getElementById('nomeUser').textContent = `Olá ${separarDadosCookieNomeUser[1].split(' ')[0]}`;
 
     await getDadosDosGraficos();
 
