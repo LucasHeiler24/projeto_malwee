@@ -387,6 +387,10 @@ function removerDupliados(arrayRemover) {
     return arrayRemover.filter((dados, index) => arrayRemover.indexOf(dados) === index);
 }
 
+function formatarDatasParaAmericanas(date){
+    return `${date[2]}-${date[1]}-${date[0]}`;
+}
+
 export {
     pegarTotalDeMetrosPorDiaPeloMes,
     pegarTotalDeMetrosPorDiaEProduPeloMes,
@@ -402,5 +406,6 @@ export {
     somarTotalMetrosPorTiposDeTecidosNoMes,
     somarTempoDeSetupPorCadaDiaDoMes,
     somarTotalTempoSetupNoMes,
-    encontrarNumeroTarefasIguaisEmDoisMesesEntreTempoSetup
+    encontrarNumeroTarefasIguaisEmDoisMesesEntreTempoSetup,
+    formatarDatasParaAmericanas
 }

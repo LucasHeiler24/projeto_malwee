@@ -28,9 +28,9 @@ async function conectarBd() {
     const conexao = await mysql2.createConnection({
       host: "localhost",
       database: "novoBd",
-      password: "",
+      password: "root",
       user: "root",
-      port: 3306,
+      port: 3307,
     });
     global.conexao = conexao;
     return conexao;

@@ -9,3 +9,11 @@ Este é um tutorial de como inicializar o banco de dados de forma funcional.
 --Inicializar o Backend--
     cd Backend/
     npm run dev
+
+
+Algumas funcionalidades a mais para o projeto:
+
+°Adicionar uma rota que compara dados a partir do dia selecionado
+°Adicionar uma rota que compara dados a partir do dia selecionado durante uma semana
+
+°Comparar ganhos e perdas pelos dados, número tarefa e mensalmente

@@ -14,7 +14,8 @@ import {
     pegarTotalDeMetrosPorDiaPeloMes,
     somarTempoDeSetupPorCadaDiaDoMes,
     somarTotalTempoSetupNoMes,
-    encontrarNumeroTarefasIguaisEmDoisMesesEntreTempoSetup
+    encontrarNumeroTarefasIguaisEmDoisMesesEntreTempoSetup,
+    formatarDatasParaAmericanas
 } from "../helpers/funcoes.js";
 
 //Esse controller pega o total de producao feita por cada tipo de tecido
@@ -274,6 +275,33 @@ const calcularTempoSetupPorDiaDoMes = async function(request, response){
 
 }
 
+
+const analisePorPeriodoSemanal = async function(request, response){
+
+    const data = new Date(request.params.date); 
+    const vet = [];
+
+    for(let i=1; i<=7; i++){
+        vet.push(
+            new Date().setDate(data.getDate() + i)
+        )
+    }
+
+    let vet2 = [];
+    for(let i=0; i<vet.length; i++){
+        vet2.push(formatarDatasParaAmericanas(new Date(vet[i]).toLocaleDateString().split('/')));
+    }
+
+    let dadosSemanais = [];
+
+    for(let i=0; i < vet2.length; i++){
+        dadosSemanais.push(await pegarDadosMesEAnoEscolhido(vet2[i]))
+    }
+
+    return response.json(dadosSemanais);
+}
+
+
 export {
     dadosMesEscolhido,
     dadosDeCadaDiaDoMesQtdProduzida,
@@ -284,5 +312,6 @@ export {
     totalTempoSetupPorDiaDoMesProduzido,
     totalTarefasCompletasENaoCompletasNoMes,
     totalTempoSetupPorNumeroTarefa,
-    calcularTempoSetupPorDiaDoMes
+    calcularTempoSetupPorDiaDoMes,
+    analisePorPeriodoSemanal
 };

@@ -9,7 +9,8 @@ import {
     totalTempoSetupPorDiaDoMesProduzido,
     totalTarefasCompletasENaoCompletasNoMes,
     totalTempoSetupPorNumeroTarefa,
-    calcularTempoSetupPorDiaDoMes
+    calcularTempoSetupPorDiaDoMes,
+    analisePorPeriodoSemanal
 } from "../controllers/DadosController.js";
 
 const router = Router();
@@ -32,4 +33,6 @@ router.get('/dados-por-mes/mes/:mes/ano/:ano', pegarTodosOsDadosDoMesSelecionado
 //rota para diferença mensal
 router.get('/dados-diferenca-mensal/date1/:date1/date2/:date2', diferencaMensalEntreDoisMeses);
 
+//análise por período
+router.get('/dados-analise-por-semanal/date/:date', analisePorPeriodoSemanal);
 export default router;
