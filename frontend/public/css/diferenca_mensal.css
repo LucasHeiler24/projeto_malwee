@@ -14,7 +14,7 @@
   align-items: center;
   flex-direction: column;
   gap: 10px;
-  background: #1A2E35; /* azul petróleo do tema */
+  background: #1a2e35; /* azul petróleo do tema */
 }
 
 .div-selecionar-meses input {
@@ -53,26 +53,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #1A2E35; /* azul petróleo */
+  background: #1a2e35; /* azul petróleo */
   gap: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .div-grafico-diferenca-total-tempo-producao h1,
 .div-grafico-diferenca-total-metros-produzidos h1 {
-  color: #E2B714; /* amarelo mostarda */
+  color: #e2b714; /* amarelo mostarda */
   font-size: 1.1rem;
   text-align: center;
 }
 
 /* ====== CONTAINERS DOS GRÁFICOS ====== */
+.div-mostrar-grafico-mes-metros-produzidos,
 .div-mostrar-grafico-mes-tempo-produzidos,
 .grafico-linha-meses {
   width: 100%;
-  max-width: 600px;
+  width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #1a2e35; /* azul petróleo */
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* ====== AJUSTE DE RESPONSIVIDADE ====== */
