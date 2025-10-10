@@ -340,6 +340,48 @@ function somarTotalTempoSetupNoMes(arrayDados){
 
 }
 
+function encontrarNumeroTarefasIguaisEmDoisMesesEntreTempoSetup(arrayNumTarefa1, dadosMes1, dadosMes2){
+
+    let vetNumeroTarefasETempoSetupMes1 = [];
+    let vetNumeroTarefasETempoSetupMes2 = [];
+
+    for(let i=0; i<arrayNumTarefa1.length; i++){
+
+        let soma1 = dadosMes2.reduce((soma, dados) => {
+            if(dados.numero_da_tarefa == arrayNumTarefa1[i] && dados.tarefa_completa == 'TRUE')
+                soma += dados.tempo_de_setup;
+
+            return soma;
+        }, 0);
+
+        if(soma1 != 0){
+            let soma2 = dadosMes1.reduce((soma, dados) => {
+                if(dados.numero_da_tarefa == arrayNumTarefa1[i] && dados.tarefa_completa == 'TRUE')
+                    soma += dados.tempo_de_setup;
+    
+                return soma;
+            }, 0);
+
+            vetNumeroTarefasETempoSetupMes1.push(
+                {
+                    data_historico: arrayNumTarefa1[i],
+                    total_tempo_setup: soma2
+                }
+            );
+            vetNumeroTarefasETempoSetupMes2.push(
+                {
+                    data_historico: arrayNumTarefa1[i],
+                    total_tempo_setup: soma1
+                }
+            )
+        }
+
+    }
+
+    return {vetNumeroTarefasETempoSetupMes1, vetNumeroTarefasETempoSetupMes2}
+
+}
+
 
 function removerDupliados(arrayRemover) {
     return arrayRemover.filter((dados, index) => arrayRemover.indexOf(dados) === index);
@@ -359,5 +401,6 @@ export {
     calcularTotalTempoSetupDeCadaTarefaNoMes,
     somarTotalMetrosPorTiposDeTecidosNoMes,
     somarTempoDeSetupPorCadaDiaDoMes,
-    somarTotalTempoSetupNoMes
+    somarTotalTempoSetupNoMes,
+    encontrarNumeroTarefasIguaisEmDoisMesesEntreTempoSetup
 }

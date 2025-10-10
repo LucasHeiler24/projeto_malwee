@@ -12,6 +12,7 @@ window.onload = function () {
     let graficoBarraTotalTempoSetupNosMeses;
     let graficoLinhaTotalMetrosNosMeses;
     let graficoLinhaTotalTempoProduzidoNosMeses;
+    let graficoLinhaTempoSetupPorNumeroTarefaNosMeses;
 
     async function pegarOsDadosPelaDataInseridaUsuario() {
         return (primeiraData && segundaData && primeiraData != segundaData) ? await getDadosDiferencaMensal(primeiraData, segundaData) : undefined
@@ -187,12 +188,38 @@ window.onload = function () {
         graficoBarraTotalTempoSetupNosMeses = construirGrafico(options, data, graficoBarraDiferencaMensalTempoSetup, 'bar');
     }
 
+    const graficoLinhaTempoSetupEntreNumeroTarefa = document.getElementById('graficoLinhaTempoSetupEntreNumeroTarefa');
+    function construirGraficoLinhaTotalDeMetrosPorNumeroTarefaNosMeses(arrayTempoSetup1, arrayTempoSetup2){
+
+        if (graficoLinhaTempoSetupPorNumeroTarefaNosMeses)
+        graficoLinhaTempoSetupPorNumeroTarefaNosMeses.destroy();
+
+        let data = {
+            labels: arrayTempoSetup1.map((dados) => dados.data_historico),
+            datasets: [
+                {
+                    label: `Mês ${formatarDatasEntreOsMeses(primeiraData)}`,
+                    data: arrayTempoSetup1.map((dados) => dados.total_tempo_setup),
+                    borderWidth: 1
+                },
+                {
+                    label: `Mês ${formatarDatasEntreOsMeses(segundaData)}`,
+                    data: arrayTempoSetup2.map((dados) => dados.total_tempo_setup),
+                    borderWidth: 1
+                }
+            ]
+        }
+        graficoLinhaTempoSetupPorNumeroTarefaNosMeses = construirGrafico(null, data, graficoLinhaTempoSetupEntreNumeroTarefa, 'line');
+
+    }
+
     function separarDadosParaOsGraficos(arrayDados) {
         construirGraficoTotalMetrosProduzidosNoMes(arrayDados.totalSomaMetrosMes1, arrayDados.totalSomaMetrosMes2);
         construirGraficoTotalTempoProduzidosNoMes(arrayDados.totalSomaTempoProducao1, arrayDados.totalSomaTempoProducao2);
         construirGraficoLinhaDosDadosEntreOsMeses(arrayDados.vetTempoProducao1, arrayDados.vetTempoProducao2);
         construirGraficoLinhaTotalMetrosPorNumeroTarefa(arrayDados.vetNumTarefaMes1, arrayDados.vetNumTarefaMes2);
         construirGraficoBarraTempoSetupNosMeses(arrayDados.totalSomaTempoSetupMes1, arrayDados.totalSomaTempoSetupMes2);
+        construirGraficoLinhaTotalDeMetrosPorNumeroTarefaNosMeses(arrayDados.vetNumeroTarefasETempoSetupMes1, arrayDados.vetNumeroTarefasETempoSetupMes2);
     }
 
     (async () => {

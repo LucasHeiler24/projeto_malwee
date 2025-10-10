@@ -26,14 +26,22 @@
 }
 
 /* ====== SEÇÃO DOS GRÁFICOS ====== */
-.section-graficos-diferencas,
-.section-graficos-grandes {
+.section-graficos-diferencas{
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
   flex-wrap: wrap; /* permite quebra em telas menores */
+}
+
+.section-graficos-grandes{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* ====== GRÁFICOS INDIVIDUAIS ====== */
@@ -67,7 +75,8 @@
 
 /* ====== CONTAINERS DOS GRÁFICOS ====== */
 .div-mostrar-grafico-mes-tempo-produzidos,
-.grafico-linha-meses {
+.grafico-linha-meses
+.grafico-linha-numeo-tarefas-tempo-setup {
   width: 100%;
   max-width: 600px;
   display: flex;

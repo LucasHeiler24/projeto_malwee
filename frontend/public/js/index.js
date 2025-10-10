@@ -130,6 +130,13 @@ window.onload = function () {
         });
     }
 
+    function dividirCookies(){
+        const separarCookie = document.cookie.split(';');
+        const separarDadosCookieNomeUser = separarCookie[1].split('=');
+        
+        document.getElementById('nomeUser').textContent = `Olá ${separarDadosCookieNomeUser[1].split(' ')[0]}`;
+    }
+
     (async () => {
         const separarCookie = document.cookie.split(';');
         const separarDadosCookieToken = separarCookie[0].split('=');
@@ -144,9 +151,7 @@ window.onload = function () {
         document.cookie = `nome=${situacaoToken.nome}; SameSite=None; Secure; max-age=3600;`;
         document.cookie = `id=${situacaoToken.id}; SameSite=None; Secure; max-age=3600;`;
 
-        const separarDadosCookieNomeUser = separarCookie[1].split('=');
-        
-        document.getElementById('nomeUser').textContent = `Olá ${separarDadosCookieNomeUser[1].split(' ')[0]}`;
+        dividirCookies();
 
         let ultimoMes = "08";
         let ultimoAno = "2025";

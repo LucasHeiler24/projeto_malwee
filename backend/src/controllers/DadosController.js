@@ -13,7 +13,8 @@ import {
     somarTotalMetrosPorTiposDeTecidosNoMes,
     pegarTotalDeMetrosPorDiaPeloMes,
     somarTempoDeSetupPorCadaDiaDoMes,
-    somarTotalTempoSetupNoMes
+    somarTotalTempoSetupNoMes,
+    encontrarNumeroTarefasIguaisEmDoisMesesEntreTempoSetup
 } from "../helpers/funcoes.js";
 
 //Esse controller pega o total de producao feita por cada tipo de tecido
@@ -137,6 +138,11 @@ const diferencaMensalEntreDoisMeses = async function (request, response) {
         const dadosDate1 = await pegarDadosMesEAnoEscolhido(`${date1}`);
         const dadosDate2 = await pegarDadosMesEAnoEscolhido(`${date2}`);
 
+        let numeroTarefaMes1 = dadosDate1.map((dados) => dados.numero_da_tarefa);
+        let removerNumerosDuplicados = removerDupliados(numeroTarefaMes1);
+        
+        let {vetNumeroTarefasETempoSetupMes1, vetNumeroTarefasETempoSetupMes2} = encontrarNumeroTarefasIguaisEmDoisMesesEntreTempoSetup(removerNumerosDuplicados, dadosDate1, dadosDate2);        
+
         //total soma metros de cada mês
         let totalSomaMetrosMes1 = somarTotalDeMetrosProduzidosNoMes(dadosDate1);
         let totalSomaMetrosMes2 = somarTotalDeMetrosProduzidosNoMes(dadosDate2);
@@ -180,7 +186,9 @@ const diferencaMensalEntreDoisMeses = async function (request, response) {
             vetNumTarefaMes1,
             vetNumTarefaMes2,
             vetTempoProducao1,
-            vetTempoProducao2
+            vetTempoProducao2,
+            vetNumeroTarefasETempoSetupMes1,
+            vetNumeroTarefasETempoSetupMes2
         })
     }
     catch (e) {
@@ -263,7 +271,6 @@ const calcularTempoSetupPorDiaDoMes = async function(request, response){
     catch(e){
         return response.json(e);
     }
-
 
 }
 
