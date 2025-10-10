@@ -69,7 +69,7 @@ const validandoToken = function(request, response){
 
         jsonWebToken.verify(token, SECRET_TOKEN);
 
-        return response.status(200).json({status: 200, message: "Token válido"});
+        return response.status(200).json({status: 200, ...jsonWebToken.decode(token)});
     }
     catch(e){
         return response.status(400).json({status: 400, message: "Token inválido"})

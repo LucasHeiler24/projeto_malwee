@@ -131,12 +131,22 @@ window.onload = function () {
     }
 
     (async () => {
-        let tokenStorage = localStorage.getItem('token');
-        if(!tokenStorage) return window.location.href = './login.html';
+        const separarCookie = document.cookie.split(';');
+        const separarDadosCookieToken = separarCookie[0].split('=');
 
-        const situacaoToken = await getValidToken(tokenStorage);
+        const token = separarDadosCookieToken[1];
+        if(!token) return window.location.href = './login.html';
+
+        const situacaoToken = await getValidToken(token);
 
         if(situacaoToken.status != 200) return window.location.href = './login.html';
+
+        document.cookie = `nome=${situacaoToken.nome}; SameSite=None; Secure; max-age=3600;`;
+        document.cookie = `id=${situacaoToken.id}; SameSite=None; Secure; max-age=3600;`;
+
+        const separarDadosCookieNomeUser = separarCookie[1].split('=');
+        
+        document.getElementById('nomeUser').textContent = `Olá ${separarDadosCookieNomeUser[1].split(' ')[0]}`;
 
         let ultimoMes = "08";
         let ultimoAno = "2025";

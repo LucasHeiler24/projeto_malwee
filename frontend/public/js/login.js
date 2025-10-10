@@ -31,7 +31,7 @@ window.onload = function(){
 
             if(status.status == 400) return createFlashMessage(status.message, 'error', flashMessage);
 
-            localStorage.setItem('token', status.token);
+            document.cookie = `token=${status.token}; max-age=3600; SameSite=none; Secure;`
             return window.location.href = './index.html';
         }
         catch(e){
