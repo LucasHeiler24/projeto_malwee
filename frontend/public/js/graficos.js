@@ -2,10 +2,13 @@ import {
   anoAtual,
   anteriorMesAtual,
   formatarDataParaOsGraficos,
+  formatarDatas,
   mesAtual,
   proximoMesAtual,
+  separarDados,
   vetCoresParaOsGraficos,
   vetCoresParaOsGraficos2,
+  formater
 } from "./helpers/helpers.js";
 
 import {
@@ -16,32 +19,31 @@ import {
   operandoMes,
 } from "./helpers/funcoes_alterar_mes_ano.js";
 
-import {
-  getQuantidadeMetrosProduzidoPorTarefaNoMes,
-  getQuantidadeTempoDeProducaoPorDia,
-  getQuantidadeMetrosPorTecido,
-  getTotalTempoSetupPorNumeroTarefaNoMes,
-  getTotalTarefasCompletasENaoCompletas,
-  getTotalTempoSetupDeCadaDiaDoMes,
-  getValidToken
-} from "./requests/fetch_para_o_backend.js";
 
 import construirGrafico from "./graphics/construir_grafico.js";
+
+import {
+  getQuantidadeMetrosProduzidoPorTarefaNoMes,
+  getTotalTarefasCompletasENaoCompletas,
+  getTotalTempoSetupDeCadaDiaDoMes,
+  getQuantidadeTempoDeProducaoPorDia
+} from "./requests/fetch_graficos.js";
+
+import { getQuantidadeMetrosPorTecido, getValidToken } from "./requests/fetch_gerais.js";
 
 window.onload = function () {
   let grafico1;
   let grafico2;
-  let grafico3;
   let graficoPizzaTotalTipoTecido;
   let graficoBarraTarefasCompletasOuNao;
-  let graficoLinhaTotalTempoSetupPorNumeroTarefa;
   let grafioLinhaTotalTempoSetupPorDiaDoMes;
+  let graficoLinhaPorVariantePorSetup;
+  let graficoLinhaVariantePorTempoProducao;
 
   let dadosPrimeiroGraficoLinha;
   let dadosPrimeiroGraficoBarra;
   let dadosGraficoPizzaTotalTipoTecido;
   let dadosGraficoTarefasCompletasOuNao;
-  let dadosGraficoTotalTempoSetupPorNumeroTarefa;
   let dadosGraficoTotalTempoSetupPorDiaDoMes;
 
   let mesSelecionadoUser = mesAtual;
@@ -58,16 +60,12 @@ window.onload = function () {
     dadosPrimeiroGraficoLinha = await getQuantidadeTempoDeProducaoPorDia(
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
+    )
     dadosPrimeiroGraficoBarra = await getQuantidadeMetrosProduzidoPorTarefaNoMes(
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
     );
     dadosGraficoPizzaTotalTipoTecido = await getQuantidadeMetrosPorTecido(
-      anoAtualUser,
-      (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
-    dadosGraficoTotalTempoSetupPorNumeroTarefa = await getTotalTempoSetupPorNumeroTarefaNoMes(
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
     );
@@ -84,10 +82,8 @@ window.onload = function () {
   function chamarConstrucaoDosGraficos() {
     construirGraficoPorMetrosProduzidosPorNumTarefa();
     construirGraficoPorTempoProduzidoPorNumTarefa();
-    construirGraficoLinhaPorTempoProduzido();
     criarGraficoPizzaTotalTipoTecidoNoMes();
     construirGraficoBarraTarefasCompletasOuNaoCompletas();
-    construirGraficoLinhaTotalTempoSetupPorNumeroTarefa();
     construirGraficoLinhaDeTempoDeSetupPorDiaDoMes();
   }
 
@@ -143,19 +139,119 @@ window.onload = function () {
     mudarMesSelecionado("+");
   });
 
+
+  function constuirSelectDosDiasTempoProducao(htmlSelect, arrayDados) {
+    htmlSelect.innerHTML = "";
+    arrayDados?.forEach((dados) => {
+      htmlSelect.innerHTML += `
+        <option value="${dados.dia_do_mes}">${dados.dia_do_mes}</option>
+      `;
+    });
+  }
+
+  function construirSelectDosNumerosTarefasTempoProducao(htmlSelect, arrayDados) {
+    htmlSelect.innerHTML = "";
+    arrayDados?.forEach((dados, index) => {
+      htmlSelect.innerHTML += `
+        <option value="${index}">${dados}</option>
+      `;
+    });
+  }
+
+  function separarDadosParaOGraficoVariantesTempoProducao(arrayDados1, arrayDados2) {
+    const selectNumeroTarefasTempoProducao = document.getElementById('inSelectFiltroPorNumerosTarefasTempoProducao');
+
+    let vetNumeroTarefaFiltrar = [];
+    for (let i = 0; i < arrayDados2.length; i++) {
+      vetNumeroTarefaFiltrar.push(`De ${arrayDados2[i][0]} - até ${arrayDados2[i][arrayDados2[i].length - 1]}`);
+    }
+
+    construirSelectDosNumerosTarefasTempoProducao(selectNumeroTarefasTempoProducao, vetNumeroTarefaFiltrar);
+
+    construirGraficoVarianteEMediaTempoProducao(arrayDados1[0], arrayDados2[0]);
+    selectNumeroTarefasTempoProducao.onchange = function () {
+      let dados1 = arrayDados1[parseInt(this.value)];
+      let dados2 = arrayDados2[parseInt(this.value)];
+
+      construirGraficoVarianteEMediaTempoProducao(dados1, dados2);
+    }
+  }
+
+  function constuirGraficoMediaEVariantesTempoProducao(arrayDados) {
+    if (!arrayDados[0]) return;
+
+    const selectDiasTempoProducao = document.getElementById('inSelectFiltrarDataTempoProducaoGerarGrafico');
+
+    constuirSelectDosDiasTempoProducao(selectDiasTempoProducao, arrayDados);
+
+    const { dadosParaOsGraficos, dadosParaOsGraficos2 } = separarDados(arrayDados[0].total_por_registro_no_mes, arrayDados[0].numero_da_tarefa);
+
+    document.getElementById('dataContentTempoProducao').textContent = `Data escolhida: ${formatarDataParaOsGraficos(arrayDados[0].dia_do_mes)}`
+    document.getElementById('totalTempoProducaoPorDia').textContent = `Total tempo produção: ${formater.format(arrayDados[0].total_tempo_producao)}`
+    document.getElementById('mediaTempoProducaoPorDia').textContent = `Média de produção: ${arrayDados[0].media_tempo_setup_no_dia}`
+
+    separarDadosParaOGraficoVariantesTempoProducao(dadosParaOsGraficos, dadosParaOsGraficos2);
+
+    selectDiasTempoProducao.onchange = function () {
+      let dados = filtrarRegistrosTempoSetupPorDia(arrayDados, this.value);
+      const { dadosParaOsGraficos, dadosParaOsGraficos2 } = separarDados(dados.total_por_registro_no_mes, dados.numero_da_tarefa);
+
+      document.getElementById('dataContentTempoProducao').textContent = `Data escolhida: ${formatarDataParaOsGraficos(dados.dia_do_mes)}`
+      document.getElementById('totalTempoProducaoPorDia').textContent = `Total tempo produção: ${formater.format(dados.total_tempo_producao)}`
+      document.getElementById('mediaTempoProducaoPorDia').textContent = `Média de produção: ${dados.media_tempo_setup_no_dia}`
+
+      separarDadosParaOGraficoVariantesTempoProducao(dadosParaOsGraficos, dadosParaOsGraficos2);
+    }
+  }
+
+  const graficoTempoProducaoEmUmDia = document.getElementById('graficoTempoProducaoEmUmDia');
+  function construirGraficoVarianteEMediaTempoProducao(arrayDados1, arradyDados2) {
+    if (graficoLinhaVariantePorTempoProducao) graficoLinhaVariantePorTempoProducao.destroy();
+
+    let data = {
+      labels: arrayDados1,
+      datasets: [{
+        label: `Tempo produção ocorrido`,
+        data: arradyDados2,
+        borderWidth: 1,
+        backgroundColor: vetCoresParaOsGraficos2,
+        borderColor: ['#fff']
+      }]
+    }
+
+    let options = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            title: (itemTooltip) => {
+              return `Tarefa N°${itemTooltip[0].label}`
+            }
+          }
+        }
+      }
+
+    }
+
+    graficoLinhaVariantePorTempoProducao = construirGrafico(options, data, graficoTempoProducaoEmUmDia, 'line');
+  }
+
   const graficoNumMetrosTarefa = document.getElementById("graficoLinhaTotalTempoTarefa");
   const graficoBarTempoProduzido = document.getElementById("graficoBarTempoProduzido");
-  const graficoLinhaTotalTempoTarefa = document.getElementById("graficoLinhaTempoProduzidoPorTarefa");
 
   function construirGraficoPorMetrosProduzidosPorNumTarefa() {
+    constuirGraficoMediaEVariantesTempoProducao(dadosPrimeiroGraficoBarra.vetTotalTempoProducaoVariantesEMedia);
     if (grafico1) grafico1.destroy();
 
     let data = {
-      labels: dadosPrimeiroGraficoBarra.map((dados) => formatarDataParaOsGraficos(dados.data_historico)),
+      labels: dadosPrimeiroGraficoBarra.vetTotalMetrosPorDiaTempoProduzido.map((dados) => formatarDataParaOsGraficos(dados.data_historico)),
       datasets: [
         {
           label: "Quantidade de tempo de produção",
-          data: dadosPrimeiroGraficoBarra.map((dados) => dados.tempo_producao),
+          data: dadosPrimeiroGraficoBarra.vetTotalMetrosPorDiaTempoProduzido.map((dados) => dados.tempo_producao),
           borderWidth: 1,
           backgroundColor: vetCoresParaOsGraficos
         },
@@ -217,37 +313,6 @@ window.onload = function () {
     }
 
     grafico2 = construirGrafico(options, data, graficoNumMetrosTarefa, 'line');
-  }
-
-  function construirGraficoLinhaPorTempoProduzido() {
-    if (grafico3) grafico3.destroy();
-
-    let data = {
-      labels: dadosPrimeiroGraficoLinha.map((dados) => dados.numero_tarefa),
-      datasets: [
-        {
-          label: "Tempo produzido por tarefa",
-          data: dadosPrimeiroGraficoLinha.map((dados) => dados.tempo_producao),
-          borderWidth: 1,
-          backgroundColor: vetCoresParaOsGraficos,
-          borderColor: vetCoresParaOsGraficos[4]
-        },
-      ]
-    }
-
-    let options = {
-      plugins: {
-        legend: {
-          display: false,
-          position: "top",
-          labels: {
-            textAlign: "center",
-            fontSize: 10,
-          },
-        },
-      }
-    }
-    grafico3 = construirGrafico(options, data, graficoLinhaTotalTempoTarefa, 'line');
   }
 
   const graficoPizzaTotalTipoProduzido = document.getElementById('graficoPizzaTotalTipoProduzido');
@@ -323,12 +388,12 @@ window.onload = function () {
         legend: {
           display: false
         },
-        tooltip:{
-          callbacks:{
+        tooltip: {
+          callbacks: {
             label: (itenTooltip) => {
               return `${itenTooltip.label}: ${itenTooltip.raw}`;
             }
-          } 
+          }
 
         }
       }
@@ -337,52 +402,130 @@ window.onload = function () {
     graficoBarraTarefasCompletasOuNao = construirGrafico(options, data, graficoBarraTarefasCompletas, 'bar');
   }
 
-  const graficoLinhaTempoSetupPorTarefa = document.getElementById('graficoLinhaTempoSetupPorTarefa');
-  function construirGraficoLinhaTotalTempoSetupPorNumeroTarefa() {
+  function construirSelectsDinamicosPorData(arrayDados, htmlSelect) {
+    htmlSelect.innerHTML = "";
+    arrayDados.forEach(dados => {
+      htmlSelect.innerHTML += `
+            <option value="${dados.dia_do_mes}">${dados.dia_do_mes}</option>
+        `;
+    });
+  }
 
-    if (graficoLinhaTotalTempoSetupPorNumeroTarefa) graficoLinhaTotalTempoSetupPorNumeroTarefa.destroy();
+  function construirSelectDinamicoPorNumeroTarefa(arrayDados, htmlSelect) {
+    htmlSelect.innerHTML = "";
+    arrayDados.forEach((dados, index) => {
+      htmlSelect.innerHTML += `
+          <option value="${index}">Até ${dados}</option>
+        `;
+    })
+  }
+
+  function filtrarRegistrosTempoSetupPorDia(arrayDados, data) {
+    return arrayDados.find((dados) => dados.dia_do_mes == data);
+  }
+
+  const graficoTempoSetupEmUmDia = document.getElementById('graficoTempoSetupEmUmDia');
+  const selectFiltrarPorTarefa = document.getElementById('inSelectFiltroPorNumerosTarefasTempoSetup');
+  function construirGraficoVariantePorTempoSetup(arrayDados1, arrayDados2) {
+    if (!arrayDados2) return;
+
+    let { dadosParaOsGraficos, dadosParaOsGraficos2 } = separarDados(arrayDados1, arrayDados2);
+
+    let vet = [];
+    for (let i = 0; i < dadosParaOsGraficos2?.length; i++) {
+      if (dadosParaOsGraficos2[i][0])
+        vet.push(dadosParaOsGraficos2[i][0] + '-' + dadosParaOsGraficos2[i][dadosParaOsGraficos2[i].length - 1]);
+    }
+
+    construirSelectDinamicoPorNumeroTarefa(vet, selectFiltrarPorTarefa);
+
+    construirGraficoPorTempoSetup(dadosParaOsGraficos[0], dadosParaOsGraficos2[0]);
+    document.getElementById('inSelectFiltroPorNumerosTarefasTempoSetup').onchange = function () {
+      let dados1 = dadosParaOsGraficos[parseInt(this.value)]?.map((dados) => dados);
+      let dados2 = dadosParaOsGraficos2[parseInt(this.value)]?.map((dados) => dados);
+
+      construirGraficoPorTempoSetup(dados1, dados2);
+    }
+  }
+
+  function construirGraficoPorTempoSetup(arrayDados1, arradyDados2) {
+    if (graficoLinhaPorVariantePorSetup) graficoLinhaPorVariantePorSetup.destroy();
 
     let data = {
-      labels: dadosGraficoTotalTempoSetupPorNumeroTarefa.map((dados) => dados.numero_tarefa),
+      labels: arrayDados1,
       datasets: [{
-        label: `Total tempo setup`,
-        data: dadosGraficoTotalTempoSetupPorNumeroTarefa.map((dados) => dados.total_tempo_setup),
+        label: `Tempo setup ocorrido`,
+        data: arradyDados2,
         borderWidth: 1,
-        backgroundColor: vetCoresParaOsGraficos,
-        borderColor: vetCoresParaOsGraficos[4]
+        backgroundColor: vetCoresParaOsGraficos2,
+        borderColor: ['#fff']
       }]
     }
 
     let options = {
+      responsive: true,
       plugins: {
         legend: {
-          display: false,
-          position: "top",
-          labels: {
-            textAlign: "center",
-            fontSize: 10,
-          },
+          display: false
         },
+        tooltip: {
+          callbacks: {
+            title: (itemTooltip) => {
+              return `Tarefa N°${itemTooltip[0].label}`
+            }
+          }
+        }
       }
+
     }
 
-    graficoLinhaTotalTempoSetupPorNumeroTarefa = construirGrafico(options, data, graficoLinhaTempoSetupPorTarefa, 'line');
+    graficoLinhaPorVariantePorSetup = construirGrafico(options, data, graficoTempoSetupEmUmDia, 'line');
+  }
+
+  function construirGraficoVarianteTempoSetup(mediaEVariantesPorDiaSetup) {
+    if (mediaEVariantesPorDiaSetup.length == 0) return;
+    const inSelectFiltrarDataGerarGrafico = document.getElementById("inSelectFiltrarDataGerarGrafico");
+
+    construirSelectsDinamicosPorData(mediaEVariantesPorDiaSetup, inSelectFiltrarDataGerarGrafico);
+
+    let dataSelecionadaTempoSetup = mediaEVariantesPorDiaSetup[0].dia_do_mes;
+    let dadosFiltrados = filtrarRegistrosTempoSetupPorDia(mediaEVariantesPorDiaSetup, dataSelecionadaTempoSetup);
+
+    document.getElementById('dataContentTempoSetup').textContent = `Data escolhido: ${formatarDataParaOsGraficos(dadosFiltrados.dia_do_mes)}`;
+    document.getElementById('totalTempoSetupPorDia').textContent = `Total tempo setup: ${formater.format(dadosFiltrados.total_tempo_setup)}`;
+    document.getElementById('mediaTempoSetupPorDia').textContent = `Média setup: ${dadosFiltrados.media_tempo_setup_no_dia}`;
+
+    construirGraficoVariantePorTempoSetup(dadosFiltrados.total_por_registro_no_mes, dadosFiltrados.numero_da_tarefa);
+    inSelectFiltrarDataGerarGrafico.onchange = function () {
+      dataSelecionadaTempoSetup = this.value;
+      let dadosFiltrados = filtrarRegistrosTempoSetupPorDia(mediaEVariantesPorDiaSetup, dataSelecionadaTempoSetup);
+
+      document.getElementById('dataContentTempoSetup').textContent = `Data escolhida: ${formatarDataParaOsGraficos(dadosFiltrados.dia_do_mes)}`;
+      document.getElementById('totalTempoSetupPorDia').textContent = `Total tempo setup: ${formater.format(dadosFiltrados.total_tempo_setup)}`;
+      document.getElementById('mediaTempoSetupPorDia').textContent = `Média setup: ${dadosFiltrados.media_tempo_setup_no_dia}`;
+
+      construirGraficoVariantePorTempoSetup(dadosFiltrados.total_por_registro_no_mes, dadosFiltrados.numero_da_tarefa);
+    }
   }
 
 
   const graficoBarraTempoSetupPorDiaDoMes = document.getElementById('graficoBarraTempoSetupPorDiaDoMes');
-  function construirGraficoLinhaDeTempoDeSetupPorDiaDoMes(){
+  function construirGraficoLinhaDeTempoDeSetupPorDiaDoMes() {
 
-    if(grafioLinhaTotalTempoSetupPorDiaDoMes)
-        grafioLinhaTotalTempoSetupPorDiaDoMes.destroy();
+    if (grafioLinhaTotalTempoSetupPorDiaDoMes)
+      grafioLinhaTotalTempoSetupPorDiaDoMes.destroy();
 
+
+    const mediaEVariantesPorDiaSetup = dadosGraficoTotalTempoSetupPorDiaDoMes.mediaEVariantesPorDiaSetup;
+
+    construirGraficoVarianteTempoSetup(mediaEVariantesPorDiaSetup);
 
     let data = {
-      labels: dadosGraficoTotalTempoSetupPorDiaDoMes.map((dados) => formatarDataParaOsGraficos(dados.data_historico)),
+      labels: dadosGraficoTotalTempoSetupPorDiaDoMes.somaTotalTempoSetupPorDiaDoMes.map((dados) => formatarDataParaOsGraficos(dados.data_historico)),
       datasets: [
         {
           label: "Total de tempo de setup",
-          data: dadosGraficoTotalTempoSetupPorDiaDoMes.map((dados) => dados.tempo_de_setup),
+          data: dadosGraficoTotalTempoSetupPorDiaDoMes.somaTotalTempoSetupPorDiaDoMes.map((dados) => dados.tempo_de_setup),
           borderWidth: 1,
           backgroundColor: vetCoresParaOsGraficos
         }
@@ -421,14 +564,14 @@ window.onload = function () {
     const separarDadosCookieToken = separarCookie[0].split('=');
 
     const token = separarDadosCookieToken[1];
-    if(!token) return window.location.href = './login.html';
+    if (!token) return window.location.href = './login.html';
 
     const situacaoToken = await getValidToken(token);
 
-    if(situacaoToken.status != 200) return window.location.href = './login.html';
+    if (situacaoToken.status != 200) return window.location.href = './login.html';
 
     const separarDadosCookieNomeUser = separarCookie[1].split('=');
-    
+
     document.getElementById('nomeUser').textContent = `Olá ${separarDadosCookieNomeUser[1].split(' ')[0]}`;
 
     await getDadosDosGraficos();

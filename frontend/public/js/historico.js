@@ -10,8 +10,6 @@ import {
     filterRegistrosPorId
 } from "./helpers/helpers.js";
 
-import { getRegistrosHistoricoMesEscolhido, getValidToken } from "./requests/fetch_para_o_backend.js"
-
 import {
     aumentarAno,
     diminuirAno,
@@ -19,6 +17,10 @@ import {
     operacaoDiminuirMes,
     operacaoAumentarMes
 } from "./helpers/funcoes_alterar_mes_ano.js";
+
+import { getRegistrosHistoricoMesEscolhido } from "./requests/fetch_historico.js";
+
+import { getValidToken } from "./requests/fetch_gerais.js";
 
 
 window.onload = function () {
@@ -215,14 +217,14 @@ window.onload = function () {
         const separarDadosCookieToken = separarCookie[0].split('=');
 
         const token = separarDadosCookieToken[1];
-        if(!token) return window.location.href = './login.html';
+        if (!token) return window.location.href = './login.html';
 
         const situacaoToken = await getValidToken(token);
 
-        if(situacaoToken.status != 200) return window.location.href = './login.html';
+        if (situacaoToken.status != 200) return window.location.href = './login.html';
 
         const separarDadosCookieNomeUser = separarCookie[1].split('=');
-        
+
         document.getElementById('nomeUser').textContent = `Olá ${separarDadosCookieNomeUser[1].split(' ')[0]}`;
 
         dadosRegistros = await mudarMesSelecionado();

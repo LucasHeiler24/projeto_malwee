@@ -1,56 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/master.css" />
-    <link rel="stylesheet" href="./css/tema-malwee.css" />
-    <title>Análise por período</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/master.css" />
+  <link rel="stylesheet" href="./css/tema-malwee.css" />
+  <title>Análise por período</title>
 </head>
+
 <body>
-    <div class="layout">
-        <aside class="sidebar">
-          <div class="sidebar-header">
-            <img src="./images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-            <h2 id="nomeUser"></h2>
-          </div>
-          <nav class="sidebar-nav">
-            <ul>
-              <li class="contraste">
-                <img src="./images/hub-icon.png" width="20" height="20" />
-                <a href="./index.html"> Início </a>
-              </li>
-              <li class="contraste">
-                <img src="./images/grafico-icon.png" width="20" height="20" />
-                <a href="./graficos.html"> Gráficos </a>
-              </li>
-              <li id="item-ativo" class="contraste">
-                <img src="./images/difference-icon.png" width="20" height="20" />
-                <a href="./diferenca_mensal.html"> Diferença mensal </a>
-              </li>
-              <li class="contraste">
-                <img src="./images/difference-icon.png" width="20" height="20" />
-                <a href="./analise_periodo.html"> Análise por período </a>
-              </li>
-              <li class="contraste">
-                <img src="./images/history-icon.png" width="20" height="20" />
-                <a href="./historico.html"> Histórico </a>
-              </li>
-              <li class="contraste">
-                <img src="./images/arrow-back.png" width="20" height="20" />
-                <a href="./login.html"> Log-out </a>
-              </li>
-            </ul>
-          </nav>
-        </aside>
-  
-        <main class="main-content">
-
-            <section class="section-info">
-                <h1>Análise por período</h1>
-            </section>
-
-        </main>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="./images/malwee_logo-removebg-preview.png" alt="Logo" id="logo" class="sidebar-logo" />
+        <button id="btnAmpliarSideBar">
+          <img src="./images/open-menu.png" />
+        </button>
+        <button id="btnDiminuirSideBar">
+          <img src="./images/close-menu.png" />
+        </button>
       </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="contraste">
+            <button id="btnHomeSideBar">
+              <img src="./images/hub-icon.png" width="20" height="20" />
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="homeSideBar" href="./index.html"></a>
+            </div>
+          </li>
+          <li class="contraste">
+            <button id="btnGraficoSideBar">
+              <img src="./images/grafico-icon.png" width="20" height="20" />
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="graficoSideBar" href="./graficos.html"></a>
+            </div>
+          </li>
+          <li class="contraste">
+            <button id="btnDiferencaSideBar">
+              <img src="./images/difference-icon.png" width="20" height="20" />
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="diferencaSideBar" href="./diferenca_mensal.html"></a>
+            </div>
+          </li>
+          <li id="item-ativo" class="contraste">
+            <button id="btnAnaliseSideBar">
+              <img src="./images/difference-icon.png" width="20" height="20" />
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="analiseSideBar" href="./analise_periodo.html"></a>
+            </div>
+          </li>
+          <li class="contraste">
+            <button id="btnHistoricoSideBar">
+              <img src="./images/history-icon.png" width="20" height="20" />
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="historicoSideBar" href="./historico.html"></a>
+            </div>
+          </li>
+          <li class="contraste">
+            <button id="btnLogoutSideBar">
+              <img src="./images/logout.png" width="20" height="20" />
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="logoutSideBar" href="./index.html"></a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+
+      <section class="section-info">
+        <h2 id="nomeUser"></h2>
+        <h1>Análise por período</h1>
+      </section>
+
+      <section class="section-select-filter">
+        <div class="div-select-date-filter">
+          <h1>Informe a data de análise</h1>
+          <input type="date" id="inDate">
+        </div>
+
+        <div class="div-select-date-filter">
+          <h1>Informe o modo de análise</h1>
+          <select id="inSelectTypeFiltro">
+            <option value="-1">Selecione o tipo da análise</option>
+            <option value="0">Diário</option>
+            <option value="1">Semanal</option>
+            <option value="2">Quinzenal</option>
+            <option value="3">Mensal</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="section-grafico-linha-total-tipo-tecido">
+
+        <div class="div-background-graficos">
+          <div class="div-grafico-first-content">
+            <h1>Tipo tecido</h1>
+
+            <div class="dados-por-tipo-tecido">
+              <div class="card-1-total-tipo-tecido-produzido">
+                <div class="card-1-header">
+                  <h1>Total produzido</h1>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="div-grafico-linha-total-tipo-tecido">
+            <canvas id="graficoLinhaTotalMetrosPorTipoTecidoPorDiaPorAnalise"></canvas>
+          </div>
+        </div>
+
+        <div class="div-background-graficos">
+          <h1>Total de metros produzidos por dia</h1>
+          <div class="div-grafico-bar-total-tipo-tecido">
+            <canvas id="graficoLinhaTotalMetrosPorDiaPorAnalise"></canvas>
+          </div>
+        </div>
+
+
+
+      </section>
+
+    </main>
+  </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/sidebar.js"></script>
+<script type="module" src="./js/analise_periodo.js"></script>
+
 </html>

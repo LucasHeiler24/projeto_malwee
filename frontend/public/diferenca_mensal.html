@@ -1,129 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diferença mensal</title>
-    <link rel="stylesheet" href="../css/master.css" />
-    <link rel="stylesheet" href="../css/diferenca_mensal.css" />
-    <link rel="stylesheet" href="./css/tema-malwee.css" />
-  </head>
 
-  <body>
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="sidebar-header">
-          <img src="./images/malwee_logo-removebg-preview.png" alt="Logo" class="sidebar-logo" />
-          <h2 id="nomeUser"></h2>
-        </div>
-        <nav class="sidebar-nav">
-          <ul>
-            <li class="contraste">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diferença mensal</title>
+  <link rel="stylesheet" href="../css/master.css" />
+  <link rel="stylesheet" href="../css/diferenca_mensal.css" />
+  <link rel="stylesheet" href="./css/tema-malwee.css" />
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="./images/malwee_logo-removebg-preview.png" alt="Logo" id="logo" class="sidebar-logo" />
+        <button id="btnAmpliarSideBar">
+          <img src="./images/open-menu.png" />
+        </button>
+        <button id="btnDiminuirSideBar">
+          <img src="./images/close-menu.png" />
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="contraste">
+            <button id="btnHomeSideBar">
               <img src="./images/hub-icon.png" width="20" height="20" />
-              <a href="./index.html"> Início </a>
-            </li>
-            <li class="contraste">
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="homeSideBar" href="./index.html"></a>
+            </div>
+          </li>
+          <li class="contraste">
+            <button id="btnGraficoSideBar">
               <img src="./images/grafico-icon.png" width="20" height="20" />
-              <a href="./graficos.html"> Gráficos </a>
-            </li>
-            <li id="item-ativo" class="contraste">
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="graficoSideBar" href="./graficos.html"></a>
+            </div>
+          </li>
+          <li class="contraste">
+            <button id="btnDiferencaSideBar">
               <img src="./images/difference-icon.png" width="20" height="20" />
-              <a href="./diferenca_mensal.html"> Diferença mensal </a>
-            </li>
-            <li class="contraste">
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="diferencaSideBar" href="./diferenca_mensal.html"></a>
+            </div>
+          </li>
+          <li id="item-ativo" class="contraste">
+            <button id="btnAnaliseSideBar">
               <img src="./images/difference-icon.png" width="20" height="20" />
-              <a href="./analise_periodo.html"> Análise por período </a>
-            </li>
-            <li class="contraste">
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="analiseSideBar" href="./analise_periodo.html"></a>
+            </div>
+          </li>
+          <li class="contraste">
+            <button id="btnHistoricoSideBar">
               <img src="./images/history-icon.png" width="20" height="20" />
-              <a href="./historico.html"> Histórico </a>
-            </li>
-            <li class="contraste">
-              <img src="./images/arrow-back.png" width="20" height="20" />
-              <a href="./login.html"> Log-out </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-
-      <main class="main-content">
-        <section class="section-info">
-          <h1>Diferença mensal</h1>
-        </section>
-
-        <section class="section-selecionar-meses">
-          <div class="div-selecionar-meses">
-            <h1>Informe o primeiro mês</h1>
-            <input type="date" id="inPrimeiroMes" />
-          </div>
-
-          <div class="div-selecionar-meses">
-            <h1>Informe o segundo mês</h1>
-            <input type="date" id="inSegundoMes" />
-          </div>
-        </section>
-
-        <section class="section-graficos-diferencas">
-          <div class="div-grafico-diferenca-total">
-            <h1>Total de metros produzido no mês</h1>
-            <div class="div-mostrar-grafico-mes-metros-produzidos">
-              <canvas id="graficoBarraDiferencaMensalMetrosProduzidos"></canvas>
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="historicoSideBar" href="./historico.html"></a>
             </div>
-          </div>
+          </li>
+          <li class="contraste">
+            <button id="btnLogoutSideBar">
+              <img src="./images/logout.png" width="20" height="20" />
+            </button>
+            <div class="alinhar-links-sidebar">
+              <a id="logoutSideBar" href="./index.html"></a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </aside>
 
-          <div class="div-grafico-diferenca-total">
-            <h1>Total de tempo produzido no mês</h1>
+    <main class="main-content">
+      <section class="section-info">
+        <h2 id="nomeUser"></h2>
+        <h1>Diferença mensal</h1>
+      </section>
+
+      <section class="section-selecionar-meses">
+        <div class="div-selecionar-meses">
+          <h1>Informe o primeiro mês</h1>
+          <input type="date" id="inPrimeiroMes" />
+        </div>
+
+        <div class="div-selecionar-meses">
+          <h1>Informe o segundo mês</h1>
+          <input type="date" id="inSegundoMes" />
+        </div>
+      </section>
+
+      <section class="section-graficos-diferencas">
+        <div class="div-grafico-diferenca-total">
+          <h1>Total de metros produzido no mês</h1>
+          <div class="div-mostrar-grafico-mes-metros-produzidos">
+            <canvas id="graficoBarraDiferencaMensalMetrosProduzidos"></canvas>
+          </div>
+        </div>
+
+        <div class="div-grafico-diferenca-total">
+          <h1>Total de tempo produzido no mês</h1>
+          <div class="div-mostrar-grafico-mes-tempo-produzidos">
+            <canvas id="graficoBarraDiferencaMensalTempoProduzidos"></canvas>
+          </div>
+        </div>
+
+        <div class="div-grafico-diferenca-total">
+          <h1>Total de tempo setup no mês</h1>
+          <div class="div-mostrar-grafico-mes-tempo-setup-produzidos">
+            <canvas id="graficoBarraDiferencaMensalTempoSetup"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-graficos-grandes">
+        <section class="section-grafico-diferenca-tempo-producao">
+          <div class="div-grafico-diferenca-total-tempo-producao">
+            <h1>Diferença por datas entre os meses por tempo de produção</h1>
             <div class="div-mostrar-grafico-mes-tempo-produzidos">
-              <canvas id="graficoBarraDiferencaMensalTempoProduzidos"></canvas>
-            </div>
-          </div>
-
-          <div class="div-grafico-diferenca-total">
-            <h1>Total de tempo setup no mês</h1>
-            <div class="div-mostrar-grafico-mes-tempo-produzidos">
-              <canvas id="graficoBarraDiferencaMensalTempoSetup"></canvas>
+              <canvas id="graficoLinhaDiferencaMensalMetrosProduzidos"></canvas>
             </div>
           </div>
         </section>
 
-        <section class="section-graficos-grandes">
-          <section class="section-grafico-diferenca-tempo-producao">
-            <div class="div-grafico-diferenca-total-tempo-producao">
-              <h1>Diferença por datas entre os meses por tempo de produção</h1>
-              <div class="div-mostrar-grafico-mes-tempo-produzidos">
-                <canvas id="graficoLinhaDiferencaMensalMetrosProduzidos"></canvas>
-              </div>
+        <section class="section-grafico-diferenca-total-metros-produzidos">
+          <div class="div-grafico-diferenca-total-metros-produzidos">
+            <h1>Total de metros produzidos por número de tarefa entre os meses</h1>
+            <div class="grafico-linha-meses">
+              <canvas id="graficoLinhaMetrosProduzidosPorTarefa"></canvas>
             </div>
-          </section>
-
-          <section class="section-grafico-diferenca-total-metros-produzidos">
-            <div class="div-grafico-diferenca-total-metros-produzidos">
-              <h1>Total de metros produzidos por número de tarefa entre os meses</h1>
-              <div class="grafico-linha-meses">
-                <canvas id="graficoLinhaMetrosProduzidosPorTarefa"></canvas>
-              </div>
-            </div>
-          </section>
-
-          <section class="section-grafico-diferenca-total-metros-produzidos">
-            <div class="div-grafico-diferenca-total-metros-produzidos">
-              <h1>Total de tempo de setup por número de tarefa entre os meses</h1>
-              <div class="grafico-linha-numeo-tarefas-tempo-setup">
-                <canvas id="graficoLinhaTempoSetupEntreNumeroTarefa"></canvas>
-              </div>
-            </div>
-          </section>
-
+          </div>
         </section>
-      </main>
-    </div>
-  </body>
 
-  <script
-    src="https://code.jquery.com/jquery-3.7.1.js"
-    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"
-  ></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="../js/diferenca_mensal.js"></script>
+        <section class="section-grafico-diferenca-total-tempo-setup">
+          <div class="div-grafico-diferenca-total-metros-produzidos">
+            <h1>Total de tempo de setup por número de tarefa entre os meses</h1>
+            <div class="grafico-linha-numeo-tarefas-tempo-setup">
+              <canvas id="graficoLinhaTempoSetupEntreNumeroTarefa"></canvas>
+            </div>
+          </div>
+        </section>
+
+      </section>
+    </main>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/sidebar.js"></script>
+<script type="module" src="../js/diferenca_mensal.js"></script>
+
 </html>

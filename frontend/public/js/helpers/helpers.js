@@ -71,17 +71,51 @@ function filterRegistrosPorId(arrayRegistros, idRegistro) {
 }
 
 
-function createFlashMessage(sText, sType, divFlash){
+function createFlashMessage(sText, sType, divFlash) {
     divFlash.style.display = 'flex';
-    
-    if(sType == 'error'){
+
+    if (sType == 'error') {
         divFlash.style = `background: rgb(192, 29, 0);`;
         divFlash.innerHTML = `<p>${sText}</p>`;
-        return setTimeout(() => {divFlash.style.display = 'none'}, 3000);
+        return setTimeout(() => { divFlash.style.display = 'none' }, 3000);
     }
-    
+
     divFlash.style = `background: rgb(38, 163, 13);`;
     divFlash.innerHTML = `<p>${sText}</p>`;
+}
+
+function separarDados(arrayDados1, arrayDados2) {
+    if (!arrayDados1) return;
+
+    let dadosParaOsGraficos = [];
+    let dadosParaOsGraficos2 = [];
+    let qtdExtrairDados = parseInt(arrayDados1?.length / 21);
+
+    let controle = 0;
+    for (let i = 0; i < qtdExtrairDados; i++) {
+        let nums = [];
+        let num2 = [];
+        for (let j = controle; j < 21 + controle; j++) {
+            nums.push(arrayDados1[j]);
+            num2.push(arrayDados2[j]);
+        }
+        controle += 21;
+        dadosParaOsGraficos.push(nums);
+        dadosParaOsGraficos2.push(num2);
+    }
+
+    if (!arrayDados1[controle + 1]) return { dadosParaOsGraficos, dadosParaOsGraficos2 };
+
+    let nums = [];
+    let nums2 = [];
+    for (let n = controle; n < arrayDados1?.length; n++) {
+        nums.push(arrayDados1[n]);
+        nums2.push(arrayDados2[n]);
+    }
+    dadosParaOsGraficos.push(nums);
+    dadosParaOsGraficos2.push(nums2);
+
+    return { dadosParaOsGraficos, dadosParaOsGraficos2 }
 }
 
 export {
@@ -101,5 +135,6 @@ export {
     formatarDataParaOsGraficos,
     formatarDatasEntreOsMeses,
     filterRegistrosPorId,
-    createFlashMessage
+    createFlashMessage,
+    separarDados
 };

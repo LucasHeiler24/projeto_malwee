@@ -17,3 +17,6 @@ Algumas funcionalidades a mais para o projeto:
 °Adicionar uma rota que compara dados a partir do dia selecionado durante uma semana
 
 °Comparar ganhos e perdas pelos dados, número tarefa e mensalmente
+
+
+Tempo de setup é em segundos

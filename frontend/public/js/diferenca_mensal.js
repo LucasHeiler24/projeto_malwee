@@ -1,6 +1,16 @@
 import construirGrafico from "./graphics/construir_grafico.js";
-import { formatarDataParaOsGraficos, formatarDatas, formatarDatasEntreOsMeses, formater, vetCoresParaOsGraficos2 } from "./helpers/helpers.js";
-import { getDadosDiferencaMensal, getValidToken } from "./requests/fetch_para_o_backend.js";
+
+import {
+    formatarDataParaOsGraficos,
+    formatarDatas,
+    formatarDatasEntreOsMeses,
+    formater,
+    vetCoresParaOsGraficos2
+} from "./helpers/helpers.js";
+
+import { getDadosDiferencaMensal } from "./requests/fetch_diferenca_mensal.js";
+
+import { getValidToken } from "./requests/fetch_gerais.js";
 
 window.onload = function () {
 
@@ -152,12 +162,12 @@ window.onload = function () {
     }
 
     const graficoBarraDiferencaMensalTempoSetup = document.getElementById('graficoBarraDiferencaMensalTempoSetup');
-    function construirGraficoBarraTempoSetupNosMeses(totalMetrosMes1, totalMetrosMes2){
+    function construirGraficoBarraTempoSetupNosMeses(totalMetrosMes1, totalMetrosMes2) {
 
-        if(graficoBarraTotalTempoSetupNosMeses)
+        if (graficoBarraTotalTempoSetupNosMeses)
             graficoBarraTotalTempoSetupNosMeses.destroy();
 
-    
+
         let data = {
             labels: [formatarDatasEntreOsMeses(primeiraData), formatarDatasEntreOsMeses(segundaData)],
             datasets: [{
@@ -189,10 +199,10 @@ window.onload = function () {
     }
 
     const graficoLinhaTempoSetupEntreNumeroTarefa = document.getElementById('graficoLinhaTempoSetupEntreNumeroTarefa');
-    function construirGraficoLinhaTotalDeMetrosPorNumeroTarefaNosMeses(arrayTempoSetup1, arrayTempoSetup2){
+    function construirGraficoLinhaTotalDeMetrosPorNumeroTarefaNosMeses(arrayTempoSetup1, arrayTempoSetup2) {
 
         if (graficoLinhaTempoSetupPorNumeroTarefaNosMeses)
-        graficoLinhaTempoSetupPorNumeroTarefaNosMeses.destroy();
+            graficoLinhaTempoSetupPorNumeroTarefaNosMeses.destroy();
 
         let data = {
             labels: arrayTempoSetup1.map((dados) => dados.data_historico),
@@ -228,14 +238,14 @@ window.onload = function () {
         const separarDadosCookieToken = separarCookie[0].split('=');
 
         const token = separarDadosCookieToken[1];
-        if(!token) return window.location.href = './login.html';
+        if (!token) return window.location.href = './login.html';
 
         const situacaoToken = await getValidToken(token);
 
-        if(situacaoToken.status != 200) return window.location.href = './login.html';
+        if (situacaoToken.status != 200) return window.location.href = './login.html';
 
         const separarDadosCookieNomeUser = separarCookie[1].split('=');
-        
+
         document.getElementById('nomeUser').textContent = `Olá ${separarDadosCookieNomeUser[1].split(' ')[0]}`;
         document.getElementById('inPrimeiroMes').addEventListener('change', async function () {
             primeiraData = formatarDatas(this.value.split('-'));

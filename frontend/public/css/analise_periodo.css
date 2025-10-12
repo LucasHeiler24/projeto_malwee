@@ -1,0 +1,57 @@
+.section-select-filter {
+  width: 100%;
+  height: 20vh;
+  background: #1a2e35;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.div-select-date-filter {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.div-select-date-filter h1 {
+  text-align: 15px;
+}
+
+.div-select-date-filter input,
+.div-select-date-filter select {
+  width: 100%;
+  height: 6vh;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.section-grafico-linha-total-tipo-tecido {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  gap: 10px;
+}
+
+.div-background-graficos {
+  width: 100%;
+  height: auto;
+  background: #1a2e35;
+  padding: 20px;
+}
+
+#graficoLinhaTotalMetrosPorDiaPorAnalise {
+  width: 100%;
+}

@@ -1,13 +1,18 @@
 import {
-    getQuantidadeMetrosPorTecido,
-    getQuantidadeMetrosProduzidoPorDia,
-    getTotalTempoSetupPorDiaDoMes,
-    getValidToken
-} from "./requests/fetch_para_o_backend.js"
-
-import { formatarDataParaOsGraficos, formater, vetCoresParaOsGraficos, vetCoresParaOsGraficos2 } from "./helpers/helpers.js";
+    formatarDataParaOsGraficos,
+    formater,
+    vetCoresParaOsGraficos,
+    vetCoresParaOsGraficos2
+} from "./helpers/helpers.js";
 
 import construirGrafico from "./graphics/construir_grafico.js";
+
+import {
+    getQuantidadeMetrosProduzidoPorDia,
+    getTotalTempoSetupPorDiaDoMes
+} from "./requests/fetch_home.js";
+
+import { getQuantidadeMetrosPorTecido, getValidToken } from "./requests/fetch_gerais.js";
 
 window.onload = function () {
 
@@ -130,10 +135,10 @@ window.onload = function () {
         });
     }
 
-    function dividirCookies(){
+    function dividirCookies() {
         const separarCookie = document.cookie.split(';');
         const separarDadosCookieNomeUser = separarCookie[1].split('=');
-        
+
         document.getElementById('nomeUser').textContent = `Olá ${separarDadosCookieNomeUser[1].split(' ')[0]}`;
     }
 
@@ -142,11 +147,11 @@ window.onload = function () {
         const separarDadosCookieToken = separarCookie[0].split('=');
 
         const token = separarDadosCookieToken[1];
-        if(!token) return window.location.href = './login.html';
+        if (!token) return window.location.href = './login.html';
 
         const situacaoToken = await getValidToken(token);
 
-        if(situacaoToken.status != 200) return window.location.href = './login.html';
+        if (situacaoToken.status != 200) return window.location.href = './login.html';
 
         document.cookie = `nome=${situacaoToken.nome}; SameSite=None; Secure; max-age=3600;`;
         document.cookie = `id=${situacaoToken.id}; SameSite=None; Secure; max-age=3600;`;

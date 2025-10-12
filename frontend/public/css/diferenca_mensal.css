@@ -26,36 +26,40 @@
 }
 
 /* ====== SEÇÃO DOS GRÁFICOS ====== */
-.section-graficos-diferencas{
+.section-graficos-diferencas {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: space-around;
+  align-items: center;
   gap: 20px;
-  flex-wrap: wrap; /* permite quebra em telas menores */
+  flex-wrap: wrap;
 }
 
-.section-graficos-grandes{
+.section-graficos-grandes {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   gap: 20px;
 }
 
-/* ====== GRÁFICOS INDIVIDUAIS ====== */
 .section-grafico-diferenca-tempo-producao,
-.section-grafico-diferenca-total-metros-produzidos {
-  flex: 1;
-  min-width: 300px;
+.section-grafico-diferenca-total-metros-produzidos,
+.section-grafico-diferenca-total-tempo-setup {
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: #1a2e35; /* azul petróleo */
+  gap: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.div-grafico-diferenca-total-tempo-producao,
-.div-grafico-diferenca-total-metros-produzidos {
-  width: 100%;
+.div-grafico-diferenca-total {
+  width: 40%;
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -66,26 +70,17 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.div-grafico-diferenca-total-tempo-producao h1,
-.div-grafico-diferenca-total-metros-produzidos h1 {
-  color: #e2b714; /* amarelo mostarda */
-  font-size: 1.1rem;
-  text-align: center;
-}
-
-/* ====== CONTAINERS DOS GRÁFICOS ====== */
 .div-mostrar-grafico-mes-metros-produzidos,
 .div-mostrar-grafico-mes-tempo-produzidos,
-.grafico-linha-meses
-.grafico-linha-numeo-tarefas-tempo-setup {
+.div-mostrar-grafico-mes-tempo-setup-produzidos,
+.grafico-linha-numeo-tarefas-tempo-setup,
+.div-mostrar-grafico-mes-tempo-produzidos,
+.grafico-linha-meses {
   width: 100%;
-  width: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #1a2e35; /* azul petróleo */
-  gap: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+section h1 {
+  text-align: center;
 }
 
 /* ====== AJUSTE DE RESPONSIVIDADE ====== */
