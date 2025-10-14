@@ -6,20 +6,39 @@ import {
     calcularOTempoDeSetupDasDatasDeUmMes,
     somarTotalMetrosPorTiposDeTecidosNoMes,
     pegarTotalDeMetrosPorDiaPeloMes,
-    formatarDatasParaAmericanas
+    formatarDatasParaAmericanas,
+    formatarDatas
 } from "../helpers/funcoes.js";
 
-import { funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes } from "../helpers/funcoes_analise.js";
+import
+{
+    funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes,
+    funcaoAnaliseTotalMetrosNosDias,
+    funcaoAnaliseDiferencasEntreDatasMetrosTotais,
+    funcaoAnaliseDiferencasEntreDatasTotalProducao,
+    funcaoAnaliseDiferencasEntreDatasTotalSetup,
+} from "../helpers/funcoes_analise.js";
 
 
 const analisePorPeriodoSemanal = async function (request, response) {
 
-    const vetSomarSeteDiasNaData = [];
+    let vetSomarSeteDiasNaData;
 
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 9; i++) {
         const data = new Date(request.params.date);
-        vetSomarSeteDiasNaData.push(
-            data.setDate(data.getDate() + i)
+        const data2 = new Date(data);
+        let formatarDatas2 = formatarDatas.format(new Date(data2.setDate(data2.getDate() + i))).split(' ')[0];
+
+        if(formatarDatas2 == "sábado,")
+            vetSomarSeteDiasNaData.push(
+                data.setDate(data.getDate() + (i + 2))
+            )
+        else if(formatarDatas2 == "domingo,")
+            vetSomarSeteDiasNaData.push(
+                data.setDate(data.getDate() + (i + 1))
+            )
+        else vetSomarSeteDiasNaData.push(
+            data.setDate(data.getDate() + (i))
         )
     }
 
@@ -36,19 +55,27 @@ const analisePorPeriodoSemanal = async function (request, response) {
         if (dados.length != 0) dadosSemanais.push(...dados);
     }
 
+    let removerDatasDuplicadas = removerDupliados(vetDatasSomadas);
     let totalMetrosProduzidosPorTipoTecidoNaSemana = funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes(dadosSemanais);
-    let totalMetrosPorDiaNaSemana = pegarTotalDeMetrosPorDiaPeloMes(dadosSemanais, vetDatasSomadas);
-    let totalTempoProducaoPorDiaNaSemana = calcularQuantidadeTempoProducaoPorDia(dadosSemanais, vetDatasSomadas);
-    let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, vetDatasSomadas);
-    let numeroTarefas = removerDupliados(dadosSemanais.map((dados) => dados.numero_da_tarefa));
+    let totalMetrosPorDiaNaSemana = funcaoAnaliseTotalMetrosNosDias(dadosSemanais, removerDatasDuplicadas);
+    let totalTempoProducaoPorDiaNaSemana = calcularQuantidadeTempoProducaoPorDia(dadosSemanais, removerDatasDuplicadas);
+    let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, removerDatasDuplicadas);
 
+    let diferencaDatasMetrosProduzidos = funcaoAnaliseDiferencasEntreDatasMetrosTotais(totalMetrosPorDiaNaSemana);
+    let diferencaDatasTempoProducao = funcaoAnaliseDiferencasEntreDatasTotalProducao(totalTempoProducaoPorDiaNaSemana);
+    let diferencaDatasTempoSetup = funcaoAnaliseDiferencasEntreDatasTotalSetup(totalTempoSetupPorDiaNaSemana);
 
-    return response.json({
-        totalMetrosProduzidosPorTipoTecidoNaSemana,
-        totalMetrosPorDiaNaSemana,
-        totalTempoProducaoPorDiaNaSemana,
-        totalTempoSetupPorDiaNaSemana
-    });
+    return response.json(
+        {
+            totalMetrosProduzidosPorTipoTecidoNaSemana,
+            totalMetrosPorDiaNaSemana,
+            totalTempoProducaoPorDiaNaSemana,
+            totalTempoSetupPorDiaNaSemana,
+            diferencaDatasMetrosProduzidos,
+            diferencaDatasTempoProducao,
+            diferencaDatasTempoSetup
+        });
+
 }
 
 const analisePorPeriodoQuinzenal = async function (request, response) {
@@ -57,9 +84,22 @@ const analisePorPeriodoQuinzenal = async function (request, response) {
 
     for (let i = 1; i <= 16; i++) {
         const data = new Date(request.params.date);
-        vetSomarSeteDiasNaData.push(
-            data.setDate(data.getDate() + i)
+        const data2 = new Date(data);
+        let formatarDatas2 = formatarDatas.format(new Date(data2.setDate(data2.getDate() + i))).split(' ')[0];
+       
+        if(formatarDatas2 == "sábado,")
+            vetSomarSeteDiasNaData.push(
+                data.setDate(data.getDate() + (i + 2))
+            )
+        else if(formatarDatas2 == "domingo,")
+            vetSomarSeteDiasNaData.push(
+                data.setDate(data.getDate() + (i + 1))
+            )
+        else vetSomarSeteDiasNaData.push(
+            data.setDate(data.getDate() + (i))
         )
+
+        console.log(data2);
     }
 
     let vetDatasSomadas = [];
@@ -75,20 +115,27 @@ const analisePorPeriodoQuinzenal = async function (request, response) {
         if (dados.length != 0) dadosSemanais.push(...dados);
     }
 
+    let removerDatasDuplicadas = removerDupliados(vetDatasSomadas);
     let totalMetrosProduzidosPorTipoTecidoNaSemana = funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes(dadosSemanais);
-    let totalMetrosPorDiaNaSemana = pegarTotalDeMetrosPorDiaPeloMes(dadosSemanais, vetDatasSomadas);
-    let totalTempoProducaoPorDiaNaSemana = calcularQuantidadeTempoProducaoPorDia(dadosSemanais, vetDatasSomadas);
-    let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, vetDatasSomadas);
+    let totalMetrosPorDiaNaSemana = funcaoAnaliseTotalMetrosNosDias(dadosSemanais, removerDatasDuplicadas);
+    let totalTempoProducaoPorDiaNaSemana = calcularQuantidadeTempoProducaoPorDia(dadosSemanais, removerDatasDuplicadas);
+    let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, removerDatasDuplicadas);
 
-    let numeroTarefas = removerDupliados(dadosSemanais.map((dados) => dados.numero_da_tarefa));
+    let diferencaDatasMetrosProduzidos = funcaoAnaliseDiferencasEntreDatasMetrosTotais(totalMetrosPorDiaNaSemana);
+    let diferencaDatasTempoProducao = funcaoAnaliseDiferencasEntreDatasTotalProducao(totalTempoProducaoPorDiaNaSemana);
+    let diferencaDatasTempoSetup = funcaoAnaliseDiferencasEntreDatasTotalSetup(totalTempoSetupPorDiaNaSemana);
 
 
-    return response.json({
-        totalMetrosProduzidosPorTipoTecidoNaSemana,
-        totalMetrosPorDiaNaSemana,
-        totalTempoProducaoPorDiaNaSemana,
-        totalTempoSetupPorDiaNaSemana
-    });
+    return response.json(
+        {
+            totalMetrosProduzidosPorTipoTecidoNaSemana,
+            totalMetrosPorDiaNaSemana,
+            totalTempoProducaoPorDiaNaSemana,
+            totalTempoSetupPorDiaNaSemana,
+            diferencaDatasMetrosProduzidos,
+            diferencaDatasTempoProducao,
+            diferencaDatasTempoSetup
+        });
 }
 
 const analisePorPeriodoMensal = async function (request, response) {
@@ -97,8 +144,19 @@ const analisePorPeriodoMensal = async function (request, response) {
 
     for (let i = 1; i <= 31; i++) {
         const data = new Date(request.params.date);
-        vetSomarSeteDiasNaData.push(
-            data.setDate(data.getDate() + i)
+        const data2 = new Date(data);
+        let formatarDatas2 = formatarDatas.format(new Date(data2.setDate(data2.getDate() + i))).split(' ')[0];
+
+        if(formatarDatas2 == "sábado,")
+            vetSomarSeteDiasNaData.push(
+                data.setDate(data.getDate() + (i + 2))
+            )
+        else if(formatarDatas2 == "domingo,")
+            vetSomarSeteDiasNaData.push(
+                data.setDate(data.getDate() + (i + 1))
+            )
+        else vetSomarSeteDiasNaData.push(
+            data.setDate(data.getDate() + (i))
         )
     }
 
@@ -115,19 +173,26 @@ const analisePorPeriodoMensal = async function (request, response) {
         if (dados.length != 0) dadosSemanais.push(...dados);
     }
 
+    let removerDatasDuplicadas = removerDupliados(vetDatasSomadas);
     let totalMetrosProduzidosPorTipoTecidoNaSemana = funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes(dadosSemanais);
-    let totalMetrosPorDiaNaSemana = pegarTotalDeMetrosPorDiaPeloMes(dadosSemanais, vetDatasSomadas);
-    let totalTempoProducaoPorDiaNaSemana = calcularQuantidadeTempoProducaoPorDia(dadosSemanais, vetDatasSomadas);
-    let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, vetDatasSomadas);
+    let totalMetrosPorDiaNaSemana = funcaoAnaliseTotalMetrosNosDias(dadosSemanais, removerDatasDuplicadas);
+    let totalTempoProducaoPorDiaNaSemana = calcularQuantidadeTempoProducaoPorDia(dadosSemanais, removerDatasDuplicadas);
+    let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, removerDatasDuplicadas);
 
-    let numeroTarefas = removerDupliados(dadosSemanais.map((dados) => dados.numero_da_tarefa));
+    let diferencaDatasMetrosProduzidos = funcaoAnaliseDiferencasEntreDatasMetrosTotais(totalMetrosPorDiaNaSemana);
+    let diferencaDatasTempoProducao = funcaoAnaliseDiferencasEntreDatasTotalProducao(totalTempoProducaoPorDiaNaSemana);
+    let diferencaDatasTempoSetup = funcaoAnaliseDiferencasEntreDatasTotalSetup(totalTempoSetupPorDiaNaSemana);
 
-    return response.json({
-        totalMetrosProduzidosPorTipoTecidoNaSemana,
-        totalMetrosPorDiaNaSemana,
-        totalTempoProducaoPorDiaNaSemana,
-        totalTempoSetupPorDiaNaSemana
-    });
+    return response.json(
+        {
+            totalMetrosProduzidosPorTipoTecidoNaSemana,
+            totalMetrosPorDiaNaSemana,
+            totalTempoProducaoPorDiaNaSemana,
+            totalTempoSetupPorDiaNaSemana,
+            diferencaDatasMetrosProduzidos,
+            diferencaDatasTempoProducao,
+            diferencaDatasTempoSetup
+        });
 }
 
 const analisePorPeriodoDiario = async function (request, response) {

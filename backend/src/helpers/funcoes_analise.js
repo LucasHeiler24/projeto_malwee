@@ -83,6 +83,69 @@ function funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes(dados) {
     return somaDeMetrosProduzidosPorTipoTecido;
 }
 
+function funcaoAnaliseTotalMetrosNosDias(vetDados, vetDatas){
+
+    let vet = [];
+
+
+    for(let i=0; i<vetDatas.length; i++){
+
+        let dados = vetDados.reduce((soma, dados) => {
+            if(dados.data_historico.split(' ')[0] == vetDatas[i] && dados.tarefa_completa == 'TRUE'){
+                soma.total_metros_no_dia += dados.metros_produzidos;
+                soma.numeros_tarefas_no_dia.push(dados.metros_produzidos);
+            }
+            
+            return soma;
+        }, {
+            total_metros_no_dia: 0,
+            numeros_tarefas_no_dia: []
+        });
+
+        vet.push(
+            {
+                data: vetDatas[i],
+                total_metros: dados.total_metros_no_dia,
+                media_total_metros_no_dia: (dados.total_metros_no_dia == 0) ? 0 : (dados.total_metros_no_dia / dados.numeros_tarefas_no_dia.length).toFixed(2)
+            }
+        )
+
+    }
+    
+    return vet;
+
+}
+
+function funcaoAnaliseDiferencasEntreDatasMetrosTotais(arrayDados){
+    let vetDiffMetros = [];
+    for(let i=0; i<arrayDados.length - 1; i++){
+        vetDiffMetros.push(Math.abs(arrayDados[i].total_metros - arrayDados[i + 1].total_metros));
+    }
+    return vetDiffMetros
+}
+
+function funcaoAnaliseDiferencasEntreDatasTotalProducao(arrayDados){
+    let vetDiffMetros = [];
+    for(let i=0; i<arrayDados.length - 1; i++){
+        vetDiffMetros.push(Math.abs(arrayDados[i].tempo_producao - arrayDados[i + 1].tempo_producao));
+    }
+    return vetDiffMetros
+}
+
+
+function funcaoAnaliseDiferencasEntreDatasTotalSetup(arrayDados){
+    let vetDiffMetros = [];
+    for(let i=0; i<arrayDados.length - 1; i++){
+        vetDiffMetros.push(Math.abs(arrayDados[i].total_tempo_setup - arrayDados[i + 1].total_tempo_setup));
+    }
+    return vetDiffMetros
+}
+
+
 export {
-    funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes
+    funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes,
+    funcaoAnaliseTotalMetrosNosDias,
+    funcaoAnaliseDiferencasEntreDatasMetrosTotais,
+    funcaoAnaliseDiferencasEntreDatasTotalProducao,
+    funcaoAnaliseDiferencasEntreDatasTotalSetup
 }

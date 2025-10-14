@@ -110,15 +110,21 @@ function calcularOTempoDeSetupDasDatasDeUmMes(arrayDados, arrayDatas) {
     for (let i = 0; i < arrayDatas.length; i++) {
 
         let somaTempoSetupDeCadaData = arrayDados.reduce((soma, dados) => {
-            if (dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE')
-                soma += dados.tempo_de_setup;
+            if (dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE'){
+                soma.soma_tempo_setup += dados.tempo_de_setup;
+                soma.numero_tarefa.push(dados.numero_da_tarefa);
+            }
 
             return soma;
-        }, 0);
+        }, {
+            soma_tempo_setup: 0,
+            numero_tarefa: []
+        });
 
         vetCalcularTempoSetup.push({
             dia_do_mes: arrayDatas[i],
-            total_tempo_setup: somaTempoSetupDeCadaData
+            total_tempo_setup: somaTempoSetupDeCadaData.soma_tempo_setup,
+            media_setup: (somaTempoSetupDeCadaData.soma_tempo_setup == 0) ? 0 : (somaTempoSetupDeCadaData.soma_tempo_setup / somaTempoSetupDeCadaData.numero_tarefa.length).toFixed(2) 
         });
     }
 
@@ -167,16 +173,21 @@ function calcularQuantidadeTempoProducaoPorDia(arrayDados, arrayDatas) {
         let dadosProducao = arrayDados.reduce((somaProducao, dados) => {
             if (dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE') {
                 id_dado = dados.id_dado;
-                somaProducao += dados.tempo_de_producao;
+                somaProducao.soma_total_producao += dados.tempo_de_producao;
+                somaProducao.numeros_tarefa.push(dados.numero_da_tarefa)
             }
             return somaProducao;
-        }, 0);
+        }, {
+            soma_total_producao: 0,
+            numeros_tarefa: []
+        });
 
         //Adiciono no vetor a soma do tempo de produção de cada data
         vetTotalTempoProducaoPorDia.push({
             id: id_dado,
             data_historico: arrayDatas[i],
-            tempo_producao: dadosProducao
+            tempo_producao: dadosProducao.soma_total_producao,
+            media_dia_producao: (dadosProducao.soma_total_producao == 0) ? 0 : (dadosProducao.soma_total_producao / dadosProducao.numeros_tarefa.length).toFixed(2)
         });
     }
 
@@ -224,6 +235,10 @@ function pegarTotalDeMetrosPorDiaEProduPeloMes(numerosTarefa, vetDadosDeCadaDiaD
     return vetTotalENumeroTarefa;
 }
 
+let formatarDatas = new Intl.DateTimeFormat('pt-BR', {
+    dateStyle: "full"
+});
+
 export {
     pegarTotalDeMetrosPorDiaEProduPeloMes,
     pegarTotalDeMetrosPorDiaPeloMes,
@@ -235,5 +250,6 @@ export {
     somarTotalMetrosPorTiposDeTecidosNoMes,
     somarTotalTempoSetupNoMes,
     formatarDatasParaAmericanas,
-    formatarValor
+    formatarValor,
+    formatarDatas
 }
