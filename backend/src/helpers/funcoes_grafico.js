@@ -84,7 +84,7 @@ function calcularMediaEVariantesDeTempoSetupPorDia(arrayDados, arrayDatas) {
         vetCalcularTempoSetup.push({
             dia_do_mes: arrayDatas[i],
             total_tempo_setup: somaTempoSetupDeCadaData.total_tempo_setup,
-            media_tempo_setup_no_dia: formatarValor.format(somaTempoSetupDeCadaData.total_tempo_setup / somaTempoSetupDeCadaData.total_registros_dia),
+            media_tempo_setup_no_dia: (somaTempoSetupDeCadaData.total_tempo_setup == 0) ? 0 : formatarValor.format(somaTempoSetupDeCadaData.total_tempo_setup / somaTempoSetupDeCadaData.total_registros_dia),
             total_por_registro_no_mes: somaTempoSetupDeCadaData.total_por_registro,
             numero_da_tarefa: somaTempoSetupDeCadaData.numero_da_tarefa
         });
@@ -116,7 +116,7 @@ function calcularMediaEVariantesDeTempoDeProducao(arrayDados, arrayDatas) {
         vetCalcularTempoProducao.push({
             dia_do_mes: arrayDatas[i],
             total_tempo_producao: somaTempoProducaoDeCadaData.total_tempo_producao,
-            media_tempo_setup_no_dia: formatarValor.format(somaTempoProducaoDeCadaData.total_tempo_producao / somaTempoProducaoDeCadaData.total_registros_dia),
+            media_tempo_setup_no_dia: (somaTempoProducaoDeCadaData.total_tempo_producao == 0) ? 0 : formatarValor.format(somaTempoProducaoDeCadaData.total_tempo_producao / somaTempoProducaoDeCadaData.total_registros_dia),
             total_por_registro_no_mes: somaTempoProducaoDeCadaData.total_por_registro,
             numero_da_tarefa: somaTempoProducaoDeCadaData.numero_da_tarefa
         });
@@ -175,9 +175,9 @@ function calcualarTotalMetrosProduzidosPorTipoTecidoPorDia(arrayDados, arrayData
                 total_tempo_setup: metrosPorTecido.total_tempo_setup,
                 total_por_tarefa_tempo_producao: metrosPorTecido.total_por_tarefa_tempo_producao,
                 total_por_tarefa_tempo_setup: metrosPorTecido.total_por_tarefa_tempo_setup,
-                media_total_metros_no_dia_produzido: formatarValor.format(metrosPorTecido.total_metros_por_tecido / metrosPorTecido.total_tarefas),
-                media_total_tempo_producao_no_dia: formatarValor.format(metrosPorTecido.total_tempo_producao / metrosPorTecido.total_por_tarefa_tempo_producao.length),
-                media_total_tempo_setup_no_dia: formatarValor.format(metrosPorTecido.total_tempo_setup / metrosPorTecido.total_por_tarefa_tempo_setup.length)
+                media_total_metros_no_dia_produzido: (metrosPorTecido.total_metros_por_tecido == 0) ? 0 : formatarValor.format(metrosPorTecido.total_metros_por_tecido / metrosPorTecido.total_tarefas),
+                media_total_tempo_producao_no_dia: (metrosPorTecido.total_tempo_producao == 0) ? 0 : formatarValor.format(metrosPorTecido.total_tempo_producao / metrosPorTecido.total_por_tarefa_tempo_producao.length),
+                media_total_tempo_setup_no_dia: (metrosPorTecido.total_tempo_setup == 0) ? 0 : formatarValor.format(metrosPorTecido.total_tempo_setup / metrosPorTecido.total_por_tarefa_tempo_setup.length)
             })
         }
 
@@ -228,7 +228,7 @@ function separarPorDiaDoMesMetrosProduzidos(arrayDados, arrayDatas) {
         vetCalcularMetrosProduzidos.push({
             dia_do_mes: arrayDatas[i],
             total_metros_produzidos: somaMetrosProduzidosDeCadaData.total_metros_produzidos,
-            media_tempo_metros_no_dia: formatarValor.format(somaMetrosProduzidosDeCadaData.total_metros_produzidos / somaMetrosProduzidosDeCadaData.total_registros_dia),
+            media_tempo_metros_no_dia: (somaMetrosProduzidosDeCadaData.total_metros_produzidos == 0) ? 0 : formatarValor.format(somaMetrosProduzidosDeCadaData.total_metros_produzidos / somaMetrosProduzidosDeCadaData.total_registros_dia),
             total_por_registro_no_mes: somaMetrosProduzidosDeCadaData.total_por_registro,
             numero_da_tarefa: somaMetrosProduzidosDeCadaData.numero_da_tarefa,
             maior_metros_no_dia: maiorMetrosNoDia,

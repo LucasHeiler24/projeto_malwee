@@ -20,3 +20,9 @@ Algumas funcionalidades a mais para o projeto:
 
 
 Tempo de setup é em segundos
+
+
+Fazer um grafico em diferença mensal
+comparando dois tipos de tecidos em cada mes,
+mes 1: Cotton produziu 1000 e no mes dois produziu 2000
+Fazer uma separção por turnos

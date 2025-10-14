@@ -1,61 +1,5 @@
 import { removerDupliados, formatarValor } from "./funcoes.js";
 
-function totalMetrosPorDiaPorNumeroTarefa(arrayDados, arrayNumerosTarefas, arrayDatas) {
-
-    let vetTotalMetrosPorNumeroTarefaNosDias = [];
-    let vetTotalTempoProducaoPorNumeroTarefaNosDias = [];
-    let vetTotalTempoSetupPorNumeroTarefaNosDias = [];
-
-    for (let i = 0; i < arrayNumerosTarefas.length; i++) {
-        let vetTotalMetrosNoDiaPorNumeroTarefa = [];
-        let vetTotalTempoProducaoNoDiaPorNumeroTarefa = [];
-        let vetTotalTempoSetupNoDiaPorNumeroTarefa = [];
-
-        for (let j = 0; j < arrayDatas.length; j++) {
-
-            let somaTotalNumeroTarefaNoDia = arrayDados.reduce((soma, dados) => {
-                if (dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.numero_da_tarefa == arrayNumerosTarefas[i] && dados.tarefa_completa == 'TRUE') {
-                    soma.somaTotalMetrosProduzidos += dados.metros_produzidos
-                    soma.somaTotalTempoDeProducao += dados.tempo_de_producao
-                    soma.somaTotalTempoSetup += dados.tempo_de_setup
-                }
-                return soma;
-            }, {
-                somaTotalMetrosProduzidos: 0,
-                somaTotalTempoDeProducao: 0,
-                somaTotalTempoSetup: 0
-            });
-
-            vetTotalMetrosNoDiaPorNumeroTarefa.push({
-                numero_tarefa: arrayNumerosTarefas[i],
-                data_tarefa: arrayDatas[j],
-                total_metros_numero_tarefa: somaTotalNumeroTarefaNoDia.somaTotalMetrosProduzidos
-            });
-            vetTotalTempoProducaoNoDiaPorNumeroTarefa.push({
-                numero_tarefa: arrayNumerosTarefas[i],
-                data_tarefa: arrayDatas[j],
-                total_tempo_producao_numero_tarefa: somaTotalNumeroTarefaNoDia.somaTotalTempoDeProducao
-            });
-            vetTotalTempoSetupNoDiaPorNumeroTarefa.push({
-                numero_tarefa: arrayNumerosTarefas[i],
-                data_tarefa: arrayDatas[j],
-                total_tempo_setup_numero_tarefa: somaTotalNumeroTarefaNoDia.somaTotalTempoSetup
-            });
-        }
-
-        vetTotalMetrosPorNumeroTarefaNosDias.push(...vetTotalMetrosNoDiaPorNumeroTarefa);
-        vetTotalTempoProducaoPorNumeroTarefaNosDias.push(...vetTotalTempoProducaoNoDiaPorNumeroTarefa);
-        vetTotalTempoSetupPorNumeroTarefaNosDias.push(...vetTotalTempoSetupNoDiaPorNumeroTarefa);
-    }
-
-    return {
-        vetTotalMetrosPorNumeroTarefaNosDias,
-        vetTotalTempoProducaoPorNumeroTarefaNosDias,
-        vetTotalTempoSetupPorNumeroTarefaNosDias
-    };
-
-}
-
 //vetores de cadas tipo de tecido
 let vetTiposTecidos =
     [
@@ -128,10 +72,10 @@ function funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes(dados) {
                 data_metros: removerDuplicatosDatas,
                 total_por_dia: totalMetrosPorTecidoPorDia,
                 data_maior_valor: dataMaior,
-                total_metros_maior: formatarValor.format(maiorMetrosPorDia),
+                total_metros_maior: (maiorMetrosPorDia == 0) ? 0 : formatarValor.format(maiorMetrosPorDia),
                 data_menor_valor: dataMenor,
-                total_metros_menor: formatarValor.format(menorMetrosPorDia),
-                media_diaria: formatarValor.format(qtdMetrosProduzidosPorTiposTecidos.total_metros_por_tipo_tecido / removerDuplicatosDatas.length)
+                total_metros_menor: (menorMetrosPorDia == Number.MAX_SAFE_INTEGER) ? 0 : formatarValor.format(menorMetrosPorDia),
+                media_diaria: (qtdMetrosProduzidosPorTiposTecidos.total_metros_por_tipo_tecido == 0) ? 0 : formatarValor.format(qtdMetrosProduzidosPorTiposTecidos.total_metros_por_tipo_tecido / removerDuplicatosDatas.length)
             }
         );
     }
@@ -140,6 +84,5 @@ function funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes(dados) {
 }
 
 export {
-    totalMetrosPorDiaPorNumeroTarefa,
     funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes
 }

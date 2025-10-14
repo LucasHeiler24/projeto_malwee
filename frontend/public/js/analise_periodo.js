@@ -78,11 +78,11 @@ window.onload = function () {
         if (graficoBarraMetrosPorTecidoPorDiaNoPeriodo) graficoBarraMetrosPorTecidoPorDiaNoPeriodo.destroy();
 
 
-        graficoBarraMetrosPorTecidoPorDiaNoPeriodo = construirGrafico(options, data, graficoLinhaTotalMetrosPorTipoTecidoPorDiaPorAnalise, 'line');
-
+        //        graficoBarraMetrosPorTecidoPorDiaNoPeriodo = construirGrafico(options, data, graficoLinhaTotalMetrosPorTipoTecidoPorDiaPorAnalise, 'line');
     }
 
     function chamarFuncoesParaConstruirGraficos(arrayDados) {
+        console.log(arrayDados);
         construirGraficoBarraMetrosPorDia(arrayDados.totalMetrosPorDiaNaSemana);
         construirGraficoTotalMetrosPorTipoTecido(arrayDados.totalMetrosProduzidosPorTipoTecidoNaSemana);
     }

@@ -45,7 +45,6 @@ window.onload = function () {
 
   let dadosPrimeiroGraficoLinha;
   let dadosPrimeiroGraficoBarra;
-  let dadosGraficoPizzaTotalTipoTecido;
   let dadosGraficoTarefasCompletasOuNao;
   let dadosGraficoTotalTempoSetupPorDiaDoMes;
   let dadosGraficoTipoTecidoPorDiaDoMes;
@@ -69,10 +68,6 @@ window.onload = function () {
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
     );
-    dadosGraficoPizzaTotalTipoTecido = await getQuantidadeMetrosPorTecido(
-      anoAtualUser,
-      (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    );
     dadosGraficoTarefasCompletasOuNao = await getTotalTarefasCompletasENaoCompletas(
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
@@ -90,7 +85,6 @@ window.onload = function () {
   function chamarConstrucaoDosGraficos() {
     construirGraficoPorMetrosProduzidosPorNumTarefa();
     construirGraficoPorTempoProduzidoPorNumTarefa();
-    criarGraficoPizzaTotalTipoTecidoNoMes();
     construirGraficoBarraTarefasCompletasOuNaoCompletas();
     construirGraficoLinhaDeTempoDeSetupPorDiaDoMes();
     separarDadosParaTiposTecidosPorDiaDoMes();
@@ -328,6 +322,7 @@ window.onload = function () {
       }
     )
 
+    criarGraficoPizzaTotalTipoTecidoNoMes(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_metros_por_tecido));
     contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa);
 
     selectTipoTecido.onchange = function () {
@@ -343,6 +338,22 @@ window.onload = function () {
     selectDatasTiposTecido.onchange = function () {
       dados = dadosGraficoTipoTecidoPorDiaDoMes[parseInt(this.value)];
 
+      console.log(filtroTipoDado);
+      switch (filtroTipoDado) {
+        case "0":
+          document.getElementById('titleGraficoPizza').textContent = "Gráfico total metros produzidos por tipo de tecido no mês"
+          criarGraficoPizzaTotalTipoTecidoNoMes(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_metros_por_tecido));
+          break;
+        case "1":
+          document.getElementById('titleGraficoPizza').textContent = "Gráfico total produção por tipo de tecido no mês"
+          criarGraficoPizzaTotalTipoTecidoNoMes(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_tempo_producao));
+          break;
+        case "2":
+          document.getElementById('titleGraficoPizza').textContent = "Gráfico total setup por tipo de tecido no mês"
+          criarGraficoPizzaTotalTipoTecidoNoMes(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_tempo_setup));
+          break;
+      }
+
       mudarDadosParaDatas(filtroTipoDado, dados[filtroPosicao]);
     }
 
@@ -356,7 +367,9 @@ window.onload = function () {
               dataTecido: dados[filtroPosicao].data_tipo_tecido,
               totalMedia: `Média metros produzidos no dia: ${dados[filtroPosicao].media_total_metros_no_dia_produzido}`
             }
-          )
+          );
+          criarGraficoPizzaTotalTipoTecidoNoMes(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_metros_por_tecido));
+          document.getElementById('titleGraficoPizza').textContent = "Gráfico total metros produzidos por tipo de tecido no mês"
           return contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa);
         case "1":
           filtroTipoDado = "1";
@@ -367,6 +380,8 @@ window.onload = function () {
               totalMedia: `Média produção no dia: ${dados[filtroPosicao].media_total_tempo_producao_no_dia}`
             }
           )
+          criarGraficoPizzaTotalTipoTecidoNoMes(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_tempo_producao));
+          document.getElementById('titleGraficoPizza').textContent = "Gráfico total produção por tipo de tecido no mês"
           return contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa_tempo_producao);
         case "2":
           filtroTipoDado = "2";
@@ -377,6 +392,8 @@ window.onload = function () {
               totalMedia: `Média setup no dia: ${dados[filtroPosicao].media_total_tempo_setup_no_dia}`
             }
           )
+          criarGraficoPizzaTotalTipoTecidoNoMes(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_tempo_setup));
+          document.getElementById('titleGraficoPizza').textContent = "Gráfico total setup por tipo de tecido no mês"
           return contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa_tempo_setup);
       }
     }
@@ -677,16 +694,17 @@ window.onload = function () {
   }
 
   const graficoPizzaTotalTipoProduzido = document.getElementById('graficoPizzaTotalTipoProduzido');
-  function criarGraficoPizzaTotalTipoTecidoNoMes() {
+  function criarGraficoPizzaTotalTipoTecidoNoMes(arrayDados1, arrayDados2) {
 
+    console.log(arrayDados1, arrayDados2)
     if (graficoPizzaTotalTipoTecido)
       graficoPizzaTotalTipoTecido.destroy();
 
     let data = {
-      labels: dadosGraficoPizzaTotalTipoTecido.map((dados) => dados.tipo_tecido),
+      labels: arrayDados1,
       datasets: [{
-        label: "Quantidade de metros produzido",
-        data: dadosGraficoPizzaTotalTipoTecido.map((dados) => dados.qtd_metros_produzidos),
+        label: "Quantidade",
+        data: arrayDados2,
         borderWidth: 1,
         backgroundColor: vetCoresParaOsGraficos,
       }]

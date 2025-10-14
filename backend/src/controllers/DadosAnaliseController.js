@@ -9,7 +9,7 @@ import {
     formatarDatasParaAmericanas
 } from "../helpers/funcoes.js";
 
-import { funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes, totalMetrosPorDiaPorNumeroTarefa } from "../helpers/funcoes_analise.js";
+import { funcaoAnaliseTotalMetrosPorTiposDeTecidosNoMes } from "../helpers/funcoes_analise.js";
 
 
 const analisePorPeriodoSemanal = async function (request, response) {
@@ -40,22 +40,14 @@ const analisePorPeriodoSemanal = async function (request, response) {
     let totalMetrosPorDiaNaSemana = pegarTotalDeMetrosPorDiaPeloMes(dadosSemanais, vetDatasSomadas);
     let totalTempoProducaoPorDiaNaSemana = calcularQuantidadeTempoProducaoPorDia(dadosSemanais, vetDatasSomadas);
     let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, vetDatasSomadas);
-
     let numeroTarefas = removerDupliados(dadosSemanais.map((dados) => dados.numero_da_tarefa));
-    let {
-        vetTotalMetrosPorNumeroTarefaNosDias,
-        vetTotalTempoProducaoPorNumeroTarefaNosDias,
-        vetTotalTempoSetupPorNumeroTarefaNosDias } = totalMetrosPorDiaPorNumeroTarefa(dadosSemanais, numeroTarefas, vetDatasSomadas);
 
 
     return response.json({
         totalMetrosProduzidosPorTipoTecidoNaSemana,
         totalMetrosPorDiaNaSemana,
         totalTempoProducaoPorDiaNaSemana,
-        totalTempoSetupPorDiaNaSemana,
-        vetTotalMetrosPorNumeroTarefaNosDias,
-        vetTotalTempoProducaoPorNumeroTarefaNosDias,
-        vetTotalTempoSetupPorNumeroTarefaNosDias
+        totalTempoSetupPorDiaNaSemana
     });
 }
 
@@ -89,20 +81,13 @@ const analisePorPeriodoQuinzenal = async function (request, response) {
     let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, vetDatasSomadas);
 
     let numeroTarefas = removerDupliados(dadosSemanais.map((dados) => dados.numero_da_tarefa));
-    let {
-        vetTotalMetrosPorNumeroTarefaNosDias,
-        vetTotalTempoProducaoPorNumeroTarefaNosDias,
-        vetTotalTempoSetupPorNumeroTarefaNosDias } = totalMetrosPorDiaPorNumeroTarefa(dadosSemanais, numeroTarefas, vetDatasSomadas);
 
 
     return response.json({
         totalMetrosProduzidosPorTipoTecidoNaSemana,
         totalMetrosPorDiaNaSemana,
         totalTempoProducaoPorDiaNaSemana,
-        totalTempoSetupPorDiaNaSemana,
-        vetTotalMetrosPorNumeroTarefaNosDias,
-        vetTotalTempoProducaoPorNumeroTarefaNosDias,
-        vetTotalTempoSetupPorNumeroTarefaNosDias
+        totalTempoSetupPorDiaNaSemana
     });
 }
 
@@ -136,20 +121,12 @@ const analisePorPeriodoMensal = async function (request, response) {
     let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosSemanais, vetDatasSomadas);
 
     let numeroTarefas = removerDupliados(dadosSemanais.map((dados) => dados.numero_da_tarefa));
-    let {
-        vetTotalMetrosPorNumeroTarefaNosDias,
-        vetTotalTempoProducaoPorNumeroTarefaNosDias,
-        vetTotalTempoSetupPorNumeroTarefaNosDias } = totalMetrosPorDiaPorNumeroTarefa(dadosSemanais, numeroTarefas, vetDatasSomadas);
-
 
     return response.json({
         totalMetrosProduzidosPorTipoTecidoNaSemana,
         totalMetrosPorDiaNaSemana,
         totalTempoProducaoPorDiaNaSemana,
-        totalTempoSetupPorDiaNaSemana,
-        vetTotalMetrosPorNumeroTarefaNosDias,
-        vetTotalTempoProducaoPorNumeroTarefaNosDias,
-        vetTotalTempoSetupPorNumeroTarefaNosDias
+        totalTempoSetupPorDiaNaSemana
     });
 }
 
@@ -166,19 +143,12 @@ const analisePorPeriodoDiario = async function (request, response) {
         let totalTempoSetupPorDiaNaSemana = calcularOTempoDeSetupDasDatasDeUmMes(dadosDiario, [data]);
 
         let numeroTarefas = removerDupliados(dadosDiario.map((dados) => dados.numero_da_tarefa));
-        let {
-            vetTotalMetrosPorNumeroTarefaNosDias,
-            vetTotalTempoProducaoPorNumeroTarefaNosDias,
-            vetTotalTempoSetupPorNumeroTarefaNosDias } = totalMetrosPorDiaPorNumeroTarefa(dadosDiario, numeroTarefas, [data]);
 
         return response.json({
             totalMetrosProduzidosPorTipoTecidoNaSemana,
             totalMetrosPorDiaNaSemana,
             totalTempoProducaoPorDiaNaSemana,
-            totalTempoSetupPorDiaNaSemana,
-            vetTotalMetrosPorNumeroTarefaNosDias,
-            vetTotalTempoProducaoPorNumeroTarefaNosDias,
-            vetTotalTempoSetupPorNumeroTarefaNosDias
+            totalTempoSetupPorDiaNaSemana
         });
 
     }
