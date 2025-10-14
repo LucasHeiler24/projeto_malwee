@@ -1,3 +1,28 @@
+<<<<<<< Updated upstream
+=======
+import mysql2 from "mysql2/promise";
+
+async function conectarBd() {
+  if (global.conexao) return global.conexao;
+
+  try {
+    const conexao = await mysql2.createConnection({
+      host: "localhost",
+      database: "bd_malwee",
+      password: "",
+      user: "root",
+      port: 3306
+    });
+    global.conexao = conexao;
+    return conexao;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export default conectarBd;
+
+>>>>>>> Stashed changes
 // import mysql2 from "mysql2/promise";
 
 // async function conectarBd() {
