@@ -147,6 +147,10 @@ function calcualarTotalMetrosProduzidosPorTipoTecidoPorDia(arrayDados, arrayData
                     somaTiposTecidos.total_por_tarefa.push(dados.metros_produzidos);
                     somaTiposTecidos.numero_tarefa.push(dados.numero_da_tarefa);
                     somaTiposTecidos.total_tarefas += 1;
+                    somaTiposTecidos.total_tempo_producao += dados.tempo_de_producao;
+                    somaTiposTecidos.total_tempo_setup += dados.tempo_de_setup;
+                    somaTiposTecidos.total_por_tarefa_tempo_producao.push(dados.tempo_de_producao);
+                    somaTiposTecidos.total_por_tarefa_tempo_setup.push(dados.tempo_de_setup);
                 }
 
                 return somaTiposTecidos;
@@ -154,7 +158,11 @@ function calcualarTotalMetrosProduzidosPorTipoTecidoPorDia(arrayDados, arrayData
                 total_metros_por_tecido: 0,
                 total_tarefas: 0,
                 total_por_tarefa: [],
-                numero_tarefa: []
+                numero_tarefa: [],
+                total_tempo_producao: 0,
+                total_tempo_setup: 0,
+                total_por_tarefa_tempo_producao: [],
+                total_por_tarefa_tempo_setup: []
             });
 
             vetDadosTiposTecidos.push({
@@ -163,7 +171,13 @@ function calcualarTotalMetrosProduzidosPorTipoTecidoPorDia(arrayDados, arrayData
                 total_metros_por_tecido: metrosPorTecido.total_metros_por_tecido,
                 total_por_tarefa: metrosPorTecido.total_por_tarefa,
                 numero_da_tarefa: metrosPorTecido.numero_tarefa,
-                media_total_no_dia_produzido: formatarValor.format(metrosPorTecido.total_metros_por_tecido / metrosPorTecido.total_tarefas)
+                total_tempo_producao: metrosPorTecido.total_tempo_producao,
+                total_tempo_setup: metrosPorTecido.total_tempo_setup,
+                total_por_tarefa_tempo_producao: metrosPorTecido.total_por_tarefa_tempo_producao,
+                total_por_tarefa_tempo_setup: metrosPorTecido.total_por_tarefa_tempo_setup,
+                media_total_metros_no_dia_produzido: formatarValor.format(metrosPorTecido.total_metros_por_tecido / metrosPorTecido.total_tarefas),
+                media_total_tempo_producao_no_dia: formatarValor.format(metrosPorTecido.total_tempo_producao / metrosPorTecido.total_por_tarefa_tempo_producao.length),
+                media_total_tempo_setup_no_dia: formatarValor.format(metrosPorTecido.total_tempo_setup / metrosPorTecido.total_por_tarefa_tempo_setup.length)
             })
         }
 
@@ -173,11 +187,67 @@ function calcualarTotalMetrosProduzidosPorTipoTecidoPorDia(arrayDados, arrayData
     return vetMetrosPorTipoTecidos;
 }
 
+function separarPorDiaDoMesMetrosProduzidos(arrayDados, arrayDatas) {
+
+    let vetCalcularMetrosProduzidos = [];
+    for (let i = 0; i < arrayDatas.length; i++) {
+
+        let somaMetrosProduzidosDeCadaData = arrayDados.reduce((somaTempoProducao, dados) => {
+            if (dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE') {
+                somaTempoProducao.total_metros_produzidos += dados.metros_produzidos;
+                somaTempoProducao.total_registros_dia += 1;
+                somaTempoProducao.total_por_registro.push(dados.metros_produzidos);
+                somaTempoProducao.numero_da_tarefa.push(dados.numero_da_tarefa);
+            }
+
+            return somaTempoProducao;
+        }, {
+            total_metros_produzidos: 0,
+            total_registros_dia: 0,
+            total_por_registro: [],
+            numero_da_tarefa: []
+        });
+
+        let maiorMetrosNoDia = 0;
+        let tarefaMaiorMetrosNoDia;
+        let menorMetrosNoDia = Number.MAX_SAFE_INTEGER;
+        let tarefaMenorMetrosNoDia;
+
+        for (let i = 0; i < somaMetrosProduzidosDeCadaData.total_por_registro.length; i++) {
+            if (maiorMetrosNoDia < somaMetrosProduzidosDeCadaData.total_por_registro[i]) {
+                maiorMetrosNoDia = somaMetrosProduzidosDeCadaData.total_por_registro[i];
+                tarefaMaiorMetrosNoDia = somaMetrosProduzidosDeCadaData.numero_da_tarefa[i];
+            }
+
+            if (menorMetrosNoDia > somaMetrosProduzidosDeCadaData.total_por_registro[i]) {
+                menorMetrosNoDia = somaMetrosProduzidosDeCadaData.total_por_registro[i];
+                tarefaMenorMetrosNoDia = somaMetrosProduzidosDeCadaData.numero_da_tarefa[i];
+            }
+        }
+
+        vetCalcularMetrosProduzidos.push({
+            dia_do_mes: arrayDatas[i],
+            total_metros_produzidos: somaMetrosProduzidosDeCadaData.total_metros_produzidos,
+            media_tempo_metros_no_dia: formatarValor.format(somaMetrosProduzidosDeCadaData.total_metros_produzidos / somaMetrosProduzidosDeCadaData.total_registros_dia),
+            total_por_registro_no_mes: somaMetrosProduzidosDeCadaData.total_por_registro,
+            numero_da_tarefa: somaMetrosProduzidosDeCadaData.numero_da_tarefa,
+            maior_metros_no_dia: maiorMetrosNoDia,
+            numero_tarefa_maior_metros: tarefaMaiorMetrosNoDia,
+            menor_metros_no_dia: menorMetrosNoDia,
+            numero_tarefa_menor_metros: tarefaMenorMetrosNoDia
+        });
+    }
+
+    return vetCalcularMetrosProduzidos;
+
+}
+
 export {
     totalTarefasENaoCompletasNoMes,
     calcularTotalTempoSetupDeCadaTarefaNoMes,
     somarTempoDeSetupPorCadaDiaDoMes,
     calcularMediaEVariantesDeTempoSetupPorDia,
     calcularMediaEVariantesDeTempoDeProducao,
-    calcualarTotalMetrosProduzidosPorTipoTecidoPorDia
+    calcualarTotalMetrosProduzidosPorTipoTecidoPorDia,
+    separarPorDiaDoMesMetrosProduzidos
 }

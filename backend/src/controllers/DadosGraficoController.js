@@ -2,7 +2,6 @@ import { pegarDadosMesEAnoEscolhido } from "../database/EntidadeDados.js";
 
 import {
     calcularQuantidadeTempoProducaoPorDia,
-    pegarTotalDeMetrosPorDiaEProduPeloMes,
     removerDupliados
 } from "../helpers/funcoes.js";
 
@@ -11,6 +10,7 @@ import {
     calcularMediaEVariantesDeTempoDeProducao,
     calcularMediaEVariantesDeTempoSetupPorDia,
     calcularTotalTempoSetupDeCadaTarefaNoMes,
+    separarPorDiaDoMesMetrosProduzidos,
     somarTempoDeSetupPorCadaDiaDoMes,
     totalTarefasENaoCompletasNoMes
 } from "../helpers/funcoes_grafico.js";
@@ -49,13 +49,10 @@ const totalMetrosPorNumeroTarefaPorMes = async function (request, response) {
 
         const dados = await pegarDadosMesEAnoEscolhido(`${ano}-${mes}`);
 
-        let vetDadosDeCadaDiaDoMes = dados.map((registros) => registros.numero_da_tarefa);
+        let vetDatas = removerDupliados(dados.map((registros) => registros.data_historico.split(' ')[0]));
+        let vetDadosMetrosProduzidosNoMes = separarPorDiaDoMesMetrosProduzidos(dados, vetDatas);
 
-        let remover = removerDupliados(vetDadosDeCadaDiaDoMes);
-
-        let vetTotalMetrosPorNumTarefa = pegarTotalDeMetrosPorDiaEProduPeloMes(remover, dados);
-
-        return response.json(vetTotalMetrosPorNumTarefa);
+        return response.json(vetDadosMetrosProduzidosNoMes);
     }
     catch (e) {
         return response.json(e);

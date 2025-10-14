@@ -90,10 +90,27 @@ async function getTotalTempoSetupDeCadaDiaDoMes(sAno, sMes) {
 
 }
 
+async function getDadosTiposTecidosParaATelaGrafico(sAno, sMes) {
+
+    try {
+
+        const response = await fetch(`
+            ${URL_API}/dados-total-metros-produzidos-por-tipo-tecido-no-mes/mes/${sMes}/ano/${sAno} 
+        `);
+
+        return await response.json();
+    }
+    catch (e) {
+        return e;
+    }
+
+}
+
 export {
     getQuantidadeMetrosProduzidoPorTarefaNoMes,
     getQuantidadeTempoDeProducaoPorDia,
     getTotalTarefasCompletasENaoCompletas,
     getTotalTempoSetupDeCadaDiaDoMes,
     getTotalTempoSetupPorNumeroTarefaNoMes,
+    getDadosTiposTecidosParaATelaGrafico
 }

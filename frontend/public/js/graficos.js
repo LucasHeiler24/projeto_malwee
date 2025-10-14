@@ -26,7 +26,8 @@ import {
   getQuantidadeMetrosProduzidoPorTarefaNoMes,
   getTotalTarefasCompletasENaoCompletas,
   getTotalTempoSetupDeCadaDiaDoMes,
-  getQuantidadeTempoDeProducaoPorDia
+  getQuantidadeTempoDeProducaoPorDia,
+  getDadosTiposTecidosParaATelaGrafico
 } from "./requests/fetch_graficos.js";
 
 import { getQuantidadeMetrosPorTecido, getValidToken } from "./requests/fetch_gerais.js";
@@ -39,12 +40,15 @@ window.onload = function () {
   let grafioLinhaTotalTempoSetupPorDiaDoMes;
   let graficoLinhaPorVariantePorSetup;
   let graficoLinhaVariantePorTempoProducao;
+  let graficoLinhaVariantePorTipoTecido;
+  let graficoLinhaVariantePorMetrosProduzidos;
 
   let dadosPrimeiroGraficoLinha;
   let dadosPrimeiroGraficoBarra;
   let dadosGraficoPizzaTotalTipoTecido;
   let dadosGraficoTarefasCompletasOuNao;
   let dadosGraficoTotalTempoSetupPorDiaDoMes;
+  let dadosGraficoTipoTecidoPorDiaDoMes;
 
   let mesSelecionadoUser = mesAtual;
   let mesAnteriorUser = anteriorMesAtual;
@@ -76,7 +80,11 @@ window.onload = function () {
     dadosGraficoTotalTempoSetupPorDiaDoMes = await getTotalTempoSetupDeCadaDiaDoMes(
       anoAtualUser,
       (mesSelecionadoUser + 1).toString().padStart(2, 0)
-    )
+    );
+    dadosGraficoTipoTecidoPorDiaDoMes = await getDadosTiposTecidosParaATelaGrafico(
+      anoAtualUser,
+      (mesSelecionadoUser + 1).toString().padStart(2, 0)
+    );
   }
 
   function chamarConstrucaoDosGraficos() {
@@ -85,6 +93,7 @@ window.onload = function () {
     criarGraficoPizzaTotalTipoTecidoNoMes();
     construirGraficoBarraTarefasCompletasOuNaoCompletas();
     construirGraficoLinhaDeTempoDeSetupPorDiaDoMes();
+    separarDadosParaTiposTecidosPorDiaDoMes();
   }
 
   const anoSelecionado = $("#anoSelecionado");
@@ -139,6 +148,251 @@ window.onload = function () {
     mudarMesSelecionado("+");
   });
 
+  function construirSelectNumerosTarefasGraficoTipoTecido(arrayTarefas, selectNumerosTarefaTipoTecido) {
+    selectNumerosTarefaTipoTecido.innerHTML = "";
+    arrayTarefas.forEach((numeros, index) => {
+      selectNumerosTarefaTipoTecido.innerHTML += `
+        <option value="${index}">${arrayTarefas[index].join(', ')}</option>
+        `;
+    });
+  }
+
+  function contruirSelectNumerosTarefasParaTiposTecidos(arrayDados1, arrayDados2) {
+    const selectNumerosTarefaTipoTecido = document.getElementById('inSelectDadosPorTarefaTiposTecidos');
+    if (arrayDados1.length < 21) {
+      construirSelectNumerosTarefasGraficoTipoTecido([arrayDados1], selectNumerosTarefaTipoTecido);
+      return construirGraficoVariantesTipoTecido(arrayDados1, arrayDados2);
+    }
+    let { dadosParaOsGraficos, dadosParaOsGraficos2 } = separarDados(arrayDados1, arrayDados2);
+
+    construirSelectNumerosTarefasGraficoTipoTecido(dadosParaOsGraficos, selectNumerosTarefaTipoTecido);
+
+    construirGraficoVariantesTipoTecido(dadosParaOsGraficos[0], dadosParaOsGraficos2[0]);
+    selectNumerosTarefaTipoTecido.onchange = function () {
+      construirGraficoVariantesTipoTecido(dadosParaOsGraficos[parseInt(this.value)], dadosParaOsGraficos2[parseInt(this.value)]);
+    }
+  }
+
+  const graficoDadosPorTipoTecido = document.getElementById('graficoDadosPorTipoTecido');
+  function construirGraficoVariantesTipoTecido(arrayDados1, arrayDados2) {
+    if (graficoLinhaVariantePorTipoTecido) graficoLinhaVariantePorTipoTecido.destroy();
+
+    let data = {
+      labels: arrayDados1,
+      datasets: [{
+        label: `Ocorrido`,
+        data: arrayDados2,
+        borderWidth: 1,
+        backgroundColor: vetCoresParaOsGraficos2,
+        borderColor: ['#fff']
+      }]
+    }
+
+    let options = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            title: (itemTooltip) => {
+              return `Tarefa N°${itemTooltip[0].label}`
+            }
+          }
+        }
+      }
+    }
+
+    graficoLinhaVariantePorTipoTecido = construirGrafico(options, data, graficoDadosPorTipoTecido, 'line');
+  }
+
+  function mudarDadosGraficoTipoTecido(tipoFiltro, dados) {
+    switch (tipoFiltro) {
+      case "0":
+        colocarDadosMediaETotalSobreTiposTecidos(
+          {
+            totalMetrosPorTecido: `Total metros produzidos no dia: ${formater.format(dados[0].total_metros_por_tecido)}`,
+            dataTecido: dados[0].data_tipo_tecido,
+            totalMedia: `Média metros produzidos no dia: ${dados[0].media_total_metros_no_dia_produzido}`
+          }
+        )
+        return contruirSelectNumerosTarefasParaTiposTecidos(dados[0].numero_da_tarefa, dados[0].total_por_tarefa);
+      case "1":
+        colocarDadosMediaETotalSobreTiposTecidos(
+          {
+            totalMetrosPorTecido: `Total produção no dia: ${formater.format(dados[0].total_tempo_producao)}`,
+            dataTecido: dados[0].data_tipo_tecido,
+            totalMedia: `Média produção no dia: ${dados[0].media_total_tempo_producao_no_dia}`
+          }
+        )
+        return contruirSelectNumerosTarefasParaTiposTecidos(dados[0].numero_da_tarefa, dados[0].total_por_tarefa_tempo_producao);
+      case "2":
+        colocarDadosMediaETotalSobreTiposTecidos(
+          {
+            totalMetrosPorTecido: `Total setup no dia: ${formater.format(dados[0].total_tempo_setup)}`,
+            dataTecido: dados[0].data_tipo_tecido,
+            totalMedia: `Média setup no dia: ${dados[0].media_total_tempo_setup_no_dia}`
+          }
+        )
+        return contruirSelectNumerosTarefasParaTiposTecidos(dados[0].numero_da_tarefa, dados[0].total_por_tarefa_tempo_setup);
+    }
+  }
+
+  function mudarDadosParaDatas(tipoFiltro, dados) {
+    switch (tipoFiltro) {
+      case "0":
+        colocarDadosMediaETotalSobreTiposTecidos(
+          {
+            totalMetrosPorTecido: `Total metros produzidos no dia: ${formater.format(dados.total_metros_por_tecido)}`,
+            dataTecido: dados.data_tipo_tecido,
+            totalMedia: `Média metros produzidos no dia: ${dados.media_total_metros_no_dia_produzido}`
+          }
+        )
+
+        return contruirSelectNumerosTarefasParaTiposTecidos(dados.numero_da_tarefa, dados.total_por_tarefa);
+      case "1":
+        colocarDadosMediaETotalSobreTiposTecidos(
+          {
+            totalMetrosPorTecido: `Total produção no dia: ${formater.format(dados.total_tempo_producao)}`,
+            dataTecido: dados.data_tipo_tecido,
+            totalMedia: `Média produção no dia: ${dados.media_total_tempo_producao_no_dia}`
+          }
+        )
+
+        return contruirSelectNumerosTarefasParaTiposTecidos(dados.numero_da_tarefa, dados.total_por_tarefa_tempo_producao);
+      case "2":
+        colocarDadosMediaETotalSobreTiposTecidos(
+          {
+            totalMetrosPorTecido: `Total setup no dia: ${formater.format(dados.total_tempo_setup)}`,
+            dataTecido: dados.data_tipo_tecido,
+            totalMedia: `Média setup no dia: ${dados.media_total_tempo_setup_no_dia}`
+          }
+        )
+
+        return contruirSelectNumerosTarefasParaTiposTecidos(dados.numero_da_tarefa, dados.total_por_tarefa_tempo_setup);
+    }
+  }
+
+  function construirSelectTiposTecidos(selectTipoDadosTecidos) {
+    selectTipoDadosTecidos.innerHTML = `
+        <option value="0">Filtrar por metros produzidos</option>
+        <option value="1">Filtrar por tempo produção</option>
+        <option value="2">Filtrar por tempo setup</option>
+    `;
+  }
+
+  function construirSelectTipos(selectTipoTecido) {
+    selectTipoTecido.innerHTML = `
+       <option value="Meia Malha">Meia Malha</option>
+        <option value="Cotton">Cotton</option>
+        <option value="Punho Pun">Punho Pun</option>
+        <option value="Punho New">Punho New</option>
+        <option value="Punho San">Punho San</option>
+        <option value="Punho Elan">Punho Elan</option>
+    `;
+  }
+
+  function construirSelectDatasParaTipoTecido() {
+    if (!dadosGraficoTipoTecidoPorDiaDoMes[0]) return;
+    let filtroTipoDado = "0";
+    let filtroPosicao = 0;
+
+    let datasTiposTecidos = [];
+
+    for (let i = 0; i < dadosGraficoTipoTecidoPorDiaDoMes.length; i++) {
+      datasTiposTecidos.push(dadosGraficoTipoTecidoPorDiaDoMes[i][0].data_tipo_tecido);
+    }
+
+    const selectDatasTiposTecido = document.getElementById('inSelectDatasParaOTipoTecido');
+    const selectTipoTecido = document.getElementById('inSelectTiposTecido');
+    const selectTipoDadosTecidos = document.getElementById('inSelectTiposDadosParaTecido');
+
+    construirSelectTiposTecidos(selectTipoDadosTecidos)
+    construirSelectTipos(selectTipoTecido);
+
+    selectDatasTiposTecido.innerHTML = "";
+    datasTiposTecidos.forEach((datas, index) => {
+      selectDatasTiposTecido.innerHTML += `
+        <option value="${index}">${datas}</option>
+      `;
+    });
+
+    let dados = dadosGraficoTipoTecidoPorDiaDoMes[0];
+
+    colocarDadosMediaETotalSobreTiposTecidos(
+      {
+        totalMetrosPorTecido: `Total metros produzidos no dia: ${formater.format(dados[filtroPosicao].total_metros_por_tecido)}`,
+        dataTecido: dados[filtroPosicao].data_tipo_tecido,
+        totalMedia: `Média metros produzidos no dia: ${dados[filtroPosicao].media_total_metros_no_dia_produzido}`
+      }
+    )
+
+    contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa);
+
+    selectTipoTecido.onchange = function () {
+      let vetDadosTipoTecido;
+      for (let i = 0; i < dadosGraficoTipoTecidoPorDiaDoMes.length; i++) {
+        vetDadosTipoTecido = dados.filter((dados) => dados.tipo_tecido == this.value);
+        filtroPosicao = dados.findIndex((dados) => dados.tipo_tecido == this.value);
+      }
+
+      mudarDadosGraficoTipoTecido(filtroTipoDado, vetDadosTipoTecido);
+    }
+
+    selectDatasTiposTecido.onchange = function () {
+      dados = dadosGraficoTipoTecidoPorDiaDoMes[parseInt(this.value)];
+
+      mudarDadosParaDatas(filtroTipoDado, dados[filtroPosicao]);
+    }
+
+    selectTipoDadosTecidos.onchange = function () {
+      switch (this.value) {
+        case "0":
+          filtroTipoDado = "0";
+          colocarDadosMediaETotalSobreTiposTecidos(
+            {
+              totalMetrosPorTecido: `Total metros produzidos no dia: ${formater.format(dados[filtroPosicao].total_metros_por_tecido)}`,
+              dataTecido: dados[filtroPosicao].data_tipo_tecido,
+              totalMedia: `Média metros produzidos no dia: ${dados[filtroPosicao].media_total_metros_no_dia_produzido}`
+            }
+          )
+          return contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa);
+        case "1":
+          filtroTipoDado = "1";
+          colocarDadosMediaETotalSobreTiposTecidos(
+            {
+              totalMetrosPorTecido: `Total produção no dia: ${formater.format(dados[filtroPosicao].total_tempo_producao)}`,
+              dataTecido: dados[filtroPosicao].data_tipo_tecido,
+              totalMedia: `Média produção no dia: ${dados[filtroPosicao].media_total_tempo_producao_no_dia}`
+            }
+          )
+          return contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa_tempo_producao);
+        case "2":
+          filtroTipoDado = "2";
+          colocarDadosMediaETotalSobreTiposTecidos(
+            {
+              totalMetrosPorTecido: `Total setup no dia: ${formater.format(dados[filtroPosicao].total_tempo_setup)}`,
+              dataTecido: dados[filtroPosicao].data_tipo_tecido,
+              totalMedia: `Média setup no dia: ${dados[filtroPosicao].media_total_tempo_setup_no_dia}`
+            }
+          )
+          return contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa_tempo_setup);
+      }
+    }
+
+  }
+
+  function colocarDadosMediaETotalSobreTiposTecidos({ totalMetrosPorTecido, dataTecido, totalMedia }) {
+    document.getElementById('totalTipoTecido').textContent = `${totalMetrosPorTecido}`;
+    document.getElementById('totalDataTipoTecido').textContent = `${formatarDataParaOsGraficos(dataTecido)}`;
+    document.getElementById('mediaTipoTecido').textContent = `${totalMedia}`;
+  }
+
+  function separarDadosParaTiposTecidosPorDiaDoMes() {
+    if (!dadosGraficoTipoTecidoPorDiaDoMes[0]) return;
+    construirSelectDatasParaTipoTecido();
+  }
 
   function constuirSelectDosDiasTempoProducao(htmlSelect, arrayDados) {
     htmlSelect.innerHTML = "";
@@ -153,7 +407,7 @@ window.onload = function () {
     htmlSelect.innerHTML = "";
     arrayDados?.forEach((dados, index) => {
       htmlSelect.innerHTML += `
-        <option value="${index}">${dados}</option>
+        <option value="${index}">${arrayDados[index].join(', ')}</option>
       `;
     });
   }
@@ -161,12 +415,7 @@ window.onload = function () {
   function separarDadosParaOGraficoVariantesTempoProducao(arrayDados1, arrayDados2) {
     const selectNumeroTarefasTempoProducao = document.getElementById('inSelectFiltroPorNumerosTarefasTempoProducao');
 
-    let vetNumeroTarefaFiltrar = [];
-    for (let i = 0; i < arrayDados2.length; i++) {
-      vetNumeroTarefaFiltrar.push(`De ${arrayDados2[i][0]} - até ${arrayDados2[i][arrayDados2[i].length - 1]}`);
-    }
-
-    construirSelectDosNumerosTarefasTempoProducao(selectNumeroTarefasTempoProducao, vetNumeroTarefaFiltrar);
+    construirSelectDosNumerosTarefasTempoProducao(selectNumeroTarefasTempoProducao, arrayDados1);
 
     construirGraficoVarianteEMediaTempoProducao(arrayDados1[0], arrayDados2[0]);
     selectNumeroTarefasTempoProducao.onchange = function () {
@@ -233,7 +482,6 @@ window.onload = function () {
           }
         }
       }
-
     }
 
     graficoLinhaVariantePorTempoProducao = construirGrafico(options, data, graficoTempoProducaoEmUmDia, 'line');
@@ -283,18 +531,17 @@ window.onload = function () {
     grafico1 = construirGrafico(options, data, graficoBarTempoProduzido, 'bar');
   }
 
-  function construirGraficoPorTempoProduzidoPorNumTarefa() {
+  function construirGraficoMetrosProduzidosEmCadaDiaDoMes() {
     if (grafico2) grafico2.destroy();
 
     let data = {
-      labels: dadosPrimeiroGraficoLinha.map((dados) => dados.numero_tarefa),
+      labels: dadosPrimeiroGraficoLinha.map((dados) => dados.dia_do_mes),
       datasets: [
         {
           label: "Total produzido por tarefa",
-          data: dadosPrimeiroGraficoLinha.map((dados) => dados.total_metros_da_tarefa),
+          data: dadosPrimeiroGraficoLinha.map((dados) => dados.total_metros_produzidos),
           borderWidth: 1,
-          backgroundColor: vetCoresParaOsGraficos,
-          borderColor: vetCoresParaOsGraficos[4]
+          backgroundColor: vetCoresParaOsGraficos
         },
       ]
     }
@@ -312,7 +559,121 @@ window.onload = function () {
       },
     }
 
-    grafico2 = construirGrafico(options, data, graficoNumMetrosTarefa, 'line');
+    grafico2 = construirGrafico(options, data, graficoNumMetrosTarefa, 'bar');
+  }
+
+  function construirSelectMetrosProduzidos(vetDataMetrosProduzidos, inSelectDatasMetrosProduzidos) {
+
+    inSelectDatasMetrosProduzidos.innerHTML = "";
+    vetDataMetrosProduzidos.forEach((datas, index) => {
+      inSelectDatasMetrosProduzidos.innerHTML += `
+        <option value="${index}">${datas}</option>
+      `;
+    });
+
+  }
+
+  function construirMostrarSelectNumeroTarefaMetrosProduzidos(dadosParaOsGraficos, inSelectFiltroPorNumerosTarefasMetrosProduzidos) {
+
+    inSelectFiltroPorNumerosTarefasMetrosProduzidos.innerHTML = "";
+    dadosParaOsGraficos.forEach((numeros, index) => {
+      inSelectFiltroPorNumerosTarefasMetrosProduzidos.innerHTML += `
+        <option value="${index}">${dadosParaOsGraficos[index].join(', ')}</option>
+      `;
+    });
+
+  }
+
+  const graficoMetrosProduzidosEmUmDia = document.getElementById('graficoMetrosProduzidosEmUmDia');
+  function construirGraficoVariantesMetrosProduzidos(arrayDados1, arrayDados2) {
+    if (graficoLinhaVariantePorMetrosProduzidos) graficoLinhaVariantePorMetrosProduzidos.destroy();
+
+    let data = {
+      labels: arrayDados1,
+      datasets: [{
+        label: `Metros produzido`,
+        data: arrayDados2,
+        borderWidth: 1,
+        backgroundColor: vetCoresParaOsGraficos2,
+        borderColor: ['#fff']
+      }]
+    }
+
+    let options = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            title: (itemTooltip) => {
+              return `Tarefa N°${itemTooltip[0].label}`
+            }
+          }
+        }
+      }
+    }
+
+    graficoLinhaVariantePorMetrosProduzidos = construirGrafico(options, data, graficoMetrosProduzidosEmUmDia, 'line');
+  }
+
+  function construirSelectNumeroTarefaMetrosProduzidos(arrayDados1, arrayDados2) {
+    const { dadosParaOsGraficos, dadosParaOsGraficos2 } = separarDados(arrayDados1, arrayDados2);
+
+    const inSelectFiltroPorNumerosTarefasMetrosProduzidos = document.getElementById('inSelectFiltroPorNumerosTarefasMetrosProduzidos');
+    construirMostrarSelectNumeroTarefaMetrosProduzidos(dadosParaOsGraficos, inSelectFiltroPorNumerosTarefasMetrosProduzidos);
+
+    construirGraficoVariantesMetrosProduzidos(dadosParaOsGraficos[0], dadosParaOsGraficos2[0]);
+
+    inSelectFiltroPorNumerosTarefasMetrosProduzidos.onchange = function () {
+      let dados1 = dadosParaOsGraficos[parseInt(this.value)];
+      let dados2 = dadosParaOsGraficos2[parseInt(this.value)];
+
+      construirGraficoVariantesMetrosProduzidos(dados1, dados2);
+    }
+  }
+
+  function colocarValoresVariantesMetrosProduzidos({ dataDia, totalMetrosProduzidos, mediaMetrosProduzidos, picoProducao, menorProducao }) {
+    document.getElementById('dataContentMetrosProduzidos').textContent = dataDia;
+    document.getElementById('totalMetrosProduzidosPorDia').textContent = totalMetrosProduzidos;
+    document.getElementById('mediaMetrosProduzidosPorDia').textContent = mediaMetrosProduzidos;
+    document.getElementById('picoMetrosProduzidos').textContent = picoProducao;
+    document.getElementById('menorMetrosProduzidos').textContent = menorProducao;
+  }
+
+  function construirGraficoPorTempoProduzidoPorNumTarefa() {
+    if (!dadosPrimeiroGraficoLinha[0]) return;
+    console.log(dadosPrimeiroGraficoLinha);
+    const vetDataMetrosProduzidos = dadosPrimeiroGraficoLinha.map((dados) => dados.dia_do_mes);
+
+    const inSelectDatasMetrosProduzidos = document.getElementById('inSelectDatasMetrosProduzidos');
+    construirSelectMetrosProduzidos(vetDataMetrosProduzidos, inSelectDatasMetrosProduzidos);
+
+    construirSelectNumeroTarefaMetrosProduzidos(dadosPrimeiroGraficoLinha[0].numero_da_tarefa, dadosPrimeiroGraficoLinha[0].total_por_registro_no_mes);
+    colocarValoresVariantesMetrosProduzidos({
+      dataDia: `Data escolhida: ${formatarDataParaOsGraficos(dadosPrimeiroGraficoLinha[0].dia_do_mes)}`,
+      totalMetrosProduzidos: `Total produzido no dia: ${formater.format(dadosPrimeiroGraficoLinha[0].total_metros_produzidos)}`,
+      mediaMetrosProduzidos: `Média no dia: ${dadosPrimeiroGraficoLinha[0].media_tempo_metros_no_dia}`,
+      picoProducao: `Tarefa ${dadosPrimeiroGraficoLinha[0].numero_tarefa_maior_metros}: ${dadosPrimeiroGraficoLinha[0].maior_metros_no_dia}`,
+      menorProducao: `Tarefa ${dadosPrimeiroGraficoLinha[0].numero_tarefa_menor_metros}: ${dadosPrimeiroGraficoLinha[0].menor_metros_no_dia}`
+    });
+
+    inSelectDatasMetrosProduzidos.onchange = function () {
+      let dados = dadosPrimeiroGraficoLinha[parseInt(this.value)];
+
+      colocarValoresVariantesMetrosProduzidos({
+        dataDia: `Data escolhida: ${formatarDataParaOsGraficos(dados.dia_do_mes)}`,
+        totalMetrosProduzidos: `Total produzido no dia: ${formater.format(dados.total_metros_produzidos)}`,
+        mediaMetrosProduzidos: `Média no dia: ${dados.media_tempo_metros_no_dia}`,
+        picoProducao: `Tarefa ${dados.numero_tarefa_maior_metros}: ${dados.maior_metros_no_dia}`,
+        menorProducao: `Tarefa ${dados.numero_tarefa_menor_metros}: ${dados.menor_metros_no_dia}`
+      });
+
+      construirSelectNumeroTarefaMetrosProduzidos(dados.numero_da_tarefa, dados.total_por_registro_no_mes);
+    }
+
+    construirGraficoMetrosProduzidosEmCadaDiaDoMes();
   }
 
   const graficoPizzaTotalTipoProduzido = document.getElementById('graficoPizzaTotalTipoProduzido');
@@ -321,7 +682,6 @@ window.onload = function () {
     if (graficoPizzaTotalTipoTecido)
       graficoPizzaTotalTipoTecido.destroy();
 
-    console.log(dadosGraficoPizzaTotalTipoTecido);
     let data = {
       labels: dadosGraficoPizzaTotalTipoTecido.map((dados) => dados.tipo_tecido),
       datasets: [{
@@ -415,7 +775,7 @@ window.onload = function () {
     htmlSelect.innerHTML = "";
     arrayDados.forEach((dados, index) => {
       htmlSelect.innerHTML += `
-          <option value="${index}">Até ${dados}</option>
+          <option value="${index}">${arrayDados[index].join(', ')}</option>
         `;
     })
   }
@@ -431,13 +791,7 @@ window.onload = function () {
 
     let { dadosParaOsGraficos, dadosParaOsGraficos2 } = separarDados(arrayDados1, arrayDados2);
 
-    let vet = [];
-    for (let i = 0; i < dadosParaOsGraficos2?.length; i++) {
-      if (dadosParaOsGraficos2[i][0])
-        vet.push(dadosParaOsGraficos2[i][0] + '-' + dadosParaOsGraficos2[i][dadosParaOsGraficos2[i].length - 1]);
-    }
-
-    construirSelectDinamicoPorNumeroTarefa(vet, selectFiltrarPorTarefa);
+    construirSelectDinamicoPorNumeroTarefa(dadosParaOsGraficos, selectFiltrarPorTarefa);
 
     construirGraficoPorTempoSetup(dadosParaOsGraficos[0], dadosParaOsGraficos2[0]);
     document.getElementById('inSelectFiltroPorNumerosTarefasTempoSetup').onchange = function () {
@@ -491,7 +845,7 @@ window.onload = function () {
     let dataSelecionadaTempoSetup = mediaEVariantesPorDiaSetup[0].dia_do_mes;
     let dadosFiltrados = filtrarRegistrosTempoSetupPorDia(mediaEVariantesPorDiaSetup, dataSelecionadaTempoSetup);
 
-    document.getElementById('dataContentTempoSetup').textContent = `Data escolhido: ${formatarDataParaOsGraficos(dadosFiltrados.dia_do_mes)}`;
+    document.getElementById('dataContentTempoSetup').textContent = `Data escolhida: ${formatarDataParaOsGraficos(dadosFiltrados.dia_do_mes)}`;
     document.getElementById('totalTempoSetupPorDia').textContent = `Total tempo setup: ${formater.format(dadosFiltrados.total_tempo_setup)}`;
     document.getElementById('mediaTempoSetupPorDia').textContent = `Média setup: ${dadosFiltrados.media_tempo_setup_no_dia}`;
 

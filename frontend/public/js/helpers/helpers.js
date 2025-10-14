@@ -7,7 +7,8 @@ const formater = new Intl.NumberFormat('pt-BR', {
 });
 
 const formatarDataParaOsGraficos = (date) => {
-    let vetDataFatiada = date.split('-');
+    let vetDataFatiada = date?.split('-');
+    if (!vetDataFatiada) return;
 
     return `${vetDataFatiada[2]}/${vetDataFatiada[1]}/${vetDataFatiada[0]}`
 }

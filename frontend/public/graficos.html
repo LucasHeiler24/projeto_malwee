@@ -100,14 +100,43 @@
         </div>
       </section>
 
-      <section class="section-primeiros-graficos">
+      <section class="section-primeiros-graficos-tipos-tecidos">
         <div class="div-total-primeiros-graficos">
-          <h1>Gráfico total de metros produzidos por tipo de tecido</h1>
-          <div class="grafico-pizza-total-tipo-tecido">
-            <canvas id="graficoPizzaTotalTipoProduzido"></canvas>
+          <div class="div-content-grafico-pizza">
+            <h1>Gráfico total de metros produzidos por tipo de tecido no mês</h1>
+            <div class="grafico-pizza-total-tipo-tecido">
+              <canvas id="graficoPizzaTotalTipoProduzido"></canvas>
+            </div>
+          </div>
+          <div class="div-content-filtros-grafico-pizza">
+            <h1>Filtrar por dias em cada tipo de tecido produzido no mês</h1>
+            <article class="dados-tecido" id="totalDataTipoTecido"></article>
+            <div class="div-content-dados-tecido-header">
+              <article class="dados-tecido" id="totalTipoTecido"></article>
+              <article class="dados-tecido" id="mediaTipoTecido"></article>
+            </div>
+            <div class="div-content-dados-body">
+              <h1>Selecione o filtro</h1>
+              <label>Selecionar o tipo de visualização</label>
+              <select id="inSelectTiposDadosParaTecido"></select>
+              <label>Selecionar a data que deseja</label>
+              <select id="inSelectDatasParaOTipoTecido"></select>
+              <label>Selecionar o tipo de tecido que deseja</label>
+              <select id="inSelectTiposTecido"></select>
+              <label>Quais números tarefas deseja</label>
+              <select id="inSelectDadosPorTarefaTiposTecidos"></select>
+            </div>
           </div>
         </div>
+        <div class="div-content-grafico-por-tipo-tecido">
+          <h1>Variantes entre os tipos de tecido</h1>
+          <div class="content-tipo-tecido-grafico">
+            <canvas id="graficoDadosPorTipoTecido"></canvas>
+          </div>
+        </div>
+      </section>
 
+      <section class="section-grafico">
         <div class="div-total-primeiros-graficos">
           <h1>Gráfico total de tarefas completas e não completas</h1>
           <div class="grafico-barra-tarefas-completas">
@@ -136,8 +165,14 @@
           <div class="div-content-setup-body">
             <h1>Variantes entre os dias do mês</h1>
             <div class="content-body-header">
-              <select id="inSelectFiltrarDataTempoProducaoGerarGrafico"></select>
-              <select id="inSelectFiltroPorNumerosTarefasTempoProducao"></select>
+              <div class="content-header-setup">
+                <label>Selecione a data que deseja</label>
+                <select id="inSelectFiltrarDataTempoProducaoGerarGrafico"></select>
+              </div>
+              <div class="content-header-setup">
+                <label>Selecione o(s) número(s) da tarefa</label>
+                <select id="inSelectFiltroPorNumerosTarefasTempoProducao"></select>
+              </div>
             </div>
             <canvas id="graficoTempoProducaoEmUmDia"></canvas>
           </div>
@@ -169,8 +204,14 @@
           <div class="div-content-setup-body">
             <h1>Variantes entre os dias do mês</h1>
             <div class="content-body-header">
-              <select id="inSelectFiltrarDataGerarGrafico"></select>
-              <select id="inSelectFiltroPorNumerosTarefasTempoSetup"></select>
+              <div class="content-header-setup">
+                <label>Selecione a data que deseja</label>
+                <select id="inSelectFiltrarDataGerarGrafico"></select>
+              </div>
+              <div class="content-header-setup">
+                <label>Selecione o(s) número(s) da tarefa</label>
+                <select id="inSelectFiltroPorNumerosTarefasTempoSetup"></select>
+              </div>
             </div>
             <canvas id="graficoTempoSetupEmUmDia"></canvas>
           </div>
@@ -184,9 +225,51 @@
       </section>
 
       <section class="section-grafico">
-        <h1>Total metros produzidos por número tarefa no mês</h1>
-        <div class="grafico-linha-meses" style="width: 100%">
-          <canvas id="graficoLinhaTotalTempoTarefa"></canvas>
+        <h1>Gráfico metros produzidos</h1>
+        <div class="div-content-setup-first">
+          <div class="div-content-setup-header">
+            <div class="data-content-header">
+              <h1 id="dataContentMetrosProduzidos"></h1>
+            </div>
+          </div>
+          <div class="div-content-setup-dados">
+            <div class="data-content-dados">
+              <h1 id="totalMetrosProduzidosPorDia"></h1>
+            </div>
+            <div class="data-content-dados">
+              <h1 id="mediaMetrosProduzidosPorDia"></h1>
+            </div>
+          </div>
+          <div class="div-content-setup-body">
+            <h1>Variantes entre os dias do mês</h1>
+            <div class="content-body-header">
+              <div class="content-header-setup">
+                <label>Selecione a data que deseja</label>
+                <select id="inSelectDatasMetrosProduzidos"></select>
+              </div>
+              <div class="content-header-setup">
+                <label>Selecione o(s) número(s) da tarefa</label>
+                <select id="inSelectFiltroPorNumerosTarefasMetrosProduzidos"></select>
+              </div>
+            </div>
+            <div class="div-content-dados-metros-produzidos">
+              <div class="metros-produzidos-pico-producao">
+                <h1>Pico produção</h1>
+                <article id="picoMetrosProduzidos">Pico de produção</article>
+              </div>
+              <div class="metros-produzidos-menor-producao">
+                <h1>Menor produção</h1>
+                <article id="menorMetrosProduzidos">Menor produção</article>
+              </div>
+            </div>
+            <canvas id="graficoMetrosProduzidosEmUmDia"></canvas>
+          </div>
+        </div>
+        <div class="div-content-setup-secound">
+          <h1>Total metros produzidos por número tarefa no mês</h1>
+          <div class="grafico-linha-meses" style="width: 100%">
+            <canvas id="graficoLinhaTotalTempoTarefa"></canvas>
+          </div>
         </div>
       </section>
 
