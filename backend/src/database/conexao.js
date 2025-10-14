@@ -6,9 +6,10 @@
 //   try {
 //     const conexao = await mysql2.createConnection({
 //       host: "localhost",
-//       database: "bd_malwee",
-//       password: "97224404",
+//       database: "novoBd",
+//       password: "",
 //       user: "root",
+//       port: 3306,
 //     });
 //     global.conexao = conexao;
 //     return conexao;

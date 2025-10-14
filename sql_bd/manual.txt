@@ -26,3 +26,9 @@ Fazer um grafico em diferença mensal
 comparando dois tipos de tecidos em cada mes,
 mes 1: Cotton produziu 1000 e no mes dois produziu 2000
 Fazer uma separção por turnos
+
+Apenas uma aba de diferença. Nessa aba teriamos 3 selects;
+1 - select: escolheria a data;
+2 - select: escolheria quantos graficos quer comparar;
+3 - select: selecionaria o tipo de dados que quer comparar.
+Objetivo: Trazer uma tela limpa ao usúario, com o intuito de ser algo simples.
