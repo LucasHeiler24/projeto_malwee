@@ -1,13 +1,22 @@
 import {createBrowserRouter} from 'react-router-dom';
-import App from '../App';
 import GraphicsPage from '../views/GraphicsPage';
+import HomePage from '../views/HomePage';
+import DashboardPage from '../views/DashboardPage';
+import HistoricoPage from '../views/HistoricoPage';
+import LoginPage from '../views/LoginPage';
+import AnalisePage from '../views/AnalisePage';
+import CadastroPage from '../views/CadastroPage';
 
 const routes = createBrowserRouter
 (
     [
         {
             path: '/',
-            element: <App />
+            element: <HomePage />
+        },
+        {
+            path: '/dashboard',
+            element: <DashboardPage />
         },
         {
             path: '/graficos',
@@ -15,19 +24,19 @@ const routes = createBrowserRouter
         },
         {
             path: '/historico',
-            //element: <App />
+            element: <HistoricoPage />
         },
         {
             path: '/login',
-            //: <App />
+            element: <LoginPage />
         },
         {
-            path: '/criar-conta',
-            //: <App />
+            path: '/cadastro',
+            element: <CadastroPage />
         },
         {
-            path: '/diferenca-mensal',
-            //element: <App />
+            path: '/analise-periodo',
+            element: <AnalisePage />
         },
     ]
 );
