@@ -20,7 +20,6 @@ const create = async function (request, response) {
         
         const status = await createUsuario({ id_matricula, nome_usuario, senhaBcrypt });
         
-        console.log(status);
         return (status.affectedRows == 1) ? response.status(200).json(
             { status: 201, message: "Usuário criado com sucesso!" }) :
             { status: 400, message: "Erro ao cadastar o usuário!" }
@@ -51,7 +50,7 @@ const loginStore = async function(request, response) {
         if(!verifySenha) return response.status(400).json({status: 400, message: "Credênciais inválidas"});
 
         const token = jsonWebToken.sign({id: status[0].id_usuario, nome: status[0].nome_usuario}, SECRET_TOKEN, {
-            algorithm: 'HS256', expiresIn: '1h'
+            algorithm: 'HS256', expiresIn: '1d'
         });
         
         return response.status(200).json({token});

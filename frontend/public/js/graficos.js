@@ -20,7 +20,6 @@ import {
   operandoMes,
 } from "./helpers/funcoes_alterar_mes_ano.js";
 
-import construirGrafico from "./graphics/construir_grafico.js";
 
 import {
   getQuantidadeMetrosProduzidoPorTarefaNoMes,
@@ -56,7 +55,6 @@ import {
   utilsSelectTipos,
   utilsSelectTiposTecidos
 } from "./utils/selects/selects_tela_grafico.js";
-import { contruirSelectNumerosTarefasParaTiposTecidos, mudarDadosGraficoTipoTecido, mudarDadosParaDatas, onchangeMudarTipoDeDado } from "./utils/functions/functions_tela_graficos.js";
 
 window.onload = function () {
   let graficoBarraTempoProduzidoPorDiaNoMes = null;
@@ -187,7 +185,6 @@ window.onload = function () {
   function contruirSelectNumerosTarefasParaTiposTecidos(
     arrayDados1,
     arrayDados2,
-    selectNumerosTarefaTipoTecido,
     graficoLinhaVariantePorTipoTecido,
     graficoDadosPorTipoTecido
   ) {
@@ -195,21 +192,21 @@ window.onload = function () {
         utilsSelectNumerosTarefasGraficoTipoTecido([arrayDados1], selectNumerosTarefaTipoTecido);
         return graficoLinhaVariantePorTipoTecido = utilsConstruirGraficoVariantesEmTipoTecido(arrayDados1, arrayDados2, graficoDadosPorTipoTecido, graficoLinhaVariantePorTipoTecido);
     }
+    const selectNumerosTarefaTipoTecido = document.getElementById('inSelectDadosPorTarefaTiposTecidos');
     let { dadosParaOsGraficos, dadosParaOsGraficos2 } = separarDados(arrayDados1, arrayDados2);
 
     utilsSelectNumerosTarefasGraficoTipoTecido(dadosParaOsGraficos, selectNumerosTarefaTipoTecido);
 
     graficoLinhaVariantePorTipoTecido = utilsConstruirGraficoVariantesEmTipoTecido(dadosParaOsGraficos[0], dadosParaOsGraficos2[0], graficoDadosPorTipoTecido, graficoLinhaVariantePorTipoTecido);
+    
     selectNumerosTarefaTipoTecido.addEventListener('change', function () {
         graficoLinhaVariantePorTipoTecido = utilsConstruirGraficoVariantesEmTipoTecido(dadosParaOsGraficos[parseInt(this.value)],
             dadosParaOsGraficos2[parseInt(this.value)],
             graficoDadosPorTipoTecido, graficoLinhaVariantePorTipoTecido);
     })
-
-    return graficoLinhaVariantePorTipoTecido;
   }
 
-  function mudarDadosGraficoTipoTecido(selectNumerosTarefaTipoTecido, tipoFiltro, dados, colocarDadosMediaETotalSobreTiposTecidos, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido) {
+  function mudarDadosGraficoTipoTecido(tipoFiltro, dados, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido) {
     switch (tipoFiltro) {
         case "0":
             colocarDadosMediaETotalSobreTiposTecidos(
@@ -241,7 +238,7 @@ window.onload = function () {
     }
   }
 
-    function mudarDadosParaDatas(selectNumerosTarefaTipoTecido, tipoFiltro, dados, colocarDadosMediaETotalSobreTiposTecidos, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido) {
+    function mudarDadosParaDatas(tipoFiltro, dados, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido) {
       switch (tipoFiltro) {
         case "0":
             colocarDadosMediaETotalSobreTiposTecidos(
@@ -274,13 +271,11 @@ window.onload = function () {
   }
 
     function onchangeMudarTipoDeDado(
-        selectNumerosTarefaTipoTecido,
         tipoFiltro,
         dados,
         filtroPosicao,
         graficoPizzaTotalTipoProduzido,
         graficoPizzaTotalTipoTecido,
-        colocarDadosMediaETotalSobreTiposTecidos,
         titleGrafico,
         graficoLinhaVariantePorTipoTecido,
         graficoDadosPorTipoTecido
@@ -297,7 +292,7 @@ window.onload = function () {
             );
             graficoPizzaTotalTipoTecido = utilsGraficoTotalTipoTecido(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_metros_por_tecido), graficoPizzaTotalTipoProduzido, graficoPizzaTotalTipoTecido);
             titleGrafico.textContent = "Gráfico total metros produzidos por tipo de tecido no mês"
-            graficoLinhaVariantePorTipoTecido = contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa, selectNumerosTarefaTipoTecido, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
+            graficoLinhaVariantePorTipoTecido = contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
             break;
         case "1":
             filtroTipoDado = "1";
@@ -310,7 +305,7 @@ window.onload = function () {
             )
             graficoPizzaTotalTipoTecido = utilsGraficoTotalTipoTecido(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_tempo_producao), graficoPizzaTotalTipoProduzido, graficoPizzaTotalTipoTecido);
             titleGrafico.textContent = "Gráfico total produção por tipo de tecido no mês"
-            graficoLinhaVariantePorTipoTecido = contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa_tempo_producao, selectNumerosTarefaTipoTecido, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
+            graficoLinhaVariantePorTipoTecido = contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa_tempo_producao, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
             break;
         case "2":
             filtroTipoDado = "2";
@@ -326,7 +321,6 @@ window.onload = function () {
             graficoLinhaVariantePorTipoTecido = contruirSelectNumerosTarefasParaTiposTecidos(
                 dados[filtroPosicao].numero_da_tarefa,
                 dados[filtroPosicao].total_por_tarefa_tempo_setup,
-                selectNumerosTarefaTipoTecido,
                 graficoLinhaVariantePorTipoTecido,
                 graficoDadosPorTipoTecido
             );
@@ -348,7 +342,6 @@ window.onload = function () {
     const selectDatasTiposTecido = document.getElementById('inSelectDatasParaOTipoTecido');
     const selectTipoTecido = document.getElementById('inSelectTiposTecido');
     const selectTipoDadosTecidos = document.getElementById('inSelectTiposDadosParaTecido');
-    const selectNumerosTarefaTipoTecido = document.getElementById('inSelectDadosPorTarefaTiposTecidos');
 
     const titleGrafico = document.getElementById('titleGraficoPizza');
 
@@ -369,6 +362,7 @@ window.onload = function () {
     graficoPizzaTotalTipoTecido = utilsGraficoTotalTipoTecido(dados.map((dados) => dados.tipo_tecido), dados.map((dados) => dados.total_metros_por_tecido), graficoPizzaTotalTipoProduzido, graficoPizzaTotalTipoTecido);
     graficoLinhaVariantePorTipoTecido = contruirSelectNumerosTarefasParaTiposTecidos(dados[filtroPosicao].numero_da_tarefa, dados[filtroPosicao].total_por_tarefa, selectNumerosTarefaTipoTecido, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
 
+
     selectTipoTecido.onchange = function () {
       let vetDadosTipoTecido;
       for (let i = 0; i < dadosGraficoTipoTecidoPorDiaDoMes.length; i++) {
@@ -376,7 +370,7 @@ window.onload = function () {
         filtroPosicao = dados.findIndex((dados) => dados.tipo_tecido == this.value);
       }
 
-      graficoLinhaVariantePorTipoTecido = mudarDadosGraficoTipoTecido(selectNumerosTarefaTipoTecido, filtroTipoDado, vetDadosTipoTecido, colocarDadosMediaETotalSobreTiposTecidos, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
+      graficoLinhaVariantePorTipoTecido = mudarDadosGraficoTipoTecido(filtroTipoDado, vetDadosTipoTecido, colocarDadosMediaETotalSobreTiposTecidos, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
     }
 
     selectDatasTiposTecido.onchange = function () {
@@ -397,13 +391,12 @@ window.onload = function () {
           break;
       }
 
-      graficoLinhaVariantePorTipoTecido = mudarDadosParaDatas(selectNumerosTarefaTipoTecido, filtroTipoDado, dados[filtroPosicao], colocarDadosMediaETotalSobreTiposTecidos, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
+      graficoLinhaVariantePorTipoTecido = mudarDadosParaDatas(filtroTipoDado, dados[filtroPosicao], colocarDadosMediaETotalSobreTiposTecidos, graficoLinhaVariantePorTipoTecido, graficoDadosPorTipoTecido);
 
     }
 
     selectTipoDadosTecidos.addEventListener('change', function (e) {
       let { dado1, dado2, dado3 } = onchangeMudarTipoDeDado(
-        selectNumerosTarefaTipoTecido,
         e.target.value,
         dados,
         filtroPosicao,
@@ -415,7 +408,6 @@ window.onload = function () {
         graficoDadosPorTipoTecido
       );
 
-      console.log(dado1, dado2, dado3);
       filtroTipoDado = dado1;
       graficoPizzaTotalTipoTecido = dado2;
       graficoLinhaVariantePorTipoTecido = dado3;
