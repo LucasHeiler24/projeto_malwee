@@ -71,6 +71,9 @@ function filterRegistrosPorId(arrayRegistros, idRegistro) {
     return arrayRegistros.find((dados) => dados.id_dado == parseInt(idRegistro));
 }
 
+function filtrarRegistrosTempoSetupPorDia(arrayDados, data) {
+    return arrayDados.find((dados) => dados.dia_do_mes == data);
+}
 
 function createFlashMessage(sText, sType, divFlash) {
     divFlash.style.display = 'flex';
@@ -137,5 +140,6 @@ export {
     formatarDatasEntreOsMeses,
     filterRegistrosPorId,
     createFlashMessage,
-    separarDados
+    separarDados,
+    filtrarRegistrosTempoSetupPorDia
 };

@@ -13,6 +13,8 @@ import {
 } from "./requests/fetch_home.js";
 
 import { getQuantidadeMetrosPorTecido, getValidToken } from "./requests/fetch_gerais.js";
+import { construirGraficoQuantidadeMetrosProduzidosEmCadaDiaDoMes, construirGraficoQuantidadeTotalTempoSetupEmCadaDiaDoMes } from "./utils/graficos/graficos_tela_home.js";
+import { construirCardsMetrosProduzidosPorTipoTecidoNoMes } from "./utils/cards/cards_home.js";
 
 window.onload = function () {
 
@@ -22,117 +24,20 @@ window.onload = function () {
     const graficoPizzaTotalMetrosProduzidosPorMes = document.getElementById('graficoPizzaTotalMetrosProduzidosPorMes');
 
     function construirGraficoPorMesesDeMetrosPorDia(qtdMetrosPorTarefaProduzidoMes) {
-
-        console.log(qtdMetrosPorTarefaProduzidoMes);
-        if (graficoPizzaMetrosProduzidos)
-            graficoPizzaMetrosProduzidos.destroy();
-
-        let data = {
-            labels: qtdMetrosPorTarefaProduzidoMes.map((dados) => formatarDataParaOsGraficos(dados.diaDoMes)),
-            datasets: [{
-                label: "Quantidade de metros produzido",
-                data: qtdMetrosPorTarefaProduzidoMes.map((dados) => dados.somaPorDia),
-                borderWidth: 1,
-                backgroundColor: vetCoresParaOsGraficos
-            }]
-        }
-        let options = {
-            scales: {
-                y: {
-                    grid: {
-                        display: false
-                    },
-                    display: false
-                },
-                x: {
-                    grid: {
-                        display: false
-                    },
-                    display: false
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#fff'
-                    },
-                    position: 'right'
-                }
-            }
-        }
-        graficoPizzaMetrosProduzidos = construirGrafico(options, data, graficoPizzaTotalMetrosProduzidosPorMes, 'pie');
-
+        return construirGraficoQuantidadeMetrosProduzidosEmCadaDiaDoMes(
+            graficoPizzaTotalMetrosProduzidosPorMes, qtdMetrosPorTarefaProduzidoMes, graficoPizzaMetrosProduzidos);
     }
 
     const graficoRoscaTotalTempoSetupPorMes = document.getElementById('graficoRoscaTotalTempoSetupPorMes');
     function contruirGraficoRoscaPorTempoDeSetup(arrayDadosPorSetup) {
-
-        if (graficoRoscaTempoSetup)
-            graficoRoscaTempoSetup.destroy();
-
-        let data = {
-            labels: arrayDadosPorSetup.map((dados) => formatarDataParaOsGraficos(dados.dia_do_mes)),
-            datasets: [{
-                label: "Quantidade de tempo de setup",
-                data: arrayDadosPorSetup.map((dados) => dados.total_tempo_setup),
-                borderWidth: 1,
-                backgroundColor: vetCoresParaOsGraficos2
-            }]
-        }
-
-        let options = {
-            scales: {
-                y: {
-                    grid: {
-                        display: false
-                    },
-                    display: false
-                },
-                x: {
-                    grid: {
-                        display: false
-                    },
-                    display: false
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#fff'
-                    },
-                    position: 'right'
-                }
-            }
-        }
-
-        graficoRoscaTempoSetup = construirGrafico(options, data, graficoRoscaTotalTempoSetupPorMes, 'doughnut');
+        return construirGraficoQuantidadeTotalTempoSetupEmCadaDiaDoMes(
+            graficoRoscaTotalTempoSetupPorMes, arrayDadosPorSetup, graficoRoscaTempoSetup);
     }
 
     const divCards = $('#cards');
 
     function construirCardsDeTipoDeTecido(arrayDadosTiposTecidos) {
-        console.log(arrayDadosTiposTecidos)
-        divCards.empty();
-
-        arrayDadosTiposTecidos.forEach(dados => {
-
-            divCards.append(`
-            
-                <div class="card">
-
-                    <div class="card-header">
-                        <h1>${dados.tipo_tecido}</h1>
-                    </div>
-
-                    <div class="card-body">
-                        <h1>${formater.format(dados.qtd_metros_produzidos)}</h1>
-                    </div>
-
-                </div>
-
-            `)
-
-        });
+        return construirCardsMetrosProduzidosPorTipoTecidoNoMes(arrayDadosTiposTecidos, divCards);
     }
 
     function dividirCookies() {
@@ -165,7 +70,6 @@ window.onload = function () {
         const qtdMetrosPorDiaProduzido = await getQuantidadeMetrosProduzidoPorDia(ultimoAno, ultimoMes);
         const qtdDeDiaTempoSetup = await getTotalTempoSetupPorDiaDoMes(ultimoAno, ultimoMes);
 
-        console.log(qtdMetrosPorDiaProduzido);
         construirGraficoPorMesesDeMetrosPorDia(qtdMetrosPorDiaProduzido);
         contruirGraficoRoscaPorTempoDeSetup(qtdDeDiaTempoSetup);
 
