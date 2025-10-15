@@ -1,7 +1,9 @@
-const DashboardPage = () => {
-    return (
-        <h1>Dashboard</h1>
-    )
-}
+import Sidebar from "../components/Sidebar";
 
-export default DashboardPage
+export default function DashboardPage() {
+  return (
+    <main className='App'>
+      <Sidebar>SidebarItem</Sidebar>
+    </main>
+  );
+}
