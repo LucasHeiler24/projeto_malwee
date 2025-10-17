@@ -1,7 +1,9 @@
 import { Router } from "express";
 import {
     controllerGetDadosSemanaisOuQuinzenaisPosteriores,
-    controllerGetDadosSemanaisOuQuinzenaisAnteriores
+    controllerGetDadosSemanaisOuQuinzenaisAnteriores,
+    controllerGetDadosDiario,
+    controllerGetDadosMensal
 } from "../controllers/DashboardController.js";
 
 const routerDados = Router();
@@ -10,5 +12,7 @@ const routerDados = Router();
 //Rotas para pegar dados semanais ou quinzenais
 routerDados.get('/posterior/data/:data/type/:type', controllerGetDadosSemanaisOuQuinzenaisPosteriores);
 routerDados.get('/anterior/data/:data/type/:type', controllerGetDadosSemanaisOuQuinzenaisAnteriores);
+routerDados.get('/diario/data/:data', controllerGetDadosDiario);
+routerDados.get('/mensal/data/:data', controllerGetDadosMensal);
 
 export default routerDados;

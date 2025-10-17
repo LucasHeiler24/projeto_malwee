@@ -10,7 +10,8 @@ async function conectarBd() {
       host: process.env.HOST_DATABASE,
       database: process.env.NAME_DATABASE,
       password: process.env.PASSWORD_DATABASE,
-      user: process.env.USER_DATABASE
+      user: process.env.USER_DATABASE,
+      port: process.env.PORT_DATABASE
     });
     global.conexao = conexao;
     return conexao;
