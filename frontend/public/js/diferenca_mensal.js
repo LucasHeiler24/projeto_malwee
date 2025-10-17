@@ -1,5 +1,4 @@
 import verificarTokenUsuario from "./helpers/funcao_token_session.js";
-import addOuvinteNosButtonsAlterarData from "./utils/buttons_alterar_datas/adicionar_ouvinte.js";
 
 window.onload = function () {
 
@@ -10,11 +9,5 @@ window.onload = function () {
         await verificarTokenUsuario(tokenSession);
 
         document.getElementById('saudacaoUsuario').textContent = `Olá ${sessionStorage.getItem('nome')}`
-
-        const btnAlterarData = document.querySelectorAll('.btnAlterarDatas');
-        const htmlCheckboxTipoTempo = document.getElementById('checkboxTipoTempo');
-        const dados = addOuvinteNosButtonsAlterarData(btnAlterarData, htmlCheckboxTipoTempo);
-
-        console.log(dados);
     })()
 }
