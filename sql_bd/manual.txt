@@ -27,11 +27,32 @@ comparando dois tipos de tecidos em cada mes,
 mes 1: Cotton produziu 1000 e no mes dois produziu 2000
 Fazer uma separção por turnos
 
-<<<<<<< Updated upstream
+Ter um grafico de pizza com a média de cada dia do mês
+
+Calculo diferença mensal entre dois meses por tipo tecidos
+((Valor mes atual - Valor mes anterior) / valor mês anterior) * 100 
+
+Análise de produtividade entre os tecidos
+Pegar o total de metros de cada tecido produzidos no mês / pelo tempo total de produção em horas
+
+Análise de eficiência entre os tecidos
+Pegar o total de tempo de setup em cada tecido produzido no mês / pelo número de tarefas que teve aquele tecido
+
+Análise de disponibilidade entre os tecidos
+Pegar o total de tempo de produção de cada tecido / pelo tempo total de producao + tempo total de setup
+
+--verde-malwee: #00a86b;
+  --azul-petroleo: #1a2e35;
+  --cinza-claro: #f4f4f4;
+  --cinza-medio: #a3a3a3;
+  --grafite: #222222;
+  --amarelo-mostarda: #e2b714;
+  --verde-claro: #6fcf97;
+  --vermelho-suave: #eb5757;
+
+Fiz um calculo do mes da empresa de disponibilidade deu 53.53 esta certo? Eu peguei o total de tempo de produção no mes e dividi pelo valor total de setup no mes e multipliquei por 100
 Apenas uma aba de diferença. Nessa aba teriamos 3 selects;
 1 - select: escolheria a data;
 2 - select: escolheria quantos graficos quer comparar;
 3 - select: selecionaria o tipo de dados que quer comparar.
 Objetivo: Trazer uma tela limpa ao usúario, com o intuito de ser algo simples.
-=======
->>>>>>> Stashed changes

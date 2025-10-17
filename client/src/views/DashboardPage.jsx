@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect, useState } from "react"
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -42,14 +41,13 @@ const DashboardPage = () => {
         </>
     )
 }
-=======
-import Sidebar from "../components/Sidebar";
->>>>>>> a723253aa690d6559cd2a586e595296ce95ec2ad
 
-export default function DashboardPage() {
-  return (
-    <main className='App'>
-      <Sidebar>SidebarItem</Sidebar>
-    </main>
-  );
-}
+export default DashboardPage;
+
+// export default function DashboardPage() {
+//   return (
+//     <main className='App'>
+//       <Sidebar>SidebarItem</Sidebar>
+//     </main>
+//   );
+// }

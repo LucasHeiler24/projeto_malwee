@@ -1,42 +1,28 @@
-import { createFlashMessage } from "./helpers/helpers.js";
+import storeUsuario from "./requests/usuario/login.js";
+import flashMessage from "./utils/flash_messages/flash_message.js";
+import validationLogin from "./validations/login.js";
 
-window.onload = function(){
+window.onload = function () {
 
     const form = document.querySelector('form');
-    const flashMessage = document.getElementById('flashMessage');
-    flashMessage.style.display = 'none';
+    const flashMessageLogin = document.getElementById("flashMessageLogin");
+    flashMessageLogin.style.display = 'none';
 
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        const id_matricula = this.matricula.value.trim();
-        const senha_usuario = this.senha.value.trim();
+        const matriculaUser = this.matriculaUser.value.trim();
+        const senhaUser = this.senhaUser.value.trim();
 
-        if(!id_matricula || !senha_usuario) return createFlashMessage('Preencher os dados corretamente', 'error', flashMessage);
+        const statusLogin = validationLogin({ matricula: matriculaUser, senha: senhaUser });
+        if (statusLogin) return flashMessage(flashMessageLogin, statusLogin.message, 'error');
 
-        try{
+        const statusStore = await storeUsuario({ matricula: matriculaUser, senha: senhaUser });
 
-            const response = await fetch('http://localhost:8000/user/store', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(
-                    { 
-                        id_matricula,
-                        senha_usuario
-                    }
-                )
-            });
+        if (statusStore.status == 400) return flashMessage(flashMessageLogin, statusStore.message, 'error');
 
-            const status = await response.json();
-
-            if(status.status == 400) return createFlashMessage(status.message, 'error', flashMessage);
-
-            document.cookie = `token=${status.token}; max-age=3600; SameSite=none; Secure;`
-            return window.location.href = './index.html';
-        }
-        catch(e){
-            console.log(e);
-        }
+        sessionStorage.setItem('token', statusStore.token);
+        return window.location.href = './dashboard.html';
     })
 
 }

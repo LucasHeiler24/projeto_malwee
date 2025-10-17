@@ -1,36 +1,16 @@
-// import mysql2 from "mysql2/promise";
-
-// async function conectarBd() {
-//   if (global.conexao) return global.conexao;
-
-//   try {
-//     const conexao = await mysql2.createConnection({
-//       host: "localhost",
-//       database: "bd_malwee",
-//       password: "97224404",
-//       user: "root"
-//     });
-//     global.conexao = conexao;
-//     return conexao;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
-
-// export default conectarBd;
-
 import mysql2 from "mysql2/promise";
+import dotenv from "dotenv";
 
+dotenv.config();
 async function conectarBd() {
   if (global.conexao) return global.conexao;
 
   try {
     const conexao = await mysql2.createConnection({
-      host: "localhost",
-      database: "novoBd",
-      password: "root",
-      user: "root",
-      port: 3307,
+      host: process.env.HOST_DATABASE,
+      database: process.env.NAME_DATABASE,
+      password: process.env.PASSWORD_DATABASE,
+      user: process.env.USER_DATABASE
     });
     global.conexao = conexao;
     return conexao;

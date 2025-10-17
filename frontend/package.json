@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "live-server --port=5000 --host=localhost --browser=firefox public"
+    "server": "live-server --host=localhost --port=5000 --browser=firefox public"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
     "live-server": "^1.2.2"
   }

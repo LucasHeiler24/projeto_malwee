@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import router from "../router/Dados.js";
+import routerDados from "../router/Dados.js";
 import routerUser from "../router/User.js";
 
 const app = express();
@@ -13,9 +13,9 @@ app.use(
   })
 );
 
-app.use("/dados", router);
+app.use("/dados", routerDados);
 app.use("/user", routerUser);
 
-app.listen(8000, () =>{
+app.listen(8000, () => {
   console.log("Servidor rodando em: http://localhost:8000");
 });
