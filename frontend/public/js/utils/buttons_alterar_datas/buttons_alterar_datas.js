@@ -1,21 +1,20 @@
-import { formatarDatasParaAmericano } from "../../helpers/funcoes_gerais/funcoes.js"
-import { getDadosDiasPosterioresSemanalQuinzenal } from "../../requests/graphics/requests_dashboard.js";
+import { formatarDatasAnoEMes, formatarDatasParaAmericano } from "../../helpers/funcoes_gerais/funcoes.js"
+import { getDadosDiarios, getDadosDiasSemanalQuinzenal, getDadosMensais } from "../../requests/graphics/requests_dashboard.js";
 
 export default async function getDadosPelasDatasEscolhidasHoje(tipoPeriodo, tipoTempo) {
     //const dataHoje = formatarDatasParaAmericano(new Date().toLocaleDateString().split('/'));
-    const dataHoje = "2025-07-15";
+    let dateNow = new Date("2025-07-15 00:00:00");
 
     switch (tipoPeriodo) {
         case "ontem":
-            break;
+            return await getDadosDiarios(formatarDatasParaAmericano(new Date(dateNow.setDate(dateNow.getDate() - 1)).toLocaleDateString().split('/')));
         case "hoje":
-            break;
+            return await getDadosDiarios(formatarDatasParaAmericano(dateNow.toLocaleDateString().split('/')));
         case "semanal":
-            return (tipoTempo == "anterior") ?
-                "" : await getDadosDiasPosterioresSemanalQuinzenal(dataHoje, tipoPeriodo);
+            return await getDadosDiasSemanalQuinzenal(formatarDatasParaAmericano(dateNow.toLocaleDateString().split('/')), tipoPeriodo, tipoTempo);
         case "quinzenal":
-            break;
+            return await getDadosDiasSemanalQuinzenal(formatarDatasParaAmericano(dateNow.toLocaleDateString().split('/')), tipoPeriodo, tipoTempo);
         case "mensal":
-            break;
+            return await getDadosMensais(formatarDatasAnoEMes(dateNow.toLocaleDateString().split('/')));
     }
 }

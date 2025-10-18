@@ -69,7 +69,7 @@ form input[type="password"] {
 }
 
 form input[type="submit"] {
-  height: 8vh;
+  height: 6vh;
   background: rgb(77, 0, 100);
   color: #fff;
   border: none;

@@ -51,7 +51,7 @@
                 <button class="btnAlterarDatas" value="quinzenal" id="btnTempoQuinzenal">Quinzenal</button>
                 <button class="btnAlterarDatas" value="mensal" id="btnTempoMensal">Mensal</button>
             </div>
-            <div class="div-tipo-tempo">
+            <div class="div-tipo-tempo" id="divTempoDatas">
                 <p>Deseja após essa data?</p>
                 <input id="checkboxTipoTempo" type="checkbox" checked>
             </div>
@@ -59,10 +59,154 @@
                 <button id="btnPersonalizarTempo">Personalizar</button>
             </div>
         </section>
+
+        <section class="section-graficos-dashboard">
+
+            <div class="div-menu-selecionar-tipos-dados-graficos">
+                <div class="div-graficos-tipos">
+                    <h1>Tipos tecidos</h1>
+                </div>
+                <div class="div-graficos-tipos">
+                    <h1>Metros produzidos</h1>
+                </div>
+                <div class="div-graficos-tipos">
+                    <h1>Tempo produção</h1>
+                </div>
+                <div class="div-graficos-tipos">
+                    <h1>Tempo setup</h1>
+                </div>
+            </div>
+
+            <div class="div-graficos-dados-media">
+
+                <div class="grafico-media-totais">
+                    <div class="grafico-header">
+                        <div class="grafio-media-selects">
+                            <div class="select-tipo-tecido">
+                                <label>Selecione o tipo de dados</label>
+                                <select id="inSelectMediaTipoTecido">
+                                    <option value="0">Metros produzidos</option>
+                                    <option value="1">Tempo produção</option>
+                                    <option value="2">Tempo setup</option>
+                                </select>
+                            </div>
+                            <div class="select-tipo-tecido">
+                                <label>Selecione a data desejada</label>
+                                <select id="inSelectMediaDataTipoTecido"></select>
+                            </div>
+                            <div class="select-tipo-tecido">
+                                <label>Selecione o turno desejado</label>
+                                <select id="inSelectMediaTurnoTipoTecido">
+                                    <option value="0">Todos</option>
+                                    <option value="1">1° Turno</option>
+                                    <option value="2">2° Turno</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="header-tarefas-completas">
+                            <p>Considerar tarefas cadastradas?</p>
+                            <input type="checkbox" checked id="inCheckBoxGraficoMediaTiposTecidos">
+                        </div>
+                    </div>
+                    <div class="grafico-media-body">
+                        <h1>Produção média por tecido</h1>
+                        <div class="grafico-media-tecido">
+                            <canvas id="canvasGraficoTotalMediaDeCadaTecido"></canvas>
+                        </div>
+                    </div>
+                    <div class="grafico-media-footer">
+                        <div class="footer-media">
+                            <div class="porcentagem-media">
+                                <h1>40%</h1>
+                            </div>
+                            <div class="info-media">
+                                <h4>Maior média</h4>
+                                <p>5000 m</p>
+                            </div>
+                        </div>
+                        <div class="footer-media">
+                            <div class="porcentagem-media">
+                                <h1>4%</h1>
+                            </div>
+                            <div class="info-media">
+                                <h4>Menor média</h4>
+                                <p>50 m</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grafico-media-totais">
+                    <div class="grafico-header">
+                        <div class="grafio-media-selects">
+                            <div class="select-tipo-tecido">
+                                <label>Selecione o tipo de dados</label>
+                                <select id="inSelectTotalPorTecido">
+                                    <option value="0">Metros produzidos</option>
+                                    <option value="1">Tempo produção</option>
+                                    <option value="2">Tempo setup</option>
+                                </select>
+                            </div>
+                            <div class="select-tipo-tecido">
+                                <label>Selecione a data desejada</label>
+                                <select id="inSelectDataTotalPorTecido"></select>
+                            </div>
+                            <div class="select-tipo-tecido">
+                                <label>Selecione o turno desejado</label>
+                                <select id="inSelectTurnoTotalPorTecido">
+                                    <option value="0">Todos</option>
+                                    <option value="1">1° Turno</option>
+                                    <option value="2">2° Turno</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="header-tarefas-completas">
+                            <p>Considerar tarefas cadastradas?</p>
+                            <input type="checkbox" checked id="inCheckBoxGraficoMediaTotalProducaoPorTecido">
+                        </div>
+                    </div>
+                    <div class="grafico-media-body">
+                        <h1>Total metros por tecido</h1>
+                        <div class="grafico-media-tecido">
+                            <canvas id="canvasGraficoTotalProducaoPorTecido"></canvas>
+                        </div>
+                    </div>
+                    <div class="grafico-total-footer">
+                        <div class="footer-total">
+                            <h4>Total metros produzidos</h4>
+                            <p>6.000 m</p>
+                        </div>
+                        <div class="footer-total-info">
+                            <div class="footer-info-total">
+                                <div class="porcentagem-total">
+                                    <h4>40%</h4>
+                                </div>
+                                <div class="info-total">
+                                    <h4>Maior média</h4>
+                                    <p>5000 m</p>
+                                </div>
+                            </div>
+                            <div class="footer-info-total">
+                                <div class="porcentagem-total">
+                                    <h4>4%</h4>
+                                </div>
+                                <div class="info-total">
+                                    <h4>Menor média</h4>
+                                    <p>50 m</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
     </main>
 
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/header.js"></script>
 <script type="module" src="./js/dashboard.js"></script>
 
