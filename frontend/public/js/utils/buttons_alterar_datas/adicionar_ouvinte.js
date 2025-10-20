@@ -7,10 +7,12 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
             spinner.style.display = 'flex';
 
             if (this.value == 'semanal' || this.value == 'quinzenal') {
+
                 divTempoDatas.style.display = 'flex';
                 let tipoTempo = 'posterior';
 
                 htmlCheckboxTipoTempo.addEventListener('click', async function () {
+                    spinner.style.display = 'flex';
                     htmlCheckboxTipoTempo.checked ? tipoTempo = "posterior" : tipoTempo = "anterior";
                     const { dadosTotais, dadosSobraDeRolo, dadosTotaisTarefasCompletasOuNao, dadosTotaisTipoSaida } = await getDadosPelasDatasEscolhidasHoje(button.value, tipoTempo)
                     spinner.style.display = 'none';
