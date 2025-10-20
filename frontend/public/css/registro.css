@@ -81,3 +81,24 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
   background: rgb(47, 0, 61);
 }
+
+.div-registro {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 2px solid #fff;
+  padding-top: 20px;
+}
+
+.div-registro a {
+  text-decoration: none;
+  background: #1a2e35;
+  padding: 10px 10px 10px 10px;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.div-registro a:hover {
+  background: #3a6676;
+}

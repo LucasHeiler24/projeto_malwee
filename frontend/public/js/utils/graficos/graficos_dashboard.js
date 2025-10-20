@@ -1,5 +1,5 @@
 import chartJs from "../../graphics/Chart.js"
-import { formatarValores } from "../../helpers/funcoes_gerais/funcoes.js";
+import { coresGraficosBarrasProducao, coresGraficosDuasBarras, coresGraficosDuasBarrasSobrados, coresGrafiposPizzaTiposTecidos, formatarValores } from "../../helpers/funcoes_gerais/funcoes.js";
 
 function constuirGraficoMediaPorTipoTecido(
     dados,
@@ -48,7 +48,8 @@ function constuirGraficoMediaPorTipoTecido(
         labels: dadosParaOsGraficos.map((dados) => dados.tipo_tecido),
         datasets: [{
             label: "Teve a média",
-            data: numerosMedia
+            data: numerosMedia,
+            backgroundColor: coresGrafiposPizzaTiposTecidos
         }]
     }
 
@@ -119,7 +120,8 @@ function construirGraficoTotalProducaoPorTecido(
         labels: dadosParaOsGraficos.map((dados) => dados.tipo_tecido),
         datasets: [{
             label: "Total",
-            data: numerosTotaisProducao
+            data: numerosTotaisProducao,
+            backgroundColor: coresGrafiposPizzaTiposTecidos
         }]
     }
 
@@ -146,11 +148,14 @@ function contruirGraficoSobraDeRolo(
         datasets: [
             {
                 label: 'Total sobrado',
-                data: [dados[0].qtd_sobra_de_rolo_completa]
+                data: [dados[0].qtd_sobra_de_rolo_completa],
+                backgroundColor: coresGraficosDuasBarrasSobrados[0]
+
             },
             {
                 label: 'Total não sobrado',
-                data: [dados[0].qtd_nao_sobra_de_rolo_completa]
+                data: [dados[0].qtd_nao_sobra_de_rolo_completa],
+                backgroundColor: coresGraficosDuasBarrasSobrados[1]
             }
         ]
     }
@@ -196,11 +201,13 @@ function constuirGraficoTarefaCompleta(
         datasets: [
             {
                 label: 'Total sobrado',
-                data: [dados[0].total_tarefas_completas]
+                data: [dados[0].total_tarefas_completas],
+                backgroundColor: coresGraficosDuasBarrasSobrados[0]
             },
             {
                 label: 'Total não sobrado',
-                data: [dados[0].total_tarefas_nao_completas]
+                data: [dados[0].total_tarefas_nao_completas],
+                backgroundColor: coresGraficosDuasBarrasSobrados[1]
             }
         ]
     }
@@ -245,11 +252,13 @@ function construirGraficoTipoSaida(
         datasets: [
             {
                 label: 'Total tipo rolinho',
-                data: dados.map((dados) => dados.tipo_rolinho)
+                data: dados.map((dados) => dados.tipo_rolinho),
+                backgroundColor: coresGraficosDuasBarras[0]
             },
             {
                 label: 'Total tipo fraudado',
-                data: dados.map((dados) => dados.tipo_fraudado)
+                data: dados.map((dados) => dados.tipo_fraudado),
+                backgroundColor: coresGraficosDuasBarras[1]
             }
         ]
     }
@@ -293,15 +302,18 @@ function construirGraficoMetrosVsSetup(
         data: {
             datasets: [
                 {
-                    type: 'bar',
-                    label: 'Total metros produzidos',
-                    data: dados.map((dados) => dados.metros_totais),
-                },
-                {
                     type: 'line',
                     label: 'Total tempo setup',
                     data: dados.map((dados) => dados.setup_totais),
                     fill: false,
+                    backgroundColor: coresGraficosBarrasProducao[1],
+                    borderColor: coresGraficosBarrasProducao[1]
+                },
+                {
+                    type: 'bar',
+                    label: 'Total metros produzidos',
+                    data: dados.map((dados) => dados.metros_totais),
+                    backgroundColor: coresGraficosBarrasProducao[0]
                 }
             ],
             labels: dados.map((dados) => new Date(`${dados.data_historico} 00:00:00`).toLocaleDateString()),
@@ -325,7 +337,8 @@ function construirGraficosProdutividade(
         datasets: [
             {
                 label: 'Produtividade m/min',
-                data: dados.map((dados) => parseFloat(dados.produtividade))
+                data: dados.map((dados) => parseFloat(dados.produtividade)),
+                backgroundColor: coresGraficosBarrasProducao[2]
             }
         ]
     }

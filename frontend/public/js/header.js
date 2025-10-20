@@ -6,7 +6,7 @@ header.addEventListener('mouseover', function () {
     this.style.width = '260px';
 
     document.getElementById('linkHeaderDashboard').textContent = "Dashboard";
-    document.getElementById('linkHeaderDiferenca').textContent = "Diferença Mensal";
+    document.getElementById('linkHeaderDiferenca').textContent = "Comparação";
     document.getElementById('linkHeaderHistorico').textContent = "Histórico";
     document.getElementById('linkHeaderLogout').textContent = "Log-out";
 
@@ -20,6 +20,6 @@ header.addEventListener('mouseover', function () {
 });
 
 document.getElementById('headerDashboard').addEventListener('click', () => window.location.href = './dashboard.html')
-document.getElementById('headerDiferenca').addEventListener('click', () => window.location.href = './diferenca_mensal.html')
+document.getElementById('headerDiferenca').addEventListener('click', () => window.location.href = './comparacao.html')
 document.getElementById('headerHistorico').addEventListener('click', () => window.location.href = './historico.html')
 document.getElementById('headerLogout').addEventListener('click', () => window.location.href = './login.html')
