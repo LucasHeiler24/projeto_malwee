@@ -148,6 +148,7 @@ main {
   align-items: center;
   flex-direction: column;
   padding-top: 10px;
+  text-align: center;
   gap: 20px;
 }
 
@@ -195,7 +196,7 @@ main {
 .grafico-total-footer {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
 }
@@ -245,4 +246,338 @@ main {
 
 .info-total {
   padding: 10px;
+}
+
+.div-graficos-barras-sobra-rolo-qtd-tarefas {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+
+.div-grafico-sobra-de-rolo {
+  width: 50%;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.grafico-sobra-de-rolo-header {
+  background: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  padding-bottom: 10px;
+  gap: 10px;
+}
+
+.header-select {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.select-header-grafico-sobra-de-rolo {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.select-header-grafico-sobra-de-rolo select {
+  width: 100%;
+}
+
+.grafico-sobra-de-rolo-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+}
+
+.grafico-sobra-rolo {
+  width: 100%;
+  padding: 20px;
+}
+
+#canvasGraficoSobraDeRolo {
+  width: 100%;
+}
+
+.content-modal-data-personalizar {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+}
+
+.modal-data-personalizar {
+  width: 600px;
+  height: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-data-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-data-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content-dados-data {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content-dados-data input[type="date"],
+.content-dados-data select {
+  width: 100%;
+  height: 6vh;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.modal-data-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#btnPersonalizarData {
+  background: #1a2e35;
+  color: #fff;
+  padding: 10px 10px 10px 10px;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+  border: none;
+  border-radius: 5px;
+}
+
+#btnPersonalizarData:hover {
+  background: #0e191d;
+}
+
+#btnFecharModalPersonalizar {
+  background: none;
+  cursor: pointer;
+  border: none;
+  font-size: 18px;
+}
+
+.div-grafico-tipo-de-saida {
+  background: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.grafico-tipo-saida-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  gap: 10px;
+}
+
+.header-selects {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.select-header select {
+  width: 100%;
+}
+
+.div-grafico-metros-vs-setup,
+.div-grafico-produtividade,
+.div-grafico-eficiencia-setup {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #fff;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.grafico-metros-vs-setup-header,
+.grafico-produtividade-header,
+.grafico-eficiencia-setup-header {
+  width: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+  padding-bottom: 10px;
+  border-radius: 10px;
+}
+
+.grafico-metros-produtividade-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  text-align: center;
+}
+
+.body-grafico-produtividade {
+  width: 100%;
+}
+
+.body-grafico {
+  width: 100%;
+}
+
+.grafico-eficiencia-setup-body,
+.grafico-metros-vs-setup-body,
+.grafico-tipo-saida-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.body-card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 10px;
+}
+
+.card-kpi-eficiencia-setup {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-eficiencia-setup {
+  width: 500px;
+  height: auto;
+  background: #0e191d;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+}
+
+.card-eficiencia-setup-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-dados {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-spinner-loading {
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

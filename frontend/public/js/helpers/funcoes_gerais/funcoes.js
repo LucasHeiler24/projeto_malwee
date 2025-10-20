@@ -6,8 +6,13 @@ const removerDuplicados = (vetDados) => {
     return vetDados.filter((dados, index) => vetDados.indexOf(dados) == index);
 }
 
+const formatarValores = new Intl.NumberFormat('pt-BR', {
+    style: "decimal"
+})
+
 export {
     formatarDatasParaAmericano,
     formatarDatasAnoEMes,
-    removerDuplicados
+    removerDuplicados,
+    formatarValores
 }

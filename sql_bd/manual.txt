@@ -56,3 +56,26 @@ Apenas uma aba de diferença. Nessa aba teriamos 3 selects;
 2 - select: escolheria quantos graficos quer comparar;
 3 - select: selecionaria o tipo de dados que quer comparar.
 Objetivo: Trazer uma tela limpa ao usúario, com o intuito de ser algo simples.
+
+Tempo de Setup (Total ou Médio) vs. Metros Produzidos
+Gráfico de Eixo Duplo (Combo Chart): Barras para Metros Produzidos e Linha para Tempo Médio de Setup.
+
+Ao invés de ser somente comparação mensal também incluir um select mostrando o tipo de análise se é diario
+semanal, quinzenal ou mensal
+
+Fazer KPI do tipo de saida
+
+Exemplo de gráfico em comparação
+Liste os 5 tipos de tecidos com a Maior Produtividade e os 5 com a Menor Produtividade no período selecionado.
+
+Produtividade:
+Mede a eficiência real. Calcule: Metros Produzidos​ / Tempo Produção. Compare por tecido, por turno e por dia.
+KPI: Média da Produtividade por Tecido (geral e por turno).
+
+Eficiência:
+Relaciona Setup com Produção. Compare a razão Tempo Setup /​ Metros Produzidos 
+(Tempo Setup / Tempo Produção) por tecido.
+Um setup mais longo deveria resultar em mais metros produzidos, se a eficiência for mantida.
+
+Adicionar porcentagem das conclusões de tarefas
+(Tarefas completas / numero de tarefas) * 100

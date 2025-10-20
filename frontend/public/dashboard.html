@@ -38,6 +38,39 @@
         </nav>
     </header>
     <main>
+        <div class="content-spinner-loading" id="openSpinner">
+            <div class="spinner"></div>
+        </div>
+        <div class="content-modal-data-personalizar" id="modalDataPersonalizar">
+            <div class="modal-data-personalizar">
+                <div class="modal-data-header">
+                    <h1>Personalizar sua data</h1>
+                    <button id="btnFecharModalPersonalizar">X</button>
+                </div>
+                <div class="modal-data-body">
+                    <div id="divFlashMessage"></div>
+                    <div class="content-dados-data">
+                        <label>Selecionar sua data</label>
+                        <input type="date" id="inDataPersonalizar">
+                        <label>Selecionar período de análise</label>
+                        <select id="inSelectDataPersonalizar">
+                            <option value="hoje">Diário</option>
+                            <option value="semanal">Semanal</option>
+                            <option value="quinzenal">Quinzenal</option>
+                            <option value="mensal">Mensal</option>
+                        </select>
+                        <div class="header-tarefas-completas">
+                            <p>Após essa data?</p>
+                            <input type="checkbox" checked id="inCheckBoxDataPersonalizar">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-data-footer">
+                    <button id="btnPersonalizarData">Personalizar</button>
+                </div>
+            </div>
+        </div>
+
         <section class="section-header-dashboard">
             <h1 id="saudacaoUsuario"></h1>
             <h1>Dashboard</h1>
@@ -104,12 +137,12 @@
                             </div>
                         </div>
                         <div class="header-tarefas-completas">
-                            <p>Considerar tarefas cadastradas?</p>
+                            <p>Considerar tarefas concluídas?</p>
                             <input type="checkbox" checked id="inCheckBoxGraficoMediaTiposTecidos">
                         </div>
                     </div>
                     <div class="grafico-media-body">
-                        <h1>Produção média por tecido</h1>
+                        <h1 id="titleGraficoMediaTecido">Produção média por tecido</h1>
                         <div class="grafico-media-tecido">
                             <canvas id="canvasGraficoTotalMediaDeCadaTecido"></canvas>
                         </div>
@@ -117,20 +150,20 @@
                     <div class="grafico-media-footer">
                         <div class="footer-media">
                             <div class="porcentagem-media">
-                                <h1>40%</h1>
+                                <h5 id="porcentagemGraficoMediaMaiorMedia"></h5>
                             </div>
                             <div class="info-media">
                                 <h4>Maior média</h4>
-                                <p>5000 m</p>
+                                <p id="metrosGraficoMaiorMedia"></p>
                             </div>
                         </div>
                         <div class="footer-media">
                             <div class="porcentagem-media">
-                                <h1>4%</h1>
+                                <h5 id="porcentagemGraficoMediaMenorMedia"></h5>
                             </div>
                             <div class="info-media">
                                 <h4>Menor média</h4>
-                                <p>50 m</p>
+                                <p id="metrosGraficoMenorMedia"></p>
                             </div>
                         </div>
                     </div>
@@ -161,41 +194,271 @@
                             </div>
                         </div>
                         <div class="header-tarefas-completas">
-                            <p>Considerar tarefas cadastradas?</p>
+                            <p>Considerar tarefas concluídas?</p>
                             <input type="checkbox" checked id="inCheckBoxGraficoMediaTotalProducaoPorTecido">
                         </div>
                     </div>
                     <div class="grafico-media-body">
-                        <h1>Total metros por tecido</h1>
+                        <h1 id="titleGraficoTotalProducaoPorTecido"></h1>
                         <div class="grafico-media-tecido">
                             <canvas id="canvasGraficoTotalProducaoPorTecido"></canvas>
                         </div>
                     </div>
                     <div class="grafico-total-footer">
                         <div class="footer-total">
-                            <h4>Total metros produzidos</h4>
-                            <p>6.000 m</p>
+                            <h5 id="titleFooterGraficoTotalProducaoPorTecido"></h5>
                         </div>
                         <div class="footer-total-info">
                             <div class="footer-info-total">
                                 <div class="porcentagem-total">
-                                    <h4>40%</h4>
+                                    <h5 id="porcentagemMaiorFooterGraficoTotalPorTecido"></h5>
                                 </div>
                                 <div class="info-total">
-                                    <h4>Maior média</h4>
-                                    <p>5000 m</p>
+                                    <h4>Maior produzido</h4>
+                                    <p id="totalMaiorFooterGraficoProducaoPorTecido"></p>
                                 </div>
                             </div>
                             <div class="footer-info-total">
                                 <div class="porcentagem-total">
-                                    <h4>4%</h4>
+                                    <h5 id="porcentagemMenorFooterGraficoTotalPorTecido"></h5>
                                 </div>
                                 <div class="info-total">
-                                    <h4>Menor média</h4>
-                                    <p>50 m</p>
+                                    <h4>Menor produzido</h4>
+                                    <p id="totalMenorFooterGraficoProducaoPorTecido"></p>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-graficos-barras-sobra-rolo-qtd-tarefas">
+                <div class="div-grafico-sobra-de-rolo">
+                    <div class="grafico-sobra-de-rolo-header">
+                        <div class="header-select">
+                            <div class="select-header-grafico-sobra-de-rolo">
+                                <label>Selecione o tipo de tecido</label>
+                                <select id="inSelectSelecionarTipoTecidoGraficoSobraDeRolo">
+                                    <option value="Todos">Todos</option>
+                                    <option value="Meia Malha">Meia Malha</option>
+                                    <option value="Cotton">Cotton</option>
+                                    <option value="Punho Pan">Punho Pan</option>
+                                    <option value="Punho New">Punho New</option>
+                                    <option value="Punho San">Punho San</option>
+                                    <option value="Punho Elan">Punho Elan</option>
+                                </select>
+                            </div>
+                            <div class="select-header-grafico-sobra-de-rolo">
+                                <label>Selecione a data</label>
+                                <select id="inSelectSelecionarDataTipoTecidoGraficoSobraDeRolo"></select>
+                            </div>
+                        </div>
+                        <div class="header-tarefas-completas">
+                            <p>Considerar tarefas concluídas?</p>
+                            <input type="checkbox" checked id="inCheckBoxGraficoSobraDeRoloPorTecido">
+                        </div>
+                    </div>
+                    <div class="grafico-sobra-de-rolo-body">
+                        <h1>Quantidade de sobra de rolo</h1>
+                        <div class="grafico-sobra-rolo">
+                            <canvas id="canvasGraficoSobraDeRolo"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-grafico-sobra-de-rolo">
+                    <div class="grafico-sobra-de-rolo-header">
+                        <div class="header-select">
+                            <div class="select-header-grafico-sobra-de-rolo">
+                                <label>Selecione o tipo de tecido</label>
+                                <select id="inSelectSelecionarTipoTecidoGraficoTarefasCompletas">
+                                    <option value="Todos">Todos</option>
+                                    <option value="Meia Malha">Meia Malha</option>
+                                    <option value="Cotton">Cotton</option>
+                                    <option value="Punho Pan">Punho Pan</option>
+                                    <option value="Punho New">Punho New</option>
+                                    <option value="Punho San">Punho San</option>
+                                    <option value="Punho Elan">Punho Elan</option>
+                                </select>
+                            </div>
+                            <div class="select-header-grafico-sobra-de-rolo">
+                                <label>Selecione a data</label>
+                                <select id="inSelectSelecionarDataTipoTecidoGraficoTarefasCompletas"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grafico-sobra-de-rolo-body">
+                        <h1>Quantidade de tarefas</h1>
+                        <div class="grafico-sobra-rolo">
+                            <canvas id="canvasGraficoTarefasCompletas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-grafico-tipo-de-saida">
+                <div class="grafico-tipo-saida-header">
+                    <div class="header-selects">
+                        <div class="select-header">
+                            <label>Selecionar tipo de tecido</label>
+                            <select id="inSelectGraficoTipoDeSaidaTipoTecido">
+                                <option value="Meia Malha">Meia Malha</option>
+                                <option value="Cotton">Cotton</option>
+                                <option value="Punho Pan">Punho Pan</option>
+                                <option value="Punho New">Punho New</option>
+                                <option value="Punho San">Punho San</option>
+                                <option value="Punho Elan">Punho Elan</option>
+                            </select>
+                        </div>
+                        <div class="select-header">
+                            <label>Selecionar data</label>
+                            <select id="inSelectGraficoTipoSaidaDatas"></select>
+                        </div>
+                        <div class="select-header">
+                            <label>Selecionar turno</label>
+                            <select id="inSelectGraficoTipoSaidaTurno">
+                                <option value="0">Todos</option>
+                                <option value="1">1° Turno</option>
+                                <option value="2">2° Turno</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header-tarefas-completas">
+                        <p>Considerar tarefas concluídas?</p>
+                        <input type="checkbox" checked id="inCheckBoxGraficoTipoSaida">
+                    </div>
+                </div>
+                <div class="grafico-tipo-saida-body">
+                    <div class="body-title">
+                        <h1 id="titleGraficoTipoSaida"></h1>
+                    </div>
+                    <div class="body-grafico">
+                        <canvas id="canvasGraficoTipoSaida"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-grafico-metros-vs-setup">
+                <div class="grafico-metros-vs-setup-header">
+                    <div class="header-selects">
+                        <div class="select-header">
+                            <label>Selecionar tipo de tecido</label>
+                            <select id="inSelectGraficoTipoTecidoMetrosVsSetup">
+                                <option value="Meia Malha">Meia Malha</option>
+                                <option value="Cotton">Cotton</option>
+                                <option value="Punho Pan">Punho Pan</option>
+                                <option value="Punho New">Punho New</option>
+                                <option value="Punho San">Punho San</option>
+                                <option value="Punho Elan">Punho Elan</option>
+                            </select>
+                        </div>
+                        <div class="select-header">
+                            <label>Selecionar data</label>
+                            <select id="inSelectGraficoDataMetrosVsSetup"></select>
+                        </div>
+                        <div class="select-header">
+                            <label>Selecionar turno</label>
+                            <select id="inSelectGraficoTurnoMetrosVsSetup">
+                                <option value="0">Todos</option>
+                                <option value="1">1° Turno</option>
+                                <option value="2">2° Turno</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header-tarefas-completas">
+                        <p>Considerar tarefas concluídas?</p>
+                        <input type="checkbox" checked id="inCheckBoxGraficoMetrosVsSetup">
+                    </div>
+                </div>
+                <div class="grafico-metros-vs-setup-body">
+                    <div class="body-title">
+                        <h1 id="titleGraficoMetrosVsSetup">Metros produzidos vs tempo setup</h1>
+                    </div>
+                    <div class="body-grafico">
+                        <canvas id="canvasGraficoMetrosVsSetup"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-grafico-produtividade">
+                <div class="grafico-produtividade-header">
+                    <div class="header-selects">
+                        <div class="select-header">
+                            <label>Selecionar tipo de tecido</label>
+                            <select id="inSelectGraficoTipoTecidoProdutividade">
+                                <option value="Meia Malha">Meia Malha</option>
+                                <option value="Cotton">Cotton</option>
+                                <option value="Punho Pan">Punho Pan</option>
+                                <option value="Punho New">Punho New</option>
+                                <option value="Punho San">Punho San</option>
+                                <option value="Punho Elan">Punho Elan</option>
+                            </select>
+                        </div>
+                        <div class="select-header">
+                            <label>Selecionar data</label>
+                            <select id="inSelectGraficoDataProdutividade"></select>
+                        </div>
+                        <div class="select-header">
+                            <label>Selecionar turno</label>
+                            <select id="inSelectGraficoTurnoProdutividade">
+                                <option value="0">Todos</option>
+                                <option value="1">1° Turno</option>
+                                <option value="2">2° Turno</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header-tarefas-completas">
+                        <p>Considerar tarefas concluídas?</p>
+                        <input type="checkbox" checked id="inCheckBoxGraficoProdutividade">
+                    </div>
+                </div>
+                <div class="grafico-metros-produtividade-body">
+                    <div class="body-title">
+                        <h1 id="titleGraficoProdutividade">Produtividade</h1>
+                    </div>
+                    <div class="body-grafico-produtividade">
+                        <canvas id="canvasGraficoProdutividade"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-grafico-eficiencia-setup">
+                <div class="grafico-eficiencia-setup-header">
+                    <div class="header-selects">
+                        <div class="select-header">
+                            <label>Selecionar tipo de tecido</label>
+                            <select id="inSelectGraficoTipoTecidoEficienciaSetup">
+                                <option value="Meia Malha">Meia Malha</option>
+                                <option value="Cotton">Cotton</option>
+                                <option value="Punho Pan">Punho Pan</option>
+                                <option value="Punho New">Punho New</option>
+                                <option value="Punho San">Punho San</option>
+                                <option value="Punho Elan">Punho Elan</option>
+                            </select>
+                        </div>
+                        <div class="select-header">
+                            <label>Selecionar data</label>
+                            <select id="inSelectGraficoDataEficienciaSetup"></select>
+                        </div>
+                        <div class="select-header">
+                            <label>Selecionar turno</label>
+                            <select id="inSelectGraficoTurnoEficienciaSetup">
+                                <option value="0">Todos</option>
+                                <option value="1">1° Turno</option>
+                                <option value="2">2° Turno</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header-tarefas-completas">
+                        <p>Considerar tarefas concluídas?</p>
+                        <input type="checkbox" checked id="inCheckBoxGraficoEficienciaSetup">
+                    </div>
+                </div>
+                <div class="grafico-eficiencia-setup-body">
+                    <div class="body-title">
+                        <h1 id="titleGraficoEficienciaSetup">Eficiência de setup</h1>
+                    </div>
+                    <div class="body-card">
+                        <div class="card-kpi-eficiencia-setup" id="kpiEficienciaSetup"></div>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,11 @@
 import { formatarDatasAnoEMes, formatarDatasParaAmericano } from "../../helpers/funcoes_gerais/funcoes.js"
 import { getDadosDiarios, getDadosDiasSemanalQuinzenal, getDadosMensais } from "../../requests/graphics/requests_dashboard.js";
 
-export default async function getDadosPelasDatasEscolhidasHoje(tipoPeriodo, tipoTempo) {
-    //const dataHoje = formatarDatasParaAmericano(new Date().toLocaleDateString().split('/'));
+export default async function getDadosPelasDatasEscolhidasHoje(tipoPeriodo, tipoTempo, dataPersonalizada) {
     let dateNow = new Date("2025-07-15 00:00:00");
+
+    if (dataPersonalizada)
+        dateNow = new Date(`${dataPersonalizada} 00:00:00`);
 
     switch (tipoPeriodo) {
         case "ontem":

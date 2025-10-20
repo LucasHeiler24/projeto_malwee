@@ -6,7 +6,7 @@ export default function alterarDatasAnteriores(sData, tipoAnalise) {
 
     (tipoAnalise == 'semanal') ? periodo = 7 : periodo = 15
 
-    for (let i = 0; i < periodo; i++) {
+    for (let i = 1; i <= periodo; i++) {
         const dataUser = new Date(sData);
         let date = new Date(dataUser.setDate(dataUser.getDate() - i)).toDateString();
 

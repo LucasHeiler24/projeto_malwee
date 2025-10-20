@@ -1,6 +1,11 @@
 import alterarDatasAnteriores from "../helpers/funcao_alterar_dias/alterar_datas_anteriores.js";
 import alterarDatasPosteriores from "../helpers/funcao_alterar_dias/alterar_datas_posteriores.js";
-import { funcaoDashboardProducaoTotalPorTecido } from "../helpers/funcoes_dashboard/functions_dashboard.js";
+import {
+    funcaoDashboardProducaoTotalPorTecido,
+    funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido,
+    funcoesDashboardContarTarefasCompletas,
+    funcoesDashboardContarTarefaSobrasDeRolo
+} from "../helpers/funcoes_dashboard/functions_dashboard.js";
 import { removerDuplicados } from "../helpers/funcoes_gerais/helpers.js";
 import getDadosPelaDataBd from "../helpers/get_dados_das_datas/get_dados_das_datas_bd.js";
 import { pegarDadosMesEAnoEscolhido } from "../models/EntidadeDados.js";
@@ -14,7 +19,16 @@ const controllerGetDadosSemanaisOuQuinzenaisPosteriores = async (request, respon
     const dados = await getDadosPelaDataBd(vetDatas);
 
     const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
-    return response.json(dadosTotais);
+    const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+    const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
+    const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+
+    return response.json({
+        dadosTotais,
+        dadosSobraDeRolo,
+        dadosTotaisTarefasCompletasOuNao,
+        dadosTotaisTipoSaida
+    });
 }
 
 const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, response) => {
@@ -26,7 +40,16 @@ const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, respons
     const dados = await getDadosPelaDataBd(vetDatas);
 
     const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
-    return response.json(dadosTotais);
+    const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+    const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
+    const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+
+    return response.json({
+        dadosTotais,
+        dadosSobraDeRolo,
+        dadosTotaisTarefasCompletasOuNao,
+        dadosTotaisTipoSaida
+    });
 }
 
 const controllerGetDadosDiario = async (request, response) => {
@@ -36,7 +59,17 @@ const controllerGetDadosDiario = async (request, response) => {
     try {
 
         const dados = await pegarDadosMesEAnoEscolhido(data);
-        return response.json(funcaoDashboardProducaoTotalPorTecido(dados, [data]));
+        const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, [data]);
+        const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, [data]);
+        const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, [data]);
+        const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, [data]);
+
+        return response.json({
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
+        });
 
     }
     catch (e) {
@@ -53,7 +86,17 @@ const controllerGetDadosMensal = async (request, response) => {
         const dados = await pegarDadosMesEAnoEscolhido(data);
         const vetDatas = removerDuplicados(dados.map((dados) => dados.data_historico.split(' ')[0])).sort();
 
-        return response.json(funcaoDashboardProducaoTotalPorTecido(dados, vetDatas));
+        const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
+        const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+        const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
+        const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+
+        return response.json({
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
+        });
     }
     catch (e) {
         return response.json(e);
