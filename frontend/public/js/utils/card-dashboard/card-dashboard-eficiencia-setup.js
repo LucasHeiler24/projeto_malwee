@@ -13,7 +13,7 @@ export default function construirCardEficienciaSetup(dados, htmlDiv) {
                 <div class="card-eficiencia-setup-body">
                     <div class="card-dados">
                         <div class="card-dados-metros">
-                            <h4>Total metros produzidos</h4>
+                            <h4>Metros produzidos</h4>
                             <p>${formatarValores.format(dadosKpi.metros_totais)} m</p>
                         </div>
                         <div class="card-dados-tempo-setup">
