@@ -93,25 +93,25 @@
             </div>
         </section>
 
-        <section class="section-graficos-dashboard">
-
+        <section class="abas-dashboard">
             <div class="div-menu-selecionar-tipos-dados-graficos">
-                <div class="div-graficos-tipos">
-                    <h1>Tipos tecidos</h1>
+                <div class="div-graficos-tipos" id="btnAbrirGraficosTiposTecidos">
+                    <h3>Tipos tecidos</h3>
                 </div>
-                <div class="div-graficos-tipos">
-                    <h1>Metros produzidos</h1>
+                <div class="div-graficos-tipos" id="btnAbrirGraficosMetrosProduzidos">
+                    <h3>Metros produzidos</h3>
                 </div>
-                <div class="div-graficos-tipos">
-                    <h1>Tempo produção</h1>
+                <div class="div-graficos-tipos" id="btnAbrirGraficosTempoProducao">
+                    <h3>Tempo produção</h3>
                 </div>
-                <div class="div-graficos-tipos">
-                    <h1>Tempo setup</h1>
+                <div class="div-graficos-tipos" id="btnAbrirGraficosTempoSetup">
+                    <h3>Tempo setup</h3>
                 </div>
             </div>
+        </section>
 
+        <section class="section-graficos-dashboard" id="sectionGraficosTiposTecidos">
             <div class="div-graficos-dados-media">
-
                 <div class="grafico-media-totais">
                     <div class="grafico-header">
                         <div class="grafio-media-selects">
@@ -465,12 +465,26 @@
 
         </section>
 
+        <section id="sectionGraficosMetrosProduzidos">
+            <h1>Olá metros</h1>
+        </section>
+
+        <section id="sectionGraficosTempoProducao">
+            <h1>Olá produção</h1>
+        </section>
+
+        <section id="sectionGraficosTempoSetup">
+            <h1>Olá setup</h1>
+        </section>
+
     </main>
 
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/header.js"></script>
+<script type="module" src="./js/abas_dashboard.js"></script>
 <script type="module" src="./js/dashboard.js"></script>
+<script type="module" src="./js/dashboard_metros.js"></script>
 
 </html>
