@@ -200,14 +200,14 @@ function constuirGraficoTarefaCompleta(
         labels: [dados[0].tipo_tecido],
         datasets: [
             {
-                label: 'Total sobrado',
+                label: 'Tarefas completa',
                 data: [dados[0].total_tarefas_completas],
-                backgroundColor: coresGraficosDuasBarrasSobrados[0]
+                backgroundColor: coresGraficosDuasBarrasSobrados[1]
             },
             {
-                label: 'Total não sobrado',
+                label: 'Tarefas não completas',
                 data: [dados[0].total_tarefas_nao_completas],
-                backgroundColor: coresGraficosDuasBarrasSobrados[1]
+                backgroundColor: coresGraficosDuasBarrasSobrados[0]
             }
         ]
     }

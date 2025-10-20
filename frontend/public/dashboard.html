@@ -466,7 +466,33 @@
         </section>
 
         <section id="sectionGraficosMetrosProduzidos">
-            <h1>Olá metros</h1>
+            <article class="article-grafico-pizza-totais-metros">
+                <div class="div-grafico-totais-metros-header">
+                    <div class="div-content-header">
+                        <div class="header-select-turno-totais-metros">
+                            <label>Selecionar turno</label>
+                            <select id="inSelectGraficoPizzaTotaisTurno">
+                                <option value="0">Todos</option>
+                                <option value="1">1° Turno</option>
+                                <option value="2">2° Turno</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header-tarefas-completas">
+                        <p>Considerar tarefas concluídas?</p>
+                        <input type="checkbox" checked id="inCheckBoxGraficoPizzaTotaisMetrosTarefasCompletas">
+                    </div>
+                </div>
+                <div class="div-grafico-totais-metros-body">
+                    <div class="content-grafico-pizza-totais-metros">
+                        <h1>Média de total metros produzidos por dia</h1>
+                        <div class="grafico-media-metros-produzidos">
+                            <canvas id="canvasGraficoMediaMetros"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
         </section>
 
         <section id="sectionGraficosTempoProducao">

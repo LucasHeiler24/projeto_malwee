@@ -1,4 +1,5 @@
 import { receberDadosSelecionadosPorDataGraficoEficienciaSetup, receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup, receberDadosSelecionadosPorDataGraficoProdutividade, receberDadosSelecionadosPorDataGraficoSobraDeRolo, receberDadosSelecionadosPorDataGraficoTarefasCompletas, receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido, receberDadosSelecionadosPorDataGraficoTotaisProducao } from "../../dashboard.js";
+import { receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos } from "../../dashboard_metros.js";
 import getDadosPelasDatasEscolhidasHoje from "./buttons_alterar_datas.js";
 
 export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDatas, htmlCheckboxTipoTempo, spinner) {
@@ -22,7 +23,8 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                     receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
                     receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
                     receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-                    receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+                    receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+                    receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(dadosTotais);
 
                     return;
                 });
@@ -35,7 +37,9 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
                 receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+                receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(dadosTotais);
+
 
                 return;
             }
@@ -51,7 +55,8 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
                 receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+                receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(dadosTotais);
 
                 return;
             }
@@ -67,7 +72,8 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
                 receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+                receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(dadosTotais);
 
                 return;
             }
