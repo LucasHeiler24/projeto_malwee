@@ -1,10 +1,15 @@
 import {
+    receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos,
+    receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos
+} from "./dashboard_metros.js";
+import {
     extrairDadosGraficoMetrosVsSetup,
     extrairDadosGraficoProdutividade,
     extrairDadosGraficosEficienciaSetup,
     extrairDadosParaGraficosTarefasCompletas,
     extrairDadosParaGraficoTipoSaida,
     extrairDadosParaOGraficoMediaPorTipoTecido,
+    extrairDadosParaOGraficoQuantidadeDeTiras,
     extrairDadosParaOGraficoSobraDeRolo,
     extrairDadosParaOGraficoTotalProducao,
 } from "./extrair_dados/extrair_dados_dashboard.js";
@@ -25,6 +30,7 @@ import {
     criarChangeSelectsGraficoEficienciaSetup,
     criarChangeSelectsGraficoMetrosVsSetup,
     criarChangeSelectsGraficoProdutividade,
+    criarChangeSelectsGraficoQuantidadeDeTiras,
     criarChangeSelectsGraficoSobraDeRoloDashboard,
     criarChangeSelectsGraficoTarefasCompletas,
     criarChangeSelectsGraficoTipoSaida
@@ -34,6 +40,7 @@ import flashMessage from "./utils/flash_messages/flash_message.js";
 
 import {
     construirGraficoMetrosVsSetup,
+    construirGraficoQuantidadeDeTiras,
     construirGraficosProdutividade,
     construirGraficoTipoSaida,
     construirGraficoTotalProducaoPorTecido,
@@ -44,8 +51,33 @@ import {
 
 import {
     selectsDashboardConstruirSelectDatas,
+    selectsDashboardConstruirSelectsIndexComoPosicaoNoArray,
     selectsDashboardGraficosGrandesSelectData
 } from "./utils/selects_dashboard/selects_dashboard.js";
+
+function receberDadosSelecionadosPorDataGraficoQuantidadeDeTirasPorTecido(dadosParaOsGraficos) {
+
+    let arrayDatas = [];
+    for (let i = 0; i < dadosParaOsGraficos.length; i++) {
+        arrayDatas.push(dadosParaOsGraficos[i][0].data_historico);
+    }
+
+    selectsDashboardConstruirSelectsIndexComoPosicaoNoArray(document.getElementById('inSelectSelecionarDataTipoTecidoGraficoQuantidadeDeTiras'), arrayDatas)
+
+    criarChangeSelectsGraficoQuantidadeDeTiras(
+        dadosParaOsGraficos,
+        document.getElementById('inSelectSelecionarDataTipoTecidoGraficoQuantidadeDeTiras'),
+        document.getElementById('inSelectSelecionarTipoTecidoGraficoQuantidadeDeTiras'),
+        document.getElementById('inCheckBoxGraficoQuantidadeDeTiras')
+    );
+
+    extrairDadosParaOGraficoQuantidadeDeTiras(
+        dadosParaOsGraficos,
+        "0",
+        0,
+        true
+    );
+}
 
 function receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosParaOsGraficos) {
     let datas = separarDatasNosDados(dadosParaOsGraficos);
@@ -331,6 +363,17 @@ function dashboardContruirGraficoTotalProducaoPorTecido(dados, filtroDado) {
     )
 }
 
+let dadosGraficosQuantidadeDeTiras = null;
+function dashboardConstruirGraficoQuantidadeDeTirasPorTecido(dados) {
+
+    dadosGraficosQuantidadeDeTiras = construirGraficoQuantidadeDeTiras(
+        dados,
+        document.getElementById('canvasGraficoQuantidadeDeTiras'),
+        dadosGraficosQuantidadeDeTiras
+    )
+
+}
+
 export {
     receberDadosSelecionadosPorDataGraficoTotaisProducao,
     dashboardConstruirGraficosMediaPorTipoTecidoProduzidos,
@@ -346,7 +389,9 @@ export {
     receberDadosSelecionadosPorDataGraficoProdutividade,
     dashboardConstruirGraficoProdutividade,
     receberDadosSelecionadosPorDataGraficoEficienciaSetup,
-    dashboardConstruirCardsEficienciaSetup
+    dashboardConstruirCardsEficienciaSetup,
+    receberDadosSelecionadosPorDataGraficoQuantidadeDeTirasPorTecido,
+    dashboardConstruirGraficoQuantidadeDeTirasPorTecido
 }
 
 
@@ -382,7 +427,9 @@ window.onload = function () {
             receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
             receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
             receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-            receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+            receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+            receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos(mediaMetrosProduzidos);
+            receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(mediaMetrosProduzidos);
 
             return modalPersonalizarData.style.display = 'none';
         })

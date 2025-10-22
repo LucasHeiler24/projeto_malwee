@@ -230,6 +230,77 @@
                         </div>
                     </div>
                 </div>
+                <div class="grafico-media-totais">
+                    <div class="grafico-header">
+                        <div class="header-select">
+                            <div class="select-header-grafico-sobra-de-rolo">
+                                <label>Selecione o turno</label>
+                                <select id="inSelectSelecionarTipoTecidoGraficoQuantidadeDeTiras">
+                                    <option value="0">Todos</option>
+                                    <option value="1">1° Turno</option>
+                                    <option value="2">2° Turno</option>
+                                </select>
+                            </div>
+                            <div class="select-header-grafico-sobra-de-rolo">
+                                <label>Selecione a data</label>
+                                <select id="inSelectSelecionarDataTipoTecidoGraficoQuantidadeDeTiras"></select>
+                            </div>
+                        </div>
+                        <div class="header-tarefas-completas">
+                            <p>Considerar tarefas concluídas?</p>
+                            <input type="checkbox" checked id="inCheckBoxGraficoQuantidadeDeTiras">
+                        </div>
+                    </div>
+                    <div class="grafico-sobra-de-rolo-body">
+                        <h1>Quantidade de tiras</h1>
+                        <div class="grafico-sobra-rolo">
+                            <canvas id="canvasGraficoQuantidadeDeTiras"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="grafico-media-totais">
+                    <div class="grafico-header">
+                        <div class="header-select">
+                            <div class="select-header-grafico-sobra-de-rolo">
+                                <label>Selecione o turno</label>
+                                <select id="inSelectSelecionarTipoTecidoGraficoVariantesTiposTecidos">
+                                    <option value="0">Todos</option>
+                                    <option value="1">1° Turno</option>
+                                    <option value="2">2° Turno</option>
+                                </select>
+                            </div>
+                            <div class="select-header-grafico-sobra-de-rolo">
+                                <label>Selecione a data</label>
+                                <select id="inSelectSelecionarDataTipoTecidoGraficoVariantesTiposTecidos"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grafico-sobra-de-rolo-body">
+                        <h1>Variantes por tipo tecido</h1>
+                        <h1>Selecione dois tipos de tecidos</h1>
+                        <div class="grafico-variante-tipo-tecido-selects-header-body">
+                            <select id="variantesTiposTecidos1">
+                                <option value="Meia Malha">Meia Malha</option>
+                                <option value="Cotton">Cotton</option>
+                                <option value="Punho Pan">Punho Pan</option>
+                                <option value="Punho New">Punho New</option>
+                                <option value="Punho San">Punho San</option>
+                                <option value="Punho Elan">Punho Elan</option>
+                            </select>
+                            <select id="variantesTiposTecidos2">
+                                <option value="Meia Malha">Meia Malha</option>
+                                <option value="Cotton">Cotton</option>
+                                <option value="Punho Pan">Punho Pan</option>
+                                <option value="Punho New">Punho New</option>
+                                <option value="Punho San">Punho San</option>
+                                <option value="Punho Elan">Punho Elan</option>
+                            </select>
+                        </div>
+                        <div class="grafico-sobra-rolo">
+                            <canvas id="canvasGraficoVariantesTiposTecidos"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="div-graficos-barras-sobra-rolo-qtd-tarefas">
@@ -466,29 +537,54 @@
         </section>
 
         <section id="sectionGraficosMetrosProduzidos">
-            <article class="article-grafico-pizza-totais-metros">
-                <div class="div-grafico-totais-metros-header">
-                    <div class="div-content-header">
-                        <div class="header-select-turno-totais-metros">
-                            <label>Selecionar turno</label>
-                            <select id="inSelectGraficoPizzaTotaisTurno">
-                                <option value="0">Todos</option>
-                                <option value="1">1° Turno</option>
-                                <option value="2">2° Turno</option>
-                            </select>
+            <div class="div-content-totais-e-media-graficos-metros">
+                <article class="article-grafico-pizza-totais-metros">
+                    <div class="div-grafico-totais-metros-header">
+                        <div class="div-content-header">
+                            <div class="header-select-turno-totais-metros">
+                                <label>Selecionar turno</label>
+                                <select id="inSelectGraficoPizzaTotaisTurno">
+                                    <option value="0">Todos</option>
+                                    <option value="1">1° Turno</option>
+                                    <option value="2">2° Turno</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="header-tarefas-completas">
+                            <p>Considerar tarefas concluídas?</p>
+                            <input type="checkbox" checked id="inCheckBoxGraficoPizzaTotaisMetrosTarefasCompletas">
+                        </div>
+                    </div>
+                    <div class="div-grafico-totais-metros-body">
+                        <div class="content-grafico-pizza-totais-metros">
+                            <h1>Média de total metros produzidos por dia</h1>
+                            <div class="grafico-media-metros-produzidos">
+                                <canvas id="canvasGraficoMediaMetros"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-grafico-totais-metros-footer">
+                        <h1>Legenda</h1>
+                        <div id="cardsMediaMetrosProduzidos"></div>
+                    </div>
+                </article>
+            </div>
+
+            <article class="article-grafico-barras-total-metros-produzidos">
+                <div class="grafico-barras-totais-metros-produzidos-header">
+                    <div class="select-data">
+                        <label>Selecionar data</label>
+                        <select id="inSelectGraficoTotaisMetrosProduzidosDatas"></select>
                     </div>
                     <div class="header-tarefas-completas">
                         <p>Considerar tarefas concluídas?</p>
-                        <input type="checkbox" checked id="inCheckBoxGraficoPizzaTotaisMetrosTarefasCompletas">
+                        <input type="checkbox" checked id="inCheckBoxGraficoPizzaTotaisMetrosTarefasCompletas2">
                     </div>
                 </div>
-                <div class="div-grafico-totais-metros-body">
-                    <div class="content-grafico-pizza-totais-metros">
-                        <h1>Média de total metros produzidos por dia</h1>
-                        <div class="grafico-media-metros-produzidos">
-                            <canvas id="canvasGraficoMediaMetros"></canvas>
-                        </div>
+                <div class="grafico-barras-totais-metros-produzidos-body">
+                    <h1>Total metros por dia</h1>
+                    <div class="grafico-totais-metros-produzidos">
+                        <canvas id="canvasGraficoTotaisMetrosProduzidos"></canvas>
                     </div>
                 </div>
             </article>

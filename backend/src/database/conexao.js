@@ -11,7 +11,7 @@ async function conectarBd() {
       database: process.env.NAME_DATABASE,
       password: process.env.PASSWORD_DATABASE,
       user: process.env.USER_DATABASE,
-      port: process.env.PORT_DATABASE
+      // port: process.env.PORT_DATABASE
     });
     global.conexao = conexao;
     return conexao;

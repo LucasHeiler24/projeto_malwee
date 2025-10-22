@@ -1,44 +1,66 @@
-import { extratDadosGraficoMediaMetrosProduzidos } from "./extrair_dados/extrair_dados_dashboard_metros.js";
-import { removerDuplicados } from "./helpers/funcoes_gerais/funcoes.js";
-import { criarChangeSelectsDashboardAbaMetrosProduzidos } from "./utils/criar_change_selects/criar_change_selects_dashboard_metros.js";
-import { construirGraficoMediaProducao } from "./utils/graficos/grafico_dashboard_aba_metros.js";
+import { extrairDadosGraficoMediaMetrosProduzidos, extrairDadosGraficoTotaisMetrosProduzidos } from "./extrair_dados/extrair_dados_dashboard_metros.js";
+import separarDadosGrandesGraficos from "./helpers/separar_dados_grandes/separar_dados_grandes.js";
+import separarDadosGrandesGraficosTotais from "./helpers/separar_dados_grandes/separar_dados_totais.js";
+import { funcaoConstruirCardMediaMetrosProduzidos } from "./utils/card-dashboard/card-dashboard-metros-grafico-pizza.js";
+import { criarChangeSelectsDashboardAbaMetrosProduzidos, criarChangeSelectsDashboardAbaMetrosProduzidosMetrosTotais } from "./utils/criar_change_selects/criar_change_selects_dashboard_metros.js";
+import { construirGraficoMediaProducao, construirGraficoTotalMetrosProduzidos } from "./utils/graficos/grafico_dashboard_aba_metros.js";
+import { selectsDashboardGraficosGrandesSelectData } from "./utils/selects_dashboard/selects_dashboard.js";
 
-function receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(dadosParaOsGraficos){
-    const arrayDatas =removerDuplicados(dadosParaOsGraficos.map((dados) => dados.data_historico));
-
-    let dadosGraficos = [];
-    for(let i=0; i<arrayDatas.length; i++){
-        dadosGraficos.push(
-            ...dadosParaOsGraficos.filter((dados) => dados.data_historico == arrayDatas[i])
-        )
-    }
-
+function receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos(dadosParaOsGraficos) {
     criarChangeSelectsDashboardAbaMetrosProduzidos(
-        dadosGraficos,
-        arrayDatas,
+        dadosParaOsGraficos,
         document.getElementById('inSelectGraficoPizzaTotaisTurno'),
         document.getElementById('inCheckBoxGraficoPizzaTotaisMetrosTarefasCompletas')
     )
 
-    extratDadosGraficoMediaMetrosProduzidos(
-        dadosGraficos,
-        arrayDatas,
+    extrairDadosGraficoMediaMetrosProduzidos(
+        dadosParaOsGraficos,
         "0",
         true
     );
+}
+
+function receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(dadosParaOsGraficos) {
+
+    const dadosSeparados = separarDadosGrandesGraficosTotais(dadosParaOsGraficos);
+    selectsDashboardGraficosGrandesSelectData(document.getElementById('inSelectGraficoTotaisMetrosProduzidosDatas'), dadosSeparados);
+
+    criarChangeSelectsDashboardAbaMetrosProduzidosMetrosTotais(
+        dadosSeparados,
+        document.getElementById('inSelectGraficoTotaisMetrosProduzidosDatas'),
+        document.getElementById('inCheckBoxGraficoPizzaTotaisMetrosTarefasCompletas2')
+    );
+
+    extrairDadosGraficoTotaisMetrosProduzidos(
+        dadosSeparados,
+        0,
+        true
+    )
 
 }
 
+let dadosGraficosTotalMetrosProduzidos = null;
+function dashboardContruirGraficosTotaisMetrosProduzidos(dados) {
+    dadosGraficosTotalMetrosProduzidos = construirGraficoTotalMetrosProduzidos(
+        dados,
+        document.getElementById('canvasGraficoTotaisMetrosProduzidos'),
+        dadosGraficosTotalMetrosProduzidos
+    )
+}
+
 let dadosGraficosMediaTotalMetrosProduzidos = null;
-function dashboardConstruirGraficoMediaMetrosProduzidos(dados){
+function dashboardConstruirGraficoMediaMetrosProduzidos(dados) {
     dadosGraficosMediaTotalMetrosProduzidos = construirGraficoMediaProducao(
         dados,
         document.getElementById('canvasGraficoMediaMetros'),
         dadosGraficosMediaTotalMetrosProduzidos
     )
+    funcaoConstruirCardMediaMetrosProduzidos(dados, document.getElementById("cardsMediaMetrosProduzidos"))
 }
 
 export {
+    receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos,
+    dashboardConstruirGraficoMediaMetrosProduzidos,
     receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos,
-    dashboardConstruirGraficoMediaMetrosProduzidos
+    dashboardContruirGraficosTotaisMetrosProduzidos
 }

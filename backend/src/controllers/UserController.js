@@ -35,7 +35,7 @@ const loginStore = async function (request, response) {
 
     const result = validationResult(request);
     if (!result.isEmpty())
-        return response.status(400).json({ error: result.array() });
+        return response.status(400).json({ status: 400, error: result.array() });
 
     const { id_matricula, senha_usuario } = request.body;
 

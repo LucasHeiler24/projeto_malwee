@@ -1,9 +1,5 @@
 const Input = (props) => {
-
-    return (
-        <input {...props} {...props.register}></input>
-    )
-
+    return <input className={props.styles} {...props} />
 }
 
 export default Input;

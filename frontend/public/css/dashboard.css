@@ -82,7 +82,8 @@ main {
 .div-graficos-dados-media {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   padding-top: 10px;
@@ -91,7 +92,7 @@ main {
 .grafico-media-totais {
   background: #fff;
   border-radius: 10px;
-  width: 50%;
+  width: 550px;
   height: auto;
   display: flex;
   justify-content: start;
@@ -251,13 +252,14 @@ main {
 .div-graficos-barras-sobra-rolo-qtd-tarefas {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   gap: 20px;
 }
 
 .div-grafico-sobra-de-rolo {
-  width: 50%;
+  width: 500px;
   background: #fff;
   border-radius: 10px;
 }
@@ -587,4 +589,144 @@ input[type="checkbox"] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.div-content-totais-e-media-graficos-metros {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.article-grafico-pizza-totais-metros {
+  background: #fff;
+  border-radius: 10px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.div-grafico-totais-metros-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.div-grafico-totais-metros-header select {
+  width: 100%;
+}
+
+.div-grafico-totais-metros-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.content-grafico-pizza-totais-metros {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.grafico-media-metros-produzidos {
+  width: 400px;
+}
+
+.div-grafico-totais-metros-footer {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#cardsMediaMetrosProduzidos,
+#cardsTotalMetrosProduzidos {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 10px;
+}
+
+.card-media-metros {
+  background: #dbdbdb;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.background-cor-card {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#sectionGraficosMetrosProduzidos {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.article-grafico-barras-total-metros-produzidos {
+  width: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.grafico-barras-totais-metros-produzidos-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #000;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+}
+
+.grafico-barras-totais-metros-produzidos-header select {
+  width: 100%;
+}
+
+.grafico-barras-totais-metros-produzidos-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.grafico-totais-metros-produzidos {
+  width: 100%;
 }
