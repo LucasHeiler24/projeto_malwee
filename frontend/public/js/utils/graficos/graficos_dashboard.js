@@ -200,14 +200,14 @@ function constuirGraficoTarefaCompleta(
         labels: [dados[0].tipo_tecido],
         datasets: [
             {
-                label: 'Total sobrado',
+                label: 'Tarefas completa',
                 data: [dados[0].total_tarefas_completas],
-                backgroundColor: coresGraficosDuasBarrasSobrados[0]
+                backgroundColor: coresGraficosDuasBarrasSobrados[1]
             },
             {
-                label: 'Total não sobrado',
+                label: 'Tarefas não completas',
                 data: [dados[0].total_tarefas_nao_completas],
-                backgroundColor: coresGraficosDuasBarrasSobrados[1]
+                backgroundColor: coresGraficosDuasBarrasSobrados[0]
             }
         ]
     }
@@ -330,7 +330,6 @@ function construirGraficosProdutividade(
 ) {
 
     if (variavelChart) variavelChart.destroy();
-    console.log(dados);
 
     let data = {
         labels: dados.map((dados) => new Date(`${dados.data_historico} 00:00:00`).toLocaleDateString()),
@@ -369,6 +368,35 @@ function construirGraficosProdutividade(
     return chartJs(data, options, htmlCanvasGrafico, 'bar');
 }
 
+function construirGraficoQuantidadeDeTiras(
+    dadosParaOsGraficos,
+    htmlCanvasGrafico,
+    variavelChart
+) {
+    if (variavelChart) variavelChart.destroy();
+
+    const dados = dadosParaOsGraficos.filter((dados) => dados.qtd_tiras != 0);
+
+    let data = {
+        labels: dados.map((dados) => dados.tipo_tecido),
+        datasets: [{
+            label: "Quantidade de tiras",
+            data: dados.map((dados) => dados.qtd_tiras),
+            backgroundColor: coresGrafiposPizzaTiposTecidos
+        }]
+    }
+
+    let options = {
+        plugins: {
+            legend: {
+                position: 'right'
+            }
+        }
+    }
+
+    return chartJs(data, options, htmlCanvasGrafico, 'pie');
+}
+
 export {
     constuirGraficoMediaPorTipoTecido,
     construirGraficoTotalProducaoPorTecido,
@@ -376,5 +404,6 @@ export {
     constuirGraficoTarefaCompleta,
     construirGraficoTipoSaida,
     construirGraficoMetrosVsSetup,
-    construirGraficosProdutividade
+    construirGraficosProdutividade,
+    construirGraficoQuantidadeDeTiras
 }

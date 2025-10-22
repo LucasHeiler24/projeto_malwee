@@ -1,4 +1,4 @@
-import { extrairDadosGraficoMetrosVsSetup, extrairDadosGraficoProdutividade, extrairDadosGraficosEficienciaSetup, extrairDadosParaGraficosTarefasCompletas, extrairDadosParaGraficoTipoSaida, extrairDadosParaOGraficoMediaPorTipoTecido, extrairDadosParaOGraficoSobraDeRolo, extrairDadosParaOGraficoTotalProducao } from "../../extrair_dados/extrair_dados_dashboard.js";
+import { extrairDadosGraficoMetrosVsSetup, extrairDadosGraficoProdutividade, extrairDadosGraficosEficienciaSetup, extrairDadosParaGraficosTarefasCompletas, extrairDadosParaGraficoTipoSaida, extrairDadosParaOGraficoMediaPorTipoTecido, extrairDadosParaOGraficoQuantidadeDeTiras, extrairDadosParaOGraficoSobraDeRolo, extrairDadosParaOGraficoTotalProducao } from "../../extrair_dados/extrair_dados_dashboard.js";
 
 function criarChangeGraficoMediaTiposTecidosNosSelectDashboard(
     dados,
@@ -451,6 +451,49 @@ function criarChangeSelectsGraficoEficienciaSetup(
     })
 }
 
+function criarChangeSelectsGraficoQuantidadeDeTiras(
+    dadosGraficos,
+    htmlSelectData,
+    htmlSelectTurno,
+    htmlCheckboxCompletas
+) {
+
+    let data = 0;
+    let turno = "0";
+    let completas = true;
+
+    htmlSelectData.addEventListener('change', function () {
+        data = this.value;
+        extrairDadosParaOGraficoQuantidadeDeTiras(
+            dadosGraficos,
+            turno,
+            this.value,
+            completas
+        )
+    })
+
+    htmlSelectTurno.addEventListener('change', function () {
+        turno = this.value;
+        extrairDadosParaOGraficoQuantidadeDeTiras(
+            dadosGraficos,
+            this.value,
+            data,
+            completas
+        )
+    })
+
+    htmlCheckboxCompletas.addEventListener('click', function () {
+        completas = this.checked;
+        extrairDadosParaOGraficoQuantidadeDeTiras(
+            dadosGraficos,
+            turno,
+            data,
+            this.value
+        )
+    })
+
+}
+
 export {
     criarChangeGraficoMediaTiposTecidosNosSelectDashboard,
     criarChangeGraficoTotalProducaoPorTecidoNosSelectDashboard,
@@ -459,5 +502,6 @@ export {
     criarChangeSelectsGraficoTipoSaida,
     criarChangeSelectsGraficoMetrosVsSetup,
     criarChangeSelectsGraficoProdutividade,
-    criarChangeSelectsGraficoEficienciaSetup
+    criarChangeSelectsGraficoEficienciaSetup,
+    criarChangeSelectsGraficoQuantidadeDeTiras
 }

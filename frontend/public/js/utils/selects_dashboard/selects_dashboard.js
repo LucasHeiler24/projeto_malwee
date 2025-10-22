@@ -7,6 +7,15 @@ const selectsDashboardConstruirSelectDatas = (htmlSelect, vetDatas) => {
     });
 }
 
+const selectsDashboardConstruirSelectsIndexComoPosicaoNoArray = (htmlSelect, vetDatas) => {
+    htmlSelect.innerHTML = "";
+    vetDatas.forEach((datas, index) => {
+        htmlSelect.innerHTML += `
+            <option value="${index}">${new Date(`${datas} 00:00:00`).toLocaleDateString()}</option>
+        `
+    });
+}
+
 const selectsDashboardGraficosGrandesSelectData = (htmlSelect, vetDatas) => {
     htmlSelect.innerHTML = "";
     vetDatas.forEach((datas, index) => {
@@ -21,5 +30,6 @@ const selectsDashboardGraficosGrandesSelectData = (htmlSelect, vetDatas) => {
 
 export {
     selectsDashboardConstruirSelectDatas,
-    selectsDashboardGraficosGrandesSelectData
+    selectsDashboardGraficosGrandesSelectData,
+    selectsDashboardConstruirSelectsIndexComoPosicaoNoArray
 }

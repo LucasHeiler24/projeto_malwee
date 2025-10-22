@@ -1,6 +1,12 @@
-import DefaultLayout from "../layouts/defaultLayout";
+import { useNavigate } from "react-router-dom"
 
 const HomePage = () => {
-  return <h1>Home</h1>;
-};
-export default HomePage;
+    const navegate = useNavigate();
+    navegate('/login');
+    
+    return(
+        <h1>Home</h1>
+    )
+}
+
+export default HomePage

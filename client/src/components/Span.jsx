@@ -1,7 +1,5 @@
-const Span = (props) => {
-    return (
-        <span>{props.text}</span>
-    )
+const Span = ({text}) => {
+    return <span>{text}</span>
 }
 
 export default Span;

@@ -2,6 +2,7 @@ import {
     dashboardConstruirCardsEficienciaSetup,
     dashboardConstruirGraficoMetrosVsSetup,
     dashboardConstruirGraficoProdutividade,
+    dashboardConstruirGraficoQuantidadeDeTirasPorTecido,
     dashboardConstruirGraficosMediaPorTipoTecidoProduzidos,
     dashboardConstruirGraficoSobraDeRolo,
     dashboardConstruirGraficoTipoTecido,
@@ -586,7 +587,56 @@ function extrairDadosGraficosEficienciaSetup(
     dashboardConstruirCardsEficienciaSetup(calcularEficienciaSetup(dadosFiltradosPorTurno));
 }
 
+function extrairDadosParaOGraficoQuantidadeDeTiras(
+    dados,
+    filtroTipoTurno,
+    filtroTipoData,
+    filtroCompleto
+) {
+
+    let dadosFiltradosPorData = dados[filtroTipoData];
+
+    let dadosFiltrados;
+    if (filtroCompleto) {
+        if (filtroTipoTurno == "0") {
+            dadosFiltrados = dadosFiltradosPorData.map((dados) => {
+                return { tipo_tecido: dados.tipo_tecido, qtd_tiras: dados.qtd_tiras_completas }
+            })
+        }
+        if (filtroTipoTurno == "1") {
+            dadosFiltrados = dadosFiltradosPorData.map((dados) => {
+                return { tipo_tecido: dados.tipo_tecido, qtd_tiras: dados.qtd_tiras_completas_primeiro_turno }
+            })
+        }
+        if (filtroTipoTurno == "2") {
+            dadosFiltrados = dadosFiltradosPorData.map((dados) => {
+                return { tipo_tecido: dados.tipo_tecido, qtd_tiras: dados.qtd_tiras_completas_segundo_turno }
+            })
+        }
+    }
+    if (!filtroCompleto) {
+        if (filtroTipoTurno == "0") {
+            dadosFiltrados = dadosFiltradosPorData.map((dados) => {
+                return { tipo_tecido: dados.tipo_tecido, qtd_tiras: dados.qtd_tiras_nao_completas }
+            })
+        }
+        if (filtroTipoTurno == "1") {
+            dadosFiltrados = dadosFiltradosPorData.map((dados) => {
+                return { tipo_tecido: dados.tipo_tecido, qtd_tiras: dados.qtd_tiras_nao_completas_primeiro_turno }
+            })
+        }
+        if (filtroTipoTurno == "2") {
+            dadosFiltrados = dadosFiltradosPorData.map((dados) => {
+                return { tipo_tecido: dados.tipo_tecido, qtd_tiras: dados.qtd_tiras_nao_completas_segundo_turno }
+            })
+        }
+    }
+
+    dashboardConstruirGraficoQuantidadeDeTirasPorTecido(dadosFiltrados);
+}
+
 export {
+    extrairDadosParaOGraficoQuantidadeDeTiras,
     extrairDadosParaOGraficoMediaPorTipoTecido,
     extrairDadosParaOGraficoTotalProducao,
     extrairDadosParaOGraficoSobraDeRolo,

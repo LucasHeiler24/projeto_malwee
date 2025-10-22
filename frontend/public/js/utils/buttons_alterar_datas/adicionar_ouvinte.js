@@ -1,4 +1,5 @@
-import { receberDadosSelecionadosPorDataGraficoEficienciaSetup, receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup, receberDadosSelecionadosPorDataGraficoProdutividade, receberDadosSelecionadosPorDataGraficoSobraDeRolo, receberDadosSelecionadosPorDataGraficoTarefasCompletas, receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido, receberDadosSelecionadosPorDataGraficoTotaisProducao } from "../../dashboard.js";
+import { receberDadosSelecionadosPorDataGraficoEficienciaSetup, receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup, receberDadosSelecionadosPorDataGraficoProdutividade, receberDadosSelecionadosPorDataGraficoQuantidadeDeTirasPorTecido, receberDadosSelecionadosPorDataGraficoSobraDeRolo, receberDadosSelecionadosPorDataGraficoTarefasCompletas, receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido, receberDadosSelecionadosPorDataGraficoTotaisProducao } from "../../dashboard.js";
+import { receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos, receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos } from "../../dashboard_metros.js";
 import getDadosPelasDatasEscolhidasHoje from "./buttons_alterar_datas.js";
 
 export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDatas, htmlCheckboxTipoTempo, spinner) {
@@ -14,7 +15,14 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 htmlCheckboxTipoTempo.addEventListener('click', async function () {
                     spinner.style.display = 'flex';
                     htmlCheckboxTipoTempo.checked ? tipoTempo = "posterior" : tipoTempo = "anterior";
-                    const { dadosTotais, dadosSobraDeRolo, dadosTotaisTarefasCompletasOuNao, dadosTotaisTipoSaida } = await getDadosPelasDatasEscolhidasHoje(button.value, tipoTempo)
+                    const {
+                        dadosTotais,
+                        dadosSobraDeRolo,
+                        dadosTotaisTarefasCompletasOuNao,
+                        dadosTotaisTipoSaida,
+                        mediaMetrosProduzidos,
+                        qtdTiras
+                    } = await getDadosPelasDatasEscolhidasHoje(button.value, tipoTempo)
                     spinner.style.display = 'none';
                     receberDadosSelecionadosPorDataGraficoTotaisProducao(dadosTotais);
                     receberDadosSelecionadosPorDataGraficoSobraDeRolo(dadosSobraDeRolo);
@@ -22,12 +30,23 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                     receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
                     receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
                     receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-                    receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+                    receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+                    receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos(mediaMetrosProduzidos);
+                    receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(mediaMetrosProduzidos)
+                    receberDadosSelecionadosPorDataGraficoQuantidadeDeTirasPorTecido(qtdTiras)
 
                     return;
                 });
 
-                const { dadosTotais, dadosSobraDeRolo, dadosTotaisTarefasCompletasOuNao, dadosTotaisTipoSaida } = await getDadosPelasDatasEscolhidasHoje(this.value, tipoTempo);
+                const {
+                    dadosTotais,
+                    dadosSobraDeRolo,
+                    dadosTotaisTarefasCompletasOuNao,
+                    dadosTotaisTipoSaida,
+                    mediaMetrosProduzidos,
+                    qtdTiras
+
+                } = await getDadosPelasDatasEscolhidasHoje(this.value, tipoTempo);
                 spinner.style.display = 'none';
                 receberDadosSelecionadosPorDataGraficoTotaisProducao(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoSobraDeRolo(dadosSobraDeRolo);
@@ -35,7 +54,11 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
                 receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+                receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos(mediaMetrosProduzidos);
+                receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(mediaMetrosProduzidos)
+                receberDadosSelecionadosPorDataGraficoQuantidadeDeTirasPorTecido(qtdTiras)
+
 
                 return;
             }
@@ -43,7 +66,15 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 divTempoDatas.style.display = 'none';
                 htmlCheckboxTipoTempo.checked = false;
 
-                const { dadosTotais, dadosSobraDeRolo, dadosTotaisTarefasCompletasOuNao, dadosTotaisTipoSaida } = await getDadosPelasDatasEscolhidasHoje(this.value);
+                const {
+                    dadosTotais,
+                    dadosSobraDeRolo,
+                    dadosTotaisTarefasCompletasOuNao,
+                    dadosTotaisTipoSaida,
+                    mediaMetrosProduzidos,
+                    qtdTiras
+
+                } = await getDadosPelasDatasEscolhidasHoje(this.value);
                 spinner.style.display = 'none';
                 receberDadosSelecionadosPorDataGraficoTotaisProducao(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoSobraDeRolo(dadosSobraDeRolo);
@@ -51,7 +82,10 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
                 receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+                receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos(mediaMetrosProduzidos);
+                receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(mediaMetrosProduzidos)
+                receberDadosSelecionadosPorDataGraficoQuantidadeDeTirasPorTecido(qtdTiras)
 
                 return;
             }
@@ -59,7 +93,14 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 divTempoDatas.style.display = 'none';
                 htmlCheckboxTipoTempo.checked = false;
 
-                const { dadosTotais, dadosSobraDeRolo, dadosTotaisTarefasCompletasOuNao, dadosTotaisTipoSaida } = await getDadosPelasDatasEscolhidasHoje(this.value);
+                const {
+                    dadosTotais,
+                    dadosSobraDeRolo,
+                    dadosTotaisTarefasCompletasOuNao,
+                    dadosTotaisTipoSaida,
+                    mediaMetrosProduzidos,
+                    qtdTiras
+                } = await getDadosPelasDatasEscolhidasHoje(this.value);
                 spinner.style.display = 'none';
                 receberDadosSelecionadosPorDataGraficoTotaisProducao(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoSobraDeRolo(dadosSobraDeRolo);
@@ -67,7 +108,10 @@ export default function addOuvinteNosButtonsAlterarData(vetBtnsData, divTempoDat
                 receberDadosSelecionadosPorDataGraficoTipoSaidaPorTecido(dadosTotaisTipoSaida);
                 receberDadosSelecionadosPorDataGraficoMetrosProduzidosVsSetup(dadosTotais);
                 receberDadosSelecionadosPorDataGraficoProdutividade(dadosTotais);
-                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais)
+                receberDadosSelecionadosPorDataGraficoEficienciaSetup(dadosTotais);
+                receberDadosSelecionadosPorDataGraficoMediaMetrosProduzidos(mediaMetrosProduzidos);
+                receberDadosSelecionadosPorDataGraficoTotaisMetrosProduzidos(mediaMetrosProduzidos)
+                receberDadosSelecionadosPorDataGraficoQuantidadeDeTirasPorTecido(qtdTiras)
 
                 return;
             }

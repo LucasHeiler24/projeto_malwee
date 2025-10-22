@@ -79,3 +79,8 @@ Um setup mais longo deveria resultar em mais metros produzidos, se a eficiência
 
 Adicionar porcentagem das conclusões de tarefas
 (Tarefas completas / numero de tarefas) * 100
+
+Fazer um gráfico de variantes de metros produzidos por tipo de tecido
+Para fazer o cálculo utilizamos metros produzidos do tecido / tempo de produção
+Podemos fazer a diferença bruta pega o maior valor e subtrai pelo menor ali esta a diferença em minutos
+Para pegar a porcentagem utilizamos a formula: ((Maior valor - valor menor) / valor menor) * 100
