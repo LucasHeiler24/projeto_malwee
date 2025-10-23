@@ -3,7 +3,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
   padding: 10px;
   border-radius: 10px;
   height: 10vh;
@@ -13,12 +12,13 @@
 .datas-pre-definidas {
   width: 70%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: start;
   gap: 10px;
 }
 
-.datas-pre-definidas button {
+.datas-pre-definidas button,
+.data-personalizar button {
   background: #30006e;
   color: #fff;
   padding: 10px 15px 10px 15px;

@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-const TemplateMaster = ({header, headerInfoPage}) => {
-    return (
-        <>
-        
-        </>
-=======
 const TemplateMaster = ({header, headerInfoPage, pageChildren}) => {
     return (
 
@@ -16,7 +9,6 @@ const TemplateMaster = ({header, headerInfoPage, pageChildren}) => {
             </main>
         </>
 
->>>>>>> 878edca882c464604e94109835b7af12ecc72958
     )
 }
 

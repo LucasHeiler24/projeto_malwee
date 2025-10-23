@@ -1,11 +1,15 @@
 .header-info-page {
   width: 100%;
-  background: #fff;
   border-radius: 10px;
   height: 10vh;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
   padding: 10px;
   font-size: 20px;
+}
+
+.title-page{
+  font-size: 40px;
 }
