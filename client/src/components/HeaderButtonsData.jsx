@@ -3,6 +3,10 @@ import "../css/headerbuttonsdata.css"
 import dadosOntem from "../requests/graficos/dashboard/dados_ontem";
 import { useContext } from "react";
 import dadosGraficosDashboardContext from "../context/dadosGraficosDashboard";
+import dadosHoje from "../requests/graficos/dashboard/dados_hoje";
+import dadosSemanais from "../requests/graficos/dashboard/dados_semanais";
+import dadosQuinzenais from "../requests/graficos/dashboard/dados_quinzenais";
+import dadosMensais from "../requests/graficos/dashboard/dados_mensais";
 
 const HeaderButtonsData = () => {
     const {setDadosGraficos} = useContext(dadosGraficosDashboardContext);
@@ -12,20 +16,24 @@ const HeaderButtonsData = () => {
         setDadosGraficos(dadosTotais);
     }
 
-    const onClickButtonHoje = () => {
-        console.log("Olá hoje");
+    const onClickButtonHoje = async () => {
+        const {dadosTotais} = await dadosHoje();
+        setDadosGraficos(dadosTotais);
     }
 
-    const onClickButtonSemanal = () => {
-        console.log("Olá");
+    const onClickButtonSemanal = async () => {
+        const {dadosTotais} = await dadosSemanais('anterior');
+        setDadosGraficos(dadosTotais);
     }
 
-    const onClickButtonQuinzenal = () => {
-        console.log("Olá");
+    const onClickButtonQuinzenal = async () => {
+        const {dadosTotais} = await dadosQuinzenais('anterior');
+        setDadosGraficos(dadosTotais);
     }
 
-    const onClickButtonMensal = () => {
-        console.log("Olá");
+    const onClickButtonMensal = async () => {
+        const {dadosTotais} = await dadosMensais();
+        setDadosGraficos(dadosTotais);
     }
 
     return (

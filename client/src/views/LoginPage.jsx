@@ -8,6 +8,8 @@ import {useNavigate} from "react-router-dom"
 import store from "../requests/usuario/logar";
 import validToken from "../requests/usuario/validToken";
 import Cookies from "js-cookie";
+import imgLogo from "../images/malwee_logo.png"
+import "../css/registro.css"
 
 const LoginPage = () => {
     const {register, handleSubmit, formState:{errors}} = useForm();
@@ -35,17 +37,20 @@ const LoginPage = () => {
     }
 
     return (
-        <main className="h-screen w-screen flex">
-            <section className="flex justify-content-center items-center w-1/2">
-                <h1>Logo</h1>
+        <main className="main-registro">
+            <section className="section-logo">
+                <div className="logo">
+                    <img src={imgLogo} />
+                </div>
             </section>
-            <section className="flex w-1/2 p-5">
-                <div className="flex justify-content-center items-center flex-col h-100">
-                    <h1>Logar-se</h1>
-                    {statusRegistro && <FlashMessage styles={styleStatusRegistro} text={messageStatusRegistro} />}
-                    <form className="flex justify-content-center items-left gap-3 flex-col" onSubmit={handleSubmit(submittedFormLogin)}>
+            <section className="section-registro">
+                <div className="div-content-form">
+                    <form className="form-registro" onSubmit={handleSubmit(submittedFormLogin)}>
+                    <div className="div-header-form">
+                        <h1>Logar-se</h1>
+                        {statusRegistro && <FlashMessage styles={styleStatusRegistro} text={messageStatusRegistro} />}
+                    </div>
                         <TextField
-                            styles={"bg-amber-100 w-100 p-2 rounded"}
                             htmlFor={"id_matricula"}
                             textLabel={"Informe o número da matrícula"}
                             placeholder={"Informe o seu número de matrícula:"}
@@ -57,7 +62,6 @@ const LoginPage = () => {
                         {errors?.id_matricula?.message && <Span text={errors.id_matricula.message} /> }
 
                         <TextField 
-                            styles={"bg-amber-100 w-100 p-2 rounded"}
                             htmlFor={"senha_user"}
                             textLabel={"Informe a sua senha"}
                             placeholder={"Informe sua senha:"}
@@ -68,7 +72,7 @@ const LoginPage = () => {
                             />
                         {errors?.senha_user?.message && <Span text={errors.senha_user.message} /> }
 
-                        <Input styles={"bg-amber-100 w-100 p-2 rounded cursor-pointer"} type={"submit"} value={"Logar"} />
+                        <Input type={"submit"} value={"Logar"} />
                     </form>
                 </div>
             </section>

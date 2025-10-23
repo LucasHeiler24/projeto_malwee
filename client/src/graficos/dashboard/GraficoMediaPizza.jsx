@@ -44,9 +44,12 @@ const GraficoMediaPizza = ({dados}) => {
     }, [openHeaderGraficoPizza]);
 
     useEffect(() =>{
+        setTipoData(dados[0].data_historico);
+        setTipoMedia("0");
+        setTipoMedia("0");
         let data = functionData(extrairDadosGraficoPizzaMedia(dados, tipoMedia, tipoData, tipoTurno));
         setDadosGrafico(data);
-    }, []);
+    }, [dados]);
 
     useEffect(() =>{
         let data = functionData(extrairDadosGraficoPizzaMedia(dados, tipoMedia, tipoData, tipoTurno));

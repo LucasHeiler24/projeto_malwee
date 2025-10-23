@@ -1,9 +1,7 @@
 const extrairDadosGraficoPizzaMedia = (dados, tipoMedia, tipoData, tipoTurno) => {
 
-    const filtrarDadosPorData = dados.filter((dados) => {
-        if(dados.data_historico == tipoData);
-            return {...dados};
-    })
+    console.log(tipoData);
+    const filtrarDadosPorData = dados.filter((dados) => dados.data_historico == tipoData);
 
     const tirarDadosZerados = filtrarDadosPorData.filter((dados) => dados.media_totais_metros_completos != 0);
 

@@ -6,6 +6,8 @@ import formRegistroSubmitted from "../requests/usuario/registro";
 import { useState } from "react";
 import FlashMessage from "../components/FlashMessage";
 import {useNavigate} from "react-router-dom"
+import imgLogo from "../images/malwee_logo.png"
+import "../css/registro.css"
 
 const RegistroPage = () => {
     const {register, handleSubmit, formState:{errors}} = useForm();
@@ -27,17 +29,20 @@ const RegistroPage = () => {
     }
 
     return (
-        <main className="h-screen w-screen flex">
-            <section className="flex justify-content-center items-center w-1/2">
-                <h1>Logo</h1>
+        <main className="main-registro">
+            <section className="section-logo">
+                <div className="logo">
+                    <img src={imgLogo} />
+                </div>
             </section>
-            <section className="flex w-1/2 p-5">
-                <div className="flex justify-content-center items-center flex-col h-100">
-                    <h1>Registrar-se</h1>
-                    {statusRegistro && <FlashMessage styles={styleStatusRegistro} text={messageStatusRegistro} />}
-                    <form className="flex justify-content-center items-left gap-3 flex-col" onSubmit={handleSubmit(submittedFormRegistro)}>
+            <section className="section-registro">
+                <div className="div-content-form">
+                    <form className="form-registro" onSubmit={handleSubmit(submittedFormRegistro)}>
+                        <div className="div-header-form">
+                            <h1>Registrar-se</h1>
+                            {statusRegistro && <FlashMessage styles={styleStatusRegistro} text={messageStatusRegistro} />}
+                        </div>
                         <TextField
-                            styles={"bg-amber-100 w-100 p-2 rounded"}
                             htmlFor={"id_matricula"}
                             textLabel={"Informe o número da matrícula"}
                             placeholder={"Informe o seu número de matrícula:"}
@@ -50,7 +55,6 @@ const RegistroPage = () => {
                         {errors?.id_matricula?.message && <Span text={errors.id_matricula.message} /> }
 
                         <TextField 
-                            styles={"bg-amber-100 w-100 p-2 rounded"}
                             htmlFor={"nome_user"}
                             textLabel={"Informe o seu nome"}
                             placeholder={"Informe o seu nome:"}
@@ -62,7 +66,6 @@ const RegistroPage = () => {
                         {errors?.nome_user?.message && <Span text={errors.nome_user.message} /> }
 
                         <TextField 
-                            styles={"bg-amber-100 w-100 p-2 rounded"}
                             htmlFor={"senha_user"}
                             textLabel={"Informe a sua senha"}
                             placeholder={"Informe sua senha:"}
@@ -74,7 +77,7 @@ const RegistroPage = () => {
                             />
                         {errors?.senha_user?.message && <Span text={errors.senha_user.message} /> }
 
-                        <Input styles={"bg-amber-100 w-100 p-2 rounded cursor-pointer"} type={"submit"} value={"Registrar"} />
+                        <Input type={"submit"} value={"Registrar"} />
                     </form>
                 </div>
             </section>
