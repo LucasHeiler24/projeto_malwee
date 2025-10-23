@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import TextField from "../components/TextField";
 import Input from "../components/Input";
 import Span from "../components/Span";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FlashMessage from "../components/FlashMessage";
 import {useNavigate} from "react-router-dom"
 import store from "../requests/usuario/logar";

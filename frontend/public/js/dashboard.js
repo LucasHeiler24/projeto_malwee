@@ -438,18 +438,18 @@ window.onload = function () {
     }
 
     (async () => {
-        await verificarTokenUsuario(tokenSession);
+        // await verificarTokenUsuario(tokenSession);
 
-        document.getElementById('saudacaoUsuario').textContent = `Olá ${sessionStorage.getItem('nome')}`;
+        // document.getElementById('saudacaoUsuario').textContent = `Olá ${sessionStorage.getItem('nome')}`;
 
-        const btnAlterarData = document.querySelectorAll('.btnAlterarDatas');
-        const htmlCheckboxTipoTempo = document.getElementById('checkboxTipoTempo');
-        const divTempoDatas = document.getElementById('divTempoDatas');
-        const spinner = document.getElementById('openSpinner');
-        divTempoDatas.style.display = 'none';
+        // const btnAlterarData = document.querySelectorAll('.btnAlterarDatas');
+        // const htmlCheckboxTipoTempo = document.getElementById('checkboxTipoTempo');
+        // const divTempoDatas = document.getElementById('divTempoDatas');
+        // const spinner = document.getElementById('openSpinner');
+        // divTempoDatas.style.display = 'none';
 
-        addOuvinteNosButtonsAlterarData(btnAlterarData, divTempoDatas, htmlCheckboxTipoTempo, spinner);
+        // addOuvinteNosButtonsAlterarData(btnAlterarData, divTempoDatas, htmlCheckboxTipoTempo, spinner);
 
-        document.getElementById('btnPersonalizarTempo').addEventListener('click', () => abrirModalPersonalizarData())
+        // document.getElementById('btnPersonalizarTempo').addEventListener('click', () => abrirModalPersonalizarData())
     })()
 }
