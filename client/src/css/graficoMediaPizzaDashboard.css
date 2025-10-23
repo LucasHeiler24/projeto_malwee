@@ -1,0 +1,45 @@
+.grafico-pizza-dados-totais-media {
+  width: 500px;
+  height: auto;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.grafico-header-media-totais {
+  width: 100%;
+  height: 100%;
+  background: #9e9e9e;
+  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.grafico-media-totais {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header-media-grafico {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-media-grafico button {
+  cursor: pointer;
+}

@@ -1,0 +1,8 @@
+.section-graficos-pizza {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}

@@ -3,6 +3,8 @@ import DashboardPage from "../views/DashboardPage";
 import HomePage from "../views/HomePage";
 import RegistroPage from "../views/RegistroPage";
 import LoginPage from "../views/LoginPage";
+import HistoricoPage from "../views/HistoricoPage";
+import ComparacaoPage from "../views/ComparacaoPage";
 
 const router = createBrowserRouter([
     {
@@ -12,6 +14,14 @@ const router = createBrowserRouter([
     {
         path: '/dashboard',
         element: <DashboardPage />
+    },
+    {
+        path: '/historico',
+        element: <HistoricoPage />
+    },
+    {
+        path: '/comparacao',
+        element: <ComparacaoPage />
     },
     {
         path: '/registro',

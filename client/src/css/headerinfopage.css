@@ -1,0 +1,11 @@
+.header-info-page {
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-size: 20px;
+}

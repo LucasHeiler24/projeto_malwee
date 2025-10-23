@@ -22,19 +22,19 @@ const controllerGetDadosSemanaisOuQuinzenaisPosteriores = async (request, respon
     const dados = await getDadosPelaDataBd(vetDatas);
 
     const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
-    const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
-    const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
-    const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
-    const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
-    const qtdTiras = funcoesDashboardContarQuantidadeDeTirasDeCadaTecido(dados, vetDatas);
+    // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+    // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
+    // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+    // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
+    // const qtdTiras = funcoesDashboardContarQuantidadeDeTirasDeCadaTecido(dados, vetDatas);
 
     return response.json({
         dadosTotais,
-        dadosSobraDeRolo,
-        dadosTotaisTarefasCompletasOuNao,
-        dadosTotaisTipoSaida,
-        mediaMetrosProduzidos,
-        qtdTiras
+        // dadosSobraDeRolo,
+        // dadosTotaisTarefasCompletasOuNao,
+        // dadosTotaisTipoSaida,
+        // mediaMetrosProduzidos,
+        // qtdTiras
     });
 }
 
@@ -47,19 +47,19 @@ const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, respons
     const dados = await getDadosPelaDataBd(vetDatas);
 
     const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
-    const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
-    const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
-    const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
-    const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
-    const qtdTiras = funcoesDashboardContarQuantidadeDeTirasDeCadaTecido(dados, vetDatas);
+    // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+    // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
+    // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+    // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
+    // const qtdTiras = funcoesDashboardContarQuantidadeDeTirasDeCadaTecido(dados, vetDatas);
 
     return response.json({
         dadosTotais,
-        dadosSobraDeRolo,
-        dadosTotaisTarefasCompletasOuNao,
-        dadosTotaisTipoSaida,
-        mediaMetrosProduzidos,
-        qtdTiras
+        // dadosSobraDeRolo,
+        // dadosTotaisTarefasCompletasOuNao,
+        // dadosTotaisTipoSaida,
+        // mediaMetrosProduzidos,
+        // qtdTiras
     });
 }
 
@@ -71,22 +71,22 @@ const controllerGetDadosDiario = async (request, response) => {
 
         const dados = await pegarDadosMesEAnoEscolhido(data);
 
-        // const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, [data]);
+        const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, [data]);
         // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, [data]);
         // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, [data]);
         // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, [data]);
         // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, [data]);
         // const qtdTiras = funcoesDashboardContarQuantidadeDeTirasDeCadaTecido(dados, [data]);
-        const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, [data]);
+        //const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, [data]);
 
-        return response.json(variantesPorTipoTecido);
+        //return response.json(variantesPorTipoTecido);
         return response.json({
             dadosTotais,
-            dadosSobraDeRolo,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            mediaMetrosProduzidos,
-            qtdTiras
+            // dadosSobraDeRolo,
+            // dadosTotaisTarefasCompletasOuNao,
+            // dadosTotaisTipoSaida,
+            // mediaMetrosProduzidos,
+            // qtdTiras
         });
 
     }
@@ -105,19 +105,19 @@ const controllerGetDadosMensal = async (request, response) => {
         const vetDatas = removerDuplicados(dados.map((dados) => dados.data_historico.split(' ')[0])).sort();
 
         const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
-        const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
-        const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
-        const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
-        const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
-        const qtdTiras = funcoesDashboardContarQuantidadeDeTirasDeCadaTecido(dados, vetDatas);
+        // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+        // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
+        // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+        // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
+        // const qtdTiras = funcoesDashboardContarQuantidadeDeTirasDeCadaTecido(dados, vetDatas);
 
         return response.json({
             dadosTotais,
-            dadosSobraDeRolo,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            mediaMetrosProduzidos,
-            qtdTiras
+            // dadosSobraDeRolo,
+            // dadosTotaisTarefasCompletasOuNao,
+            // dadosTotaisTipoSaida,
+            // mediaMetrosProduzidos,
+            // qtdTiras
         });
     }
     catch (e) {

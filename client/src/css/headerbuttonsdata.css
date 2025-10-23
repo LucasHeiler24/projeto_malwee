@@ -1,0 +1,31 @@
+.section-header-alterar-datas-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  height: 10vh;
+  margin-top: 10px;
+}
+
+.datas-pre-definidas {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.datas-pre-definidas button {
+  background: #30006e;
+  color: #fff;
+  padding: 10px 15px 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.datas-pre-definidas button:hover {
+  background: #200049;
+}
