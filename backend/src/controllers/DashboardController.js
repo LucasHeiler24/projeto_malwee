@@ -71,22 +71,22 @@ const controllerGetDadosDiario = async (request, response) => {
 
         const dados = await pegarDadosMesEAnoEscolhido(data);
 
-        // const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, [data]);
+        const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, [data]);
         // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, [data]);
         // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, [data]);
         // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, [data]);
         // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, [data]);
         // const qtdTiras = funcoesDashboardContarQuantidadeDeTirasDeCadaTecido(dados, [data]);
-        const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, [data]);
+        //const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, [data]);
 
-        return response.json(variantesPorTipoTecido);
+        //return response.json(variantesPorTipoTecido);
         return response.json({
             dadosTotais,
-            dadosSobraDeRolo,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            mediaMetrosProduzidos,
-            qtdTiras
+            // dadosSobraDeRolo,
+            // dadosTotaisTarefasCompletasOuNao,
+            // dadosTotaisTipoSaida,
+            // mediaMetrosProduzidos,
+            // qtdTiras
         });
 
     }
