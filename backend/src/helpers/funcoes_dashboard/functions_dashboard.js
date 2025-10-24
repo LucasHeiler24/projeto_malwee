@@ -43,8 +43,8 @@ function funcaoDashboardCalcularVelocidadeMediaPorProducao(arrayDados, arrayData
                     total_tempo_producao: dadosTiposTecido.total_tempo_producao_dois_turnos,
 
                     total_mvp_no_dia_dois_turnos: (dadosTiposTecido.total_metros_produzidos_dois_turnos == 0) ? 0 : (dadosTiposTecido.total_metros_produzidos_dois_turnos / dadosTiposTecido.total_tempo_producao_dois_turnos).toFixed(2),
-                    total_mvp_no_dia_primeiro_turno: (dadosTiposTecido.total_metros_produzidos_dois_turnos == 0) ? 0 : (dadosTiposTecido.total_metros_produzidos_primeiro_turno / dadosTiposTecido.total_tempo_producao_primeiro_turno).toFixed(2),
-                    total_mvp_no_dia_segundo_turno: (dadosTiposTecido.total_metros_produzidos_dois_turnos == 0) ? 0 : (dadosTiposTecido.total_metros_produzidos_segundo_turno / dadosTiposTecido.total_tempo_producao_segundo_turno).toFixed(2)
+                    total_mvp_no_dia_primeiro_turno: (dadosTiposTecido.total_tempo_producao_primeiro_turno == 0) ? 0 : (dadosTiposTecido.total_metros_produzidos_primeiro_turno / dadosTiposTecido.total_tempo_producao_primeiro_turno).toFixed(2),
+                    total_mvp_no_dia_segundo_turno: (dadosTiposTecido.total_tempo_producao_segundo_turno == 0) ? 0 : (dadosTiposTecido.total_metros_produzidos_segundo_turno / dadosTiposTecido.total_tempo_producao_segundo_turno).toFixed(2)
                 }
             )
         }
@@ -63,6 +63,7 @@ function funcaoDashboardCalcularVelocidadeMediaPorProducao(arrayDados, arrayData
         });
 
         vetCalcularVelocidadeMediaPorProducao.push({
+            data_historico: arrayDatas[i],
             mvp_no_dia: (velocidadeMediaNoDia.soma_total_metros_produzidos == 0) ? 0 :
                 (velocidadeMediaNoDia.soma_total_metros_produzidos / velocidadeMediaNoDia.soma_total_tempo_producao).toFixed(2)
         })
@@ -71,11 +72,22 @@ function funcaoDashboardCalcularVelocidadeMediaPorProducao(arrayDados, arrayData
     const vetTotalMetrosProduzidos = vetCalcularVelocidadeMediaPorProducao.map((dados) => dados.total_metros_produzidos);
     const vetTotalTempoProducao = vetCalcularVelocidadeMediaPorProducao.map((dados) => dados.total_tempo_producao);
 
-    // vetCalcularVelocidadeMediaPorProducao.push({
-    //     vmp_periodo:
-    //         (velocidadeMediaPeriodo.soma_total_metros_produzidos == 0) ? 0
-    //             : (velocidadeMediaPeriodo.soma_total_metros_produzidos / velocidadeMediaPeriodo.soma_total_tempo_producao)
-    // });
+    const totalMetrosFiltrados = vetTotalMetrosProduzidos.reduce((soma, dados) => {
+        if(dados != 0 && dados) soma += dados;
+        return soma; 
+    }, 0);
+
+    const totalTempoFiltrados = vetTotalTempoProducao.reduce((soma, dados) => {
+        if(dados != 0 && dados) soma += dados;
+        return soma; 
+    }, 0);
+
+    vetCalcularVelocidadeMediaPorProducao.push({
+        vmp_periodo:
+            (totalMetrosFiltrados == 0) ? 0
+                : (totalMetrosFiltrados / totalTempoFiltrados).toFixed(2)
+    });
+
     return vetCalcularVelocidadeMediaPorProducao;
 }
 

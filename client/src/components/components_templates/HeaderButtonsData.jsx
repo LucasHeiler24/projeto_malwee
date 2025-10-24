@@ -12,28 +12,28 @@ const HeaderButtonsData = () => {
     const {setDadosGraficos} = useContext(dadosGraficosDashboardContext);
 
     const onClickButtonOntem = async () => {
-        const {dadosTotais, dadosSobraDeRolo} = await dadosOntem();
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
+        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosOntem();
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
     }
 
     const onClickButtonHoje = async () => {
-        const {dadosTotais, dadosSobraDeRolo} = await dadosHoje();
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
+        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosHoje();
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
     }
 
     const onClickButtonSemanal = async () => {
-        const {dadosTotais, dadosSobraDeRolo} = await dadosSemanais('anterior');
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
+        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosSemanais('anterior');
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
     }
 
     const onClickButtonQuinzenal = async () => {
-        const {dadosTotais, dadosSobraDeRolo} = await dadosQuinzenais('anterior');
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
+        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosQuinzenais('anterior');
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
     }
 
     const onClickButtonMensal = async () => {
-        const {dadosTotais, dadosSobraDeRolo} = await dadosMensais();
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
+        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosMensais();
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
     }
 
     return (

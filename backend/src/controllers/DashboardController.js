@@ -23,6 +23,7 @@ const controllerGetDadosSemanaisOuQuinzenaisPosteriores = async (request, respon
 
     const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
     const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+    const dadosVMPPorTecido = funcaoDashboardCalcularVelocidadeMediaPorProducao(dados, vetDatas);
     // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
     // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
     // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
@@ -30,6 +31,7 @@ const controllerGetDadosSemanaisOuQuinzenaisPosteriores = async (request, respon
     return response.json({
         dadosTotais,
         dadosSobraDeRolo,
+        dadosVMPPorTecido,
         // dadosTotaisTarefasCompletasOuNao,
         // dadosTotaisTipoSaida,
         // mediaMetrosProduzidos,
@@ -46,6 +48,7 @@ const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, respons
 
     const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
     const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+    const dadosVMPPorTecido = funcaoDashboardCalcularVelocidadeMediaPorProducao(dados, vetDatas);
     // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
     // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
     // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
@@ -53,6 +56,7 @@ const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, respons
     return response.json({
         dadosTotais,
         dadosSobraDeRolo,
+        dadosVMPPorTecido,
         // dadosTotaisTarefasCompletasOuNao,
         // dadosTotaisTipoSaida,
         // mediaMetrosProduzidos,
@@ -67,19 +71,18 @@ const controllerGetDadosDiario = async (request, response) => {
 
         const dados = await pegarDadosMesEAnoEscolhido(data);
 
-        // const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, [data]);
-        // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, [data]);
+        const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, [data]);
+        const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, [data]);
         const dadosVMPPorTecido = funcaoDashboardCalcularVelocidadeMediaPorProducao(dados, [data]);
         // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, [data]);
         // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, [data]);
         // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, [data]);
-        //const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, [data]);
+        // const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, [data]);
 
-        //return response.json(variantesPorTipoTecido);
         return response.json({
-            // dadosTotais,
-            // dadosSobraDeRolo,
-            dadosVMPPorTecido
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
             // dadosTotaisTarefasCompletasOuNao,
             // dadosTotaisTipoSaida,
             // mediaMetrosProduzidos,
@@ -102,6 +105,7 @@ const controllerGetDadosMensal = async (request, response) => {
 
         const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
         const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+        const dadosVMPPorTecido = funcaoDashboardCalcularVelocidadeMediaPorProducao(dados, vetDatas);
         // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
         // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
         // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
@@ -109,6 +113,7 @@ const controllerGetDadosMensal = async (request, response) => {
         return response.json({
             dadosTotais,
             dadosSobraDeRolo,
+            dadosVMPPorTecido,
             // dadosTotaisTarefasCompletasOuNao,
             // dadosTotaisTipoSaida,
             // mediaMetrosProduzidos,

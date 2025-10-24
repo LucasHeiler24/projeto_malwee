@@ -11,6 +11,8 @@ import "../css/dashboard.css"
 import GraficoMediaPizza from "../graficos/dashboard/GraficoMediaPizza";
 import GraficoTotalPizza from "../graficos/dashboard/GraficoTotalPizza";
 import GraficoSobraDeRolo from "../graficos/dashboard/GraficoSobraRoloPizza";
+import CardsDashboard from "../components/components_dashboard/cards_dashboard";
+import GraficoLinhaTendenciaMvp from "../graficos/dashboard/GraficoLinhaTendenciaMvp";
 
 const DashboardPage = () => {
     const navegate = useNavigate();
@@ -39,9 +41,19 @@ const DashboardPage = () => {
                         <HeaderButtonsData />
                     </section>
 
+                    <section className="section-cards-dashboard">
+                        {dadosGraficos && <CardsDashboard 
+                            dadosSobraDeRolo={dadosGraficos.dadosSobraDeRolo}
+                            dadosTotais={dadosGraficos.dadosTotais}
+                            dadosVMP={dadosGraficos.dadosVMPPorTecido}
+                        />}
+                    </section>
                     <section className="section-graficos-pizza">
                         {dadosGraficos && <GraficoMediaPizza dados={dadosGraficos.dadosTotais}/>}
                         {dadosGraficos && <GraficoTotalPizza dados={dadosGraficos.dadosTotais}/>}
+                        {dadosGraficos && <GraficoLinhaTendenciaMvp dados={dadosGraficos.dadosVMPPorTecido}/>}
+                    </section>
+                    <section>
                         {dadosGraficos && <GraficoSobraDeRolo dados={dadosGraficos.dadosSobraDeRolo}/>}
                     </section>
                 </dadosGraficosDashboardContext.Provider>
