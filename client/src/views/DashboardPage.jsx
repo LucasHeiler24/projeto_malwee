@@ -3,12 +3,12 @@ import Cookies from "js-cookie";
 import validToken from "../requests/usuario/validToken";
 import { useNavigate } from "react-router-dom";
 import TemplateMaster from "../templates/TemplateMaster";
-import SideBar from "../components/SideBar";
-import HeaderInfoPage from "../components/HeaderInfoPage";
-import HeaderButtonsData from "../components/HeaderButtonsData";
+import SideBar from "../components/components_templates/SideBar";
+import HeaderInfoPage from "../components/components_templates/HeaderInfoPage";
+import HeaderButtonsData from "../components/components_templates/HeaderButtonsData";
 import dadosGraficosDashboardContext from "../context/dadosGraficosDashboard";
-import GraficoMediaPizza from "../graficos/dashboard/GraficoMediaPizza";
 import "../css/dashboard.css"
+import GraficoMediaPizza from "../graficos/dashboard/GraficoMediaPizza";
 import GraficoTotalPizza from "../graficos/dashboard/GraficoTotalPizza";
 import GraficoSobraDeRolo from "../graficos/dashboard/GraficoSobraRoloPizza";
 

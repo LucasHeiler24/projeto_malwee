@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import "../css/sidebar.css";
-import logo from "../images/malwee_logo.png";
-import imgDashboard from "../images/hub-icon.png";
-import imgComparacao from "../images/difference-icon.png";
-import imgHistorico from "../images/history-icon.png";
-import imgLogout from "../images/logout.png";
+import "../../css/sidebar.css";
+import logo from "../../images/malwee_logo.png";
+import imgDashboard from "../../images/hub-icon.png";
+import imgComparacao from "../../images/difference-icon.png";
+import imgHistorico from "../../images/history-icon.png";
+import imgLogout from "../../images/logout.png";
 import {useNavigate} from "react-router-dom";
 
 const SideBar = () => {

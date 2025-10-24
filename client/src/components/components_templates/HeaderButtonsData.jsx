@@ -1,12 +1,12 @@
-import Button from "./Button";
-import "../css/headerbuttonsdata.css"
-import dadosOntem from "../requests/graficos/dashboard/dados_ontem";
+import Button from "../components_gerais/Button";
+import "../../css/headerbuttonsdata.css"
+import dadosOntem from "../../requests/graficos/dashboard/dados_ontem";
 import { useContext } from "react";
-import dadosGraficosDashboardContext from "../context/dadosGraficosDashboard";
-import dadosHoje from "../requests/graficos/dashboard/dados_hoje";
-import dadosSemanais from "../requests/graficos/dashboard/dados_semanais";
-import dadosQuinzenais from "../requests/graficos/dashboard/dados_quinzenais";
-import dadosMensais from "../requests/graficos/dashboard/dados_mensais";
+import dadosGraficosDashboardContext from "../../context/dadosGraficosDashboard";
+import dadosHoje from "../../requests/graficos/dashboard/dados_hoje";
+import dadosSemanais from "../../requests/graficos/dashboard/dados_semanais";
+import dadosQuinzenais from "../../requests/graficos/dashboard/dados_quinzenais";
+import dadosMensais from "../../requests/graficos/dashboard/dados_mensais";
 
 const HeaderButtonsData = () => {
     const {setDadosGraficos} = useContext(dadosGraficosDashboardContext);

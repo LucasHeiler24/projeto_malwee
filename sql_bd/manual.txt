@@ -1,86 +1,15 @@
-Este é um tutorial de como inicializar o banco de dados de forma funcional.
+Pensei em que as datas semanais, mensais, quinzenais mostrar a evolução ou piora de Eficiência
+Em mostrar em um gráfico de linha ou barras cada dia da semana mostrando a velocidade média de produção
 
---Inicializar o Frontend--
-    cd Frontend/
-    npm run server
+Cálculo de eficiência bruta: (tempo de produção) / (tempo de produção + tempo de setup)
 
---------//--------
+Cálculo Metros Médios por Tira (MMT) por Tecido: (Metros produzidos tecido X) / (Quantidade de tiras do tecido X) (Diário)
 
---Inicializar o Backend--
-    cd Backend/
-    npm run dev
+Cálcular MVP (Metros produzidos do tecido X) / (Tempo de produção tecido X) (diário)
 
+Cálcular tempo médio de setup: (Tempo setup do tecido X) / (Quantidade de tarefas tecido X) (diário)
 
-Algumas funcionalidades a mais para o projeto:
+Cálcular produtividade: (Metros produzidos no dia por tecido) / (17 horas * 60) - tempo setup no dia por tecido
 
-°Adicionar uma rota que compara dados a partir do dia selecionado
-°Adicionar uma rota que compara dados a partir do dia selecionado durante uma semana
-
-°Comparar ganhos e perdas pelos dados, número tarefa e mensalmente
-
-
-Tempo de setup é em segundos
-
-
-Fazer um grafico em diferença mensal
-comparando dois tipos de tecidos em cada mes,
-mes 1: Cotton produziu 1000 e no mes dois produziu 2000
-Fazer uma separção por turnos
-
-Ter um grafico de pizza com a média de cada dia do mês
-
-Calculo diferença mensal entre dois meses por tipo tecidos
-((Valor mes atual - Valor mes anterior) / valor mês anterior) * 100 
-
-Análise de produtividade entre os tecidos
-Pegar o total de metros de cada tecido produzidos no mês / pelo tempo total de produção em horas
-
-Análise de eficiência entre os tecidos
-Pegar o total de tempo de setup em cada tecido produzido no mês / pelo número de tarefas que teve aquele tecido
-
-Análise de disponibilidade entre os tecidos
-Pegar o total de tempo de produção de cada tecido / pelo tempo total de producao + tempo total de setup
-
---verde-malwee: #00a86b;
-  --azul-petroleo: #1a2e35;
-  --cinza-claro: #f4f4f4;
-  --cinza-medio: #a3a3a3;
-  --grafite: #222222;
-  --amarelo-mostarda: #e2b714;
-  --verde-claro: #6fcf97;
-  --vermelho-suave: #eb5757;
-
-Fiz um calculo do mes da empresa de disponibilidade deu 53.53 esta certo? Eu peguei o total de tempo de produção no mes e dividi pelo valor total de setup no mes e multipliquei por 100
-Apenas uma aba de diferença. Nessa aba teriamos 3 selects;
-1 - select: escolheria a data;
-2 - select: escolheria quantos graficos quer comparar;
-3 - select: selecionaria o tipo de dados que quer comparar.
-Objetivo: Trazer uma tela limpa ao usúario, com o intuito de ser algo simples.
-
-Tempo de Setup (Total ou Médio) vs. Metros Produzidos
-Gráfico de Eixo Duplo (Combo Chart): Barras para Metros Produzidos e Linha para Tempo Médio de Setup.
-
-Ao invés de ser somente comparação mensal também incluir um select mostrando o tipo de análise se é diario
-semanal, quinzenal ou mensal
-
-Fazer KPI do tipo de saida
-
-Exemplo de gráfico em comparação
-Liste os 5 tipos de tecidos com a Maior Produtividade e os 5 com a Menor Produtividade no período selecionado.
-
-Produtividade:
-Mede a eficiência real. Calcule: Metros Produzidos​ / Tempo Produção. Compare por tecido, por turno e por dia.
-KPI: Média da Produtividade por Tecido (geral e por turno).
-
-Eficiência:
-Relaciona Setup com Produção. Compare a razão Tempo Setup /​ Metros Produzidos 
-(Tempo Setup / Tempo Produção) por tecido.
-Um setup mais longo deveria resultar em mais metros produzidos, se a eficiência for mantida.
-
-Adicionar porcentagem das conclusões de tarefas
-(Tarefas completas / numero de tarefas) * 100
-
-Fazer um gráfico de variantes de metros produzidos por tipo de tecido
-Para fazer o cálculo utilizamos metros produzidos do tecido / tempo de produção
-Podemos fazer a diferença bruta pega o maior valor e subtrai pelo menor ali esta a diferença em minutos
-Para pegar a porcentagem utilizamos a formula: ((Maior valor - valor menor) / valor menor) * 100
+Cálcular variantes por tipo tecido: (Pego a quantidade de metros do tecido X) / (Tempo de produção no dia)
+Pegar a diferença bruta: (Maior valor - Menor valor) m/min

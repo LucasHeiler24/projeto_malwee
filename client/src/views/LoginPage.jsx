@@ -1,9 +1,9 @@
 import {useForm} from "react-hook-form";
-import TextField from "../components/TextField";
-import Input from "../components/Input";
-import Span from "../components/Span";
-import { useEffect, useState } from "react";
-import FlashMessage from "../components/FlashMessage";
+import TextField from "../components/components_gerais/TextField";
+import Input from "../components/components_gerais/Input";
+import Span from "../components/components_gerais/Span";
+import { useState } from "react";
+import FlashMessage from "../components/components_gerais/FlashMessage";
 import {useNavigate} from "react-router-dom"
 import store from "../requests/usuario/logar";
 import validToken from "../requests/usuario/validToken";

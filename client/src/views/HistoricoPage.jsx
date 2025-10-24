@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import HeaderInfoPage from "../components/HeaderInfoPage";
-import SideBar from "../components/SideBar";
+import HeaderInfoPage from "../components/components_templates/HeaderInfoPage";
+import SideBar from "../components/components_templates/SideBar";
 import validToken from "../requests/usuario/validToken";
 import TemplateMaster from "../templates/TemplateMaster";
 import { useNavigate } from "react-router-dom";

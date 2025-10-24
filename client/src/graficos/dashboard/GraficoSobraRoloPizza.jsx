@@ -2,12 +2,12 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { useEffect, useRef, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import "../../css/graficoMediaPizzaDashboard.css"
-import Button from '../../components/Button';
-import Select from '../../components/Select';
+import Button from '../../components/components_gerais/Button';
+import Select from '../../components/components_gerais/Select';
 import { coresGraficoPizza, removerDuplicados } from '../../helpers/funcoes';
 import imgMenu from "../../images/menu.png"
 import extrairDadosGraficoSobraRolo from '../../extrair_dados/dashboard/extrairDadosGraficoSobraRolo';
-import LegendGraficoSobraRoloPizza from '../../components/LegendGraficoSobraDeRolo';
+import LegendGraficoSobraRoloPizza from '../../components/components_graficos/LegendGraficoSobraDeRolo';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

@@ -1,10 +1,10 @@
 import {useForm} from "react-hook-form";
-import TextField from "../components/TextField";
-import Input from "../components/Input";
-import Span from "../components/Span";
+import TextField from "../components/components_gerais/TextField";
+import Input from "../components/components_gerais/Input";
+import Span from "../components/components_gerais/Span";
 import formRegistroSubmitted from "../requests/usuario/registro";
 import { useState } from "react";
-import FlashMessage from "../components/FlashMessage";
+import FlashMessage from "../components/components_gerais/FlashMessage";
 import {useNavigate} from "react-router-dom"
 import imgLogo from "../images/malwee_logo.png"
 import "../css/registro.css"

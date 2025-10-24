@@ -1,4 +1,4 @@
-import "../css/headerinfopage.css";
+import "../../css/headerinfopage.css";
 
 const HeaderInfoPage = ({nomeUser, nomePage}) => {
 

@@ -1,4 +1,4 @@
-import { coresGraficoPizza } from "../helpers/funcoes";
+import { coresGraficoPizza } from "../../helpers/funcoes";
 
 const LegendGraficoTotalPizza = ({dados}) => {
 
