@@ -74,7 +74,6 @@ const GraficoLinhaTendenciaMvp = ({dados}) => {
 
     useEffect(() => {
         setSelectDataDadosTendencia(separarDadosPorVetores(dadosFiltrados));
-        console.log(selectDataDadosTendencia);
         setSelectTurnoDadosTendencia("0");
         setSelectTipoTecidoDadosTendencia("Meia Malha");
     }, [dados])
