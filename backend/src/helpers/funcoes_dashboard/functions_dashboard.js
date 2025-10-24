@@ -145,36 +145,45 @@ function funcoesDashboardContarTarefaSobrasDeRolo(dados, arrayDatas) {
     for (let i = 0; i < vetTiposTecidos.length; i++) {
         for (let j = 0; j < arrayDatas.length; j++) {
             let objectDadosTarefasCompletas = dados.reduce((objectDados, dados) => {
-                if (dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.sobra_de_rolo == 'TRUE' && dados.tipo_tecido == i && dados.tarefa_completa == 'FALSE') {
-                    objectDados.qtd_sobra_de_rolo_nao_completadas += 1
-                }
                 if (dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.sobra_de_rolo == 'FALSE' && dados.tipo_tecido == i && dados.tarefa_completa == 'TRUE') {
-                    objectDados.qtd_nao_sobra_de_rolo_completadas += 1
+                    objectDados.qtd_nao_sobra_de_rolo_completadas += 1;
                 }
                 if (dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.sobra_de_rolo == 'TRUE' && dados.tipo_tecido == i && dados.tarefa_completa == 'TRUE') {
-                    objectDados.qtd_sobra_de_rolo_completadas += 1
+                    objectDados.qtd_sobra_de_rolo_completadas += 1;
                 }
-                if (dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.sobra_de_rolo == 'FALSE' && dados.tipo_tecido == i && dados.tarefa_completa == 'FALSE') {
-                    objectDados.qtd_nao_sobra_de_rolo_nao_completas += 1
+
+                if (parseInt(dados.data_historico.split(' ')[1].split(':')[0]) < 14 && dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.sobra_de_rolo == 'TRUE' && dados.tipo_tecido == i && dados.tarefa_completa == 'TRUE') {
+                    objectDados.qtd_sobra_de_rolo_primeiro_turno_completas += 1;
+                }
+
+                if (parseInt(dados.data_historico.split(' ')[1].split(':')[0]) >= 14 && dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.sobra_de_rolo == 'TRUE' && dados.tipo_tecido == i && dados.tarefa_completa == 'TRUE') {
+                    objectDados.qtd_sobra_de_rolo_segundo_turno_completas += 1;
+                }
+
+                if (parseInt(dados.data_historico.split(' ')[1].split(':')[0]) < 14 && dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.sobra_de_rolo == 'FALSE' && dados.tipo_tecido == i && dados.tarefa_completa == 'TRUE') {
+                    objectDados.qtd_nao_sobra_de_rolo_primeiro_turno_completas += 1;
+                }
+
+                if (parseInt(dados.data_historico.split(' ')[1].split(':')[0]) >= 14 && dados.data_historico.split(' ')[0] == arrayDatas[j] && dados.sobra_de_rolo == 'FALSE' && dados.tipo_tecido == i && dados.tarefa_completa == 'TRUE') {
+                    objectDados.qtd_nao_sobra_de_rolo_segundo_turno_completas += 1;
                 }
 
                 return objectDados;
             }, {
-                qtd_sobra_de_rolo_nao_completadas: 0,
                 qtd_nao_sobra_de_rolo_completadas: 0,
-
                 qtd_sobra_de_rolo_completadas: 0,
-                qtd_nao_sobra_de_rolo_nao_completas: 0
+
+                qtd_sobra_de_rolo_primeiro_turno_completas: 0,
+                qtd_nao_sobra_de_rolo_primeiro_turno_completas: 0,
+
+                qtd_sobra_de_rolo_segundo_turno_completas: 0,
+                qtd_nao_sobra_de_rolo_segundo_turno_completas: 0,
             });
 
             vetTarefasSobraDeRolo.push({
                 data_historico: arrayDatas[j],
                 tipo_tecido: vetTiposTecidos[i],
-
-                qtd_sobra_de_rolo_nao_completadas: objectDadosTarefasCompletas.qtd_sobra_de_rolo_nao_completadas,
-                qtd_nao_sobra_de_rolo_completadas: objectDadosTarefasCompletas.qtd_nao_sobra_de_rolo_completadas,
-                qtd_sobra_de_rolo_completadas: objectDadosTarefasCompletas.qtd_sobra_de_rolo_completadas,
-                qtd_nao_sobra_de_rolo_nao_completas: objectDadosTarefasCompletas.qtd_nao_sobra_de_rolo_nao_completas
+                ...objectDadosTarefasCompletas
             })
         }
     }

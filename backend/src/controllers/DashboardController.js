@@ -22,7 +22,7 @@ const controllerGetDadosSemanaisOuQuinzenaisPosteriores = async (request, respon
     const dados = await getDadosPelaDataBd(vetDatas);
 
     const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
-    // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+    const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
     // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
     // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
     // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
@@ -30,7 +30,7 @@ const controllerGetDadosSemanaisOuQuinzenaisPosteriores = async (request, respon
 
     return response.json({
         dadosTotais,
-        // dadosSobraDeRolo,
+        dadosSobraDeRolo,
         // dadosTotaisTarefasCompletasOuNao,
         // dadosTotaisTipoSaida,
         // mediaMetrosProduzidos,
@@ -47,7 +47,7 @@ const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, respons
     const dados = await getDadosPelaDataBd(vetDatas);
 
     const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
-    // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+    const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
     // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
     // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
     // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
@@ -55,7 +55,7 @@ const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, respons
 
     return response.json({
         dadosTotais,
-        // dadosSobraDeRolo,
+        dadosSobraDeRolo,
         // dadosTotaisTarefasCompletasOuNao,
         // dadosTotaisTipoSaida,
         // mediaMetrosProduzidos,
@@ -72,7 +72,7 @@ const controllerGetDadosDiario = async (request, response) => {
         const dados = await pegarDadosMesEAnoEscolhido(data);
 
         const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, [data]);
-        // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, [data]);
+        const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, [data]);
         // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, [data]);
         // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, [data]);
         // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, [data]);
@@ -82,7 +82,7 @@ const controllerGetDadosDiario = async (request, response) => {
         //return response.json(variantesPorTipoTecido);
         return response.json({
             dadosTotais,
-            // dadosSobraDeRolo,
+            dadosSobraDeRolo,
             // dadosTotaisTarefasCompletasOuNao,
             // dadosTotaisTipoSaida,
             // mediaMetrosProduzidos,
@@ -105,7 +105,7 @@ const controllerGetDadosMensal = async (request, response) => {
         const vetDatas = removerDuplicados(dados.map((dados) => dados.data_historico.split(' ')[0])).sort();
 
         const dadosTotais = funcaoDashboardProducaoTotalPorTecido(dados, vetDatas);
-        // const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
+        const dadosSobraDeRolo = funcoesDashboardContarTarefaSobrasDeRolo(dados, vetDatas);
         // const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
         // const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
         // const mediaMetrosProduzidos = funcoesDashboardMetrosCalcularMediaNasDatas(dados, vetDatas);
@@ -113,7 +113,7 @@ const controllerGetDadosMensal = async (request, response) => {
 
         return response.json({
             dadosTotais,
-            // dadosSobraDeRolo,
+            dadosSobraDeRolo,
             // dadosTotaisTarefasCompletasOuNao,
             // dadosTotaisTipoSaida,
             // mediaMetrosProduzidos,

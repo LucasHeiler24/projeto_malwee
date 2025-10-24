@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap");
 
-body{
+body {
   font-family: "Syne", sans-serif;
 }
 
 .section-graficos-pizza {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding: 10px;
   gap: 10px;
   margin-top: 10px;
 }

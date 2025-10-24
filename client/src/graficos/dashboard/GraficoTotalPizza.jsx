@@ -5,9 +5,9 @@ import "../../css/graficoMediaPizzaDashboard.css"
 import Button from '../../components/Button';
 import Select from '../../components/Select';
 import { coresGraficoPizza, removerDuplicados } from '../../helpers/funcoes';
-import extrairDadosGraficoPizzaMedia from '../../extrair_dados/dashboard/extrarDadosGraficoPizzaMedia';
 import imgMenu from "../../images/menu.png"
-import LegendGraficoMediaPizza from '../../components/LegendGraficoMediaPizza';
+import extrairDadosGraficoTotalPizza from '../../extrair_dados/dashboard/extrairDadosGraficoTotalPizza';
+import LegendGraficoTotalPizza from '../../components/LegendGraficoTotalPizza';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -16,8 +16,8 @@ const functionData = (dados) => {
         labels: dados.map((dados) => dados.tipo_tecido),
         datasets: [
             {
-                label: 'Média: ',
-                data: dados.map((dados) => parseFloat(dados.media)),
+                label: 'Total: ',
+                data: dados.map((dados) => parseFloat(dados.total)),
                 backgroundColor: coresGraficoPizza
             }
         ]
@@ -33,7 +33,8 @@ const options = {
 }
 
 let titleTipoDado = ['Metros Produzidos', 'Tempo Produção', 'Tempo Setup'];
-const GraficoMediaPizza = ({dados}) => {
+const GraficoTotalPizza = ({dados}) => {
+
     const datas = removerDuplicados(dados.map((dados) => dados.data_historico));
     const datasSelectMedia = datas.map((dados) => {
         return { value: dados, text: new Date(`${dados} 00:00:00`).toLocaleDateString()}
@@ -41,28 +42,28 @@ const GraficoMediaPizza = ({dados}) => {
 
     const headerGraficoPizzaMedia = useRef();
     const [openHeaderGraficoPizza, setOpenHeaderGraficoPizza] = useState(false);
-    const [tipoMedia, setTipoMedia] = useState("0");
-    const [tipoData, setTipoData] = useState(dados[0].data_historico);
-    const [tipoTurno, setTipoTurno] = useState("0");
+    const [tipoTotal, setTipoTotal] = useState("0");
+    const [tipoDataTotal, setTipoDataTotal] = useState(datas[0]);
+    const [tipoTurnoTotal, setTipoTurnoTotal] = useState("0");
     const [dadosGraficos, setDadosGrafico] = useState();
     const [dadosLegend, setDadosLegend] = useState();
 
     useEffect(() => {
         (openHeaderGraficoPizza) ? headerGraficoPizzaMedia.current.style.display = 'flex' : headerGraficoPizzaMedia.current.style.display = 'none';
     }, [openHeaderGraficoPizza]);
-
+    
     useEffect(() =>{
-        setTipoData(dados[0].data_historico);
-        setTipoMedia("0");
-        setTipoTurno("0");
+        setTipoDataTotal(dados[0].data_historico);
+        setTipoTurnoTotal("0");
+        setTipoTotal("0");
     }, [dados]);
 
     useEffect(() =>{
-        let dadosFiltrados = extrairDadosGraficoPizzaMedia(dados, tipoMedia, tipoData, tipoTurno);
+        let dadosFiltrados = extrairDadosGraficoTotalPizza(dados, tipoDataTotal, tipoTotal, tipoTurnoTotal);
         let data = functionData(dadosFiltrados);
         setDadosLegend(dadosFiltrados);
         setDadosGrafico(data);
-    }, [tipoMedia, tipoData, tipoTurno]);
+    }, [tipoTotal, tipoDataTotal, tipoTurnoTotal]);
 
     return (
         <div className='grafico-pizza-dados-totais-media'>
@@ -75,7 +76,7 @@ const GraficoMediaPizza = ({dados}) => {
                 <div className='header-content-filtro'>
                     <label>Selecionar tipo de análise</label>
                     <Select
-                        onChange={setTipoMedia}
+                        onChange={setTipoTotal}
                         opcoes={[
                             {value: "0", text: "Metros Produzidos"},
                             {value: "1", text: "Tempo Produção"},
@@ -83,12 +84,12 @@ const GraficoMediaPizza = ({dados}) => {
                         ]} />
                     <label>Selecionar data</label>
                     <Select
-                        onChange={setTipoData}
+                        onChange={setTipoDataTotal}
                         opcoes={datasSelectMedia} />
                     
                     <label>Selecionar turno</label>
                     <Select
-                        onChange={setTipoTurno}
+                        onChange={setTipoTurnoTotal}
                         opcoes={[
                             {value: "0", text: "Todos"},
                             {value: "1", text: "1° Turno"},
@@ -97,14 +98,14 @@ const GraficoMediaPizza = ({dados}) => {
                 </div>
             </div>
 
-            <h1>Média {titleTipoDado[parseInt(tipoMedia)]} sobre os tecidos</h1>
+            <h1>Total {titleTipoDado[parseInt(tipoTotal)]} sobre os tecidos</h1>
             <div className="grafico-media-totais">
                 {dadosGraficos && <Pie options={options} data={dadosGraficos}/>}
-                {dadosLegend && <LegendGraficoMediaPizza dados={dadosLegend} />}
+                {dadosLegend && <LegendGraficoTotalPizza dados={dadosLegend} />}
             </div>
         </div>
     )
 
 }
 
-export default GraficoMediaPizza;
+export default GraficoTotalPizza;

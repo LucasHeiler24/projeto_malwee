@@ -9,6 +9,8 @@ import HeaderButtonsData from "../components/HeaderButtonsData";
 import dadosGraficosDashboardContext from "../context/dadosGraficosDashboard";
 import GraficoMediaPizza from "../graficos/dashboard/GraficoMediaPizza";
 import "../css/dashboard.css"
+import GraficoTotalPizza from "../graficos/dashboard/GraficoTotalPizza";
+import GraficoSobraDeRolo from "../graficos/dashboard/GraficoSobraRoloPizza";
 
 const DashboardPage = () => {
     const navegate = useNavigate();
@@ -38,7 +40,9 @@ const DashboardPage = () => {
                     </section>
 
                     <section className="section-graficos-pizza">
-                        {dadosGraficos && <GraficoMediaPizza dados={dadosGraficos}/>}
+                        {dadosGraficos && <GraficoMediaPizza dados={dadosGraficos.dadosTotais}/>}
+                        {dadosGraficos && <GraficoTotalPizza dados={dadosGraficos.dadosTotais}/>}
+                        {dadosGraficos && <GraficoSobraDeRolo dados={dadosGraficos.dadosSobraDeRolo}/>}
                     </section>
                 </dadosGraficosDashboardContext.Provider>
             }

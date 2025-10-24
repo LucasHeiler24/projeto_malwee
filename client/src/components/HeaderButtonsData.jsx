@@ -12,28 +12,28 @@ const HeaderButtonsData = () => {
     const {setDadosGraficos} = useContext(dadosGraficosDashboardContext);
 
     const onClickButtonOntem = async () => {
-        const {dadosTotais} = await dadosOntem();
-        setDadosGraficos(dadosTotais);
+        const {dadosTotais, dadosSobraDeRolo} = await dadosOntem();
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
     }
 
     const onClickButtonHoje = async () => {
-        const {dadosTotais} = await dadosHoje();
-        setDadosGraficos(dadosTotais);
+        const {dadosTotais, dadosSobraDeRolo} = await dadosHoje();
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
     }
 
     const onClickButtonSemanal = async () => {
-        const {dadosTotais} = await dadosSemanais('anterior');
-        setDadosGraficos(dadosTotais);
+        const {dadosTotais, dadosSobraDeRolo} = await dadosSemanais('anterior');
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
     }
 
     const onClickButtonQuinzenal = async () => {
-        const {dadosTotais} = await dadosQuinzenais('anterior');
-        setDadosGraficos(dadosTotais);
+        const {dadosTotais, dadosSobraDeRolo} = await dadosQuinzenais('anterior');
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
     }
 
     const onClickButtonMensal = async () => {
-        const {dadosTotais} = await dadosMensais();
-        setDadosGraficos(dadosTotais);
+        const {dadosTotais, dadosSobraDeRolo} = await dadosMensais();
+        setDadosGraficos({dadosTotais, dadosSobraDeRolo});
     }
 
     return (
