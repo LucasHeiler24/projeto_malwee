@@ -1,6 +1,14 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import { useEffect, useRef, useState } from 'react';
-import { Pie } from 'react-chartjs-2';
 import "../../css/graficoMediaPizzaDashboard.css"
 import Button from '../../components/components_gerais/Button';
 import Select from '../../components/components_gerais/Select';
@@ -9,7 +17,15 @@ import imgMenu from "../../images/menu.png"
 import extrairDadosGraficoSobraRolo from '../../extrair_dados/dashboard/extrairDadosGraficoSobraRolo';
 import LegendGraficoSobraRoloPizza from '../../components/components_graficos/LegendGraficoSobraDeRolo';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const functionData = (dados) => {
     return {
@@ -101,9 +117,9 @@ const GraficoSobraDeRolo = ({dados}) => {
 
             <h1>Quantidade de sobra de rolo de {tipoTecidoSobraRolo}</h1>
             <div className="grafico-media-totais">
-                {dadosGraficos && <Pie options={options} data={dadosGraficos}/>}
-                {dadosLegend && <LegendGraficoSobraRoloPizza dados={dadosLegend} />}
+                {dadosGraficos && <Bar options={options} data={dadosGraficos}/>}
             </div>
+            {dadosLegend && <LegendGraficoSobraRoloPizza dados={dadosLegend} />}
         </div>
     )
 

@@ -47,7 +47,6 @@ const separarDadosPorVetores = (dadosFiltrados) => {
     }
     
     vet.push(vet3);
-    console.log(vet)
     return vet;
 }
 

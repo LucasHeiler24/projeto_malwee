@@ -1,10 +1,7 @@
 import { formatarValores } from "../../helpers/funcoes";
 
 const CardsDashboard = (props) => {
-    
-    const vmpPeriodo = props.dadosVMP.map((dados) => {
-        return {total_mvp: dados.vmp_periodo}
-    });
+
     const indicePeriodo = props.dadosSobraDeRolo.map((dados) => {
         return {indice_sobra: dados.indice_sobra_de_rolo}
     });
@@ -12,7 +9,6 @@ const CardsDashboard = (props) => {
         return {total_metros: dados.total_metros_produzidos_no_periodo, eficiencia: dados.eficiencia_bruta_no_periodo}
     });
 
-    const mvpFiltrado = vmpPeriodo.filter((dados) => dados.total_mvp);
     const indiceFiltrado = indicePeriodo.filter((dados) => dados.indice_sobra);
     const dadosTotaisFiltrado = dadosTotais.filter((dados) => dados.total_metros);
 
@@ -20,7 +16,7 @@ const CardsDashboard = (props) => {
         <>
             <div className="card-dashboard">
                 <h1>VMP média atual</h1>
-                <h4>{mvpFiltrado[0].total_mvp} m/s</h4>
+                <h4>{props.dadosVMP[0].vmp_periodo} m/s</h4>
             </div>
             <div className="card-dashboard">
                 <h1>Eficiência bruta de máquina</h1>

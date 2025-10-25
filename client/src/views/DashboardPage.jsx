@@ -13,6 +13,7 @@ import GraficoTotalPizza from "../graficos/dashboard/GraficoTotalPizza";
 import GraficoSobraDeRolo from "../graficos/dashboard/GraficoSobraRoloPizza";
 import CardsDashboard from "../components/components_dashboard/cards_dashboard";
 import GraficoLinhaTendenciaMvp from "../graficos/dashboard/GraficoLinhaTendenciaMvp";
+import GraficoPorTecidoMvp from "../graficos/dashboard/GraficoPorTecidoMvp";
 
 const DashboardPage = () => {
     const navegate = useNavigate();
@@ -25,7 +26,6 @@ const DashboardPage = () => {
         })()
     }, []);
 
-    console.log(dadosGraficos);
     return (
         <TemplateMaster 
             header={
@@ -40,21 +40,21 @@ const DashboardPage = () => {
                     <section className="section-selecionar-datas">
                         <HeaderButtonsData />
                     </section>
-
                     <section className="section-cards-dashboard">
                         {dadosGraficos && <CardsDashboard 
                             dadosSobraDeRolo={dadosGraficos.dadosSobraDeRolo}
                             dadosTotais={dadosGraficos.dadosTotais}
-                            dadosVMP={dadosGraficos.dadosVMPPorTecido}
+                            dadosVMP={dadosGraficos.vetTotalMVPNoPeriodoEscolhido}
                         />}
                     </section>
                     <section className="section-graficos-pizza">
                         {dadosGraficos && <GraficoMediaPizza dados={dadosGraficos.dadosTotais}/>}
-                        {dadosGraficos && <GraficoTotalPizza dados={dadosGraficos.dadosTotais}/>}
-                        {dadosGraficos && <GraficoLinhaTendenciaMvp dados={dadosGraficos.dadosVMPPorTecido}/>}
-                    </section>
-                    <section>
                         {dadosGraficos && <GraficoSobraDeRolo dados={dadosGraficos.dadosSobraDeRolo}/>}
+                        {dadosGraficos && <GraficoTotalPizza dados={dadosGraficos.dadosTotais}/>}
+                    </section>
+                    <section className="section-graficos-mvp">
+                        {dadosGraficos && <GraficoLinhaTendenciaMvp dados={dadosGraficos.vetTotalMVPPorDia}/>}
+                        {dadosGraficos && <GraficoPorTecidoMvp dados={dadosGraficos.vetorSepararPorDatasMVP}/>}
                     </section>
                 </dadosGraficosDashboardContext.Provider>
             }

@@ -12,6 +12,7 @@ const TemplateMaster = ({header, headerInfoPage, pageChildren}) => {
                 alignItems: 'center',
                 flexDirection: 'column',
                 paddingLeft: '65px',
+                paddingBottom: '50px',
                 gap: '10px'
             }}>
                 {headerInfoPage}

@@ -12,28 +12,97 @@ const HeaderButtonsData = () => {
     const {setDadosGraficos} = useContext(dadosGraficosDashboardContext);
 
     const onClickButtonOntem = async () => {
-        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosOntem();
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
+        const {
+            dadosTotais,
+            dadosSobraDeRolo,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+        } = await dadosOntem();
+
+        setDadosGraficos({
+            dadosTotais,
+            dadosSobraDeRolo,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+        });
     }
 
     const onClickButtonHoje = async () => {
-        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosHoje();
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
+        const {
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+            } = await dadosHoje();
+        setDadosGraficos({
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+        });
     }
 
     const onClickButtonSemanal = async () => {
-        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosSemanais('anterior');
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
+        const {
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+            } = await dadosSemanais('anterior');
+        setDadosGraficos({
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+        });
     }
 
     const onClickButtonQuinzenal = async () => {
-        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosQuinzenais('anterior');
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
+        const {
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+        } = await dadosQuinzenais('anterior');
+        setDadosGraficos({
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+            });
     }
 
     const onClickButtonMensal = async () => {
-        const {dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido} = await dadosMensais();
-        setDadosGraficos({dadosTotais, dadosSobraDeRolo, dadosVMPPorTecido});
+        const {
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+            } = await dadosMensais();
+        setDadosGraficos({
+            dadosTotais,
+            dadosSobraDeRolo,
+            dadosVMPPorTecido,
+            vetorSepararPorDatasMVP,
+            vetTotalMVPNoPeriodoEscolhido,
+            vetTotalMVPPorDia
+            });
     }
 
     return (
