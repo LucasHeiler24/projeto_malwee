@@ -23,7 +23,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
         } = await dadosOntem();
 
         setDadosGraficos({
@@ -37,7 +38,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
         });
     }
 
@@ -54,7 +56,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
             } = await dadosHoje();
         setDadosGraficos({
             dadosTotais,
@@ -68,7 +71,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
         });
     }
 
@@ -85,7 +89,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
             } = await dadosSemanais('anterior');
         setDadosGraficos({
             dadosTotais,
@@ -99,7 +104,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
         });
     }
 
@@ -116,7 +122,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
         } = await dadosQuinzenais('anterior');
         setDadosGraficos({
             dadosTotais,
@@ -130,7 +137,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
             });
     }
 
@@ -147,7 +155,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
             } = await dadosMensais();
         setDadosGraficos({
             dadosTotais,
@@ -161,7 +170,8 @@ const HeaderButtonsData = () => {
             dadosProdutividade,
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida
+            dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
             });
     }
 

@@ -10,7 +10,6 @@ import {
 import { Bar } from 'react-chartjs-2';
 
 import { useEffect, useRef, useState } from 'react';
-import "../../css/graficoMediaPizzaDashboard.css"
 import Button from '../../components/components_gerais/Button';
 import Select from '../../components/components_gerais/Select';
 import { coresGraficoPizza, removerDuplicados } from '../../helpers/funcoes';
@@ -41,6 +40,7 @@ const functionData = (dados) => {
 }
 
 const options = {
+    maintainAspectRatio: false,
     plugins: {
         legend: {
             display: false
@@ -76,7 +76,7 @@ const GraficoBarraTarefasCompletas = ({dados}) => {
     }, [tipoDataTarefasCompletas, tipoTecidoTarefasCompletas]);
 
     return (
-        <div className='grafico-pizza-dados-totais-media'>
+        <div className='layout-grafico-menores'>
             {!openHeaderGrafico && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGrafico(true)}/>}
 
             <div ref={headerGraficoPizzaMedia} className="grafico-header-media-totais">
@@ -104,7 +104,7 @@ const GraficoBarraTarefasCompletas = ({dados}) => {
             </div>
 
             <h1>Quantidade de tarefas completas do tecido {setTipoTecidoTarefasCompletas}</h1>
-            <div className="grafico-media-totais">
+            <div className="grafico-barras-menores">
                 {dadosGraficos && <Bar options={options} data={dadosGraficos}/>}
             </div>
         </div>

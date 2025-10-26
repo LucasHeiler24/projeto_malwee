@@ -1,7 +1,7 @@
 .section-header-alterar-datas-buttons {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   border-radius: 10px;
@@ -20,8 +20,8 @@
 .data-personalizar {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: end;
   padding: 10px;
 }
 

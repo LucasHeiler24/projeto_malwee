@@ -165,8 +165,78 @@ function funcaoDashboardCalcularProdutividade(arrayDados, arrayDatas) {
 
 }
 
+function funcaoDashboardCalcularMetrosMediosPorTira(arrayDados, arrayDatas) {
+
+    let vetMetrosMediosPorTira = [];
+    for (let i = 0; i < arrayDatas.length; i++) {
+        for (let j = 0; j < vetTiposTecidos.length; j++) {
+            let objectMetrosMediosPorTira = arrayDados.reduce((objectDados, dados) => {
+                if (parseInt(dados.data_historico.split(' ')[1].split(':')[0]) < 14 &&
+                    dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE' &&
+                    dados.tipo_tecido == j) {
+                    objectDados.total_metros_produzidos_primeiro_turno += dados.metros_produzidos;
+                    objectDados.qtd_tiras_primeiro_turno += dados.quantidade_de_tiras;
+                }
+
+                if (parseInt(dados.data_historico.split(' ')[1].split(':')[0]) >= 14 &&
+                    dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE' &&
+                    dados.tipo_tecido == j) {
+                    objectDados.total_metros_produzidos_segundo_turno += dados.metros_produzidos;
+                    objectDados.qtd_tiras_segundo_turno += dados.quantidade_de_tiras;
+                }
+
+                if (dados.data_historico.split(' ')[0] == arrayDatas[i] && dados.tarefa_completa == 'TRUE' &&
+                    dados.tipo_tecido == j) {
+                    objectDados.total_metros_produzidos_dois_turnos += dados.metros_produzidos;
+                    objectDados.qtd_tiras_dois_turnos += dados.quantidade_de_tiras;
+                }
+                return objectDados;
+            }, {
+                total_metros_produzidos_dois_turnos: 0,
+                total_metros_produzidos_primeiro_turno: 0,
+                total_metros_produzidos_segundo_turno: 0,
+
+                qtd_tiras_dois_turnos: 0,
+                qtd_tiras_primeiro_turno: 0,
+                qtd_tiras_segundo_turno: 0
+            });
+
+            vetMetrosMediosPorTira.push({
+                data_historico: arrayDatas[i],
+                tipo_tecido: vetTiposTecidos[j],
+
+                calc_mmt_dois_turnos:
+                    (objectMetrosMediosPorTira.total_metros_produzidos_dois_turnos == 0) ? 0 :
+                        (objectMetrosMediosPorTira.total_metros_produzidos_dois_turnos / objectMetrosMediosPorTira.qtd_tiras_dois_turnos).toFixed(2),
+
+                calc_mmt_primeiro_turno:
+                    (objectMetrosMediosPorTira.total_metros_produzidos_primeiro_turno == 0) ? 0 :
+                        (objectMetrosMediosPorTira.total_metros_produzidos_primeiro_turno / objectMetrosMediosPorTira.qtd_tiras_primeiro_turno).toFixed(2),
+
+                calc_mmt_segundo_turno:
+                    (objectMetrosMediosPorTira.total_metros_produzidos_segundo_turno == 0) ? 0 :
+                        (objectMetrosMediosPorTira.total_metros_produzidos_segundo_turno / objectMetrosMediosPorTira.qtd_tiras_segundo_turno).toFixed(2),
+
+            })
+        }
+    }
+
+    let separarMetrosMediosPorTira = [];
+    for (let i = 0; i < vetTiposTecidos.length; i++) {
+        separarMetrosMediosPorTira.push(
+            vetMetrosMediosPorTira.filter((dados) => {
+                if (dados.tipo_tecido == vetTiposTecidos[i])
+                    return { ...dados }
+            })
+        )
+    }
+
+    return separarMetrosMediosPorTira;
+}
+
 export {
     funcaoDashboardTempoMedioDeSetup,
     funcaoDashboardMetrosVsTempoSetup,
-    funcaoDashboardCalcularProdutividade
+    funcaoDashboardCalcularProdutividade,
+    funcaoDashboardCalcularMetrosMediosPorTira
 }

@@ -96,7 +96,7 @@ const GraficoBarraVariantesPorTecido = ({dados}) => {
     }, [dados, selectDataDadosVariante, selectTipoTecidoDadosVariantes1, selectTipoTecidoDadosVariantes2, selectTipoTurnoDadosVariantes]);
 
     return (
-        <div className='grafico-linha-dados-mvp' style={{background:'#fff', height: '100%', width: '50%', borderRadius: '10px', padding: '10px'}}>
+        <div className='layout-graficos-centrais'>
             {!openHeaderGraficoTendencia && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoTendencia(true)}/>}
             <div ref={headerGraficoTendencia} className="grafico-header-media-totais">
                 <div className='header-media-grafico'>
@@ -108,15 +108,15 @@ const GraficoBarraVariantesPorTecido = ({dados}) => {
                         onChange={setSelectDataDadosVariante}
                         opcoes={arrayDatas} />}
                     <Select
-                    onChange={setSelectTipoTurnoDadosVariantes}
-                    opcoes={
-                        [
-                            {value: 0, text: 'Todos'},
-                            {value: 1, text: '1° Turno'},
-                            {value: 2, text: '2° Turno'}
-                        ]
-                    }
-                />
+                        onChange={setSelectTipoTurnoDadosVariantes}
+                        opcoes={
+                            [
+                                {value: 0, text: 'Todos'},
+                                {value: 1, text: '1° Turno'},
+                                {value: 2, text: '2° Turno'}
+                            ]
+                        }
+                    />
                 </div>
             </div>
 

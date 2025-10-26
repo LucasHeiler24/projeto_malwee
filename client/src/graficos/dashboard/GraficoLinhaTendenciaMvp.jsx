@@ -64,7 +64,7 @@ const GraficoLinhaTendenciaMvp = ({dados}) => {
     }, [filtrarDados, selectDataDadosTendencia]);
 
     return (
-        <div className='grafico-linha-dados-mvp' style={{background:'#fff', height: '100%', width: '50%', borderRadius: '10px', padding: '10px'}}>
+        <div className='layout-grafico-maiores'>
             {!openHeaderGraficoTendencia && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoTendencia(true)}/>}
             
             <div ref={headerGraficoTendencia} className="grafico-header-media-totais">
@@ -80,7 +80,7 @@ const GraficoLinhaTendenciaMvp = ({dados}) => {
             </div>
 
             <h1>Tendência VMP em cada dia</h1>
-            <div className="grafico-linha-mvp" style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div className="grafico-maiores">
                 {dadosGraficos && <Line data={dadosGraficos}/>}
             </div>
         </div>

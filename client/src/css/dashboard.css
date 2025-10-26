@@ -4,34 +4,17 @@ body {
   font-family: "Syne", sans-serif;
 }
 
-.section-graficos-pizza {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
-  margin-top: 10px;
-}
-
 .section-cards-dashboard {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: start;
-}
-
-.section-graficos-mvp {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 10px;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
 .card-dashboard {
-  width: 250px;
+  width: 300px;
   height: 100px;
   background: #fff;
   padding: 10px;
@@ -46,20 +29,94 @@ body {
   font-size: 25px;
 }
 
-.section-graficos-media-setup-metros-vs-setup,
-.section-graficos-produtividade-variantes,
-.section-graficos-tipo-saida-mtt-tarefas-completas {
+.layout-graficos {
   width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
-}
-
-.div-grafico-tipo-saida-mtt {
-  width: 50%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.layout-graficos-pizza {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.layout-grafico-menores {
+  width: 90%;
+  height: auto;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.layout-graficos-barras-com-pizza {
+  width: 50%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.layout-grafico-pizza {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  gap: 10px;
+}
+
+.grafico-pizza {
+  width: 200px;
+}
+
+.grafico-barras-menores {
+  height: 300px;
+}
+
+.content-page-dashboard {
+  width: 100%;
+  height: 100%;
+  margin-top: 40px;
+  background: rgb(235, 234, 234);
+}
+
+.section-selecionar-datas {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.layout-grafico-maiores {
+  width: 55%;
+  height: auto;
+  padding: 10px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.grafico-maiores {
+  width: auto;
+}
+
+.layout-graficos-centrais {
+  width: 50%;
+  height: auto;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
 }

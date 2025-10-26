@@ -1,7 +1,6 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { useEffect, useRef, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
-import "../../css/graficoMediaPizzaDashboard.css"
 import Button from '../../components/components_gerais/Button';
 import Select from '../../components/components_gerais/Select';
 import { coresGraficoPizza, removerDuplicados } from '../../helpers/funcoes';
@@ -65,7 +64,7 @@ const GraficoMediaPizza = ({dados}) => {
     }, [tipoMedia, tipoData, tipoTurno]);
 
     return (
-        <div className='grafico-pizza-dados-totais-media'>
+        <div className='layout-grafico-menores'>
             {!openHeaderGraficoPizza && <Button text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoPizza(true)}/>}
 
             <div ref={headerGraficoPizzaMedia} className="grafico-header-media-totais">
@@ -98,8 +97,10 @@ const GraficoMediaPizza = ({dados}) => {
             </div>
 
             <h1>Média {titleTipoDado[parseInt(tipoMedia)]} sobre os tecidos</h1>
-            <div className="grafico-media-totais">
-                {dadosGraficos && <Pie options={options} data={dadosGraficos}/>}
+            <div className="layout-grafico-pizza">
+                <div className='grafico-pizza'>
+                    {dadosGraficos && <Pie options={options} data={dadosGraficos}/>}
+                </div>
                 {dadosLegend && <LegendGraficoMediaPizza dados={dadosLegend} />}
             </div>
         </div>

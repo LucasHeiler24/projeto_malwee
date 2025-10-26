@@ -40,14 +40,14 @@ const funcaoData = (dados) => {
                 label: 'Total tipo rolinho',
                 data: dados.map((dados) => dados.qtd_rolinho),
                 borderColor: coresGraficoPizza[1],
-                backgroundColor: coresGraficoPizza[1],
+                backgroundColor: 'rgba(58, 21, 192, 0.5)',
             },
             {
                 fill: true,
                 label: 'Total tipo fraldado',
                 data: dados.map((dados) => dados.qtd_fraldado),
-                borderColor: coresGraficoPizza[4],
-                backgroundColor: coresGraficoPizza[4],
+                borderColor: coresGraficoPizza[3],
+                backgroundColor: 'rgba(206, 194, 22, 0.5)',
             },
         ],
     }
@@ -76,10 +76,10 @@ const GraficoAreaTiposSaida = ({dados}) => {
     useEffect(() => {
         let dadosFiltrados = extrairDadosTiposSaida({dados: dados, tipoData: selectDataDadosTipoSaida, tipoTecido: selectDataTipoTecidoTipoSaida, tipoTurno: selectTurnoDadosTipoSaida});
         setDadosGraficos(funcaoData(dadosFiltrados));
-    }, [selectDataDadosTipoSaida, selectDataTipoTecidoTipoSaida, selectTurnoDadosTipoSaida]);
+    }, [dados, selectDataDadosTipoSaida, selectDataTipoTecidoTipoSaida, selectTurnoDadosTipoSaida]);
 
     return (
-        <div className='grafico-linha-dados-mvp' style={{background:'#fff', height: '100%', width: '100%', borderRadius: '10px', padding: '10px'}}>
+        <div className='layout-graficos-centrais'>
             {!openHeaderGraficoTendencia && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoTendencia(true)}/>}
             
             <div ref={headerGraficoTendencia} className="grafico-header-media-totais">
@@ -117,8 +117,8 @@ const GraficoAreaTiposSaida = ({dados}) => {
                 </div>
             </div>
 
-            <h1>Tendência VMP em cada dia</h1>
-            <div className="grafico-linha-mvp" style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <h1>Tipo saída</h1>
+            <div className="grafico-linha-mvp">
                 {dadosGraficos && <Line data={dadosGraficos}/>}
             </div>
         </div>

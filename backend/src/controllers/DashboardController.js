@@ -9,6 +9,7 @@ import {
     funcoesDashboardVariantesPorTipoTecido
 } from "../helpers/funcoes_dashboard/functions_dashboard.js";
 import {
+    funcaoDashboardCalcularMetrosMediosPorTira,
     funcaoDashboardCalcularProdutividade,
     funcaoDashboardMetrosVsTempoSetup,
     funcaoDashboardTempoMedioDeSetup
@@ -34,6 +35,7 @@ const controllerGetDadosSemanaisOuQuinzenaisPosteriores = async (request, respon
     const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, vetDatas);
     const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
     const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+    const dadosMetrosMediosPorTira = funcaoDashboardCalcularMetrosMediosPorTira(dados, vetDatas);
 
     return response.json({
         dadosTotais,
@@ -47,6 +49,7 @@ const controllerGetDadosSemanaisOuQuinzenaisPosteriores = async (request, respon
         variantesPorTipoTecido,
         dadosTotaisTarefasCompletasOuNao,
         dadosTotaisTipoSaida,
+        dadosMetrosMediosPorTira
     });
 }
 
@@ -67,6 +70,7 @@ const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, respons
     const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, vetDatas);
     const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
     const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+    const dadosMetrosMediosPorTira = funcaoDashboardCalcularMetrosMediosPorTira(dados, vetDatas);
 
     return response.json({
         dadosTotais,
@@ -80,6 +84,7 @@ const controllerGetDadosSemanaisOuQuinzenaisAnteriores = async (request, respons
         variantesPorTipoTecido,
         dadosTotaisTarefasCompletasOuNao,
         dadosTotaisTipoSaida,
+        dadosMetrosMediosPorTira
     });
 }
 
@@ -100,6 +105,7 @@ const controllerGetDadosDiario = async (request, response) => {
         const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, [data]);
         const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, [data]);
         const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, [data]);
+        const dadosMetrosMediosPorTira = funcaoDashboardCalcularMetrosMediosPorTira(dados, [data]);
 
         return response.json({
             dadosTotais,
@@ -113,6 +119,7 @@ const controllerGetDadosDiario = async (request, response) => {
             dadosMediaTempoSetup,
             dadosTotaisTarefasCompletasOuNao,
             dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
         });
 
     }
@@ -139,6 +146,7 @@ const controllerGetDadosMensal = async (request, response) => {
         const variantesPorTipoTecido = funcoesDashboardVariantesPorTipoTecido(dados, vetDatas);
         const dadosTotaisTarefasCompletasOuNao = funcoesDashboardContarTarefasCompletas(dados, vetDatas);
         const dadosTotaisTipoSaida = funcoesDashboardContarQuantidadeTipoDeSaidaDeCadaTecido(dados, vetDatas);
+        const dadosMetrosMediosPorTira = funcaoDashboardCalcularMetrosMediosPorTira(dados, vetDatas);
 
         return response.json({
             dadosTotais,
@@ -152,6 +160,7 @@ const controllerGetDadosMensal = async (request, response) => {
             variantesPorTipoTecido,
             dadosTotaisTarefasCompletasOuNao,
             dadosTotaisTipoSaida,
+            dadosMetrosMediosPorTira
         });
     }
     catch (e) {
