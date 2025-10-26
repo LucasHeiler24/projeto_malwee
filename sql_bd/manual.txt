@@ -3,13 +3,13 @@ Em mostrar em um gráfico de linha ou barras cada dia da semana mostrando a velo
 
 Cálculo de eficiência bruta: (tempo de produção) / (tempo de produção + tempo de setup)
 
-Cálculo Metros Médios por Tira (MMT) por Tecido: (Metros produzidos tecido X) / (Quantidade de tiras do tecido X) (Diário)
-
 Cálcular MVP (Metros produzidos do tecido X) / (Tempo de produção tecido X) (diário)
 
 Cálcular tempo médio de setup: (Tempo setup do tecido X) / (Quantidade de tarefas tecido X) (diário)
 
-Cálcular produtividade: (Metros produzidos no dia por tecido) / (17 horas * 60) - tempo setup no dia por tecido
+Cálcular produtividade: (Metros produzidos no dia por tecido) / (17 horas) - (tempo setup no dia por tecido / 3600)
 
 Cálcular variantes por tipo tecido: (Pego a quantidade de metros do tecido X) / (Tempo de produção no dia)
-Pegar a diferença bruta: (Maior valor - Menor valor) m/min
+Pegar a diferença bruta: (Maior valor - Menor valor) m/s
+
+Cálculo Metros Médios por Tira (MMT) por Tecido: (Metros produzidos tecido X) / (Quantidade de tiras do tecido X) (Diário)

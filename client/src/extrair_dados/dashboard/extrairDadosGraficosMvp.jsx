@@ -4,7 +4,6 @@ const extrairDadosGraficoMvp = ({dadosMVP, tipoData, tipoTecido, tipoTurno}) => 
     const dadosFiltradosPorTecido = separarDadosPorVetores(dadosMVP[parseInt(tipoTecido)]);
     const dadosFiltradosPorData = dadosFiltradosPorTecido[parseInt(tipoData)];
 
-    console.log(dadosFiltradosPorData);
     let dadosFiltradosPorTurno;
     switch(tipoTurno){
         case '0':

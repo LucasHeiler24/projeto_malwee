@@ -45,3 +45,21 @@ body {
 .card-dashboard h4 {
   font-size: 25px;
 }
+
+.section-graficos-media-setup-metros-vs-setup,
+.section-graficos-produtividade-variantes,
+.section-graficos-tipo-saida-mtt-tarefas-completas {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.div-grafico-tipo-saida-mtt {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

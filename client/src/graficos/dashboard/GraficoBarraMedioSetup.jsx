@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { coresGraficoPizza, separarDadosPorVetores } from "../../helpers/funcoes";
+import extrairDadosGraficoMvp from "../../extrair_dados/dashboard/extrairDadosGraficosMvp";
 import imgMenu from "../../images/menu.png"
 import Button from "../../components/components_gerais/Button";
 import Select from "../../components/components_gerais/Select";
 import SelectDataComplexas from "../../components/components_gerais/SelectsDataComplexas";
-import { coresGraficoPizza, separarDadosPorVetores } from "../../helpers/funcoes";
 import SelectDataFixas from "../../components/components_gerais/SelectsDatasFixas";
-import extrairDadosGraficoMvp from "../../extrair_dados/dashboard/extrairDadosGraficosMvp";
 
 import {
   Chart as ChartJS,
@@ -17,6 +17,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import extrairDadosGraficoMediaSetup from "../../extrair_dados/dashboard/extrairDadosGraficoMediaSetup";
 
 ChartJS.register(
   CategoryScale,
@@ -32,7 +33,7 @@ const funcaoData = (dados) => {
         labels: dados.map((dados) => new Date(`${dados.data} 00:00:00`).toLocaleDateString()),
         datasets: [
             {
-                label: 'Tempo Medio de Produção',
+                label: 'Tempo Medio de setup em (s)',
                 data: dados.map((dados) => dados.mvp),
                 backgroundColor: coresGraficoPizza[4],
             }
@@ -45,30 +46,30 @@ const vetTiposTecidos =
         'Meia Malha', 'Cotton', 'Punho Pan', 'Punho New', 'Punho San', 'Punho Elan'
     ];
 
-const GraficoPorTecidoMvp = ({dados}) => {
+const GraficoBarraMediaSetup = ({dados}) => {
     const arrayDatas = separarDadosPorVetores(dados[0].map((dados) => dados.data_historico).sort());
     
     const headerGraficoTendencia = useRef('');
     const [dadosGraficos, setDadosGraficos] = useState();
     const [openHeaderGraficoTendencia, setOpenHeaderGraficoTendencia] = useState(false);
-    const [selectDataDadosTendencia, setSelectDataDadosMvp] = useState(0);
-    const [selectTipoTecidoDadosTendencia, setSelectTipoTecidoDadosMvp] = useState(0);
-    const [selectTurnoDadosTendencia, setSelectTurnoDadosMvp] = useState('0');
+    const [selectDataDadosMedioSetup, setSelectDataDadosMedioSetup] = useState(0);
+    const [selectTipoTecidoDadosMedioSetup, setSelectTipoTecidoDadosMedioSetup] = useState(0);
+    const [selectTurnoDadosMedioSetup, setSelectTurnoDadosMedioSetup] = useState('0');
     
     useEffect(() => {
         (openHeaderGraficoTendencia) ? headerGraficoTendencia.current.style.display = 'flex' : headerGraficoTendencia.current.style.display = 'none';
     }, [openHeaderGraficoTendencia]);
 
     useEffect(() => {
-        setSelectDataDadosMvp(0)
-        setSelectTipoTecidoDadosMvp(0);
-        setSelectTurnoDadosMvp('0');
+        setSelectDataDadosMedioSetup(0)
+        setSelectTipoTecidoDadosMedioSetup(0);
+        setSelectTurnoDadosMedioSetup('0');
     }, [dados]);
 
     useEffect(() => {
-        let dadosFiltrados = extrairDadosGraficoMvp({dadosMVP: dados, tipoData: selectDataDadosTendencia, tipoTecido: selectTipoTecidoDadosTendencia, tipoTurno: selectTurnoDadosTendencia})
+        let dadosFiltrados = extrairDadosGraficoMediaSetup({dadosMVP: dados, tipoData: selectDataDadosMedioSetup, tipoTecido: selectTipoTecidoDadosMedioSetup, tipoTurno: selectTurnoDadosMedioSetup})
         setDadosGraficos(funcaoData(dadosFiltrados));
-    }, [dados, selectDataDadosTendencia, selectTipoTecidoDadosTendencia, selectTurnoDadosTendencia]);
+    }, [dados, selectDataDadosMedioSetup, selectTipoTecidoDadosMedioSetup, selectTurnoDadosMedioSetup]);
 
     return (
         <div className='grafico-linha-dados-mvp' style={{background:'#fff', height: '100%', width: '50%', borderRadius: '10px', padding: '10px'}}>
@@ -81,11 +82,11 @@ const GraficoPorTecidoMvp = ({dados}) => {
                 <div className='header-content-filtro'>                
                     <label>Selecionar data</label>
                     {dados && <SelectDataFixas
-                        onChange={setSelectDataDadosMvp}
+                        onChange={setSelectDataDadosMedioSetup}
                         opcoes={arrayDatas} />}
                     <label>Selecionar tecido</label>
                     <Select
-                        onChange={setSelectTipoTecidoDadosMvp}
+                        onChange={setSelectTipoTecidoDadosMedioSetup}
                         opcoes={
                             [
                                 {value: 0, text: 'Meia Malha'},
@@ -99,7 +100,7 @@ const GraficoPorTecidoMvp = ({dados}) => {
                     />
                     <label>Selecionar turno</label> 
                     <Select
-                        onChange={setSelectTurnoDadosMvp}
+                        onChange={setSelectTurnoDadosMedioSetup}
                         opcoes={
                             [
                                 {value:'0', text: 'Todos'},
@@ -111,7 +112,7 @@ const GraficoPorTecidoMvp = ({dados}) => {
                 </div>
             </div>
 
-            <h1>VMP em cada dia do tecido {vetTiposTecidos[parseInt(selectTipoTecidoDadosTendencia)]}</h1>
+            <h1>Média tempo setup do tecido {vetTiposTecidos[parseInt(selectTipoTecidoDadosMedioSetup)]}</h1>
             <div className="grafico-linha-mvp" style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 {dadosGraficos && <Bar data={dadosGraficos}/>}
             </div>
@@ -119,4 +120,4 @@ const GraficoPorTecidoMvp = ({dados}) => {
     )
 }
 
-export default GraficoPorTecidoMvp
+export default GraficoBarraMediaSetup;

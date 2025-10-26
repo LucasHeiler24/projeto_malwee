@@ -14,6 +14,12 @@ import GraficoSobraDeRolo from "../graficos/dashboard/GraficoSobraRoloPizza";
 import CardsDashboard from "../components/components_dashboard/cards_dashboard";
 import GraficoLinhaTendenciaMvp from "../graficos/dashboard/GraficoLinhaTendenciaMvp";
 import GraficoPorTecidoMvp from "../graficos/dashboard/GraficoPorTecidoMvp";
+import GraficoBarraMediaSetup from "../graficos/dashboard/GraficoBarraMedioSetup";
+import GraficoBarraMetrosVsSetup from "../graficos/dashboard/GraficoBarraMetrosVsSetup";
+import GraficoBarraProdutividade from "../graficos/dashboard/GraficoBarraProdutividade";
+import GraficoBarraVariantesPorTecido from "../graficos/dashboard/GraficoBarraVariantesPorTecido";
+import GraficoBarraTarefasCompletas from "../graficos/dashboard/GraficoBarraTarefasCompletas";
+import GraficoAreaTiposSaida from "../graficos/dashboard/GraficoAreaTiposSaida";
 
 const DashboardPage = () => {
     const navegate = useNavigate();
@@ -55,6 +61,20 @@ const DashboardPage = () => {
                     <section className="section-graficos-mvp">
                         {dadosGraficos && <GraficoLinhaTendenciaMvp dados={dadosGraficos.vetTotalMVPPorDia}/>}
                         {dadosGraficos && <GraficoPorTecidoMvp dados={dadosGraficos.vetorSepararPorDatasMVP}/>}
+                    </section>
+                    <section className="section-graficos-media-setup-metros-vs-setup">
+                        {dadosGraficos && <GraficoBarraMediaSetup dados={dadosGraficos.dadosMediaTempoSetup} />}
+                        {dadosGraficos && <GraficoBarraMetrosVsSetup dados={dadosGraficos.dadosMetrosVsSetup} />}
+                    </section>
+                    <section className="section-graficos-produtividade-variantes">
+                        {dadosGraficos && <GraficoBarraProdutividade dados={dadosGraficos.dadosProdutividade}/>}
+                        {dadosGraficos && <GraficoBarraVariantesPorTecido dados={dadosGraficos.variantesPorTipoTecido}/>}
+                    </section>
+                    <section className="section-graficos-tipo-saida-mtt-tarefas-completas">
+                        <div className="div-grafico-tipo-saida-mtt">
+                            {dadosGraficos && <GraficoAreaTiposSaida dados={dadosGraficos.dadosTotaisTipoSaida} />}
+                        </div>
+                            {dadosGraficos && <GraficoBarraTarefasCompletas dados={dadosGraficos.dadosTotaisTarefasCompletasOuNao} />}
                     </section>
                 </dadosGraficosDashboardContext.Provider>
             }

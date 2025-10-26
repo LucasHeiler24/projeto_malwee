@@ -17,7 +17,13 @@ const HeaderButtonsData = () => {
             dadosSobraDeRolo,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
         } = await dadosOntem();
 
         setDadosGraficos({
@@ -25,7 +31,13 @@ const HeaderButtonsData = () => {
             dadosSobraDeRolo,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
         });
     }
 
@@ -36,7 +48,13 @@ const HeaderButtonsData = () => {
             dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
             } = await dadosHoje();
         setDadosGraficos({
             dadosTotais,
@@ -44,7 +62,13 @@ const HeaderButtonsData = () => {
             dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
         });
     }
 
@@ -55,7 +79,13 @@ const HeaderButtonsData = () => {
             dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
             } = await dadosSemanais('anterior');
         setDadosGraficos({
             dadosTotais,
@@ -63,7 +93,13 @@ const HeaderButtonsData = () => {
             dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
         });
     }
 
@@ -74,7 +110,13 @@ const HeaderButtonsData = () => {
             dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
         } = await dadosQuinzenais('anterior');
         setDadosGraficos({
             dadosTotais,
@@ -82,7 +124,13 @@ const HeaderButtonsData = () => {
             dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
             });
     }
 
@@ -93,7 +141,13 @@ const HeaderButtonsData = () => {
             dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
             } = await dadosMensais();
         setDadosGraficos({
             dadosTotais,
@@ -101,7 +155,13 @@ const HeaderButtonsData = () => {
             dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia
+            vetTotalMVPPorDia,
+            dadosMediaTempoSetup,
+            dadosMetrosVsSetup,
+            dadosProdutividade,
+            variantesPorTipoTecido,
+            dadosTotaisTarefasCompletasOuNao,
+            dadosTotaisTipoSaida
             });
     }
 

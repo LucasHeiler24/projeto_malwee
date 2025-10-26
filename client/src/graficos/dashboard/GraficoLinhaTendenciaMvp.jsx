@@ -79,7 +79,7 @@ const GraficoLinhaTendenciaMvp = ({dados}) => {
                 </div>
             </div>
 
-            <h1>Tendência MVP em cada dia</h1>
+            <h1>Tendência VMP em cada dia</h1>
             <div className="grafico-linha-mvp" style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 {dadosGraficos && <Line data={dadosGraficos}/>}
             </div>
