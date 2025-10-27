@@ -1,7 +1,8 @@
 import { formatarDatasParaAmericanas } from "../../../helpers/funcoes";
 
-const dadosQuinzenais = async (tipoPeriodo) => {
-    const dataPeriodo = formatarDatasParaAmericanas(new Date(`2025-07-15 00:00:00`).toLocaleDateString().split('/'));
+const dadosQuinzenais = async (tipoPeriodo, dataUser) => {
+    const dataPeriodo = (dataUser) ? formatarDatasParaAmericanas(new Date(`${dataUser} 00:00:00`).toLocaleDateString().split('/')) :
+    formatarDatasParaAmericanas(new Date(`2025-07-15 00:00:00`).toLocaleDateString().split('/'));
 
     try{
 

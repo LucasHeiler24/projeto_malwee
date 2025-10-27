@@ -14,7 +14,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import imgMenu from "../../images/menu.png"
 import Button from "../../components/components_gerais/Button";
-import SelectDataComplexas from "../../components/components_gerais/SelectsDataComplexas";
+import SelectDataFixas from "../../components/components_gerais/SelectsDatasFixas";
 
 ChartJS.register(
     CategoryScale,
@@ -73,7 +73,7 @@ const GraficoLinhaTendenciaMvp = ({dados}) => {
                 </div>
                 <div className='header-content-filtro'>                
                     <label>Selecionar data</label>
-                    {filtrarDados && <SelectDataComplexas
+                    {filtrarDados && <SelectDataFixas
                         onChange={setSelectDataDadosTendencia}
                         opcoes={filtrarDados} />}    
                 </div>

@@ -24,6 +24,10 @@ const coresGraficoPizza =
   "#FF9933"
 ]
 
+const formatarDatasParaMeses = (data) => {
+    return data[0] + '-' + data[1];
+}
+
 const separarDadosPorVetores = (dadosFiltrados) => {
     const vet = [];
     let periodo = 5;
@@ -56,5 +60,6 @@ export {
     coresGraficoPizza,
     formatarValores,
     removerDadosUndefined,
-    separarDadosPorVetores
+    separarDadosPorVetores,
+    formatarDatasParaMeses
 }

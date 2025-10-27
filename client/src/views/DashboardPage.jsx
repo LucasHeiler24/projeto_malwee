@@ -21,10 +21,12 @@ import GraficoBarraVariantesPorTecido from "../graficos/dashboard/GraficoBarraVa
 import GraficoBarraTarefasCompletas from "../graficos/dashboard/GraficoBarraTarefasCompletas";
 import GraficoAreaTiposSaida from "../graficos/dashboard/GraficoAreaTiposSaida";
 import GraficoBarraMMT from "../graficos/dashboard/GraficoBarraMMT";
+import ModalEscolherData from "../components/components_gerais/ModalEscolherData";
 
 const DashboardPage = () => {
     const navegate = useNavigate();
     const [dadosGraficos, setDadosGraficos] = useState();
+    const [visibleModal, setVisibleModal] = useState(false);
 
     useEffect(() => {
         (async () =>{
@@ -44,7 +46,8 @@ const DashboardPage = () => {
             pageChildren=
             {
                 <div className="content-page-dashboard">
-                    <dadosGraficosDashboardContext.Provider value={{setDadosGraficos}}>
+                    <dadosGraficosDashboardContext.Provider value={{setDadosGraficos, setVisibleModal, visibleModal}}>
+                    {visibleModal && <ModalEscolherData />}
                         <HeaderButtonsData />
                         <section className="section-cards-dashboard">
                             {dadosGraficos && <CardsDashboard 

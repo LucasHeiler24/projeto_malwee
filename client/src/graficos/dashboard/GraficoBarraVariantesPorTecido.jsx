@@ -3,7 +3,6 @@ import { coresGraficoPizza, separarDadosPorVetores } from "../../helpers/funcoes
 import imgMenu from "../../images/menu.png"
 import Button from "../../components/components_gerais/Button";
 import Select from "../../components/components_gerais/Select";
-import SelectDataComplexas from "../../components/components_gerais/SelectsDataComplexas";
 import SelectDataFixas from "../../components/components_gerais/SelectsDatasFixas";
 import extrairDadoGraficoVariantes from "../../extrair_dados/dashboard/extrairDadoGraficoVariantes";
 

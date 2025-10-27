@@ -120,3 +120,70 @@ body {
   padding: 10px;
   border-radius: 10px;
 }
+
+.content-modal-escolher-data {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-data {
+  width: 80vh;
+  height: 45vh;
+  background: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-header-data {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modal-header-data h1 {
+  font-size: 25px;
+}
+
+.modal-header-data button {
+  cursor: pointer;
+}
+
+.content-modal-data {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content-modal-data input {
+  width: 100%;
+  background: #a7a7a7;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.content-modal-data button {
+  padding: 10px 10px 10px 10px;
+  background: #5400a3;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.content-modal-data button:hover {
+  background: #350166;
+}

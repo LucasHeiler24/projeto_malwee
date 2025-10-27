@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import imgMenu from "../../images/menu.png"
 import Button from "../../components/components_gerais/Button";
 import Select from "../../components/components_gerais/Select";
-import SelectDataComplexas from "../../components/components_gerais/SelectsDataComplexas";
 import { coresGraficoPizza, separarDadosPorVetores } from "../../helpers/funcoes";
 import SelectDataFixas from "../../components/components_gerais/SelectsDatasFixas";
 import extrairDadosGraficoMvp from "../../extrair_dados/dashboard/extrairDadosGraficosMvp";
