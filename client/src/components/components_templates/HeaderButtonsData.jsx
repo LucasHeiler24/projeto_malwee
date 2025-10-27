@@ -7,9 +7,16 @@ import dadosHoje from "../../requests/graficos/dashboard/dados_hoje";
 import dadosSemanais from "../../requests/graficos/dashboard/dados_semanais";
 import dadosQuinzenais from "../../requests/graficos/dashboard/dados_quinzenais";
 import dadosMensais from "../../requests/graficos/dashboard/dados_mensais";
+import contextHistoricoRegistros from "../../context/dadosRegistrosHistorico";
+import dadosHojeHistorico from "../../requests/graficos/historico/dados_hoje";
+import dadosOntemHistorico from "../../requests/graficos/historico/dados_ontem";
+import dadosSemanaisHistorico from "../../requests/graficos/historico/dados_semanais";
+import dadosQuinzenaisHistorico from "../../requests/graficos/historico/dados_quinzenais";
+import dadosMensaisHistorico from "../../requests/graficos/historico/dados_mensais";
 
 const HeaderButtonsData = () => {
     const {setDadosGraficos, setVisibleModal} = useContext(dadosGraficosDashboardContext);
+    const {setDadosHistorico} = useContext(contextHistoricoRegistros)
 
     const onClickButtonOntem = async () => {
         const {
@@ -27,7 +34,7 @@ const HeaderButtonsData = () => {
             dadosMetrosMediosPorTira
         } = await dadosOntem();
 
-        setDadosGraficos({
+        {setDadosGraficos && setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,
             vetorSepararPorDatasMVP,
@@ -40,7 +47,13 @@ const HeaderButtonsData = () => {
             dadosTotaisTarefasCompletasOuNao,
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
-        });
+        })};
+
+        const dadosHistorico = await dadosOntemHistorico();
+
+        {setDadosHistorico && setDadosHistorico({
+            dadosHistorico
+        })};
     }
 
     const onClickButtonHoje = async () => {
@@ -59,10 +72,10 @@ const HeaderButtonsData = () => {
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
             } = await dadosHoje();
-        setDadosGraficos({
+
+        {setDadosGraficos && setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,
-            dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
             vetTotalMVPPorDia,
@@ -73,7 +86,13 @@ const HeaderButtonsData = () => {
             dadosTotaisTarefasCompletasOuNao,
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
-        });
+        })};
+
+        const dadosHistorico = await dadosHojeHistorico();
+
+        {setDadosHistorico && setDadosHistorico({
+            dadosHistorico
+        })};
     }
 
     const onClickButtonSemanal = async () => {
@@ -92,10 +111,10 @@ const HeaderButtonsData = () => {
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
             } = await dadosSemanais('anterior');
-        setDadosGraficos({
+
+        {setDadosGraficos && setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,
-            dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
             vetTotalMVPPorDia,
@@ -106,7 +125,13 @@ const HeaderButtonsData = () => {
             dadosTotaisTarefasCompletasOuNao,
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
-        });
+        })};
+
+        const dadosHistorico = await dadosSemanaisHistorico('anterior');
+
+        {setDadosHistorico && setDadosHistorico({
+            dadosHistorico
+        })};
     }
 
     const onClickButtonQuinzenal = async () => {
@@ -125,10 +150,10 @@ const HeaderButtonsData = () => {
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
         } = await dadosQuinzenais('anterior');
-        setDadosGraficos({
+
+        {setDadosGraficos && setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,
-            dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
             vetTotalMVPPorDia,
@@ -139,7 +164,13 @@ const HeaderButtonsData = () => {
             dadosTotaisTarefasCompletasOuNao,
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
-            });
+        })};
+
+        const dadosHistorico = await dadosQuinzenaisHistorico('anterior');
+
+        {setDadosHistorico && setDadosHistorico({
+            dadosHistorico
+        })};
     }
 
     const onClickButtonMensal = async () => {
@@ -158,10 +189,10 @@ const HeaderButtonsData = () => {
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
             } = await dadosMensais();
-        setDadosGraficos({
+
+        {setDadosGraficos && setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,
-            dadosVMPPorTecido,
             vetorSepararPorDatasMVP,
             vetTotalMVPNoPeriodoEscolhido,
             vetTotalMVPPorDia,
@@ -172,7 +203,13 @@ const HeaderButtonsData = () => {
             dadosTotaisTarefasCompletasOuNao,
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
-            });
+        })};
+
+        const dadosHistorico = await dadosMensaisHistorico();
+
+        {setDadosHistorico && setDadosHistorico({
+            dadosHistorico
+        })};
     }
 
     return (

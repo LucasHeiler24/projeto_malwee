@@ -52,6 +52,11 @@ const funcaoData = (dados) => {
     }
 }
 
+const vetTiposTecidos =
+    [
+        'Meia Malha', 'Cotton', 'Punho Pan', 'Punho New', 'Punho San', 'Punho Elan'
+    ];
+
 const GraficoAreaTiposSaida = ({dados}) => {
     const arrayDatas = separarDadosPorVetores(dados[0].map((dados) => dados.data_historico));
 
@@ -116,7 +121,7 @@ const GraficoAreaTiposSaida = ({dados}) => {
                 </div>
             </div>
 
-            <h1>Tipo saída</h1>
+            <h1>Tipo saída do tecido {vetTiposTecidos[parseInt(selectDataTipoTecidoTipoSaida)]}</h1>
             <div className="grafico-linha-mvp">
                 {dadosGraficos && <Line data={dadosGraficos}/>}
             </div>

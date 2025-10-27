@@ -194,7 +194,10 @@ const ModalEscolherData = () => {
                             ]
                         }
                     />
-                    <Input type={'checkbox'} checked={valueCheckBox} onChange={() => setValueCheckBox(!valueCheckBox)} />
+                    <div className="div-checkbox">
+                        <p>Deseja o período posterior ou anterior a essa data?</p>
+                        <Input type={'checkbox'} checked={valueCheckBox} onChange={() => setValueCheckBox(!valueCheckBox)} />
+                    </div>
                     <Button
                         text={"Personalizar"}
                         onClick={() => onFunctionGetDataPersonalizar(dataPersonalizar, periodoPersonalizar, valueCheckBox)}
