@@ -22,11 +22,13 @@ import GraficoBarraTarefasCompletas from "../graficos/dashboard/GraficoBarraTare
 import GraficoAreaTiposSaida from "../graficos/dashboard/GraficoAreaTiposSaida";
 import GraficoBarraMMT from "../graficos/dashboard/GraficoBarraMMT";
 import ModalEscolherData from "../components/components_gerais/ModalEscolherData";
+import Loading from "../components/components_gerais/Loading";
 
 const DashboardPage = () => {
     const navegate = useNavigate();
     const [dadosGraficos, setDadosGraficos] = useState();
     const [visibleModal, setVisibleModal] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         (async () =>{
@@ -46,9 +48,10 @@ const DashboardPage = () => {
             pageChildren=
             {
                 <div className="content-page-dashboard">
+                    {loading && <Loading />}
                     <dadosGraficosDashboardContext.Provider value={{setDadosGraficos, setVisibleModal, visibleModal}}>
-                    {visibleModal && <ModalEscolherData />}
-                        <HeaderButtonsData />
+                    {visibleModal && <ModalEscolherData setLoading={setLoading}/>}
+                        <HeaderButtonsData setLoading={setLoading} />
                         <section className="section-cards-dashboard">
                             {dadosGraficos && <CardsDashboard 
                                 dadosSobraDeRolo={dadosGraficos.dadosSobraDeRolo}

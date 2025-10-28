@@ -3,7 +3,7 @@ import { formatarDatasParaAmericanas } from "../../../helpers/funcoes";
 const dadosHoje = async (data) => {
     
     const hoje = (data) ? formatarDatasParaAmericanas(new Date(`${data} 00:00:00`).toLocaleDateString().split('/')) :
-    formatarDatasParaAmericanas(new Date("2025-07-15 00:00:00").toLocaleDateString().split('/'));
+    '2025-07-15'
 
     try{
 

@@ -8,7 +8,7 @@ import dadosSemanais from "../../requests/graficos/dashboard/dados_semanais";
 import dadosQuinzenais from "../../requests/graficos/dashboard/dados_quinzenais";
 import dadosMensais from "../../requests/graficos/dashboard/dados_mensais";
 
-const ModalEscolherData = () => {
+const ModalEscolherData = ({setLoading}) => {
     const [periodoPersonalizar, setPeriodoPersonalizar] = useState('0');
     const [dataPersonalizar, setDataPeriodoPersonalizar] = useState();
     const [valueCheckBox, setValueCheckBox] = useState(false);
@@ -16,6 +16,7 @@ const ModalEscolherData = () => {
     const {setDadosGraficos, setVisibleModal} = useContext(dadosGraficosDashboardContext);
 
     const dataPersonalizarDiario = async (data) => {
+        setLoading(true);
         const {
             dadosTotais,
             dadosSobraDeRolo,
@@ -31,6 +32,8 @@ const ModalEscolherData = () => {
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
             } = await dadosHoje(data);
+        setLoading(false);
+
         setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,
@@ -49,6 +52,7 @@ const ModalEscolherData = () => {
     }
 
     const dataPersonalizarSemanal = async (periodo, data) => {
+        setLoading(true);
         const {
             dadosTotais,
             dadosSobraDeRolo,
@@ -64,6 +68,8 @@ const ModalEscolherData = () => {
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
             } = await dadosSemanais(periodo, data);
+        setLoading(false);
+
         setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,
@@ -82,6 +88,8 @@ const ModalEscolherData = () => {
     }
 
     const dataPersonalizarQuinzenal = async (periodo, data) => {
+        setLoading(true);
+
         const {
             dadosTotais,
             dadosSobraDeRolo,
@@ -97,6 +105,8 @@ const ModalEscolherData = () => {
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
         } = await dadosQuinzenais(periodo, data);
+        setLoading(false);
+
         setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,
@@ -111,10 +121,12 @@ const ModalEscolherData = () => {
             dadosTotaisTarefasCompletasOuNao,
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
-            });
+        });
     }
 
     const dataPersonalizarMensal = async (data) => {
+        setLoading(true);
+
         const {
             dadosTotais,
             dadosSobraDeRolo,
@@ -130,6 +142,8 @@ const ModalEscolherData = () => {
             dadosTotaisTipoSaida,
             dadosMetrosMediosPorTira
             } = await dadosMensais(data);
+        setLoading(false);
+
         setDadosGraficos({
             dadosTotais,
             dadosSobraDeRolo,

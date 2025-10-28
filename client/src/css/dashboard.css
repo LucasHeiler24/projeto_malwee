@@ -135,7 +135,7 @@ body {
 
 .modal-data {
   width: 80vh;
-  height: 45vh;
+  height: auto;
   background: #fff;
   display: flex;
   justify-content: flex-start;
@@ -188,17 +188,17 @@ body {
   background: #350166;
 }
 
-.div-checkbox{
+.div-checkbox {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.div-checkbox p{
+.div-checkbox p {
   width: 100%;
 }
 
-.div-checkbox input{
+.div-checkbox input {
   cursor: pointer;
 }

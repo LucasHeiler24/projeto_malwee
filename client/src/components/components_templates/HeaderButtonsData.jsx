@@ -14,15 +14,17 @@ import dadosSemanaisHistorico from "../../requests/graficos/historico/dados_sema
 import dadosQuinzenaisHistorico from "../../requests/graficos/historico/dados_quinzenais";
 import dadosMensaisHistorico from "../../requests/graficos/historico/dados_mensais";
 
-const HeaderButtonsData = () => {
+const HeaderButtonsData = ({setLoading}) => {
     const {setDadosGraficos, setVisibleModal} = useContext(dadosGraficosDashboardContext);
     const {setDadosHistorico} = useContext(contextHistoricoRegistros)
 
     const onClickButtonOntem = async () => {
+        setLoading(true);
         if(setDadosGraficos){
             const {
                 dadosTotais,
                 dadosSobraDeRolo,
+                dadosVMPPorTecido,
                 vetorSepararPorDatasMVP,
                 vetTotalMVPNoPeriodoEscolhido,
                 vetTotalMVPPorDia,
@@ -34,6 +36,7 @@ const HeaderButtonsData = () => {
                 dadosTotaisTipoSaida,
                 dadosMetrosMediosPorTira
             } = await dadosOntem();
+            setLoading(false);
 
             setDadosGraficos({
                 dadosTotais,
@@ -53,7 +56,9 @@ const HeaderButtonsData = () => {
         }
 
         if(setDadosHistorico){
+            setLoading(true);
             const dadosHistorico = await dadosOntemHistorico();
+            setLoading(false);
 
             setDadosHistorico({
                 dadosHistorico
@@ -62,6 +67,7 @@ const HeaderButtonsData = () => {
     }
 
     const onClickButtonHoje = async () => {
+        setLoading(true);
         if(setDadosGraficos){
             const {
                 dadosTotais,
@@ -78,6 +84,7 @@ const HeaderButtonsData = () => {
                 dadosTotaisTipoSaida,
                 dadosMetrosMediosPorTira
                 } = await dadosHoje();
+            setLoading(false);
 
             setDadosGraficos({
                 dadosTotais,
@@ -97,7 +104,9 @@ const HeaderButtonsData = () => {
         }
 
         if(setDadosHistorico){
+            setLoading(true);
             const dadosHistorico = await dadosHojeHistorico();
+            setLoading(false);
 
             setDadosHistorico({
                 dadosHistorico
@@ -106,6 +115,8 @@ const HeaderButtonsData = () => {
     }
 
     const onClickButtonSemanal = async () => {
+        setLoading(true);
+
         if(setDadosGraficos){
             const {
                 dadosTotais,
@@ -122,6 +133,7 @@ const HeaderButtonsData = () => {
                 dadosTotaisTipoSaida,
                 dadosMetrosMediosPorTira
                 } = await dadosSemanais('anterior');
+            setLoading(false);
 
             setDadosGraficos({
                 dadosTotais,
@@ -141,8 +153,9 @@ const HeaderButtonsData = () => {
         }
 
         if(setDadosHistorico){
+            setLoading(true);
             const dadosHistorico = await dadosSemanaisHistorico('anterior');
-
+            setLoading(false);
             setDadosHistorico({
                 dadosHistorico
             })
@@ -151,6 +164,7 @@ const HeaderButtonsData = () => {
     
 
     const onClickButtonQuinzenal = async () => {
+        setLoading(true);
         if(setDadosGraficos){
             const {
                 dadosTotais,
@@ -167,6 +181,7 @@ const HeaderButtonsData = () => {
                 dadosTotaisTipoSaida,
                 dadosMetrosMediosPorTira
             } = await dadosQuinzenais('anterior');
+            setLoading(false);
 
             setDadosGraficos({
                 dadosTotais,
@@ -186,7 +201,9 @@ const HeaderButtonsData = () => {
         }
 
         if(setDadosHistorico){
+            setLoading(true);
             const dadosHistorico = await dadosQuinzenaisHistorico('anterior');
+            setLoading(false);
 
             setDadosHistorico({
                 dadosHistorico
@@ -195,6 +212,7 @@ const HeaderButtonsData = () => {
     }
 
     const onClickButtonMensal = async () => {
+        setLoading(true);
         if(setDadosGraficos){
             const {
                 dadosTotais,
@@ -211,6 +229,7 @@ const HeaderButtonsData = () => {
                 dadosTotaisTipoSaida,
                 dadosMetrosMediosPorTira
                 } = await dadosMensais();
+            setLoading(false);
 
             setDadosGraficos({
                 dadosTotais,
@@ -230,7 +249,9 @@ const HeaderButtonsData = () => {
         }
 
         if(setDadosHistorico){
+            setLoading(true);
             const dadosHistorico = await dadosMensaisHistorico();
+            setLoading(false);
 
             setDadosHistorico({
                 dadosHistorico
