@@ -52,40 +52,40 @@ const DashboardPage = () => {
                     <dadosGraficosDashboardContext.Provider value={{setDadosGraficos, setVisibleModal, visibleModal}}>
                     {visibleModal && <ModalEscolherData setLoading={setLoading}/>}
                         <HeaderButtonsData setLoading={setLoading} />
-                        <section className="section-cards-dashboard">
-                            {dadosGraficos && <CardsDashboard 
-                                dadosSobraDeRolo={dadosGraficos.dadosSobraDeRolo}
-                                dadosTotais={dadosGraficos.dadosTotais}
-                                dadosVMP={dadosGraficos.vetTotalMVPNoPeriodoEscolhido}
-                            />}
-                        </section>
                         
-                        <section className="layout-graficos">
-                            <div className="layout-graficos-pizza">
-                                {dadosGraficos && <GraficoMediaPizza dados={dadosGraficos.dadosTotais}/>}
-                                {dadosGraficos && <GraficoTotalPizza dados={dadosGraficos.dadosTotais}/>}
-                            </div>
-                            <div className="layout-graficos-barras-com-pizza">
-                                {dadosGraficos && <GraficoSobraDeRolo dados={dadosGraficos.dadosSobraDeRolo}/>}
-                                {dadosGraficos && <GraficoBarraTarefasCompletas dados={dadosGraficos.dadosTotaisTarefasCompletasOuNao} />}
-                            </div>
-                        </section>
-                        <section className="layout-graficos">
-                            {dadosGraficos && <GraficoLinhaTendenciaMvp dados={dadosGraficos.vetTotalMVPPorDia}/>}
-                            {dadosGraficos && <GraficoPorTecidoMvp dados={dadosGraficos.vetorSepararPorDatasMVP}/>}
-                        </section>
-                        <section className="layout-graficos">    
-                            {dadosGraficos && <GraficoBarraVariantesPorTecido dados={dadosGraficos.variantesPorTipoTecido}/>}
-                            {dadosGraficos && <GraficoAreaTiposSaida dados={dadosGraficos.dadosTotaisTipoSaida} />}
-                        </section>
-                        <section className="layout-graficos">
-                            {dadosGraficos && <GraficoBarraMediaSetup dados={dadosGraficos.dadosMediaTempoSetup} />}
-                            {dadosGraficos && <GraficoBarraMetrosVsSetup dados={dadosGraficos.dadosMetrosVsSetup} />}
-                        </section>
-                        <section className="layout-graficos">
-                            {dadosGraficos && <GraficoBarraProdutividade dados={dadosGraficos.dadosProdutividade}/>}
-                            {dadosGraficos && <GraficoBarraMMT dados={dadosGraficos.dadosMetrosMediosPorTira} />}
-                        </section>
+                        <article className="primeira-aba-graficos-dashboard">
+                            <section className="section-cards-com-grafico-pizza-dashboard">
+                                <div className="div-cards-dashboard">
+                                    {dadosGraficos && <CardsDashboard 
+                                        dadosSobraDeRolo={dadosGraficos.dadosSobraDeRolo}
+                                        dadosTotais={dadosGraficos.dadosTotais}
+                                        dadosVMP={dadosGraficos.vetTotalMVPNoPeriodoEscolhido}
+                                    />}
+                                </div>
+                                <div className="div-grafico-pizza">
+                                    {dadosGraficos && <GraficoMediaPizza dados={dadosGraficos.dadosTotais}/>}
+                                    {dadosGraficos && <GraficoTotalPizza dados={dadosGraficos.dadosTotais}/>}
+                                </div>
+                            </section>
+
+                            <section className="section-graficos-mvp-dashboard">
+                                <div className="div-grafico-mvp">
+                                    {dadosGraficos && <GraficoLinhaTendenciaMvp dados={dadosGraficos.vetTotalMVPPorDia}/>}
+                                </div>
+                                <div className="div-grafico-mvp">
+                                    {dadosGraficos && <GraficoPorTecidoMvp dados={dadosGraficos.vetorSepararPorDatasMVP}/>}
+                                </div>
+                            </section>
+                        </article>
+                        
+                        {dadosGraficos && <GraficoSobraDeRolo dados={dadosGraficos.dadosSobraDeRolo}/>}
+                        {dadosGraficos && <GraficoBarraTarefasCompletas dados={dadosGraficos.dadosTotaisTarefasCompletasOuNao} />}
+                        {dadosGraficos && <GraficoBarraVariantesPorTecido dados={dadosGraficos.variantesPorTipoTecido}/>}
+                        {dadosGraficos && <GraficoAreaTiposSaida dados={dadosGraficos.dadosTotaisTipoSaida} />}
+                        {dadosGraficos && <GraficoBarraMediaSetup dados={dadosGraficos.dadosMediaTempoSetup} />}
+                        {dadosGraficos && <GraficoBarraMetrosVsSetup dados={dadosGraficos.dadosMetrosVsSetup} />}
+                        {dadosGraficos && <GraficoBarraProdutividade dados={dadosGraficos.dadosProdutividade}/>}
+                        {dadosGraficos && <GraficoBarraMMT dados={dadosGraficos.dadosMetrosMediosPorTira} />}
                     </dadosGraficosDashboardContext.Provider>
                 </div>
             }

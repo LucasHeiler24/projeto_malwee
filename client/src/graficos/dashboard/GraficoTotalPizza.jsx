@@ -65,7 +65,7 @@ const GraficoTotalPizza = ({dados}) => {
     }, [tipoTotal, tipoDataTotal, tipoTurnoTotal]);
 
     return (
-        <div className='layout-grafico-menores'>
+        <div className='layout-grafico-dashboard-pizza'>
             {!openHeaderGraficoPizza && <Button text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoPizza(true)}/>}
 
             <div ref={headerGraficoPizzaMedia} className="grafico-header-media-totais">

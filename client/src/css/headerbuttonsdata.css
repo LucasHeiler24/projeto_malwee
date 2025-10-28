@@ -4,9 +4,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-radius: 10px;
   height: 10vh;
   margin-top: 40px;
+  background: #11181c;
 }
 
 .datas-pre-definidas {
@@ -27,7 +27,7 @@
 
 .datas-pre-definidas button,
 .data-personalizar button {
-  background: #30006e;
+  background: #2c6857;
   color: #fff;
   padding: 10px 15px 10px 15px;
   border-radius: 5px;
@@ -35,5 +35,5 @@
 }
 
 .datas-pre-definidas button:hover {
-  background: #200049;
+  background: #2c8454;
 }

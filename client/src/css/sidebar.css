@@ -1,7 +1,7 @@
 header {
   width: 260px;
   height: 100%;
-  background: #fff;
+  background: #1a3532;
   position: fixed;
   transition: width 0.5s ease-in-out;
   display: flex;
@@ -11,6 +11,7 @@ header {
   padding-top: 10px;
   gap: 20px;
   box-shadow: 2px 2px 5px #000;
+  color: #fff;
 }
 
 .logo-sidebar {
@@ -40,10 +41,9 @@ header {
 }
 
 .link-sidebar:hover {
-  background: #e7e7e7;
+  background: #2c8454;
 }
 
 .menu-sidebar img {
   width: 30px;
-  filter: grayscale(100%) brightness(30%);
 }

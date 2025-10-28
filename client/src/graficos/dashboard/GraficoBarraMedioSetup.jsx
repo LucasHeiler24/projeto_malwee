@@ -71,7 +71,7 @@ const GraficoBarraMediaSetup = ({dados}) => {
     }, [dados, selectDataDadosMedioSetup, selectTipoTecidoDadosMedioSetup, selectTurnoDadosMedioSetup]);
 
     return (
-        <div className='grafico-linha-dados-mvp' style={{background:'#fff', height: '100%', width: '50%', borderRadius: '10px', padding: '10px'}}>
+        <div className='grafico-linha-dados-mvp'>
             {!openHeaderGraficoTendencia && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoTendencia(true)}/>}
             
             <div ref={headerGraficoTendencia} className="grafico-header-media-totais">
@@ -112,7 +112,7 @@ const GraficoBarraMediaSetup = ({dados}) => {
             </div>
 
             <h1>Média tempo setup do tecido {vetTiposTecidos[parseInt(selectTipoTecidoDadosMedioSetup)]}</h1>
-            <div className="grafico-linha-mvp" style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div className="grafico-linha-mvp">
                 {dadosGraficos && <Bar data={dadosGraficos}/>}
             </div>
         </div>

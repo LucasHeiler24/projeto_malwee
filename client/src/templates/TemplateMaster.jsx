@@ -5,8 +5,9 @@ const TemplateMaster = ({header, headerInfoPage, pageChildren}) => {
             <main style={{
                     width: '100%',
                     height: 'auto',
-                    background: 'rgb(235, 234, 234)',
-                    paddingLeft: '60px'
+                    background: '#11181c',
+                    paddingLeft: '60px',
+                    color: '#fff'
                 }}>
                 {headerInfoPage}
                 {pageChildren}

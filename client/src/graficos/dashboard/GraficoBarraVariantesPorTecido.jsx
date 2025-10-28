@@ -123,7 +123,7 @@ const GraficoBarraVariantesPorTecido = ({dados}) => {
             <div style={{width: '100%', display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center'}}>
                 <div style={{width: '50%',display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <label>Selecionar primeiro tecido</label>
-                    <select onChange={(e) => setSelectTipoTecidoDadosVariantes1(e.target.value)} value={selectTipoTecidoDadosVariantes1} style={{width: '100%', padding: '10px', borderRadius: '5px', background: '#a2a2a2'}}>
+                    <select onChange={(e) => setSelectTipoTecidoDadosVariantes1(e.target.value)} value={selectTipoTecidoDadosVariantes1} style={{width: '100%', padding: '10px', borderRadius: '5px', background: '#fff', color: '#000'}}>
                         {opcoesTecidos.map((dados, index) =>
                             <option key={index} value={dados.value}>{dados.text}</option>
                         )}
@@ -131,7 +131,7 @@ const GraficoBarraVariantesPorTecido = ({dados}) => {
                 </div>
                 <div style={{width: '50%',display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <label>Selecionar segundo tecido</label>
-                    <select onChange={(e) => setSelectTipoTecidoDadosVariantes2(e.target.value)} value={selectTipoTecidoDadosVariantes2} style={{width: '100%', padding: '10px', borderRadius: '5px', background: '#a2a2a2'}}>
+                    <select onChange={(e) => setSelectTipoTecidoDadosVariantes2(e.target.value)} value={selectTipoTecidoDadosVariantes2} style={{width: '100%', padding: '10px', borderRadius: '5px', background: '#fff', color: '#000'}}>
                         {opcoesTecidos.map((dados, index) =>
                             <option key={index} value={dados.value}>{dados.text}</option>
                         )}
@@ -142,7 +142,7 @@ const GraficoBarraVariantesPorTecido = ({dados}) => {
                 {dadosGraficos && <Bar data={dadosGraficos}/>}
             </div>
             {diferencaBruta &&<div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <div style={{padding: '10px', width: '50%', background: '#a2a2a2', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+                <div style={{padding: '10px', width: '50%', background: '#2c6857', color: '#fff', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                     <h1>Diferença bruta entre os tecidos</h1>
                     <p>{(diferencaBruta).toFixed(2)} m/s</p>
                 </div>

@@ -74,7 +74,7 @@ const GraficoBarraMMT = ({dados}) => {
     }, [dados, selectTipoTecidoDadosMMT, selectTipoTurnoDadosMMT, selectDataDadosMMT]);
 
     return (
-        <div className='grafico-linha-dados-mvp' style={{background:'#fff', height: '100%', width: '50%', borderRadius: '10px', padding: '10px'}}>
+        <div className='grafico-linha-dados-mvp'>
             {!openHeaderGraficoMMT && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoMMT(true)}/>}
             
             <div ref={headerGraficoTendencia} className="grafico-header-media-totais">
@@ -115,7 +115,7 @@ const GraficoBarraMMT = ({dados}) => {
             </div>
 
             <h1>Métros Médios por Tira do tecido {vetTiposTecidos[parseInt(selectTipoTecidoDadosMMT)]}</h1>
-            <div className="grafico-linha-mvp" style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div className="grafico-linha-mvp">
                 {dadosGraficos && <Bar options={options} data={dadosGraficos}/>}
             </div>
         </div>
