@@ -13,3 +13,39 @@ Cálcular variantes por tipo tecido: (Pego a quantidade de metros do tecido X) /
 Pegar a diferença bruta: (Maior valor - Menor valor) m/s
 
 Cálculo Metros Médios por Tira (MMT) por Tecido: (Metros produzidos tecido X) / (Quantidade de tiras do tecido X) (Diário)
+
+----------------------------------------------
+TELA COMPARAÇÃO IDEIAS DE GRAFICOS
+
+Análise operacional
+
+Aqui seria em dias
+
+Grafico de disponibilidade (Barras)
+Fórmula (tempo produção / (tempo produção + tempo setup))
+
+Gráfico de eficiência (Barras)
+Fórmula (metros produzidos / tempo total)
+
+Cards de perdas e ganhos
+Pode fazer cards comparando perdas ou ganhos de setup e de produção
+
+Análise visual
+
+Aqui seria uma analise por tipos de tecido
+
+Gráfico de tarefas completas x nao completas e mostrar a porcentagem
+
+Dois gráfico de pizza comparando tempo setup vs tempo de produção entre as duas datas
+
+Gráfico de barras comparando duas datas, sendo de metros produzidos, tempo de setup, tempo de produção
+
+
+Dados opcionais
+Pegar o maior desempenho historico e comparar com as duas datas
+
+
+
+
+Grafico de produtividade (linha)
+Gráfico de 

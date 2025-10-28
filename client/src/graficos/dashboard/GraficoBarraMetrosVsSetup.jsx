@@ -54,6 +54,10 @@ const funcaoData = (dados) => {
     }
 }
 
+const options = {
+    maintainAspectRatio: false
+}
+
 const vetTiposTecidos =
     [
         'Meia Malha', 'Cotton', 'Punho Pan', 'Punho New', 'Punho San', 'Punho Elan'
@@ -130,8 +134,8 @@ const GraficoBarraMetrosVsSetup = ({dados}) => {
             </div>
 
             <h1>Metros Vs Setup do tecido {vetTiposTecidos[parseInt(selectTipoTecidoDadosMetrosVsSetup)]}</h1>
-            <div className="grafico-linha-mvp">
-                {dadosGraficos && <Chart type='bar' data={dadosGraficos} />}
+            <div className="grafico-metros-vs-setup">
+                {dadosGraficos && <Chart options={options} type='bar' data={dadosGraficos} />}
             </div>
         </>
     )

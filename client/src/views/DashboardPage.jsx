@@ -78,7 +78,7 @@ const DashboardPage = () => {
                             </section>
                         </article>}
                         
-                        <article className="segunda-aba-graficos-dashboard">
+                        {dadosGraficos && <article className="segunda-aba-graficos-dashboard">
                             <section className="section-grafico-media-setup-sobra-de-rolo">
                                 <div className="div-grafico-media-setup">
                                     {dadosGraficos && <GraficoBarraMediaSetup dados={dadosGraficos.dadosMediaTempoSetup} />}
@@ -95,9 +95,9 @@ const DashboardPage = () => {
                                     {dadosGraficos && <GraficoBarraProdutividade dados={dadosGraficos.dadosProdutividade}/>}
                                 </div>
                             </section>
-                        </article>
+                        </article>}
 
-                        <article className="terceita-aba-graficos-dashboard">
+                        {dadosGraficos && <article className="terceita-aba-graficos-dashboard">
                             <section className="section-grafico-variantes-metros-vs-setup">
                                 <div className="div-grafico-variantes">
                                     {dadosGraficos && <GraficoBarraVariantesPorTecido dados={dadosGraficos.variantesPorTipoTecido}/>}
@@ -114,7 +114,7 @@ const DashboardPage = () => {
                                     {dadosGraficos && <GraficoBarraMMT dados={dadosGraficos.dadosMetrosMediosPorTira} />}
                                 </div>
                             </section>
-                        </article>
+                        </article>}
                     
                     </dadosGraficosDashboardContext.Provider>
                 </div>

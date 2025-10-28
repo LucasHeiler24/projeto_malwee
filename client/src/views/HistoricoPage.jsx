@@ -12,6 +12,7 @@ import FiltersHistorico from "../components/components_historico/FiltersHistoric
 import "../css/historico.css"
 import Button from "../components/components_gerais/Button";
 import ModalRegistroHistorico from "../components/components_historico/ModalRegistroHistorico";
+import Loading from "../components/components_gerais/Loading";
 
 const HistoricoPage = () => {
     const navegate = useNavigate();
@@ -19,6 +20,7 @@ const HistoricoPage = () => {
     const [dadosFiltrados, setDadosFiltrados] = useState();
     const [openRegistroModal, setOpenRegistroModal] = useState(false);
     const [registroVerMais, setRegistroVerMais] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         (async () =>{
@@ -42,7 +44,8 @@ const HistoricoPage = () => {
             pageChildren={
                 <contextHistoricoRegistros.Provider value={{setDadosHistorico}}>
                     {openRegistroModal && <ModalRegistroHistorico dados={registroVerMais} setOpenModalHistorico={setOpenRegistroModal}/>}
-                    <HeaderButtonsData />
+                    {loading && <Loading />}
+                    <HeaderButtonsData setLoading={setLoading}/>
                     <section className="section-historico-filters">
                         {dadosFiltrados && <FiltersHistorico dados={dadosHistorico.dadosHistorico} setDadosFiltrados={setDadosFiltrados}/>}
                     </section>
