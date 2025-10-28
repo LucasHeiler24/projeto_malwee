@@ -42,7 +42,8 @@ const funcaoData = (data) => {
 }
 
 const GraficoLinhaTendenciaMvp = ({dados}) => {
-    
+    const arrayDatas = separarDadosPorVetores(dados.map((dados) => dados.data_historico));
+
     const headerGraficoTendencia = useRef('');
     const [filtrarDados, setFiltrarDados] = useState(separarDadosPorVetores(dados));
     const [dadosGraficos, setDadosGraficos] = useState();
@@ -73,9 +74,9 @@ const GraficoLinhaTendenciaMvp = ({dados}) => {
                 </div>
                 <div className='header-content-filtro'>                
                     <label>Selecionar data</label>
-                    {filtrarDados && <SelectDataFixas
+                    {arrayDatas && <SelectDataFixas
                         onChange={setSelectDataDadosTendencia}
-                        opcoes={filtrarDados} />}    
+                        opcoes={arrayDatas} />}    
                 </div>
             </div>
 

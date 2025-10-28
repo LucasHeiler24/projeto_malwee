@@ -19,197 +19,223 @@ const HeaderButtonsData = () => {
     const {setDadosHistorico} = useContext(contextHistoricoRegistros)
 
     const onClickButtonOntem = async () => {
-        const {
-            dadosTotais,
-            dadosSobraDeRolo,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        } = await dadosOntem();
+        if(setDadosGraficos){
+            const {
+                dadosTotais,
+                dadosSobraDeRolo,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            } = await dadosOntem();
 
-        {setDadosGraficos && setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        })};
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            })
+        }
 
-        const dadosHistorico = await dadosOntemHistorico();
+        if(setDadosHistorico){
+            const dadosHistorico = await dadosOntemHistorico();
 
-        {setDadosHistorico && setDadosHistorico({
-            dadosHistorico
-        })};
+            setDadosHistorico({
+                dadosHistorico
+            })
+        }
     }
 
     const onClickButtonHoje = async () => {
-        const {
-            dadosTotais,
-            dadosSobraDeRolo,
-            dadosVMPPorTecido,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-            } = await dadosHoje();
+        if(setDadosGraficos){
+            const {
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+                } = await dadosHoje();
 
-        {setDadosGraficos && setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        })};
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            });
+        }
 
-        const dadosHistorico = await dadosHojeHistorico();
+        if(setDadosHistorico){
+            const dadosHistorico = await dadosHojeHistorico();
 
-        {setDadosHistorico && setDadosHistorico({
-            dadosHistorico
-        })};
+            setDadosHistorico({
+                dadosHistorico
+            });
+        }
     }
 
     const onClickButtonSemanal = async () => {
-        const {
-            dadosTotais,
-            dadosSobraDeRolo,
-            dadosVMPPorTecido,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-            } = await dadosSemanais('anterior');
+        if(setDadosGraficos){
+            const {
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+                } = await dadosSemanais('anterior');
 
-        {setDadosGraficos && setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        })};
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            });
+        }
 
-        const dadosHistorico = await dadosSemanaisHistorico('anterior');
+        if(setDadosHistorico){
+            const dadosHistorico = await dadosSemanaisHistorico('anterior');
 
-        {setDadosHistorico && setDadosHistorico({
-            dadosHistorico
-        })};
+            setDadosHistorico({
+                dadosHistorico
+            })
+        }
     }
+    
 
     const onClickButtonQuinzenal = async () => {
-        const {
-            dadosTotais,
-            dadosSobraDeRolo,
-            dadosVMPPorTecido,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        } = await dadosQuinzenais('anterior');
+        if(setDadosGraficos){
+            const {
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            } = await dadosQuinzenais('anterior');
 
-        {setDadosGraficos && setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        })};
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            });
+        }
 
-        const dadosHistorico = await dadosQuinzenaisHistorico('anterior');
+        if(setDadosHistorico){
+            const dadosHistorico = await dadosQuinzenaisHistorico('anterior');
 
-        {setDadosHistorico && setDadosHistorico({
-            dadosHistorico
-        })};
+            setDadosHistorico({
+                dadosHistorico
+            });
+        }
     }
 
     const onClickButtonMensal = async () => {
-        const {
-            dadosTotais,
-            dadosSobraDeRolo,
-            dadosVMPPorTecido,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-            } = await dadosMensais();
+        if(setDadosGraficos){
+            const {
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+                } = await dadosMensais();
 
-        {setDadosGraficos && setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        })};
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            });
+        }
 
-        const dadosHistorico = await dadosMensaisHistorico();
+        if(setDadosHistorico){
+            const dadosHistorico = await dadosMensaisHistorico();
 
-        {setDadosHistorico && setDadosHistorico({
-            dadosHistorico
-        })};
+            setDadosHistorico({
+                dadosHistorico
+            });
+        }
     }
 
     return (
