@@ -32,7 +32,8 @@ ChartJS.register(
 );
 
 const options = {
-  indexAxis: 'y'
+    maintainAspectRatio: false,
+    indexAxis: 'y'
 };
 
 const funcaoData = (dados) => {
@@ -74,7 +75,7 @@ const GraficoBarraMMT = ({dados}) => {
     }, [dados, selectTipoTecidoDadosMMT, selectTipoTurnoDadosMMT, selectDataDadosMMT]);
 
     return (
-        <div className='grafico-linha-dados-mvp'>
+        <>
             {!openHeaderGraficoMMT && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoMMT(true)}/>}
             
             <div ref={headerGraficoTendencia} className="grafico-header-media-totais">
@@ -115,10 +116,10 @@ const GraficoBarraMMT = ({dados}) => {
             </div>
 
             <h1>Métros Médios por Tira do tecido {vetTiposTecidos[parseInt(selectTipoTecidoDadosMMT)]}</h1>
-            <div className="grafico-linha-mvp">
+            <div className="grafico-mtt">
                 {dadosGraficos && <Bar options={options} data={dadosGraficos}/>}
             </div>
-        </div>
+        </>
     )
 
 }

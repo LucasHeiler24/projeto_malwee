@@ -13,7 +13,9 @@ body {
   flex-direction: column;
 }
 
-.primeira-aba-graficos-dashboard {
+.primeira-aba-graficos-dashboard,
+.segunda-aba-graficos-dashboard,
+.terceita-aba-graficos-dashboard {
   width: 100%;
   height: auto;
   display: flex;
@@ -78,8 +80,11 @@ body {
 }
 
 .layout-grafico-pizza {
-  width: auto;
+  width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .grafico-pizza {
@@ -100,6 +105,94 @@ body {
   background: #1a3532;
   padding: 10px;
   border-radius: 10px;
+}
+
+.section-grafico-media-setup-sobra-de-rolo,
+.section-grafico-produtividade-tipo-saida,
+.section-grafico-variantes-metros-vs-setup,
+.section-grafico-tarefas-barra-mmt {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.div-grafico-media-setup,
+.div-grafico-mmt {
+  width: 70%;
+  height: auto;
+  background: #1a3532;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.grafico-medio-setup,
+.grafico-mtt {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grafico-medio-setup canvas,
+.grafico-mtt canvas {
+  width: 100%;
+}
+
+.div-grafico-menor-barra {
+  width: 30%;
+  background: #1a3532;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.div-grafico-tipo-saida,
+.div-grafico-produtividade {
+  width: 50%;
+  background: #1a3532;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.div-grafico-variantes,
+.div-grafico-metros-vs-setup {
+  width: 50%;
+  height: 400px;
+  background: #1a3532;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.grafico-variantes-tecidos {
+  width: 100%;
+  height: 230px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.div-diferenca-tecidos {
+  width: 200px;
+  height: 100px;
+  background: #2c8454;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.div-diferenca-tecidos h1 {
+  font-size: 13px;
+}
+
+.div-diferenca-tecidos p {
+  font-size: 22px;
 }
 
 .content-modal-escolher-data {

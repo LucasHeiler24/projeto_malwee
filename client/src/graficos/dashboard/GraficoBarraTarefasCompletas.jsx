@@ -76,7 +76,7 @@ const GraficoBarraTarefasCompletas = ({dados}) => {
     }, [tipoDataTarefasCompletas, tipoTecidoTarefasCompletas]);
 
     return (
-        <div className='layout-grafico-menores'>
+        <>
             {!openHeaderGrafico && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGrafico(true)}/>}
 
             <div ref={headerGraficoPizzaMedia} className="grafico-header-media-totais">
@@ -107,7 +107,7 @@ const GraficoBarraTarefasCompletas = ({dados}) => {
             <div className="grafico-barras-menores">
                 {dadosGraficos && <Bar options={options} data={dadosGraficos}/>}
             </div>
-        </div>
+        </>
     )
 }
 

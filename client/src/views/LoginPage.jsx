@@ -46,34 +46,38 @@ const LoginPage = () => {
             <section className="section-registro">
                 <div className="div-content-form">
                     <form className="form-registro" onSubmit={handleSubmit(submittedFormLogin)}>
-                    <div className="div-header-form">
-                        <h1>Logar-se</h1>
-                        {statusRegistro && <FlashMessage styles={styleStatusRegistro} text={messageStatusRegistro} />}
-                    </div>
-                        <TextField
-                            htmlFor={"id_matricula"}
-                            textLabel={"Informe o número da matrícula"}
-                            placeholder={"Informe o seu número de matrícula:"}
-                            typeInput={"number"}
-                            register={register("id_matricula", {
-                                required: "O identificador da matrícula é obrigatório",
-                            })} 
-                        />
-                        {errors?.id_matricula?.message && <Span text={errors.id_matricula.message} /> }
-
-                        <TextField 
-                            htmlFor={"senha_user"}
-                            textLabel={"Informe a sua senha"}
-                            placeholder={"Informe sua senha:"}
-                            typeInput={"password"}
-                            register={register("senha_usuario", {
-                                required: "A senha é obrigatória",
-                            })} 
+                        <div className="div-header-form">
+                            <h1>Logar-se</h1>
+                            {statusRegistro && <FlashMessage styles={styleStatusRegistro} text={messageStatusRegistro} />}
+                        </div>
+                            <TextField
+                                htmlFor={"id_matricula"}
+                                textLabel={"Informe o número da matrícula"}
+                                placeholder={"Informe o seu número de matrícula:"}
+                                typeInput={"number"}
+                                register={register("id_matricula", {
+                                    required: "O identificador da matrícula é obrigatório",
+                                })} 
                             />
-                        {errors?.senha_user?.message && <Span text={errors.senha_user.message} /> }
+                            {errors?.id_matricula?.message && <Span text={errors.id_matricula.message} /> }
 
-                        <Input type={"submit"} value={"Logar"} />
+                            <TextField 
+                                htmlFor={"senha_user"}
+                                textLabel={"Informe a sua senha"}
+                                placeholder={"Informe sua senha:"}
+                                typeInput={"password"}
+                                register={register("senha_usuario", {
+                                    required: "A senha é obrigatória",
+                                })} 
+                                />
+                            {errors?.senha_user?.message && <Span text={errors.senha_user.message} /> }
+
+                            <Input type={"submit"} value={"Logar"} />
                     </form>
+                    <div className="form-footer">
+                        <h1>Não possui conta? Registra-se!</h1>
+                        <a href="/registro">Registrar-se</a>
+                    </div>
                 </div>
             </section>
 

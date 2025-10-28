@@ -53,7 +53,7 @@ const DashboardPage = () => {
                     {visibleModal && <ModalEscolherData setLoading={setLoading}/>}
                         <HeaderButtonsData setLoading={setLoading} />
                         
-                        <article className="primeira-aba-graficos-dashboard">
+                        {dadosGraficos && <article className="primeira-aba-graficos-dashboard">
                             <section className="section-cards-com-grafico-pizza-dashboard">
                                 <div className="div-cards-dashboard">
                                     {dadosGraficos && <CardsDashboard 
@@ -76,16 +76,46 @@ const DashboardPage = () => {
                                     {dadosGraficos && <GraficoPorTecidoMvp dados={dadosGraficos.vetorSepararPorDatasMVP}/>}
                                 </div>
                             </section>
-                        </article>
+                        </article>}
                         
-                        {dadosGraficos && <GraficoSobraDeRolo dados={dadosGraficos.dadosSobraDeRolo}/>}
-                        {dadosGraficos && <GraficoBarraTarefasCompletas dados={dadosGraficos.dadosTotaisTarefasCompletasOuNao} />}
-                        {dadosGraficos && <GraficoBarraVariantesPorTecido dados={dadosGraficos.variantesPorTipoTecido}/>}
-                        {dadosGraficos && <GraficoAreaTiposSaida dados={dadosGraficos.dadosTotaisTipoSaida} />}
-                        {dadosGraficos && <GraficoBarraMediaSetup dados={dadosGraficos.dadosMediaTempoSetup} />}
-                        {dadosGraficos && <GraficoBarraMetrosVsSetup dados={dadosGraficos.dadosMetrosVsSetup} />}
-                        {dadosGraficos && <GraficoBarraProdutividade dados={dadosGraficos.dadosProdutividade}/>}
-                        {dadosGraficos && <GraficoBarraMMT dados={dadosGraficos.dadosMetrosMediosPorTira} />}
+                        <article className="segunda-aba-graficos-dashboard">
+                            <section className="section-grafico-media-setup-sobra-de-rolo">
+                                <div className="div-grafico-media-setup">
+                                    {dadosGraficos && <GraficoBarraMediaSetup dados={dadosGraficos.dadosMediaTempoSetup} />}
+                                </div>
+                                <div className="div-grafico-menor-barra">
+                                    {dadosGraficos && <GraficoSobraDeRolo dados={dadosGraficos.dadosSobraDeRolo}/>}
+                                </div>
+                            </section>
+                            <section className="section-grafico-produtividade-tipo-saida">
+                                <div className="div-grafico-tipo-saida">
+                                    {dadosGraficos && <GraficoAreaTiposSaida dados={dadosGraficos.dadosTotaisTipoSaida} />}
+                                </div>
+                                <div className="div-grafico-produtividade">
+                                    {dadosGraficos && <GraficoBarraProdutividade dados={dadosGraficos.dadosProdutividade}/>}
+                                </div>
+                            </section>
+                        </article>
+
+                        <article className="terceita-aba-graficos-dashboard">
+                            <section className="section-grafico-variantes-metros-vs-setup">
+                                <div className="div-grafico-variantes">
+                                    {dadosGraficos && <GraficoBarraVariantesPorTecido dados={dadosGraficos.variantesPorTipoTecido}/>}
+                                </div>
+                                <div className="div-grafico-metros-vs-setup">
+                                    {dadosGraficos && <GraficoBarraMetrosVsSetup dados={dadosGraficos.dadosMetrosVsSetup} />}
+                                </div>
+                            </section>
+                            <section className="section-grafico-tarefas-barra-mmt">
+                                <div className="div-grafico-menor-barra">
+                                    {dadosGraficos && <GraficoBarraTarefasCompletas dados={dadosGraficos.dadosTotaisTarefasCompletasOuNao} />}
+                                </div>
+                                <div className="div-grafico-mmt">
+                                    {dadosGraficos && <GraficoBarraMMT dados={dadosGraficos.dadosMetrosMediosPorTira} />}
+                                </div>
+                            </section>
+                        </article>
+                    
                     </dadosGraficosDashboardContext.Provider>
                 </div>
             }

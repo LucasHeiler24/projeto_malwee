@@ -79,6 +79,10 @@ const RegistroPage = () => {
 
                         <Input type={"submit"} value={"Registrar"} />
                     </form>
+                    <div className="form-footer">
+                        <h1>Já possui conta? Logar-se!</h1>
+                        <a href="/login">Logar-se</a>
+                    </div>
                 </div>
             </section>
 

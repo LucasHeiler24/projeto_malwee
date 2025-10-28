@@ -40,6 +40,10 @@ const funcaoData = (dados) => {
     }
 }
 
+const options = {
+    maintainAspectRatio: false
+}
+
 const vetTiposTecidos =
     [
         'Meia Malha', 'Cotton', 'Punho Pan', 'Punho New', 'Punho San', 'Punho Elan'
@@ -71,7 +75,7 @@ const GraficoBarraMediaSetup = ({dados}) => {
     }, [dados, selectDataDadosMedioSetup, selectTipoTecidoDadosMedioSetup, selectTurnoDadosMedioSetup]);
 
     return (
-        <div className='grafico-linha-dados-mvp'>
+        <>
             {!openHeaderGraficoTendencia && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoTendencia(true)}/>}
             
             <div ref={headerGraficoTendencia} className="grafico-header-media-totais">
@@ -112,10 +116,10 @@ const GraficoBarraMediaSetup = ({dados}) => {
             </div>
 
             <h1>Média tempo setup do tecido {vetTiposTecidos[parseInt(selectTipoTecidoDadosMedioSetup)]}</h1>
-            <div className="grafico-linha-mvp">
-                {dadosGraficos && <Bar data={dadosGraficos}/>}
+            <div className="grafico-medio-setup">
+                {dadosGraficos && <Bar options={options} data={dadosGraficos}/>}
             </div>
-        </div>
+        </>
     )
 }
 

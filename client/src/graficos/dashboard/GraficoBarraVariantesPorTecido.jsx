@@ -95,7 +95,7 @@ const GraficoBarraVariantesPorTecido = ({dados}) => {
     }, [dados, selectDataDadosVariante, selectTipoTecidoDadosVariantes1, selectTipoTecidoDadosVariantes2, selectTipoTurnoDadosVariantes]);
 
     return (
-        <div className='layout-graficos-centrais'>
+        <>
             {!openHeaderGraficoTendencia && <Button className="btn-abrir-header-grafico-pizza" text={<img src={imgMenu}></img>} onClick={() => setOpenHeaderGraficoTendencia(true)}/>}
             <div ref={headerGraficoTendencia} className="grafico-header-media-totais">
                 <div className='header-media-grafico'>
@@ -138,16 +138,16 @@ const GraficoBarraVariantesPorTecido = ({dados}) => {
                     </select>
                 </div>
             </div>
-            <div className="grafico-linha-mvp" style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div className="grafico-variantes-tecidos">
                 {dadosGraficos && <Bar data={dadosGraficos}/>}
+                {diferencaBruta && 
+                    <div className="div-diferenca-tecidos">
+                        <h1>Diferença bruta entre os tecidos</h1>
+                        <p>{(diferencaBruta).toFixed(2)} m/s</p>
+                    </div>
+                }
             </div>
-            {diferencaBruta &&<div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <div style={{padding: '10px', width: '50%', background: '#2c6857', color: '#fff', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-                    <h1>Diferença bruta entre os tecidos</h1>
-                    <p>{(diferencaBruta).toFixed(2)} m/s</p>
-                </div>
-            </div>}
-        </div>
+        </>
     )
 }
 
