@@ -4,10 +4,14 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import TemplateMaster from "../templates/TemplateMaster";
 import validToken from "../requests/usuario/validToken";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import HeaderSelecionarDatas from "../components/components_comparacao/HeaderSelecionarDatas";
+import "../css/comparacao.css"
+import contextGraficosComparacao from "../context/dadosGraficoComparacao";
 
 const ComparacaoPage = () => {
     const navegate = useNavigate();
+    const [dadosGraficosComparacao, setDadosGraficosComparacao] = useState();
 
     useEffect(() => {
         (async () =>{
@@ -16,11 +20,19 @@ const ComparacaoPage = () => {
         })()
     }, []);
 
+    console.log(dadosGraficosComparacao);
     return (
         <TemplateMaster 
             header={<SideBar />}
             headerInfoPage={<HeaderInfoPage nomePage={"Comparação"} nomeUser={Cookies.get('nome')} />}
-            pageChildren={"Content Comparação"}
+            pageChildren=
+            {
+                <div className="div-content-comparacao">
+                    <contextGraficosComparacao.Provider value={{setDadosGraficosComparacao}}>
+                        <HeaderSelecionarDatas />
+                    </contextGraficosComparacao.Provider>
+                </div>
+            }
         />
     )
 
