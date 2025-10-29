@@ -66,17 +66,17 @@ const controllerComparacaoAnterior = async (request, response) => {
     const dadosSetupProducao2 = funcaoComparacaoSetupEProducaoPorDiaNoPeriodo(dadosDatas2, vetDatas2);
     const dadosVariacaoEntreOPeriodo = funcaoComparacaoAumentoEDiminuicaoEntreOPeriodo(dadosSetupProducao1, dadosSetupProducao2)
 
-    const dadosDisponibilidade1 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDiarios1, vetDatas1);
-    const dadosDisponibilidade2 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDiarios2, vetDatas2);
+    const dadosDisponibilidade1 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDatas1, vetDatas1);
+    const dadosDisponibilidade2 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDatas2, vetDatas2);
 
-    const dadosProdutividade1 = funcaoDashboardCalcularProdutividade(dadosDiarios1, vetDatas1);
-    const dadosProdutividade2 = funcaoDashboardCalcularProdutividade(dadosDiarios2, vetDatas2);
+    const dadosProdutividade1 = funcaoDashboardCalcularProdutividade(dadosDatas1, vetDatas1);
+    const dadosProdutividade2 = funcaoDashboardCalcularProdutividade(dadosDatas2, vetDatas2);
 
-    const dadosMetrosMediaPorTira1 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDiarios1, vetDatas1);
-    const dadosMetrosMediaPorTira2 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDiarios2, vetDatas2);
+    const dadosMetrosMediaPorTira1 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDatas1, vetDatas1);
+    const dadosMetrosMediaPorTira2 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDatas2, vetDatas2);
 
-    const dadosTaxaDeProducao1 = funcaoComparacaoTaxaDeProducao(dadosDiarios1, vetDatas1);
-    const dadosTaxaDeProducao2 = funcaoComparacaoTaxaDeProducao(dadosDiarios2, vetDatas2);
+    const dadosTaxaDeProducao1 = funcaoComparacaoTaxaDeProducao(dadosDatas1, vetDatas1);
+    const dadosTaxaDeProducao2 = funcaoComparacaoTaxaDeProducao(dadosDatas2, vetDatas2);
 
     return response.json({
         dadosSetupProducao1,
@@ -110,17 +110,17 @@ const controllerComparacaoPosterior = async (request, response) => {
     const dadosSetupProducao2 = funcaoComparacaoSetupEProducaoPorDiaNoPeriodo(dadosDatas2, vetDatas2);
     const dadosVariacaoEntreOPeriodo = funcaoComparacaoAumentoEDiminuicaoEntreOPeriodo(dadosSetupProducao1, dadosSetupProducao2)
 
-    const dadosDisponibilidade1 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDiarios1, vetDatas1);
-    const dadosDisponibilidade2 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDiarios2, vetDatas2);
+    const dadosDisponibilidade1 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDatas1, vetDatas1);
+    const dadosDisponibilidade2 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDatas2, vetDatas2);
 
-    const dadosProdutividade1 = funcaoDashboardCalcularProdutividade(dadosDiarios1, vetDatas1);
-    const dadosProdutividade2 = funcaoDashboardCalcularProdutividade(dadosDiarios2, vetDatas2);
+    const dadosProdutividade1 = funcaoDashboardCalcularProdutividade(dadosDatas1, vetDatas1);
+    const dadosProdutividade2 = funcaoDashboardCalcularProdutividade(dadosDatas2, vetDatas2);
 
-    const dadosMetrosMediaPorTira1 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDiarios1, vetDatas1);
-    const dadosMetrosMediaPorTira2 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDiarios2, vetDatas2);
+    const dadosMetrosMediaPorTira1 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDatas1, vetDatas1);
+    const dadosMetrosMediaPorTira2 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDatas2, vetDatas2);
 
-    const dadosTaxaDeProducao1 = funcaoComparacaoTaxaDeProducao(dadosDiarios1, vetDatas1);
-    const dadosTaxaDeProducao2 = funcaoComparacaoTaxaDeProducao(dadosDiarios2, vetDatas2);
+    const dadosTaxaDeProducao1 = funcaoComparacaoTaxaDeProducao(dadosDatas1, vetDatas1);
+    const dadosTaxaDeProducao2 = funcaoComparacaoTaxaDeProducao(dadosDatas2, vetDatas2);
 
     return response.json({
         dadosSetupProducao1,
@@ -152,17 +152,17 @@ const controllerComparacaoMensal = async (request, response) => {
     const dadosSetupProducao2 = funcaoComparacaoSetupEProducaoPorDiaNoPeriodo(dadosMensais2, datasMes2);
     const dadosVariacaoEntreOPeriodo = funcaoComparacaoAumentoEDiminuicaoEntreOPeriodo(dadosSetupProducao1, dadosSetupProducao2)
 
-    const dadosDisponibilidade1 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDiarios1, datasMes1);
-    const dadosDisponibilidade2 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosDiarios2, datasMes2);
+    const dadosDisponibilidade1 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosMensais1, datasMes1);
+    const dadosDisponibilidade2 = funcaoComparacaoDisponibilidadeEntreOsTecidosNoPeriodo(dadosMensais2, datasMes2);
 
-    const dadosProdutividade1 = funcaoDashboardCalcularProdutividade(dadosDiarios1, datasMes1);
-    const dadosProdutividade2 = funcaoDashboardCalcularProdutividade(dadosDiarios2, datasMes2);
+    const dadosProdutividade1 = funcaoDashboardCalcularProdutividade(dadosMensais1, datasMes1);
+    const dadosProdutividade2 = funcaoDashboardCalcularProdutividade(dadosMensais2, datasMes2);
 
-    const dadosMetrosMediaPorTira1 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDiarios1, datasMes1);
-    const dadosMetrosMediaPorTira2 = funcaoDashboardCalcularMetrosMediosPorTira(dadosDiarios2, datasMes2);
+    const dadosMetrosMediaPorTira1 = funcaoDashboardCalcularMetrosMediosPorTira(dadosMensais1, datasMes1);
+    const dadosMetrosMediaPorTira2 = funcaoDashboardCalcularMetrosMediosPorTira(dadosMensais2, datasMes2);
 
-    const dadosTaxaDeProducao1 = funcaoComparacaoTaxaDeProducao(dadosDiarios1, datasMes1);
-    const dadosTaxaDeProducao2 = funcaoComparacaoTaxaDeProducao(dadosDiarios2, datasMes2);
+    const dadosTaxaDeProducao1 = funcaoComparacaoTaxaDeProducao(dadosMensais1, datasMes1);
+    const dadosTaxaDeProducao2 = funcaoComparacaoTaxaDeProducao(dadosMensais2, datasMes2);
 
     return response.json({
         dadosSetupProducao1,

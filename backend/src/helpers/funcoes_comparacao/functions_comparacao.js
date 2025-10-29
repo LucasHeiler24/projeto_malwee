@@ -82,20 +82,42 @@ function funcaoComparacaoAumentoEDiminuicaoEntreOPeriodo(arrayDados1, arrayDados
 
     let calcSetup = totalSetupEProducaoEntreOPeriodo1.total_setup_data1 - totalSetupEProducaoEntreOPeriodo2.total_setup_data2;
     let calcProducao = totalSetupEProducaoEntreOPeriodo1.total_producao_data1 - totalSetupEProducaoEntreOPeriodo2.total_producao_data2;
-    let maiorSetup;
-    let menorProduzido;
+    let maiorSetupPeriodo;
+    let menorProducaoPeriodo;
 
-    maiorSetup = (totalSetupEProducaoEntreOPeriodo1.total_setup_data1 < totalSetupEProducaoEntreOPeriodo2.total_setup_data2) ?
-        `O segundo período teve um aumento de setup` : `O primeiro período teve um aumento de setup`
+    maiorSetupPeriodo = (totalSetupEProducaoEntreOPeriodo1.total_setup_data1 < totalSetupEProducaoEntreOPeriodo2.total_setup_data2) ?
+        true : false
 
-    menorProduzido = (totalSetupEProducaoEntreOPeriodo1.total_setup_data1 < totalSetupEProducaoEntreOPeriodo2.total_setup_data2) ?
-        `O segundo período teve um aumento de produção` : `O primeiro período teve um aumento de produção`
+    menorProducaoPeriodo = (totalSetupEProducaoEntreOPeriodo1.total_setup_data1 < totalSetupEProducaoEntreOPeriodo2.total_setup_data2) ?
+        true : false
+
+    let calcVariacaoPeriodoSetup;
+    let calcVariacaoPeriodoProducao;
+    let textVariacaoPeriodoSetup;
+    let textVariacaoPeriodoProducao;
+
+    if(maiorSetupPeriodo){
+        textVariacaoPeriodoSetup = "O segundo período teve uma variação de produção de";
+        calcVariacaoPeriodoSetup = (Math.abs(((calcSetup - totalSetupEProducaoEntreOPeriodo2.total_setup_data2) / totalSetupEProducaoEntreOPeriodo2.total_setup_data2) * 100)).toFixed(2)
+    }
+    if(!maiorSetupPeriodo){
+        textVariacaoPeriodoSetup = "O primeiro período teve uma variação de produção de";
+        calcVariacaoPeriodoSetup = (Math.abs(((calcSetup - totalSetupEProducaoEntreOPeriodo2.total_setup_data2) / totalSetupEProducaoEntreOPeriodo2.total_setup_data2) * 100)).toFixed(2)
+    }
+    if(menorProducaoPeriodo){
+        textVariacaoPeriodoProducao = "O segundo período teve uma variação de produção de";
+        calcVariacaoPeriodoProducao = (Math.abs(((calcProducao - totalSetupEProducaoEntreOPeriodo1.total_producao_data1) / totalSetupEProducaoEntreOPeriodo1.total_producao_data1) * 100)).toFixed(2)
+    }
+    if(!menorProducaoPeriodo){
+        textVariacaoPeriodoProducao = "O primeiro período teve uma variação de produção de";
+        calcVariacaoPeriodoProducao = (Math.abs(((calcProducao - totalSetupEProducaoEntreOPeriodo2.total_producao_data2) / totalSetupEProducaoEntreOPeriodo2.total_producao_data2) * 100)).toFixed(2)
+    }
 
     return [{
-        variacao_de_setup: Math.abs(calcSetup),
-        variacao_de_producao: Math.abs(calcProducao),
-        periodo_setup: maiorSetup,
-        periodo_producao: menorProduzido
+        textVariacaoPeriodoSetup,
+        textVariacaoPeriodoProducao,
+        porcentagem_da_variacao_setup: calcVariacaoPeriodoSetup,
+        porcentagem_da_variacao_producao: calcVariacaoPeriodoProducao
     }]
 }
 
