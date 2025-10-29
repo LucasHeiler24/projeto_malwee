@@ -27,7 +27,8 @@
 
 .filter-historico input {
   width: 100%;
-  background: rgb(164, 164, 164);
+  background: #fff;
+  color: #000;
   height: 6vh;
   padding: 5px;
   border-radius: 5px;
@@ -38,7 +39,7 @@
   display: flex;
   justify-content: start;
   align-items: center;
-  background: rgb(222, 222, 222);
+  background: #1a3532;
   gap: 10px;
   border-radius: 10px;
   padding: 20px;
@@ -46,7 +47,7 @@
 
 .section-registros {
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,6 +101,7 @@
 
 .modal-historico {
   background: #fff;
+  color: #000;
   width: 90vh;
   height: 80vh;
   border-radius: 10px;
@@ -108,6 +110,7 @@
   align-items: center;
   flex-direction: column;
   padding: 20px;
+  gap: 20px;
 }
 
 .modal-historico-header {
@@ -130,7 +133,7 @@
   flex-direction: column;
   overflow-y: scroll;
   gap: 10px;
-  padding-top: 250px;
+  padding-top: 280px;
 }
 
 .data-item {
@@ -141,4 +144,13 @@
   align-items: center;
   padding: 10px;
   border-radius: 10px;
+}
+
+.div-secound-dados button {
+  background: #2c8454;
+  color: #fff;
+}
+
+.div-secound-dados button:hover {
+  background: #2c6857;
 }

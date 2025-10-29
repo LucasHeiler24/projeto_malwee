@@ -25,7 +25,7 @@ Grafico de disponibilidade (Barras)
 Fórmula (tempo produção / (tempo produção + tempo setup))
 
 Gráfico de eficiência (Barras)
-Fórmula (metros produzidos / tempo total)
+Fórmula (metros produzidos / tempo total de produção no dia)
 
 Cards de perdas e ganhos
 Pode fazer cards comparando perdas ou ganhos de setup e de produção

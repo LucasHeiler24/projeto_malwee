@@ -49,9 +49,9 @@ const DashboardPage = () => {
             {
                 <div className="content-page-dashboard">
                     {loading && <Loading />}
-                    <dadosGraficosDashboardContext.Provider value={{setDadosGraficos, setVisibleModal, visibleModal}}>
-                    {visibleModal && <ModalEscolherData setLoading={setLoading}/>}
-                        <HeaderButtonsData setLoading={setLoading} />
+                    <dadosGraficosDashboardContext.Provider value={{setDadosGraficos}}>
+                    {visibleModal && <ModalEscolherData setLoading={setLoading} setVisibleModal={setVisibleModal} />}
+                    <HeaderButtonsData setLoading={setLoading} setVisibleModal={setVisibleModal} />
                         
                         {dadosGraficos && <article className="primeira-aba-graficos-dashboard">
                             <section className="section-cards-com-grafico-pizza-dashboard">

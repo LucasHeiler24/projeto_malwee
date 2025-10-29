@@ -43,11 +43,11 @@ const ModalRegistroHistorico = ({dados, setOpenModalHistorico}) => {
                     </div>
                     <div class="data-item">
                         <span class="data-label">Tempo de Produção (s)</span>
-                        <span class="data-value">{dados.tempo_de_producao} s</span>
+                        <span class="data-value">{formatarValores.format(dados.tempo_de_producao)} s</span>
                     </div>
                     <div class="data-item">
                         <span class="data-label">Tempo de Setup (s)</span>
-                        <span class="data-value">{dados.tempo_de_setup} s</span>
+                        <span class="data-value">{formatarValores.format(dados.tempo_de_setup)} s</span>
                     </div>
                     <div class="data-item">
                         <span class="data-label">Número da Tarefa</span>

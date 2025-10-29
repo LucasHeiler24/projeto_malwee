@@ -1,7 +1,7 @@
 import { formatarDatasParaMeses } from "../../../helpers/funcoes";
 
-const dadosMensaisHistorico = async () => {
-    const data = '2025-07';
+const dadosMensaisHistorico = async (dataUser) => {
+    const data = (dataUser) ? formatarDatasParaMeses(dataUser.split('-')) : '2025-07';
 
     console.log(data)
     try{

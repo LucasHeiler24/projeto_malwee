@@ -7,16 +7,24 @@ import dadosHoje from "../../requests/graficos/dashboard/dados_hoje";
 import dadosSemanais from "../../requests/graficos/dashboard/dados_semanais";
 import dadosQuinzenais from "../../requests/graficos/dashboard/dados_quinzenais";
 import dadosMensais from "../../requests/graficos/dashboard/dados_mensais";
+import "../../css/modalpersonalizardata.css";
+import contextHistoricoRegistros from "../../context/dadosRegistrosHistorico";
+import dadosHojeHistorico from "../../requests/graficos/historico/dados_hoje";
+import dadosSemanaisHistorico from "../../requests/graficos/historico/dados_semanais";
+import dadosQuinzenaisHistorico from "../../requests/graficos/historico/dados_quinzenais";
+import dadosMensaisHistorico from "../../requests/graficos/historico/dados_mensais";
 
-const ModalEscolherData = ({setLoading}) => {
+const ModalEscolherData = ({setLoading, setVisibleModal}) => {
     const [periodoPersonalizar, setPeriodoPersonalizar] = useState('0');
     const [dataPersonalizar, setDataPeriodoPersonalizar] = useState();
     const [valueCheckBox, setValueCheckBox] = useState(false);
 
-    const {setDadosGraficos, setVisibleModal} = useContext(dadosGraficosDashboardContext);
+    const {setDadosGraficos} = useContext(dadosGraficosDashboardContext);
+    const {setDadosHistorico} = useContext(contextHistoricoRegistros);
 
     const dataPersonalizarDiario = async (data) => {
         setLoading(true);
+
         const {
             dadosTotais,
             dadosSobraDeRolo,
@@ -34,25 +42,38 @@ const ModalEscolherData = ({setLoading}) => {
             } = await dadosHoje(data);
         setLoading(false);
 
-        setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            dadosVMPPorTecido,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        });
+        if(setDadosGraficos){
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            });
+        }
+
+        if(setDadosHistorico){
+            setLoading(true);
+            const dadosHistorico = await dadosHojeHistorico(data);
+            setLoading(false);
+
+            setDadosHistorico({
+                dadosHistorico
+            });
+        }
     }
 
     const dataPersonalizarSemanal = async (periodo, data) => {
         setLoading(true);
+
         const {
             dadosTotais,
             dadosSobraDeRolo,
@@ -70,21 +91,32 @@ const ModalEscolherData = ({setLoading}) => {
             } = await dadosSemanais(periodo, data);
         setLoading(false);
 
-        setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            dadosVMPPorTecido,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        });
+        if(setDadosGraficos){
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            });
+        }
+
+        if(setDadosHistorico){
+            setLoading(true);
+            const dadosHistorico = await dadosSemanaisHistorico(periodo, data);
+            setLoading(false);
+            setDadosHistorico({
+                dadosHistorico
+            })
+        }
     }
 
     const dataPersonalizarQuinzenal = async (periodo, data) => {
@@ -107,21 +139,34 @@ const ModalEscolherData = ({setLoading}) => {
         } = await dadosQuinzenais(periodo, data);
         setLoading(false);
 
-        setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            dadosVMPPorTecido,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
-        });
+        if(setDadosGraficos){
+
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+            });
+        }
+
+        if(setDadosHistorico){
+            setLoading(true);
+            const dadosHistorico = await dadosQuinzenaisHistorico(periodo, data);
+            setLoading(false);
+
+            setDadosHistorico({
+                dadosHistorico
+            });
+        }
     }
 
     const dataPersonalizarMensal = async (data) => {
@@ -144,21 +189,34 @@ const ModalEscolherData = ({setLoading}) => {
             } = await dadosMensais(data);
         setLoading(false);
 
-        setDadosGraficos({
-            dadosTotais,
-            dadosSobraDeRolo,
-            dadosVMPPorTecido,
-            vetorSepararPorDatasMVP,
-            vetTotalMVPNoPeriodoEscolhido,
-            vetTotalMVPPorDia,
-            dadosMediaTempoSetup,
-            dadosMetrosVsSetup,
-            dadosProdutividade,
-            variantesPorTipoTecido,
-            dadosTotaisTarefasCompletasOuNao,
-            dadosTotaisTipoSaida,
-            dadosMetrosMediosPorTira
+        if(setDadosGraficos){
+            setDadosGraficos({
+                dadosTotais,
+                dadosSobraDeRolo,
+                dadosVMPPorTecido,
+                vetorSepararPorDatasMVP,
+                vetTotalMVPNoPeriodoEscolhido,
+                vetTotalMVPPorDia,
+                dadosMediaTempoSetup,
+                dadosMetrosVsSetup,
+                dadosProdutividade,
+                variantesPorTipoTecido,
+                dadosTotaisTarefasCompletasOuNao,
+                dadosTotaisTipoSaida,
+                dadosMetrosMediosPorTira
+                });
+        }
+
+        if(setDadosHistorico){
+            setLoading(true);
+            const dadosHistorico = await dadosMensaisHistorico(data);
+            setLoading(false);
+
+            setDadosHistorico({
+                dadosHistorico
             });
+        }
+        
     }
 
     const onFunctionGetDataPersonalizar = async (data, periodo, valueAnteriorOuPosterior) => {
@@ -181,6 +239,12 @@ const ModalEscolherData = ({setLoading}) => {
                 break;
         }
     }
+
+    const [mostrarCheckBoxAnteriorOuPosterior, setMostrarCheckBoxAnteriorOuPosterior] = useState(false);
+    useEffect(() => {
+        (periodoPersonalizar == '1' || periodoPersonalizar == '2') ?
+        setMostrarCheckBoxAnteriorOuPosterior(true) : setMostrarCheckBoxAnteriorOuPosterior(false);
+    }, [periodoPersonalizar])
 
     return (
         <div className="content-modal-escolher-data">
@@ -208,10 +272,10 @@ const ModalEscolherData = ({setLoading}) => {
                             ]
                         }
                     />
-                    <div className="div-checkbox">
+                    {mostrarCheckBoxAnteriorOuPosterior && <div className="div-checkbox">
                         <p>Deseja o período posterior ou anterior a essa data?</p>
                         <Input type={'checkbox'} checked={valueCheckBox} onChange={() => setValueCheckBox(!valueCheckBox)} />
-                    </div>
+                    </div>}
                     <Button
                         text={"Personalizar"}
                         onClick={() => onFunctionGetDataPersonalizar(dataPersonalizar, periodoPersonalizar, valueCheckBox)}

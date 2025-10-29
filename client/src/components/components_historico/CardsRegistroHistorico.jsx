@@ -1,5 +1,3 @@
-import Button from "../components_gerais/Button";
-
 const vetTiposTecidos =
     [
         'Meia Malha', 'Cotton', 'Punho Pan', 'Punho New', 'Punho San', 'Punho Elan'
@@ -14,6 +12,7 @@ const CardsRegistroHistorico = ({setOpenRegistroModal, dados, setRegistroVerMais
 
     return (
         <>
+        {dados.length == 0 && <h1>Sem dados...</h1>}
             {dados.map((dados, index) => (
                 <div key={index} className="registros-historicos">
                     <div style={{

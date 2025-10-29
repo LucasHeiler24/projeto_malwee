@@ -165,7 +165,7 @@ body {
   border-radius: 10px;
 }
 
-.grafico-metros-vs-setup{
+.grafico-metros-vs-setup {
   width: 100%;
   height: 300px;
 }
@@ -198,87 +198,4 @@ body {
 
 .div-diferenca-tecidos p {
   font-size: 22px;
-}
-
-.content-modal-escolher-data {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-data {
-  width: 80vh;
-  height: auto;
-  background: #1a3532;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.modal-header-data {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.modal-header-data h1 {
-  font-size: 25px;
-}
-
-.modal-header-data button {
-  cursor: pointer;
-}
-
-.content-modal-data {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: start;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.content-modal-data input {
-  width: 100%;
-  background: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  color: #000;
-}
-
-.content-modal-data button {
-  padding: 10px 10px 10px 10px;
-  background: #2c6857;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.content-modal-data button:hover {
-  background: #2c8454;
-}
-
-.div-checkbox {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.div-checkbox p {
-  width: 100%;
-}
-
-.div-checkbox input {
-  cursor: pointer;
 }

@@ -14,8 +14,8 @@ import dadosSemanaisHistorico from "../../requests/graficos/historico/dados_sema
 import dadosQuinzenaisHistorico from "../../requests/graficos/historico/dados_quinzenais";
 import dadosMensaisHistorico from "../../requests/graficos/historico/dados_mensais";
 
-const HeaderButtonsData = ({setLoading}) => {
-    const {setDadosGraficos, setVisibleModal} = useContext(dadosGraficosDashboardContext);
+const HeaderButtonsData = ({setLoading, setVisibleModal}) => {
+    const {setDadosGraficos} = useContext(dadosGraficosDashboardContext);
     const {setDadosHistorico} = useContext(contextHistoricoRegistros)
 
     const onClickButtonOntem = async () => {
